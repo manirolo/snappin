@@ -1,0 +1,11 @@
+{
+  "extends": "@snappin/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "paths": {
+      "@snappin/shared/*": ["./src/*"] 
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

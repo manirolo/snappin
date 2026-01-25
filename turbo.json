@@ -3,19 +3,50 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": [
+        "^lint"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".eslintrc.*",
+        "eslint.config.*",
+        "tsconfig.*"
+      ]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": [
+        "^check-types"
+      ]
     },
     "dev": {
-      "cache": false,
-      "persistent": true
+      "cache": false
+    },
+    "env": {
+      "cache": false
+    },
+    "dev:trigger": {
+      "cache": false
+    },
+    "deploy:trigger":  {
+      "cache": false
     }
-  }
+  },
+  "envMode": "loose",
+  "globalEnv": [
+    "NEXT_RUNTIME"
+  ]
 }

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@snappin/ui/components",
+    "utils": "@snappin/ui/lib/utils",
+    "ui": "@snappin/ui/components",
+    "lib": "@snappin/ui/lib",
+    "hooks": "@snappin/ui/hooks"
+  },
+  "registries": {
+    "@reui": "https://reui.io/r/{name}.json"
+  }
+}

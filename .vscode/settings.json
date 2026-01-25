@@ -3,5 +3,18 @@
     {
       "mode": "auto"
     }
+  ],
+  "cSpell.words": [
+    "documentai",
+    "ECOMMERCE",
+    "Gaxios",
+    "googleapi",
+    "HUGEICONS",
+    "nextjs",
+    "nprogress",
+    "oauthscopes",
+    "reui",
+    "tasker",
+    "vertexai"
   ]
 }

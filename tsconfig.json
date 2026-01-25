@@ -1,0 +1,10 @@
+{
+  "extends": "@snappin/typescript-config/base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "dist"]
+}
+

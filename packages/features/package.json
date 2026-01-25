@@ -1,0 +1,47 @@
+{
+  "name": "@snappin/features",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./*": "./*.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "dev:trigger": "infisical run -- trigger dev",
+    "deploy:trigger": "trigger deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@snappin/typescript-config": "workspace:*",
+    "@trigger.dev/build": "4.3.2",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "trigger.dev": "^4.0.0",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@snappin/api": "workspace:*",
+    "@snappin/apps": "workspace:*",
+    "@snappin/db": "workspace:*",
+    "@snappin/env": "workspace:*",
+    "@snappin/infra": "workspace:*",
+    "@snappin/lib": "workspace:*",
+    "@snappin/shared": "workspace:*",
+    "@snappin/ui": "workspace:*",
+    "@trigger.dev/sdk": "4.3.2",
+    "arctic": "^3.7.0",
+    "http-status-codes": "^2.3.0",
+    "p-limit": "^7.2.0",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tslog": "^4.10.2",
+    "zod": "^4.3.5"
+  }
+}

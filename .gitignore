@@ -36,3 +36,9 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Environment Variables
+.env
+
+# Infisical Environment Variables
+.infisical.*
