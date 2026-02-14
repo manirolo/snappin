@@ -1,9 +1,13 @@
+import { logger } from "@snappin/lib/logger";
 import { GetMessageIdsByHistoryId, GetMessageIdsByHistoryIdResponse } from "../../appRegistry.interface";
 import { getGmailClient } from "../config";
 
-export async function getMessageIdsByHistoryId(payload: GetMessageIdsByHistoryId): Promise<GetMessageIdsByHistoryIdResponse> {
-    if (!payload.accessToken){
-        console.log("Problem here: Access token not given. So you will get an empty array.")    
+export async function getMessageIdsByHistoryId(payload: GetMessageIdsByHistoryId, opt?: { log?: boolean }): Promise<GetMessageIdsByHistoryIdResponse> {
+   
+    if (!payload.accessToken) {
+        
+        console.log("⚠️ Problem here: Access token not given. So you will get an empty array.")
+        
         return []
     }
 
@@ -16,26 +20,45 @@ export async function getMessageIdsByHistoryId(payload: GetMessageIdsByHistoryId
 
     do {
 
-        const historyResponse = await gmail.users.history.list({
-            userId: "me",
-            startHistoryId: String(payload.lastHistoryId),
-            historyTypes: ["messageAdded"],
-            pageToken
-        })
+        try {
 
-        const historyArray = historyResponse.data.history ?? [];
+            { opt?.log && logger.info("MessageIds Extraction: 🔄 Started") }
 
-        for (const history of historyArray) {
-            for (const entry of history.messagesAdded ?? []) {
-                const messageId = entry.message?.id
-                if (!messageId) continue
-                messageIds.add(messageId)
+            const historyResponse = await gmail.users.history.list({
+                userId: "me",
+                startHistoryId: String(payload.lastHistoryId),
+                historyTypes: ["messageAdded"],
+                pageToken
+            })
+
+            const historyArray = historyResponse.data.history ?? [];
+
+            for (const history of historyArray) {
+                
+                for (const entry of history.messagesAdded ?? []) {
+                    
+                    const messageId = entry.message?.id
+                    
+                    if (!messageId) continue
+                    
+                    messageIds.add(messageId)
+                }
             }
+
+            pageToken = historyResponse.data.nextPageToken ?? undefined;
+        }
+        catch (err) {
+            
+            { opt?.log && logger.info("⚠️ Something gone wrong") }
+            
+            { opt?.log && logger.info("MessageIds Extraction: ❌ Failed") }
+            
+            logger.error(err)
         }
 
-        pageToken = historyResponse.data.nextPageToken ?? undefined;
-
     } while (pageToken)
+
+    { opt?.log && logger.info("MessageIds Extraction: ✅ Completed") }
 
     return Array.from(messageIds)
 } 

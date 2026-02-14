@@ -22,6 +22,6 @@ export const GET = async (req: NextRequest) => {
     }
     catch (err) {
         console.error(err)
-        return NextResponse.redirect(`${env.app_url}/inbox?error=invalid_oauth_callback`)
+        return NextResponse.redirect(`${env.app_url}/integrations?error=invalid_oauth_callback`)
     }
 }

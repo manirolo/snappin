@@ -1,4 +1,4 @@
-import { gmailConfig } from "./config"
+import { gmailConfig } from "./gmail.config"
 import { google as g } from "googleapis"
 import * as arctic from "arctic"
 

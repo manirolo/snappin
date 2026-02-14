@@ -1,21 +1,31 @@
-"use client"
+"use client";
 
-import { useAuth, useClerk } from '@clerk/nextjs'
-import { DashboardNavbar } from '@snappin/ui/components/navbar/dashboard.navbar'
-import React from 'react'
+import React from "react";
+import Loading from "../ui/loading";
+import AppNavbar from "./app.navbar";
+import { useUser } from "@clerk/nextjs";
 
-export const DashboardNavbarWrapper = () => {
-    const { user } = useClerk();
-    const { signOut } = useAuth();
-    return (
-        <DashboardNavbar
-            user={{
-                firstName: user?.firstName,
-                lastName: user?.lastName,
-                fullName: user?.fullName,
-                imageUrl: user?.imageUrl,
-                primaryEmailAddress: user?.primaryEmailAddress
-            }}
-            signOut={signOut} />
-    )
+export function DashboardLayout({
+  children,
+  showNavItems,
+}: {
+  children: React.ReactNode;
+  showNavItems?: boolean;
+}) {
+  const { user } = useUser();
+  const data = {
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    fullName: user?.fullName,
+    imageUrl: user?.imageUrl,
+    primaryEmailAddress: user?.primaryEmailAddress,
+  };
+  return (
+    <>
+      <AppNavbar showNavItems={showNavItems} />
+      <Loading />
+      <main className="mt-10 max-w-4xl mx-auto">{children}</main>
+      {/* <BottomFloatingNav user={data} /> */}
+    </>
+  );
 }

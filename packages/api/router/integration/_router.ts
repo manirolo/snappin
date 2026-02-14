@@ -1,29 +1,37 @@
 import { createTRPCRouter, protectedProcedure } from "../../_trpc"
 import { ZCreateNewOAuthSession } from "./createOAuthSession.schema"
-import { createNewOAuthSession } from "./createOAuthSession.handler"
-import { AddIntegration } from "./addIntegration.handler"
+import { createNewOAuthSession, CreateOAuthSession } from "./createOAuthSession.handler"
+import { addIntegration, AddIntegration } from "./addIntegration.handler"
 import { ZAddIntegration } from "./addIntegration.schema"
 import { ZGetIntegration } from "./getIntegration.schema"
-import { GetIntegration } from "./getIntegration.handler"
+import { getIntegration, GetIntegration } from "./getIntegration.handler"
 import { ZRemoveIntegration } from "./removeIntegration.schema"
-import { RemoveIntegration } from "./removeIntegration.handler"
+import { removeIntegration, RemoveIntegration } from "./removeIntegration.handler"
 import { ZUpdateIntegration } from "./updateIntegration.schema"
-import { UpdateIntegration } from "./updateIntegration.handler"
+import { updateIntegration, UpdateIntegration } from "./updateIntegration.handler"
+import { ConnectedEmailAccounts, connectedEmailAccounts } from "./connectedEmailAccounts.handler"
+import { connectedSource, ConnectedSource } from "./connectedSources.handler"
 
 export const integrationRouter = createTRPCRouter({
-    createOAuthSession: protectedProcedure.input(ZCreateNewOAuthSession).mutation(async (opts) => {
+    createOAuthSession: protectedProcedure.input(ZCreateNewOAuthSession).mutation(async (opts: CreateOAuthSession) => {
         return createNewOAuthSession(opts)
     }),
-    addIntegration: protectedProcedure.input(ZAddIntegration).mutation(async (opts) => {
-        return AddIntegration(opts)
+    addIntegration: protectedProcedure.input(ZAddIntegration).mutation(async (opts: AddIntegration) => {
+        return addIntegration(opts)
     }),
-    getIntegration: protectedProcedure.input(ZGetIntegration).query(async (opts) => {
-        return GetIntegration(opts)
+    getIntegration: protectedProcedure.input(ZGetIntegration).query(async (opts: GetIntegration) => {
+        return getIntegration(opts)
     }),
-    updateIntegration: protectedProcedure.input(ZUpdateIntegration).mutation(async (opts) => {
-        return UpdateIntegration(opts)
+    connectedEmailAccounts: protectedProcedure.query(async (opts: ConnectedEmailAccounts) => {
+        return connectedEmailAccounts(opts)
     }),
-    removeIntegration: protectedProcedure.input(ZRemoveIntegration).mutation(async (opts) => {
-        return RemoveIntegration(opts)
+    connectedSource: protectedProcedure.query(async (opts: ConnectedSource) => {
+        return connectedSource(opts)
+    }),
+    updateIntegration: protectedProcedure.input(ZUpdateIntegration).mutation(async (opts: UpdateIntegration) => {
+        return updateIntegration(opts)
+    }),
+    removeIntegration: protectedProcedure.input(ZRemoveIntegration).mutation(async (opts: RemoveIntegration) => {
+        return removeIntegration(opts)
     })
 })

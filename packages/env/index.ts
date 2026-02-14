@@ -26,6 +26,19 @@ export const env = {
     projectId: process.env.GOOGLE_PROJECT_ID!,
     serviceKey: process.env.GOOGLE_SERVICE_KEY!,
     invoiceExtractorId: process.env.GOOGLE_INVOICE_EXTRACTOR_ID!
+  },
+  aws: {
+    region: process.env.AWS_REGION!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!
+  },
+  microsoft: {
+    clientId: process.env.MS_CLIENT_ID!,
+    clientSecret: process.env.MS_CLIENT_SECRET!,
+    tenantId: process.env.MS_TENANT_ID!,
+  },
+  logoDev: {
+    publicKey: process.env.NEXT_PUBLIC_LOGO_DEV_PUBLIC_KEY!
   }
 };
 

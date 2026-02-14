@@ -1,7 +1,9 @@
 import { logger } from "@snappin/lib/logger";
 import { RetrieveAccessToken, RetrieveAccessAccessTokenResponse } from "../../appRegistry.interface";
 import { google } from "../config";
-import { compareAndSaveIfNewToken } from "../utils/compareAndSaveIfNewToken";
+import { compareAndSaveIfNewToken } from "../../utils/compareAndSaveIfNewToken";
+import { isInvalidGrantError } from "../../utils/isInvalidGrantError";
+import { markReAuthenticationRequired } from "../../utils/markReAuthenticationRequired";
 
 export async function getAccessToken({ integration }: RetrieveAccessToken): Promise<RetrieveAccessAccessTokenResponse> {
     // Safety buffer (e.g. refresh 1 min before expiry)
@@ -40,6 +42,16 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
         };
     } catch (error) {
         logger.error("Failed to refresh Google access token", error);
+
+        if (isInvalidGrantError(error) && integration._id) {
+            logger.warn("Google refresh token invalid_grant – re-auth required", {
+                integrationId: integration._id,
+            });
+
+            await markReAuthenticationRequired(integration._id)
+
+            throw new Error("GOOGLE_REAUTH_REQUIRED");
+        }
         throw error;
     }
 }

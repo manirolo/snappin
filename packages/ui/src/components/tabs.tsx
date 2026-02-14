@@ -9,7 +9,7 @@ import { Tabs as TabsPrimitive } from 'radix-ui';
 const tabsListVariants = cva('flex items-center shrink-0', {
   variants: {
     variant: {
-      default: 'bg-accent p-1',
+      default: 'bg-gray-3 p-1',
       button: '',
       line: 'border-b border-border',
     },
@@ -79,22 +79,22 @@ const tabsListVariants = cva('flex items-center shrink-0', {
 
 // Variants for TabsTrigger
 const tabsTriggerVariants = cva(
-  'shrink-0 cursor-pointer group whitespace-nowrap inline-flex justify-center items-center font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:shrink-0 [&_svg]:text-muted-foreground [&:hover_svg]:text-primary [&[data-state=active]_svg]:text-primary',
+  'shrink-0 cursor-pointer group whitespace-nowrap inline-flex justify-center items-center font-medium ring-offset-background transition-colors duration-300 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:shrink-0 [&_svg]:text-muted-foreground [&[data-state=active]_svg]:text-foreground',
   {
     variants: {
       variant: {
         default:
-          'text-muted-foreground data-[state=active]:bg-gray-12 hover:text-foreground data-[state=active]:text-gray-1 data-[state=active]:shadow-xs data-[state=active]:shadow-black/5',
+          'text-muted-foreground data-[state=active]:bg-white data-[state=active]:text-gray-12 [&_svg]:text-gray-8 data-[state=active]:shadow-xs data-[state=active]:shadow-black/5',
         button:
-          'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg text-accent-foreground hover:text-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground',
-        line: 'border-b-2 text-muted-foreground border-transparent data-[state=active]:border-primary hover:text-primary data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:text-primary',
+          'focus-visible:ring-2 focus-visible:ring-ring transition-colors duration-300 focus-visible:ring-offset-2 rounded-lg text-gray-12 [&_svg]:text-gray-8 hover:text-foreground hover:bg-gray-4 data-[state=active]:bg-gray-5 data-[state=active]:border-gray-4 border border-transparent [&[data-state=active]_svg]:text-foreground data-[state=active]:text-foreground',
+        line: 'border-b-2 text-foreground border-transparent data-[state=active]:border-primary hover:text-primary data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:text-primary',
       },
       size: {
         lg: 'gap-2.5 [&_svg]:size-5 text-sm',
         md: 'gap-2 [&_svg]:size-4 text-sm',
         sm: 'gap-1.5 [&_svg]:size-3.5 text-xs',
         xs: 'gap-1 [&_svg]:size-3.5 text-xs',
-      },
+      }
     },
     compoundVariants: [
       { variant: 'default', size: 'lg', className: 'py-2.5 px-4 rounded-md' },
@@ -102,10 +102,10 @@ const tabsTriggerVariants = cva(
       { variant: 'default', size: 'sm', className: 'py-1.5 px-2.5 rounded-sm' },
       { variant: 'default', size: 'xs', className: 'py-1 px-2 rounded-sm' },
 
-      { variant: 'button', size: 'lg', className: 'py-3 px-4 rounded-lg' },
-      { variant: 'button', size: 'md', className: 'py-2.5 px-3 rounded-lg' },
-      { variant: 'button', size: 'sm', className: 'py-2 px-2.5 rounded-md' },
-      { variant: 'button', size: 'xs', className: 'py-1.5 px-2 rounded-md' },
+      { variant: 'button', size: 'lg', className: 'py-3 px-4 rounded-full' },
+      { variant: 'button', size: 'md', className: 'py-2.5 px-3 rounded-full' },
+      { variant: 'button', size: 'sm', className: 'py-2 px-2.5 rounded-full' },
+      { variant: 'button', size: 'xs', className: 'py-1.5 px-2 rounded-full' },
 
       { variant: 'line', size: 'lg', className: 'py-3' },
       { variant: 'line', size: 'md', className: 'py-2.5' },
@@ -130,6 +130,7 @@ const tabsContentVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
+
     },
   },
 );

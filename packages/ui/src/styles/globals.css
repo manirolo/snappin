@@ -4,83 +4,99 @@
 @custom-variant dark (&:is(.dark *));
 
 @source "../../../apps/**/*.{ts,tsx}";
+@source "../../../packages/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
 :root {
   --radius: 0.625rem;
 
-  /* === Base === */
-  --background: #F3F4F0;
-  --foreground: #1F1F1F;
+  --background: #FCFBF9;
+  --foreground: #222;
 
-  --card: #F8F4F0;
-  --card-foreground: #002e22;
+  --card: var(--color-white);
+  --card-foreground: #0f172a;
 
   --popover: #ffffff;
-  --popover-foreground: #002e22;
+  --popover-foreground: #0f172a;
 
-  /* === Primary (Green) === */
-  --primary: #03d47c;
-  --primary-light: #4ae4a2;
-  --primary-dark: #007744;
+  --primary: #10b981;              /* emerald-500 */
+  --primary-light: #34d399;        /* emerald-400 */
+  --primary-dark: #059669;         /* emerald-600 */
   --primary-foreground: #ffffff;
 
-  /* === Secondary === */
-  --secondary: #002e22;
-  --secondary-light: #00493c;
-  --secondary-dark: #001c15;
-  --secondary-foreground: #ffffff;
+  --secondary: #064e3b;            /* emerald-900 */
+  --secondary-light: #065f46;      /* emerald-800 */
+  --secondary-dark: #022c22;       /* darker */
+  --secondary-foreground: #595451;
 
-  /* === Accent === */
-  --accent: #F3F4F6;
-  --accent-foreground: #002e22;
+  --accent: var(--color-gray-3);               /* emerald-50 */
+  --accent-foreground: var(--color-foreground);
 
-  /* === Muted / Neutral === */
-  --muted: #f5f3ef;
-  --muted-foreground: #6b6e68;
+  --muted: #f1f5f9;                /* slate-100 */
+  --muted-foreground: var(--color-gray-9);     /* slate-500 */
 
-  /* === Link (Blue) === */
-  --link: #0676de;
-  --link-hover: #0059b3;
+  --link: #0ea5e9;                 /* sky-500 */
+  --link-hover: #0284c7;           /* sky-600 */
 
-  /* === Destructive === */
   --destructive: #ef4444;
   --destructive-dark: #b91c1c;
   --destructive-foreground: #ffffff;
 
-  /* === Borders / Inputs / Rings === */
-  --border: #ebe6df;
-  --input: #e0e0da;
-  --ring: #03d47c;
+  --border: color-mix(in srgb, var(--color-gray-4) 70%, transparent);               /* slate-200 */
+  --input: #f1f5f9;                /* slate-100 */
+  --ring: var(--color-background);
 
-  /* === Charts === */
-  --chart-1: #03d47c;
-  --chart-2: #4ae4a2;
-  --chart-3: #007744;
-  --chart-4: #0676de;
-  --chart-5: #a2a9a3;
+  --chart-1: #10b981;  /* Emerald */
+  --chart-2: #0ea5e9;  /* Sky */
+  --chart-3: #6366f1;  /* Indigo */
+  --chart-4: #f59e0b;  /* Amber */
+  --chart-5: #a855f7;  /* Purple */
+  --chart-6: #ef4444;  /* Red */
 
-  /* === Sidebar === */
-  --sidebar: #00281E;
-  /* base dark green */
-  --sidebar-foreground: #889C8D;
-  /* soft mint white */
+  --sidebar: #064e3b;              
+  --sidebar-foreground: #ecfdf5;
 
-  --sidebar-primary: #03d47c;
-  /* brand green */
-  --sidebar-primary-foreground: #06291f;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #ffffff;
 
-  --sidebar-accent: #0E3F30;
-  /* hover / inactive */
-  --sidebar-accent-foreground: var(--color-emerald-50);
+  --sidebar-accent: #065f46;
+  --sidebar-accent-foreground: #ffffff;
 
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #00b268;
+  --sidebar-border: #065f46;
+  --sidebar-ring: #10b981;
 
-  /* === Shadow === */
-  --color-background-shadow: #0000;
-  --color-black: #10261F;
+  --color-brand-50:  #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #022c22;
+
+  --success: #10b981;
+  --success-foreground: #ffffff;
+
+  --warning: #f59e0b;
+  --warning-foreground: #111827;
+
+  --info: #0ea5e9;
+  --info-foreground: #ffffff;
+
+  --color-dark-gray: #475569;
+
+  --color-primary-btn: #10b981;
+  --color-secondary-btn: #e2e8f0;
+
+  --color-card-1: #f0fdf4;
+  --color-card-2: #dcfce7;
+
+  --color-overlay: rgba(15, 23, 42, 0.6);
+  --color-shadow: var(--color-gray-4);
 }
 
 .dark {
@@ -185,23 +201,21 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* === Font Families === */
-  --font-dm-sans: var(--font-dm-sans), "Geist", system-ui, sans-serif;
-  --font-geist: var(--font-geist), system-ui, sans-serif;
-  --font-rubik: var(--font-rubik), system-ui, sans-serif;
+  --font-dm-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-onest: var(--font-onest), system-ui, sans-serif;
 
   /* === Brand Scale (Orange Spectrum) === */
-  --color-brand-50: #f4fff9;
-  --color-brand-100: #d6ffec;
-  --color-brand-200: #adffd9;
-  --color-brand-300: #7cfac0;
-  --color-brand-400: #4ae4a2;
-  --color-brand-500: #03d47c;
-  /* Primary green */
-  --color-brand-600: #009857;
-  --color-brand-700: #007744;
-  --color-brand-800: #005c35;
-  --color-brand-900: #003e25;
-  --color-brand-950: #011A13;
+  --color-brand-50:  #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #022c22;
 
   /* === Other Colors === */
   --color-dark-gray: #5f6368;
@@ -217,16 +231,19 @@
   --color-gray-9: #9a958d;
   --color-gray-10: #7f7a72;
   --color-gray-11: #625e57;
-  --color-gray-12: #2a2a28;
+  --color-gray-12: #282828;
 
   --color-light: #7b857c;
 
-  --color-primary-btn: #03D47C;
+  --color-primary-btn: #e16540;
   --color-secondary-btn: #E6E1DA;
 
-  --container-8xl: 90rem;
-  --container-9xl: 100rem;
-  --container-10xl: 120rem;
+  --color-card-1: #F8F4F0;
+  --color-card-2: #E6E1DA;
+
+  --color-overlay: #e6e1da;
+
+  --color-destructive: #f25730;
 }
 
 @layer base {
@@ -240,9 +257,18 @@
 }
 
 body {
-  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+  font-family: "Onest", Arial, Helvetica, sans-serif;
 }
 
 #nprogress .bar {
   background: var(--color-primary) !important;
+}
+
+.hide-calendar-icon::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.hide-calendar-icon {
+  appearance: none;
 }

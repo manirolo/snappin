@@ -1,19 +1,23 @@
+import { paginate } from "@snappin/api/utils/paginated"
 import { ContextProps } from "../../_trpc"
 import { GetIntegrationResponse, TGetIntegration } from "./getIntegration.schema"
+import { PaginatedResponse } from "@snappin/shared/pagination"
 
-type GetIntegration = {
+export type GetIntegration = {
     ctx: ContextProps,
     input: TGetIntegration
 }
 
-export async function GetIntegration({ ctx, input }: GetIntegration): Promise<GetIntegrationResponse[] | undefined> {
-    if (!input.appCategory) {
-        return
-    }
-
-    return await ctx.db.integration.find({
-        userId: ctx.userId,
-        orgId: ctx.orgId ?? null,
-        appCategory: input.appCategory
-    }).select("_id appSlug identifierEmail mailMonitored status")
+export async function getIntegration({ ctx, input }: GetIntegration): Promise<PaginatedResponse<GetIntegrationResponse>> {
+    return await paginate({
+            model: ctx.db.integration,
+            query: {
+                userId: ctx.userId,
+                orgId: ctx.orgId,
+            },
+            page: input.page,
+            limit: input.limit,
+            select: "_id appType appSlug appCategory identifierEmail mailMonitored reAuthenticationRequired status",
+            sort: { createdAt: -1 },
+        });
 }

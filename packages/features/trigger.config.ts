@@ -19,6 +19,8 @@ export default defineConfig({
     },
   },
   dirs: [
-    "./inbox/lib/tasker/trigger"
+    "./inbox/trigger",
+    "./ai/trigger",
+    "./invoices/trigger",
   ],
 });

@@ -21,10 +21,14 @@
     "typescript": "catalog:"
   },
   "dependencies": {
+    "@aws-sdk/client-textract": "^3.975.0",
     "@google-cloud/documentai": "^9.5.0",
     "@google-cloud/storage": "^7.18.0",
     "@google-cloud/vertexai": "^1.10.0",
+    "@google/genai": "^1.38.0",
+    "@google/generative-ai": "^0.24.1",
     "@snappin/env": "workspace:*",
+    "file-type": "^21.3.0",
     "tslog": "^4.10.2"
   }
 }

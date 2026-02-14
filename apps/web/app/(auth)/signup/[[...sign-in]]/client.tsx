@@ -2,47 +2,47 @@
 
 import * as Clerk from '@clerk/elements/common'
 import * as SignUp from '@clerk/elements/sign-up'
-import { Logo } from '@snappin/ui/components/logo'
-import { H3, Paragraph } from '@snappin/ui/components/ui/typography'
-import { Button } from '@snappin/ui/components/ui/button'
+import { Button } from '@snappin/ui/components/button'
+import { Spinner } from '@snappin/ui/assets/svg/spinner'
+import { DotSpinner } from '@snappin/ui/assets/svg/dotSpinner'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'
 
+enum AuthProviders {
+    GOOGLE = "google"
+}
+
 export const Client = () => {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<AuthProviders | null>(null);
     return (
-        <div className="min-h-screen xl:w-1/2 flex w-full flex-col items-center justify-center md:flex-row p-2">
-            <SignUp.Root>
-                <SignUp.Step name='start' className='bg-card p-10 rounded-3xl max-w-lg shadow-sm shadow-base-content'>
-                    {/* Sign up or sign in page header */}
-                    <div className='flex flex-col gap-2 mb-8'>
-                        <Logo className='mb-3' />
-                        <H3>Welcome to Snappin</H3>
-                        <Paragraph>Create a free account to extract your invoices from mails</Paragraph>
-                    </div>
-
-                    <div>
-                        <Clerk.GlobalError className="block text-sm text-red-400" />
-                    </div>
-
-                    <div>
-                        <Clerk.Connection name='google' asChild>
-                            <Button
-                                variant={"outline"}
-                                size={"lg"}
-                                disabled={loading}
-                                className='w-full'
-                                onClick={() => setLoading(true)}>
-                                <Icon icon="flat-color-icons:google" width={20} height={20} className='mr-2' />
-                                Sign up with Google
-                            </Button>
-                        </Clerk.Connection>
-                    </div>
-                    <div>
-                        <SignUp.Captcha />
-                    </div>
-                </SignUp.Step>
-            </SignUp.Root>
-        </div>
+        <SignUp.Root>
+            <SignUp.Step name='start' className='sm:w-fit'>
+                <div>
+                    <Clerk.GlobalError className="block text-sm text-red-400" />
+                </div>
+                <div className='w-full'>
+                    <Clerk.Connection name='google' asChild>
+                        <Button
+                            variant={"outline"}
+                            size={"_2xl"}
+                            radius={"full"}
+                            disabled={loading == AuthProviders.GOOGLE || loading != null}
+                            className='min-w-xs flex-1 sm:min-w-sm mx-auto md:min-w-102 font-bold text-lg font-dm-sans'
+                            onClick={() => setLoading(AuthProviders.GOOGLE)}>
+                                <div className='flex items-center gap-2'>
+                                    {loading == AuthProviders.GOOGLE ? <DotSpinner className='size-10 text-gray-6' gap={3.5}/> : (
+                                        <div className='flex items-center gap-2'>
+                                            <Icon icon="flat-color-icons:google" className='size-9 mr-2' /> Continue with Google
+                                        </div>
+                                    )}
+                                    
+                                </div>
+                        </Button>
+                    </Clerk.Connection>
+                </div>
+            </SignUp.Step>
+            <SignUp.Captcha />
+        </SignUp.Root>
+        
     )
 }

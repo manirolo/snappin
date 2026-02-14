@@ -1,12 +1,30 @@
 import React from 'react'
-import Image from 'next/image'
 import { cn } from '../lib/utils'
 import Link from 'next/link'
+import Image from 'next/image'
 
-export const Logo = ({ className, size, darkLogo = false, onClickRedirectLink }: { className?: string, logoText?: React.ReactNode, darkLogo?: boolean, showLogoText?: boolean, size?: number, onClickRedirectLink?: string }) => {
+export const Logo = ({ className, darkLogo = false, onClickRedirectLink }: { className?: string, darkLogo?: boolean, onClickRedirectLink?: string }) => {
     return (
-        <Link href={onClickRedirectLink || '/'} className='relative flex items-center gap-2'>
-            <Image src={darkLogo ? '/images/snappin_dark_light.png' : '/images/snappin_logo_light.png'} className={cn("w-full", className)} alt='Snappin' width={size || 96} height={size && size - 15 || 30} />
-        </Link>
+        <div className="">
+            <Link href={onClickRedirectLink || '/'} className={cn("relative inline-block shrink-0 w-28 h-8", className)}>
+                <Image 
+                    src={darkLogo ? '/images/snappin_dark_light.png' : '/images/snappin_logo_light.png'}
+                    fill
+                    className="object-contain"
+                    alt='Snappin' 
+                />
+            </Link>
+        </div>
     )
 }
+
+export const LogoSymbol = ({ className, onClickRedirectLink }: { className?: string, onClickRedirectLink?: string }) => (
+    <Link href={onClickRedirectLink || '/'} className={cn("relative inline-block shrink-0 w-7 h-7", className)}>
+        <Image 
+            src={'/images/favicon.png'} 
+            fill
+            className="object-contain"
+            alt='Snappin' 
+        />
+    </Link>
+)

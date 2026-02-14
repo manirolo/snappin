@@ -2,18 +2,16 @@ import { HttpError } from "@snappin/lib/http-error"
 import { ContextProps } from "../../_trpc"
 import { TRemoveIntegration } from "./removeIntegration.schema"
 import { StatusCodes } from "http-status-codes"
-import { OAuthProviders } from "./providers/provider"
-import { env } from "@snappin/env"
-import { IntegrationResource } from "@snappin/db/model/integration.model"
+import { IntegrationResource } from "@snappin/shared/integration/integration.schema"
 import { EmailAppsStore } from "@snappin/apps/appRegistry"
 import { EmailApps } from "@snappin/apps/appRegistry.interface"
 
-type RemoveIntegration = {
+export type RemoveIntegration = {
     ctx: ContextProps
     input: TRemoveIntegration
 }
 
-export async function RemoveIntegration({ ctx, input }: RemoveIntegration): Promise<void> {
+export async function removeIntegration({ ctx, input }: RemoveIntegration): Promise<void> {
     if (!input.integrationId) {
         throw new HttpError({ statusCode: StatusCodes.BAD_GATEWAY, message: "Select a valid integration app to remove" })
     }
@@ -25,10 +23,6 @@ export async function RemoveIntegration({ ctx, input }: RemoveIntegration): Prom
     }
 
     const provider = EmailAppsStore[input.appSlug] as EmailApps
-
-    const token = await provider.getAccessToken({ integration })
-
-    provider.stopWatching({ accessToken: token.accessToken })
 
     provider.revokeToken({ token: integration.refreshToken })
 

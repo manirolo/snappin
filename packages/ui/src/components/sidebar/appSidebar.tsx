@@ -1,7 +1,7 @@
 "use client"
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../sidebar"
-import { Archive02Icon, InboxIcon, Invoice02Icon, Settings01Icon, ArrowUp02Icon, Comment02Icon } from "@hugeicons-pro/core-bulk-rounded"
+import { Home01Icon, InboxIcon, Invoice01Icon, Settings01Icon, QuillWrite01Icon } from "@hugeicons-pro/core-duotone-rounded"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { TabCategory } from '@snappin/ui/components/navbar/sidebar'
 import { Logo } from "../logo"
@@ -18,16 +18,16 @@ export const tabs: TabCategory[] = [
         title: "Main",
         tabs: [
             {
-                name: "Dashboard",
-                value: "",
+                name: "Home",
+                value: "/",
                 href: "/",
-                icon: Archive02Icon
+                icon: Home01Icon
             },
             {
-                name: "Invoices",
+                name: "Documents",
                 value: "invoices",
                 href: "/invoices",
-                icon: Invoice02Icon
+                icon: Invoice01Icon
             },
             {
                 name: "Inbox",
@@ -47,7 +47,7 @@ export const tabs: TabCategory[] = [
 
 const footerNav = [
     // { label: "Buy Credits", icon: ShoppingCart01Icon, href: "/account/settings" },
-    { label: "Feedback", icon: Comment02Icon, href: "/account/credit" },
+    { label: "Got Feedback?", icon: QuillWrite01Icon, href: "https://snappin.featurebase.app/", newTab: true },
 ]
 
 export const getActiveTabFromPath = (pathname: string, tabs: { value: string }[]) => {
@@ -77,7 +77,7 @@ export const AppSidebar = ({ user }: AppSidebarProps) => {
     return (
         <Sidebar>
             <SidebarHeader>
-                <div className="flex justify-center items-center min-h-12">
+                <div className="flex justify-start items-center">
                     <Logo />
                 </div>
             </SidebarHeader>
@@ -88,11 +88,11 @@ export const AppSidebar = ({ user }: AppSidebarProps) => {
                             <SidebarMenu>
                                 {category.tabs.map((tab, i) => (
                                     <SidebarMenuItem key={i}>
-                                        <SidebarMenuButton isActive={tab.value == activeTab} className="text-sidebar-foreground/60" asChild>
+                                        <SidebarMenuButton isActive={tab.value == activeTab} className="text-sidebar-foreground/50" asChild>
                                             <Link href={tab?.href ?? "#"}>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-3">
                                                     {tab.icon && <HugeiconsIcon icon={tab.icon} className="size-5" />}
-                                                    <span className="font-medium">{tab.name}</span>
+                                                    <span className="text-sm tracking-wide font-medium">{tab.name}</span>
                                                 </div>
                                             </Link>
                                         </SidebarMenuButton>
@@ -107,13 +107,12 @@ export const AppSidebar = ({ user }: AppSidebarProps) => {
                 <SidebarMenu className="mb-2">
                     {footerNav.map((_, i) => (
                         <SidebarMenuItem key={i}>
-                            <SidebarMenuButton className="text-sidebar-foreground/60" asChild>
-                                <Link href={_.href ?? "#"} className="flex items-center justify-between gap-2">
+                            <SidebarMenuButton asChild>
+                                <Link href={_.href ?? "#"} target={_.newTab ? "_blank" : "_self"} className="flex items-center text-sidebar-foreground/60 justify-between gap-2">
                                     <div className='flex items-center gap-2'>
                                         <HugeiconsIcon icon={_.icon} className="size-4" />
-                                        <span className="font-medium">{_.label}</span>
+                                        <span className="tracking-wide font-medium">{_.label}</span>
                                     </div>
-                                    <HugeiconsIcon icon={ArrowUp02Icon} className="size-5 rotate-45" />
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>

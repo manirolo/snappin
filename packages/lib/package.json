@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@snappin/env": "workspace:*",
+    "@snappin/shared": "workspace:*",
     "tslog": "^4.10.2"
   }
 }

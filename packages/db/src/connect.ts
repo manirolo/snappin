@@ -15,7 +15,8 @@ export async function connectDB() {
   }
 
   try {
-    connection = await mongoose.connect(uri);
+    (await import("node:dns/promises")).setServers(["8.8.4.4", "8.8.8.8"])
+    connection = await mongoose.connect(uri, { family: 4 });
     logger.info("DB Connected")
     return connection;
   }

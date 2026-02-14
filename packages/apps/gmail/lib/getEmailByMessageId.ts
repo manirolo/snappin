@@ -1,6 +1,8 @@
 import { gmail_v1 } from "googleapis";
-import type { GetEmailByMessageId, GetEmailByMessageIdResponse } from "../../appRegistry.interface";
+import type { GetEmailByMessageId, GetEmailByMessageIdResponse, Options } from "../../appRegistry.interface";
 import { getGmailClient } from "../config";
+import { logger } from "@snappin/lib/logger";
+import { AttachmentResource } from "@snappin/shared/inbox/mail.schema";
 
 export const getHeader = (name: string, headers: gmail_v1.Schema$MessagePartHeader[] | undefined) => headers?.find(h => h.name === name)?.value;
 
@@ -29,7 +31,7 @@ function extractMailBody(parts: gmail_v1.Schema$MessagePart[] = []): string {
     return ""
 }
 
-function extractAttachments(parts: gmail_v1.Schema$MessagePart[] = []): GetEmailByMessageIdResponse["attachments"] {
+function extractAttachments(parts: gmail_v1.Schema$MessagePart[] = []): AttachmentResource[] {
 
     const attachments: GetEmailByMessageIdResponse["attachments"] = []
 
@@ -54,9 +56,9 @@ async function getAttachmentBuffer({ gmail, messageId, attachmentId }:
     {
         gmail: gmail_v1.Gmail;
         messageId: string;
-        attachmentId: string;
+        attachmentId?: string;
     }): Promise<Buffer> {
-        
+
     const res = await gmail.users.messages.attachments.get({
         userId: "me",
         messageId,
@@ -72,39 +74,65 @@ async function getAttachmentBuffer({ gmail, messageId, attachmentId }:
 }
 
 
-export async function getEmailByMessageId(payload: GetEmailByMessageId): Promise<GetEmailByMessageIdResponse | {}> {
-    if (!payload.accessToken) return {}
+export async function getEmailByMessageId(payload: GetEmailByMessageId, opt?: Options): Promise<GetEmailByMessageIdResponse | null> {
 
-    const gmail = getGmailClient(payload.accessToken)
+    if (!payload.accessToken) return null;
 
-    const { data } = await gmail.users.messages.get({ userId: "me", id: payload.messageId, format: "full" })
+    const gmail = getGmailClient(payload.accessToken);
 
-    const headers = data.payload?.headers ?? []
-    const rawAttachments = extractAttachments(data.payload?.parts);
+    try {
+        opt?.log && logger.info("Email Fetch: 🔄 Started");
 
-    const attachments = await Promise.all(
-        rawAttachments.map(async (attachment) => {
-            const buffer = await getAttachmentBuffer({
-                gmail,
-                messageId: payload.messageId,
-                attachmentId: attachment.attachmentId,
-            });
+        const { data } = await gmail.users.messages.get({
+            userId: "me",
+            id: payload.messageId,
+            format: "full",
+        });
 
-            return {
-                fileName: attachment.fileName,
-                mimeType: attachment.mimeType,
-                buffer,
-                attachmentId: attachment.attachmentId
-            };
-        })
-    );
-    const response: GetEmailByMessageIdResponse = {
-        subject: getHeader("Subject", headers),
-        from: getHeader("From", headers),
-        snippet: data.snippet,
-        bodyText: extractMailBody(data.payload?.parts),
-        attachments
+        const headers = data.payload?.headers ?? [];
+
+        // ✅ Always an array
+        const rawAttachments = extractAttachments(data.payload?.parts) ?? [];
+
+        const attachments = (
+            await Promise.all(
+                rawAttachments.map(async (attachment) => {
+                    if (!attachment.attachmentId) return null;
+
+                    const buffer = await getAttachmentBuffer({
+                        gmail,
+                        messageId: payload.messageId,
+                        attachmentId: attachment.attachmentId,
+                    });
+
+                    const result: AttachmentResource = {
+                        fileName: attachment.fileName ?? null,
+                        mimeType: attachment.mimeType ?? null,
+                        attachmentId: attachment.attachmentId,
+                        buffer,
+                    };
+
+                    return result;
+                })
+            )
+        ).filter(
+            (a): a is AttachmentResource => a !== null
+        ); 
+
+        const email: GetEmailByMessageIdResponse = {
+            subject: getHeader("Subject", headers),
+            from: getHeader("From", headers),
+            snippet: data.snippet,
+            body: extractMailBody(data.payload?.parts),
+            attachments: attachments,
+        };
+
+        opt?.log && logger.info("Email Fetch: ✅ Completed");
+
+        return email;
+    } catch (err) {
+        opt?.log && logger.info("⚠️ Something went wrong");
+        logger.error(err);
+        return null;
     }
-
-    return response
 }

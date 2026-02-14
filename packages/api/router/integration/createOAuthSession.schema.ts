@@ -1,10 +1,14 @@
-import { AppCategory, AppSlug, ZAppSlug, ZAppCategory } from "@snappin/shared/apps/app.enum";
+import { ZAppSlug, ZAppCategory, ZAppType } from "@snappin/shared/apps/app.enum";
 import z from "zod";
 
 export const ZCreateNewOAuthSession = z.object({
     appSlug: ZAppSlug,
     appCategory: ZAppCategory,
-    redirectAfter: z.string()
+    appType: ZAppType,
+    redirectAfter: z.string(),
+    reAuthenticate: z.object({
+        integrationId: z.string()
+    }).optional()
 })
 export type TCreateNewOAuthSessionResponse = {
     redirectUrl: string
