@@ -1,6 +1,6 @@
 "use client";
 
-import { useOrganizationList, useUser } from "@clerk/nextjs";
+import { useOrganizationList } from "@clerk/nextjs";
 import { useOrganization } from "@clerk/nextjs";
 import { useFullScreenLoading } from "@snappin/ui/hooks/useGlobalLoader";
 import {
@@ -21,11 +21,9 @@ import toast from "react-hot-toast";
 
 import { Small } from "@snappin/ui/components/typography";
 import React from "react";
-import { Label } from "@snappin/ui/components/label";
 
 export const WorkspaceSwitcher = () => {
   const { show, clear } = useFullScreenLoading();
-  const { user } = useUser();
   const { organization } = useOrganization();
   const { userMemberships, setActive } = useOrganizationList({
     userMemberships: true,

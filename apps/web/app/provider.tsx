@@ -1,6 +1,6 @@
 import React from "react"
 import { ThemeProviders } from "@snappin/ui/components/theme";
-import { TRPCProviders } from "@snappin/api/react/provider"
+import { TRPCProviders } from "../trpc/react/provider"
 import { ProgressWrapper } from "../components/progress/provider";
 import { Toaster } from "react-hot-toast"
 import { GlobalConfirmDialog } from "@snappin/ui/components/alert/alert";

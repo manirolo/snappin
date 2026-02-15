@@ -1,5 +1,6 @@
 import { StartWatchingProps, StartWatchingResponse } from "../../appRegistry.interface";
 import { getOutlookClient } from "../outlook.client";
+import { outlookConfig } from "../outlook.config";
 
 export async function startWatching({
     accessToken,
@@ -9,9 +10,11 @@ export async function startWatching({
     // Subscriptions expire max ~4230 minutes (~70 hours)
     const expirationDateTime = new Date(Date.now() + 60 * 60 * 1000 * 48).toISOString(); // 48 hours
 
+    console.log("Notification URL:", outlookConfig.notificationUrl);
+
     const res = await client.api("/subscriptions").post({
         changeType: "created",
-        notificationUrl: "https://yourdomain.com/api/webhook/outlook",
+        notificationUrl: outlookConfig.notificationUrl,
         resource: "me/messages",
         expirationDateTime,
         clientState: "secureRandomString",

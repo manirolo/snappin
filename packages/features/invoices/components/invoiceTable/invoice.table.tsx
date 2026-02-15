@@ -8,41 +8,9 @@ import {
   SortingState,
   useReactTable,
 } from "@snappin/ui/components/table";
-import { Button } from "@snappin/ui/components/button";
-import { trpc } from "@snappin/api/react/client";
 import { invoiceColumns } from "./invoice.column";
 import { toast } from "react-hot-toast";
-import { Link02Icon, Upload03Icon } from "@hugeicons-pro/core-solid-rounded";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { NewScanDialog } from "../../../retroSearch/components/newScanDialog";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@snappin/ui/components/card";
-import { Paragraph, Small } from "@snappin/ui/components/typography";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@snappin/ui/components/tabs";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ResponsiveContainer,
-  Area,
-  AreaChart,
-} from "recharts";
-
-import { cn } from "@snappin/ui/lib/utils";
-import { IntegrationListTable } from "../../../integration/components/integration.table";
-import { Icon } from "@iconify/react";
 import { useInvoices } from "../../hooks/useInvoices";
 
 const InvoiceEmptyActions = () => {

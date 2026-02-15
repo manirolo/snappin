@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { trpc } from "@snappin/api/react/client";
+import { trpc } from "@snappin/trpc/react/client";
 
 export const useInvoices = () => {
   const [page, setPage] = useState(1);

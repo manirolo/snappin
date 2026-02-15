@@ -1,15 +1,12 @@
-import { schemaTask } from "@trigger.dev/sdk"
 import { ZInvoiceExtract } from "./invoice.extract.schema"
 import pLimit from "p-limit";
 import { AnalyzeEngine, ZExtractionStatus, TOCREngine } from "@snappin/shared/invoice/invoice.schema";
+import { schemaTask } from "@trigger.dev/sdk";
 
 export const invoiceExtract = schemaTask({
-    id: "invoice-extract",
-    machine: "medium-1x",
+    id: "invoice.extract",
     schema: ZInvoiceExtract,
     run: async (payload) => {
-        const start = Date.now();
-
         const { logger } = await import("@snappin/lib/logger");
         const { invoiceSave } = await import("./invoice.save");
         const { uploadInvoice } = await import("@snappin/infra/google/storage");
@@ -78,6 +75,7 @@ export const invoiceExtract = schemaTask({
 
                         const unique = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
                         const fileName = `${unique}_${payload.integration.appSlug}`
+
                         // Upload invoice attachment to Storage provider
                         const uploadResponse = await uploadInvoice({ userId: payload.integration.userId, fileName, buffer: attachment.buffer, contentType: attachment?.mimeType })
 
@@ -109,7 +107,5 @@ export const invoiceExtract = schemaTask({
                 })
             )
         );
-
-        console.log("extract_latency", { ms: Date.now() - start });
     }
 })

@@ -1,5 +1,5 @@
 "use client";
-import { Logo, LogoSymbol } from "../logo";
+import { Logo } from "../logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "../dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { ExtraSmall, Small } from "../typography";
+import { Small } from "../typography";
 import Link from "next/link";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import { usePathname } from "next/navigation";

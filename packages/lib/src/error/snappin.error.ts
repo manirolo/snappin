@@ -9,6 +9,9 @@ export type SnappinErrorCode =
     | "storage_failed"
     | "invoice_standardization_failed"
     | "invoice_standardization_empty"
+    | "invalid_integration_request"
+
+    | "no_integration_found"
 
 export type LLMErrorMeta = {
     analyzeEngine?: (typeof ZAnalyzeEngine.options)[number];

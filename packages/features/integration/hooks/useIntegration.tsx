@@ -1,4 +1,4 @@
-import { trpc } from "@snappin/api/react/client";
+import { trpc } from "@snappin/trpc/react/client";
 
 export const useIntegration = ({ connectedSource, }: { connectedSource?: boolean;}) => {
   const query = trpc.integration.connectedSource.useQuery(

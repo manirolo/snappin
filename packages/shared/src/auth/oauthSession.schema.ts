@@ -48,6 +48,6 @@ export type OAuthSessionResource = {
     }
 
     // Timestamps
-    createdAt?: Number,
-    updatedAt?: Number
+    createdAt?: number,
+    updatedAt?: number
 }

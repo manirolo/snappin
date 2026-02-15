@@ -10,20 +10,16 @@ import {
 import {
   Card,
   CardDescription,
-  CardHeader,
   CardTitle,
   CardContent,
 } from "@snappin/ui/components/card";
 import { Button } from "@snappin/ui/components/button";
-import { useInvoices } from "@snappin/features/invoices/hooks/useInvoices";
 import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
-import { WatchingForFirstInvoice } from "./components/watchingForFirstInvoice";
 import { WaitingForFirstSourceConnection } from "./components/waitingForFirstSourceConnection";
 import { DotSpinner } from "@snappin/ui/assets/svg/dotSpinner";
 import Link from "next/link";
 
 export const Home = () => {
-  const { invoices } = useInvoices();
   const { connectedSource, isLoading } = useIntegration({
     connectedSource: true,
   });

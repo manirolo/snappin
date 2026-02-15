@@ -12,6 +12,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import { Search } from "lucide-react";
 import { Icon } from "@iconify/react";
 
+/* eslint-disable react/no-unknown-property */
 function Command({
   className,
   ...props
@@ -160,7 +161,7 @@ interface ButtonArrowProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-function CommandCheck({ icon, className, ...props }: ButtonArrowProps) {
+function CommandCheck({ icon, className }: ButtonArrowProps) {
   return (
     <Icon
       icon={icon ?? ""}

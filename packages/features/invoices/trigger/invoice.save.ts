@@ -1,10 +1,9 @@
-import { schemaTask } from "@trigger.dev/sdk"
-import { AnalyzeEngine, ZAnalyzeEngine, ZOCREngine, ZExtractionStatus } from "@snappin/shared/invoice/invoice.schema";
+import { ZAnalyzeEngine, ZOCREngine, ZExtractionStatus } from "@snappin/shared/invoice/invoice.schema";
 import { ZInvoiceSave } from "./invoice.save.schema";
+import { schemaTask } from "@trigger.dev/sdk";
 
 export const invoiceSave = schemaTask({
-    id: "invoice-save",
-    machine: "medium-1x",
+    id: "invoice.save",
     schema: ZInvoiceSave,
     run: async (payload) => {
 
@@ -14,7 +13,31 @@ export const invoiceSave = schemaTask({
 
         connectDB();
 
-        let vendorInDB = await db.vendor.findOne({ userId: payload.integration.userId, emailId: payload.vendor?.emailId ?? payload.source?.mail?.from })
+        let vendorInDB = await db.vendor.findOneAndUpdate(
+            {
+                userId: payload.integration.userId,
+                emailId: extractEmail(
+                    payload.vendor?.emailId ??
+                    payload.source?.mail?.from
+                )
+            },
+            {
+                $setOnInsert: {
+                    ...payload.vendor,
+                    userId: payload.integration.userId,
+                    orgId: payload.integration.orgId,
+                    emailId: extractEmail(
+                        payload.vendor?.emailId ??
+                        payload.source?.mail?.from
+                    )
+                }
+            },
+            {
+                upsert: true,
+                new: true
+            }
+        );
+
 
         function extractEmail(value?: string | null): string | null {
             if (!value) return null;

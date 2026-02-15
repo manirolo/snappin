@@ -3,7 +3,6 @@
 import React from "react";
 import Loading from "../ui/loading";
 import AppNavbar from "./app.navbar";
-import { useUser } from "@clerk/nextjs";
 
 export function DashboardLayout({
   children,
@@ -12,14 +11,6 @@ export function DashboardLayout({
   children: React.ReactNode;
   showNavItems?: boolean;
 }) {
-  const { user } = useUser();
-  const data = {
-    firstName: user?.firstName,
-    lastName: user?.lastName,
-    fullName: user?.fullName,
-    imageUrl: user?.imageUrl,
-    primaryEmailAddress: user?.primaryEmailAddress,
-  };
   return (
     <>
       <AppNavbar showNavItems={showNavItems} />

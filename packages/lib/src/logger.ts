@@ -3,7 +3,7 @@ import { Logger, ISettingsParam } from "tslog";
 import { IS_PRODUCTION } from "@snappin/env";
 
 export const loggerConfig: ISettingsParam<unknown> = {
-    minLevel: parseInt(process.env.NEXT_PUBLIC_LOGGER_LEVEL || "4"),
+    minLevel: parseInt("4"),
     maskValuesOfKeys: ["password", "passwordConfirmation", "credentials", "credential"],
     prettyLogTimeZone: IS_PRODUCTION ? "UTC" : "local",
     prettyErrorStackTemplate: "  • {{fileName}}\t{{method}}\n\t{{filePathWithLine}}", // default

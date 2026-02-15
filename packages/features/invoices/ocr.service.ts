@@ -1,4 +1,3 @@
-import { ExpenseDocument } from "@snappin/infra/aws/textract";
 import { SnappinError } from "@snappin/lib/error/snappin.error";
 import { TOCREngine } from "@snappin/shared/invoice/invoice.schema"
 

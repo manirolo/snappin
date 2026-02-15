@@ -9,14 +9,10 @@ import {
   Column,
 } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { ExtraSmall, Paragraph, Small } from "./typography";
+import { ExtraSmall,} from "./typography";
 import { PaginatedResponse } from "@snappin/shared/pagination";
 import { Skeleton } from "./skeleton";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Archive04Icon } from "@hugeicons-pro/core-solid-rounded";
-import { Badge } from "./badge";
 import { Card, CardContent, CardFooter, CardHeader } from "./card";
-import { Tabs, TabsList, TabsTrigger } from "./tabs";
 import {
   Select,
   SelectContent,
@@ -269,9 +265,9 @@ export function PaginatedTable<T>({
   prev,
   changeLimit,
   toolbar,
-  emptyTitle,
-  emptyDescription,
-  emptyAction,
+  // emptyTitle,
+  // emptyDescription,
+  // emptyAction,
 }: PaginatedTableProps<T>) {
   const { page, totalPages, limit, hasPrevPage, hasNextPage } = pagination;
   const pages = getVisiblePages(page, totalPages);

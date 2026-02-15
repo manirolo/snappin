@@ -1,66 +1,100 @@
 import z from "zod";
-import { AppCategory, AppSlug, AppType, ZAppCategory, ZAppSlug } from "../apps/app.enum";
-import { IntegrationStatus, ZIntegrationStatus } from "./status.enum";
+import { AppCategory, AppSlug, AppType } from "../apps/app.enum";
+import { IntegrationStatus } from "./status.enum";
 
-export type IntegrationResource = {
-    _id?: string
-    // This integration belongs to this user
-    // It can't be empty or null
-    userId: string,
+export type BaseIntegration = {
+  _id?: string | null
 
-    // In which organization, this application integrated
-    // It can be null
-    orgId?: string | null,
+  userId?: string | null
+  orgId?: string | null
 
-    // Used to access the resource from the provider
-    // accessToken comes with expiration. It can't used after it expired
-    accessToken: string,
+  accessToken?: string | null
+  accessTokenExpiresAt?: Date | null
 
-    // Access token expires 
-    accessTokenExpiresAt?: Date | null,
+  refreshToken?: string | null
+  refreshTokenExpiresAt?: Date | null
 
-    // refreshToken used to refresh the session token
-    // This token never expires i think
-    refreshToken: string,
+  reAuthenticationRequired?: boolean | null
 
-    reAuthenticationRequired?: boolean | null
+  scope: string[] | null
 
-    // Permission array
-    scope: string[],
+  appSlug?: AppSlug | null
+  appCategory?: AppCategory | null
+  appType?: AppType | null
 
-    // Various providers slug or name represents them
-    // They are integration tool to extract invoices and export to accounting tools
-    // It can't be null
-    appSlug: AppSlug,
+  identifierEmail?: string | null
 
-    // Types of providers i.e Email, Storage, etc
-    appCategory: AppCategory,
+  locked: boolean | null
+  lockedAt: Date | null
 
-    appType?: AppType,
+  status: IntegrationStatus | null
 
-    // Identifier for this integration
-    // i.e. If email, email@company.com
-    identifierEmail?: string
-
-    // Whether the email account is monitored for new mails or not
-    mailMonitored?: boolean
-
-    mailHistoryId?: number | null
-
-    outlookSubscriptionId?: string | null
-
-    mailWatchExpiresAt?: string | number | null
-
-    locked: boolean
-    lockedAt: Date | null
-
-    // Status
-    status: IntegrationStatus
-
-
-    // Timestamps
-    createdAt?: number,
-    updatedAt?: number,
+  createdAt?: number | null
+  updatedAt?: number | null
 }
+
+export type GmailConfig = {
+  mailMonitored: boolean
+  historyId: number | null
+  watchExpiresAt?: string | null
+}
+
+export type GmailIntegration = BaseIntegration & {
+  appSlug?: AppSlug.GMAIL | null
+  config: GmailConfig
+}
+
+export type OutlookConfig = {
+  mailMonitored?: boolean | null
+  subscriptionId?: string | null
+  subscriptionExpiresAt?: string | null
+}
+
+export type OutlookIntegration = BaseIntegration & {
+  appSlug?: AppSlug.OUTLOOK | null
+  config: OutlookConfig
+}
+
+export type IntegrationResource =
+  | GmailIntegration
+  | OutlookIntegration
+
+export type GmailWebhookPayload = {
+  message?: {
+    data?: string
+  };
+};
+
+export type OutlookWebhookNotification = {
+  subscriptionId: string;
+  resourceData?: {
+    id?: string;
+  };
+};
+
+export type OutlookWebhookPayload = {
+  value?: OutlookWebhookNotification[];
+};
+
+export type EmailProviderMap = {
+  [AppSlug.GMAIL]: {
+    config: GmailConfig;
+    webhookPayload: GmailWebhookPayload;
+    integration: GmailIntegration;
+    resolveMessageInput: {
+      historyId?: number | null;
+    };
+  };
+
+  [AppSlug.OUTLOOK]: {
+    config: OutlookConfig;
+    webhookPayload: OutlookWebhookPayload;
+    integration: OutlookIntegration;
+    resolveMessageInput: {
+      messageId?: string | null;
+    };
+  };
+};
+
 
 export const ZIntegration = z.custom<IntegrationResource>()

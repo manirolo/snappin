@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import { appMetadata } from "@snappin/apps/app.metadata";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
 import { AppType } from "@snappin/shared/apps/app.enum";
@@ -10,7 +9,6 @@ import {
 } from "@snappin/features/integration/components/compactIntegrationCard";
 import React from "react";
 import Link from "next/link";
-import { Stepper } from "@snappin/ui/components/stepper";
 
 export const WatchingForFirstInvoice = () => {
   const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();

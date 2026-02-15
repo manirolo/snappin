@@ -14,8 +14,8 @@ import {
   DropdownMenuSubContent,
 } from "@snappin/ui/components/dropdown-menu";
 
-import type { RouterOutputs } from "@snappin/api/_root";
-import { trpc } from "@snappin/api/react/client";
+import type { RouterOutputs } from "@snappin/trpc/_root";
+import { trpc } from "@snappin/trpc/react/client";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { MoreHorizontalIcon } from "@hugeicons-pro/core-solid-rounded";

@@ -1,4 +1,4 @@
-import { Model, model, models, Schema } from "mongoose"
+import mongoose from "mongoose"
 import { timestampPlugin } from "../plugin/timestamps.plugin"
 import { AppCategory, AppSlug, AppType } from "@snappin/shared/apps/app.enum"
 import { OAuthSessionResource } from "@snappin/shared/auth/oauthSession.schema"
@@ -8,11 +8,11 @@ import { OAuthSessionResource } from "@snappin/shared/auth/oauthSession.schema"
 // Delete is handled by mongodb. Delete triggered every 60sec (Not sure about interval) 
 const TTLMinutes = 5
 
-const ReAuthenticate = new Schema({
+const ReAuthenticate = new mongoose.Schema({
     integrationId: { type: String, default: null }
 })
 
-const OAuthSessionSchema = new Schema<OAuthSessionResource>({
+const OAuthSessionSchema = new mongoose.Schema<OAuthSessionResource>({
     userId: { type: String, trim: true, required: true },
     orgId: { type: String, trim: true, default: null },
     state: { type: String, unique: true, index: true, required: true },
@@ -31,4 +31,4 @@ const OAuthSessionSchema = new Schema<OAuthSessionResource>({
 
 OAuthSessionSchema.plugin(timestampPlugin)
 
-export const OAuthSession: Model<OAuthSessionResource> = (models.OAuthSession as Model<OAuthSessionResource>) ?? model<OAuthSessionResource>("OAuthSession", OAuthSessionSchema, "oauth_session")
+export const OAuthSession: mongoose.Model<OAuthSessionResource> = (mongoose.models.OAuthSession as mongoose.Model<OAuthSessionResource>) ?? mongoose.model<OAuthSessionResource>("OAuthSession", OAuthSessionSchema, "oauth_session")

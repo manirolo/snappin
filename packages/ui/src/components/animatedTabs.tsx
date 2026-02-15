@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import * as TabsPrimitive from "@radix-ui/react-tabs";
-
 import { cn } from "@snappin/ui/lib/utils";
 import { ReactNode } from "react";
 import { TabCategory } from "@snappin/shared/dashboard";
@@ -18,7 +16,7 @@ import {
 } from "./dropdown-menu";
 import { Button } from "./button";
 import { MenuSquareIcon } from "@hugeicons-pro/core-bulk-rounded";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
+import { Tabs, TabsContent, } from "./tabs";
 
 export function AnimatedTabs({
   tabs,
@@ -99,31 +97,7 @@ export function AnimatedTabs({
 
       {/* ================= DESKTOP TABS ================= */}
       <Tabs value={value} onValueChange={changeTab} className="flex justify-start items-start gap-16">
-          <TabsList variant={"button"} className="max-w-58 w-full">
-            {tabs.map((category, i) => (
-              <div key={i} className="flex flex-col gap-1 w-full">
-                {category.tabs.map((tab, j) => (
-                  // <TabsTrigger
-                  //   key={j}
-                  //   value={tab.value}
-                  //   className="text-start w-full justify-start rounded-lg"
-                  // >
-                  //   {/* <div className="flex items-center gap-3">
-                  //     {tab.icon && <HugeiconsIcon icon={tab.icon} />}
-                  //     {tab.name}
-                  //   </div>
-                  //   {tab.badge && (
-                  //     <Badge variant={tab.badgeVariant} className="ml-auto">
-                  //       {tab.badge}
-                  //     </Badge>
-                  //   )} */}
-                  // </TabsTrigger>
-                  <></>
-                ))}
-              </div>
-            ))}
-          </TabsList>
-
+        
 
         {flatTabs.map((tab, i) => (
           <TabsContent

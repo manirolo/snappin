@@ -6,20 +6,18 @@ import {
   getSortedRowModel,
   PaginatedTable,
   SortingState,
-  TableTabs,
   useReactTable,
 } from "@snappin/ui/components/table";
-import { trpc } from "@snappin/api/react/client";
+import { trpc } from "@snappin/trpc/react/client";
 import { toast } from "react-hot-toast";
 import { integrationColumns } from "./integration.column";
 import { Button } from "@snappin/ui/components/button";
-import { CardTitle } from "@snappin/ui/components/card";
 import { H5 } from "@snappin/ui/components/typography";
 
-type IntegrationTab = "all" | "own" | "guest";
+// type IntegrationTab = "all" | "own" | "guest";
 
 export const IntegrationListTable = () => {
-  const [tab, setTab] = useState<IntegrationTab>("all");
+  // const [tab, setTab] = useState<IntegrationTab>("all");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});

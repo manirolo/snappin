@@ -3,7 +3,6 @@
 import * as Clerk from '@clerk/elements/common'
 import * as SignUp from '@clerk/elements/sign-up'
 import { Button } from '@snappin/ui/components/button'
-import { Spinner } from '@snappin/ui/assets/svg/spinner'
 import { DotSpinner } from '@snappin/ui/assets/svg/dotSpinner'
 import { Icon } from '@iconify/react'
 import { useState } from 'react'

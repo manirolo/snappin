@@ -25,9 +25,8 @@ import {
 import { Label } from "@snappin/ui/components/label";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Search01Icon } from "@hugeicons-pro/core-solid-rounded";
-import { cn } from "@snappin/ui/lib/utils";
 import { ExtraSmall } from "@snappin/ui/components/typography";
-import { trpc } from "@snappin/api/react/client";
+import { trpc } from "@snappin/trpc/react/client";
 import { Icon } from "@iconify/react";
 import { appMetadata } from "@snappin/apps/app.metadata";
 

@@ -150,7 +150,7 @@ export type SourceResource = z.infer<typeof ZSource>;
 
 export const ZInvoice = z.object({
     _id: z.string().optional(),
-    userId: z.string().optional(),
+    userId: z.string().optional().nullable(),
     orgId: z.string().nullable().optional(),
 
     invoice: ZInvoiceDocument.nullable().optional(),

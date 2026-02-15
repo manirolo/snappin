@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { trpc } from "@snappin/api/react/client"
+import { trpc } from "@snappin/trpc/react/client"
 import { AppCategory, AppSlug, AppType } from "@snappin/shared/apps/app.enum"
 import toast from "react-hot-toast"
 import { env } from "@snappin/env"

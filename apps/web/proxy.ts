@@ -5,7 +5,7 @@ const isOnboardingRoute = createRouteMatcher(['/onboarding'])
 const isPublicRoute = createRouteMatcher(['/api/v1/webhook/gmail', '/api/v1/integration/callback', '/login', '/login/sso-callback', '/signup'])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { isAuthenticated, sessionClaims, redirectToSignIn } = await auth()
+  const { isAuthenticated, redirectToSignIn } = await auth()
 
   // For users visiting /onboarding, don't try to redirect
   if (isAuthenticated && isOnboardingRoute(req)) {

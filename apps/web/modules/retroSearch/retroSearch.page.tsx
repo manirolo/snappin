@@ -9,10 +9,10 @@ import {
   DashboardHeaderMain,
   DashboardTitle,
 } from "../../components/layout/dashboardLayout";
-import { IntegrationListTable } from "@snappin/features/integration/components/integration.table";
 import { NewScanDialog } from "@snappin/features/retroSearch/components/newScanDialog";
 import { ExtraSmall, H5, Paragraph } from "@snappin/ui/components/typography";
 import { Icon } from "@iconify/react";
+import { IntegrationListTable } from "@snappin/features/integration/components/integration.table";
 
 export const RetroSearchPage = () => {
   return (
@@ -48,7 +48,7 @@ export const RetroSearchPage = () => {
           </div>
           <ExtraSmall className="flex items-center gap-1 mt-2"><Icon icon={"fluent:info-12-regular"} />Inbox monitoring scan runs every hour to detect new invoices.</ExtraSmall>
         
-          {/* <IntegrationListTable /> */}
+          <IntegrationListTable />
         </div>
       </DashboardContent>
     </Dashboard>

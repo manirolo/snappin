@@ -20,7 +20,7 @@ export const storage = new Storage({
 })
 
 type UploadInvoiceProps = {
-    userId: string;
+    userId?: string | null;
     fileName: string;
     buffer?: Buffer | null;
     contentType?: string | null;
@@ -33,7 +33,7 @@ type UploadInvoiceResponse = {
 export async function uploadInvoice({ userId, fileName, buffer, contentType = "application/octet-stream", }: UploadInvoiceProps): Promise<UploadInvoiceResponse | null> {
     if (!buffer) return null
 
-    const objectPath = `user/${userId}/${fileName}`;
+    const objectPath = `user/${userId}/document/${fileName}`;
 
     const file = invoiceBucket.file(objectPath);
 
@@ -74,6 +74,16 @@ export async function renameInvoice({ oldFileId, newFileName, }: RenameInvoicePr
     return {
         fileId: newFileId
     };
+}
+
+export async function deleteFile(fileUrl: string) {
+    try {
+        await invoiceBucket.file(fileUrl).delete({
+            ignoreNotFound: true // prevents crash if already deleted
+        });
+    } catch (error) {
+        console.error("Failed to delete GCS file:", error);
+    }
 }
 
 

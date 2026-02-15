@@ -1,5 +1,6 @@
+import { AppSlug } from "@snappin/shared/apps/app.enum"
 import { MailResource } from "@snappin/shared/inbox/mail.schema"
-import { IntegrationResource } from "@snappin/shared/integration/integration.schema"
+import { EmailProviderMap, IntegrationResource } from "@snappin/shared/integration/integration.schema"
 
 export type GenerateOAuthSessionProps = {
 
@@ -21,7 +22,7 @@ export type RetrieveAccessToken = {
     integration: IntegrationResource
 }
 
-export type RetrieveAccessAccessTokenResponse = {
+export type RetrieveAccessTokenResponse = {
 
     accessToken: string
 }
@@ -30,7 +31,7 @@ export type ExchangeCodeForTokensProps = {
 
     code: string,
 
-    codeVerifier: string
+    codeVerifier?: string | null
 }
 
 export type ExchangeCodeForTokensResponse = {
@@ -105,25 +106,24 @@ export type RevokeTokenProps = {
 
     token: string
 }
-export type GetMessageIdsByHistoryId = {
 
-    emailAddress: string
+export type ResolveMessageIdsProps<TSlug extends AppSlug> = {
+    integration: EmailProviderMap[TSlug]["integration"];
+} & EmailProviderMap[TSlug]["resolveMessageInput"];
 
-    lastHistoryId: string
+export type ResolveMessageIdsResponse = {
+    messageIds: string[];
+    nextHistoryId?: number | null;
+};
 
-    accessToken?: string
-}
-
-export type GetMessageIdsByHistoryIdResponse = string[]
-
-export type GetEmailByMessageId = {
+export type GetEmail = {
 
     accessToken: string,
 
     messageId: string
 }
 
-export type GetEmailByMessageIdResponse = MailResource
+export type GetEmailResponse = MailResource
 
 export type ListMessagesSinceProps = {
     accessToken: string
@@ -139,6 +139,39 @@ export type NormalizeTimestamps = {
     unixSeconds: number
 }
 
+export type BuildEmailIntegrationData = {
+
+    code?: string | null;
+
+    codeVerifier?: string | null;
+}
+
+export type BuildEmailIntegrationDataResponse<TSlug extends AppSlug> = {
+    accessToken?: string | null;
+    accessTokenExpiresAt?: Date | null;
+    refreshToken?: string | null;
+    refreshTokenExpiresAt?: Date | null;
+    identifierEmail?: string | null;
+    config: EmailProviderMap[TSlug]["config"]
+}
+
+export type NormalizedEmailNotification = {
+    provider: AppSlug;
+    integrationKey: string; // subscriptionId or emailAddress
+    cursor?: number | null; // historyId (gmail) or deltaToken (outlook)
+    messageId?: string | null; // outlook immediate message id
+};
+
+export type GetIntegrationProps = {
+    integrationKey: string;
+};
+
+export type NormalizeNotificationProps<TSlug extends AppSlug> = {
+    body: EmailProviderMap[TSlug]["webhookPayload"];
+};
+
+export type NormalizeNotificationResponse = NormalizedEmailNotification[];
+
 export type NormalizeTimestampsResponse = string
 
 export type Options = {
@@ -150,30 +183,36 @@ export interface BaseOAuth {
 
     generateSessionUrl({ state, codeVerifier }: GenerateOAuthSessionProps): Promise<GenerateOAuthSessionResponse>
 
-    getAccessToken({ integration }: RetrieveAccessToken): Promise<RetrieveAccessAccessTokenResponse>
+    getAccessToken({ integration }: RetrieveAccessToken): Promise<RetrieveAccessTokenResponse>
 
     exchangeCodeForTokens({ code, codeVerifier }: ExchangeCodeForTokensProps): Promise<ExchangeCodeForTokensResponse>
 
     revokeToken({ token }: RevokeTokenProps): void
 }
 
-export interface EmailApps extends BaseOAuth {
+export interface EmailApps<TSlug extends AppSlug> extends BaseOAuth {
 
-    getUserEmailAddress({ }: GetUserEmailAddressProps): Promise<GetUserEmailAddressResponse>
+    getUserEmailAddress({ accessToken }: GetUserEmailAddressProps): Promise<GetUserEmailAddressResponse>
 
-    listMessagesSince(props: ListMessagesSinceProps, opt?: Options): Promise<ListMessagesSinceResponse>
+    listMessagesSince(props: ListMessagesSinceProps): Promise<ListMessagesSinceResponse>
 
     getCursor({ accessToken }: GetCursorProps): Promise<GetCursorResponse>
 
-    startWatching({ }: StartWatchingProps): Promise<StartWatchingResponse>
+    startWatching({ accessToken }: StartWatchingProps): Promise<StartWatchingResponse>
 
     stopWatching({ accessToken }: StopWatchingProps): Promise<StopWatchingResponse>
 
-    renewWatching({ }: RenewWatchingProps): Promise<RenewWatchingResponse>
+    renewWatching({ accessToken }: RenewWatchingProps): Promise<RenewWatchingResponse>
 
-    // getMessageIdsByHistoryId({ emailAddress, lastHistoryId, accessToken }: GetMessageIdsByHistoryId, opt?: Options): Promise<GetMessageIdsByHistoryIdResponse>
+    resolveMessageIds<TSlug extends AppSlug>(props: ResolveMessageIdsProps<TSlug>): Promise<ResolveMessageIdsResponse>
 
-    getEmailByMessageId({ accessToken, messageId }: GetEmailByMessageId, opt?: Options): Promise<GetEmailByMessageIdResponse>
+    getEmail({ accessToken, messageId }: GetEmail): Promise<GetEmailResponse>
 
     normalizeTimestamps({ unixSeconds }: NormalizeTimestamps): Promise<NormalizeTimestampsResponse>
+
+    buildIntegrationData({ code, codeVerifier }: BuildEmailIntegrationData): Promise<BuildEmailIntegrationDataResponse<TSlug>>
+
+    normalizeNotification(props: NormalizeNotificationProps<TSlug>): Promise<NormalizeNotificationResponse>;
+
+    getIntegrationData(props: GetIntegrationProps): Promise<EmailProviderMap[TSlug]["integration"] | null>
 }

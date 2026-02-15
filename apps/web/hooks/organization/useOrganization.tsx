@@ -2,9 +2,7 @@
 
 import { useMemo } from "react"
 import { useOrganization as Org, useOrganizationList } from "@clerk/nextjs"
-import { useFullScreenLoading } from "@snappin/ui/hooks/useGlobalLoader"
 import { OrganizationMembershipResource, OrganizationResource } from "@clerk/types"
-import toast from "react-hot-toast"
 
 type UseOrganizationResult = {
   activeOrg: OrganizationResource | null;

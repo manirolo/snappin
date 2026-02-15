@@ -22,7 +22,6 @@ export function DotSpinner({
     const step = radius * 2 + gap;         // ≈ original 8
     const x2 = x1 + step;                  // ≈ 12
     const x3 = x2 + step;                  // ≈ 20
-    const x4 = x3;                         // reset target
 
     return (
         <svg

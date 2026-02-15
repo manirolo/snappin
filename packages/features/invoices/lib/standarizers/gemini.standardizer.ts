@@ -150,8 +150,6 @@ export class GeminiInvoiceStandardizer implements InvoiceStandardizer<TGeminiInv
     const parsed = JSON.parse(responseText);
     const validated = ZGeminiInvoiceResponse.parse(parsed);
 
-    console.log("AI Response:", JSON.stringify({ validated }))
-
     return validated;
   }
 }

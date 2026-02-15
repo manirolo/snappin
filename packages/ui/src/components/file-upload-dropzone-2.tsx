@@ -3,7 +3,7 @@
 import { CloudUpload, X } from "lucide-react";
 import * as React from "react";
 
-import { Button } from "@snappin/components/ui/button";
+import { Button } from "@snappin/ui/components/button";
 import {
   FileUpload,
   FileUploadDropzone,
@@ -13,7 +13,7 @@ import {
   FileUploadItemPreview,
   FileUploadList,
   FileUploadTrigger,
-} from "@snappin/components/diceui/file-upload";
+} from "@snappin/ui/components/file-upload";
 
 export const title = "Dropzone with Inline Trigger";
 
@@ -33,7 +33,7 @@ const Example = () => {
         <CloudUpload className="size-4" />
         <span className="text-sm">Drag and drop or</span>
         <FileUploadTrigger asChild>
-          <Button variant="link" size="sm" className="h-auto p-0">
+          <Button variant="ghost" size="sm" className="h-auto p-0">
             choose files
           </Button>
         </FileUploadTrigger>

@@ -13,7 +13,6 @@ import { Button } from "@snappin/ui/components/button";
 import { DotSpinner } from "@snappin/ui/assets/svg/dotSpinner";
 import { Icon } from "@iconify/react";
 import React from "react";
-import { Paragraph } from "@snappin/ui/components/typography";
 
 export const ConnectSource = () => {
   const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();

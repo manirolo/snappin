@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import { DM_Sans, Onest, Rubik } from "next/font/google";
+import { DM_Sans, Onest } from "next/font/google";
 import { Providers } from "./provider";
 
 const dmSans = DM_Sans({

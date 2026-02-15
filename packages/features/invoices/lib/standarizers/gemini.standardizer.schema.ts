@@ -1,6 +1,6 @@
 import { ZInvoiceDocument } from "@snappin/shared/invoice/invoice.schema";
 import { ZVendor } from "@snappin/shared/invoice/vendor.schema";
-import { Schema, z } from "zod";
+import { z } from "zod";
 import { toAISchema } from "../../utils/omitFieldsForAI";
 import { ResponseSchema, SchemaType } from "@snappin/infra/google/ai";
 

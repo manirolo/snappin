@@ -22,7 +22,7 @@ import {
   CardContent,
 } from "@snappin/ui/components/card";
 import { ExtraSmall } from "@snappin/ui/components/typography";
-import { trpc } from "@snappin/api/react/client";
+import { trpc } from "@snappin/trpc/react/client";
 import { Icon } from "@iconify/react";
 import { appMetadata } from "@snappin/apps/app.metadata";
 

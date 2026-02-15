@@ -1,18 +1,18 @@
 import { logger } from "@snappin/lib/logger";
-import { RetrieveAccessToken, RetrieveAccessAccessTokenResponse } from "../../appRegistry.interface";
+import { RetrieveAccessToken, RetrieveAccessTokenResponse } from "../../appRegistry.interface";
 import { google } from "../config";
 import { compareAndSaveIfNewToken } from "../../utils/compareAndSaveIfNewToken";
 import { isInvalidGrantError } from "../../utils/isInvalidGrantError";
 import { markReAuthenticationRequired } from "../../utils/markReAuthenticationRequired";
 
-export async function getAccessToken({ integration }: RetrieveAccessToken): Promise<RetrieveAccessAccessTokenResponse> {
+export async function getAccessToken({ integration }: RetrieveAccessToken): Promise<RetrieveAccessTokenResponse> {
     // Safety buffer (e.g. refresh 1 min before expiry)
     const REFRESH_BUFFER_MS = 60 * 1000;
 
     const isExpired = !integration.accessTokenExpiresAt || integration.accessTokenExpiresAt.getTime() - REFRESH_BUFFER_MS <= Date.now();
 
     // If token is still valid, reuse it
-    if (!isExpired) {
+    if (!isExpired && integration.accessToken) {
         return { accessToken: integration.accessToken };
     }
 

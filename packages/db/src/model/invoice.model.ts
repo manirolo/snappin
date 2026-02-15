@@ -1,7 +1,6 @@
 import { AppSlug, AppCategory } from "@snappin/shared/apps/app.enum"
-import { Model, models, Schema } from "mongoose"
+import mongoose from "mongoose"
 import { timestampPlugin } from "../plugin/timestamps.plugin"
-import { model } from "mongoose"
 import { AttachmentResource, MailResource } from "@snappin/shared/inbox/mail.schema"
 import {
     ZAnalyzeEngine,
@@ -22,13 +21,13 @@ import {
     ZInvoiceSubscriptionFrequency
 } from "@snappin/shared/invoice/invoice.schema"
 
-const Attachment = new Schema<AttachmentResource>({
+const Attachment = new mongoose.Schema<AttachmentResource>({
     fileName: { type: String, default: null },
     mimeType: { type: String, default: null },
     attachmentId: { type: String, default: null }
 })
 
-const Mail = new Schema<MailResource>({
+const Mail = new mongoose.Schema<MailResource>({
     from: { type: String, default: null },
     to: { type: String, default: null },
     id: { type: String, default: null },
@@ -37,7 +36,7 @@ const Mail = new Schema<MailResource>({
     attachments: { type: [Attachment], default: [] },
 })
 
-const Receipt = new Schema<RecipientResource>({
+const Receipt = new mongoose.Schema<RecipientResource>({
     name: { type: String, default: null },
     phone: { type: String, default: null },
     emailId: { type: String, default: null },
@@ -47,13 +46,13 @@ const Receipt = new Schema<RecipientResource>({
     zipCode: { type: String, default: null },
 })
 
-const TaxDetails = new Schema<TaxResource>({
+const TaxDetails = new mongoose.Schema<TaxResource>({
     taxType: { type: String, default: null },
     taxRate: { type: Number, default: null },
     taxAmount: { type: Number, default: null }
 })
 
-const LineItems = new Schema<LineItemsResource>({
+const LineItems = new mongoose.Schema<LineItemsResource>({
     item: { type: String, default: null },
     code: { type: String, default: null },
     description: { type: String, default: null },
@@ -66,7 +65,7 @@ const LineItems = new Schema<LineItemsResource>({
     discount: { type: String, default: null }
 })
 
-const Payment = new Schema<PaymentResource>({
+const Payment = new mongoose.Schema<PaymentResource>({
     status: { type: String, enum: ZPaymentStatus.options, default: ZPaymentStatus.options[1] },
     paymentTerms: { type: String, default: null },
     paymentMethod: { type: String, default: "other" },
@@ -75,13 +74,13 @@ const Payment = new Schema<PaymentResource>({
     transactionId: { type: String, default: null }
 })
 
-const Subscription = new Schema<InvoiceSubscriptionResource>({
+const Subscription = new mongoose.Schema<InvoiceSubscriptionResource>({
     frequency: { type: String, enum: ZInvoiceSubscriptionFrequency.options, default: null },
     isRecurring: { type: Boolean, default: false },
     nextBillingDate: { type: String, default: null }
 })
 
-const InvoiceDocument = new Schema<InvoiceDocumentResource>({
+const InvoiceDocument = new mongoose.Schema<InvoiceDocumentResource>({
     type: { type: String, enum: ZInvoiceType.options, default: ZInvoiceType.options[0] },
     number: { type: String, default: null },
     description: { type: String, default: null },
@@ -103,19 +102,19 @@ const InvoiceDocument = new Schema<InvoiceDocumentResource>({
     confidenceScore: { type: Number, default: null },
 })
 
-const Source = new Schema<SourceResource>({
+const Source = new mongoose.Schema<SourceResource>({
     slug: { type: String, enum: AppSlug, default: null },
     category: { type: String, enum: AppCategory, default: null },
     extractedAt: { type: Date, default: Date.now() },
     mail: { type: Mail, default: null }
 })
 
-const InvoiceError = new Schema<InvoiceErrorResource>({
+const InvoiceError = new mongoose.Schema<InvoiceErrorResource>({
     code: { type: String, default: null },
     message: { type: String, default: null }
 })
 
-const Extraction = new Schema<ExtractionResource>({
+const Extraction = new mongoose.Schema<ExtractionResource>({
     ocrEngine: { type: String, enum: ZOCREngine.options, default: null },
     analyzeEngine: { type: String, enum: ZAnalyzeEngine.options, default: null },
     raw: { type: String, default: null },
@@ -123,7 +122,7 @@ const Extraction = new Schema<ExtractionResource>({
     error: { type: InvoiceError, default: null }
 })
 
-const InvoiceSchema = new Schema<InvoiceResource>({
+const InvoiceSchema = new mongoose.Schema<InvoiceResource>({
     userId: { type: String, required: true },
     orgId: { type: String, default: null },
     invoice: { type: InvoiceDocument, default: null },
@@ -148,4 +147,4 @@ InvoiceSchema.virtual("vendorDoc", {
 InvoiceSchema.set("toJSON", { virtuals: true });
 InvoiceSchema.set("toObject", { virtuals: true });
 
-export const Invoice: Model<InvoiceResource> = (models.Invoice as Model<InvoiceResource>) ?? model<InvoiceResource>("Invoice", InvoiceSchema, "invoice");
+export const Invoice: mongoose.Model<InvoiceResource> = (mongoose.models.Invoice as mongoose.Model<InvoiceResource>) ?? mongoose.model<InvoiceResource>("Invoice", InvoiceSchema, "invoice");

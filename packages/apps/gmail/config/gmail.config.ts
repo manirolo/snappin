@@ -20,7 +20,7 @@ export const gmailConfig = {
 
     clientId: env.google.clientId,
     clientSecret: env.google.clientSecret,
-    callbackUrl: `${env.app_url}/api/v1/integration/callback`,
+    callbackUrl: `${env.app.api_url}/api/v1/integration/callback`,
     permissions: ["https://www.googleapis.com/auth/gmail.readonly"],
     topic: getTopic(),
 

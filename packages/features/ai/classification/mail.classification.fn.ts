@@ -1,5 +1,4 @@
 import { genAi, ResponseSchema, Schema, SchemaType } from "@snappin/infra/google/ai"
-import { logger } from "@snappin/lib/logger"
 import { EmailCategory, EmailCategoryValues } from "@snappin/shared/inbox/category"
 import { AttachmentResource } from "@snappin/shared/inbox/mail.schema"
 import { ZGeminiClassificationResponse } from "./mail.classification.schema"
@@ -49,8 +48,7 @@ const classifyMailResponseSchema: ResponseSchema = {
     required: ["category", "isRefund"],
 };
 
-export async function classifyThisMail(payload: ClassifyThisMail, opt?: { log?: boolean }): Promise<ClassifyThisMailResponse> {
-    { opt?.log && logger.info("Started classifying the mail") }
+export async function classifyThisMail(payload: ClassifyThisMail): Promise<ClassifyThisMailResponse> {
 
     const response = await genAi.models.generateContent({
         model: 'gemini-2.0-flash-lite',
@@ -66,8 +64,6 @@ export async function classifyThisMail(payload: ClassifyThisMail, opt?: { log?: 
     if (!text) {
         return { category: "OTHER", isRefund: false }
     }
-
-    { opt?.log && logger.info("Completed classifying the mail") }
     const parsed = JSON.parse(text)
     const validated = ZGeminiClassificationResponse.parse(parsed)
     return validated

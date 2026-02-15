@@ -1,8 +1,8 @@
-import { Model, models, Schema, model } from "mongoose"
+import mongoose from "mongoose"
 import { timestampPlugin } from "../plugin/timestamps.plugin"
 import { VendorResource } from "@snappin/shared/invoice/vendor.schema";
 
-const VendorSchema = new Schema<VendorResource>({
+const VendorSchema = new mongoose.Schema<VendorResource>({
     userId: { type: String, required: true },
     orgId: { type: String, default: null },
     name: { type: String, default: null },
@@ -20,4 +20,4 @@ const VendorSchema = new Schema<VendorResource>({
 
 VendorSchema.plugin(timestampPlugin)
 
-export const Vendor: Model<VendorResource> = (models.Vendor as Model<VendorResource>) ?? model<VendorResource>("Vendor", VendorSchema, "vendor");
+export const Vendor: mongoose.Model<VendorResource> = (mongoose.models.Vendor as mongoose.Model<VendorResource>) ?? mongoose.model<VendorResource>("Vendor", VendorSchema, "vendor");
