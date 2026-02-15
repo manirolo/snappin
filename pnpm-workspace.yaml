@@ -1,7 +1,6 @@
 packages:
 - "apps/*"
 - "packages/*"
-- "packages/sdk/*"
 
 # Define a catalog of version ranges
 catalog:

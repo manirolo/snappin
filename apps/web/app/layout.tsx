@@ -2,13 +2,18 @@ import type { Metadata } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, Onest } from "next/font/google";
 import { Providers } from "./provider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
 });
+
+const onest = Onest({
+  subsets: ["latin"],
+  variable: "--font-onest",
+})
 
 export const metadata: Metadata = {
   title: "Snappin | Your invoice extracted from emails automatically",
@@ -31,7 +36,7 @@ export default function RootLayout({
       afterSignOutUrl={"/login"}
     >
       <html lang="en" suppressHydrationWarning>
-        <body className={`${dmSans.variable} font-dm-sans`} suppressHydrationWarning>
+        <body className={`${onest.variable} ${dmSans.variable} font-onest`} suppressHydrationWarning>
             <Providers>
               {children}
             </Providers>

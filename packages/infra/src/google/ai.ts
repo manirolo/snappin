@@ -1,4 +1,4 @@
-import { VertexAI } from "@google-cloud/vertexai";
+import { GoogleGenAI } from "@google/genai";
 import { env } from "@snappin/env";
 import { toSingleLine } from "./utils/formateKey";
 
@@ -6,7 +6,8 @@ const credential = JSON.parse(
   Buffer.from(toSingleLine(env.google.serviceKey) ?? "", "base64").toString()
 );
 
-const vertex = new VertexAI({
+export const genAi = new GoogleGenAI({
+    vertexai: true,
     project: env.google.projectId,
     location: "us-central1",
     googleAuthOptions: {
@@ -18,6 +19,4 @@ const vertex = new VertexAI({
     }
 })
 
-export const model = vertex.getGenerativeModel({
-    model: "gemini-2.0-flash-lite"
-})
+export * from "@google/generative-ai"

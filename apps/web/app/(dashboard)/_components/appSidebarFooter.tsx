@@ -33,7 +33,7 @@ export const User = () => {
                     </div>
                 </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent side='right' sideOffset={22} align='end' className='min-w-50'>
+            <DropdownMenuContent side='right' sideOffset={34} align='end' className='min-w-50'>
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
                         <div className='flex items-center gap-2 text-start'>

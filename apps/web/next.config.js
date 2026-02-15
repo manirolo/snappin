@@ -7,8 +7,22 @@ const nextConfig = {
     },
     "@hugeicons-pro/core-solid-rounded": {
       transform: "@hugeicons-pro/core-solid-rounded/{{member}}"
+    },
+    "@hugeicons-pro/core-duotone-rounded": {
+      transform: "@hugeicons-pro/core-duotone-rounded/{{member}}"
     }
   },
   cacheHandler: undefined,
   cacheMaxMemorySize: 0,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "img.logo.dev",
+        pathname: "/**", 
+      },
+    ],
+  },
 };
+
+export default nextConfig;

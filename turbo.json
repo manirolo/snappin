@@ -3,23 +3,38 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env"],
+      "env": [
+        "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+        "CLERK_SECRET_KEY",
+        "NEXT_PUBLIC_CLERK_SIGN_IN_URL",
+        "NEXT_PUBLIC_CLERK_SIGN_UP_URL",
+        "SENTRY_DNS",
+        "DB_URL",
+        "NEXT_PUBLIC_ENV",
+        "NEXT_PUBLIC_APP_URL",
+        "NEXT_PUBLIC_API_URL",
+        "NEXT_PUBLIC_WORKER_URL",
+        "NEXT_PUBLIC_PORT",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "GOOGLE_PROJECT_ID",
+        "GOOGLE_SERVICE_KEY",
+        "GOOGLE_INVOICE_EXTRACTOR_ID",
+        "GOOGLE_REGION",
+        "AWS_REGION",
+        "AWS_SECRET_ACCESS_KEY",
+        "AWS_ACCESS_KEY_ID",
+        "MS_CLIENT_ID",
+        "MS_CLIENT_SECRET",
+        "MS_TENANT_ID",
+        "NEXT_PUBLIC_LOGO_DEV_PUBLIC_KEY"
       ],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env"
-      ],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ],
+      "dependsOn": ["^lint"],
       "inputs": [
         "$TURBO_DEFAULT$",
         ".eslintrc.*",
@@ -28,9 +43,7 @@
       ]
     },
     "check-types": {
-      "dependsOn": [
-        "^check-types"
-      ]
+      "dependsOn": ["^check-types"]
     },
     "dev": {
       "cache": false
@@ -41,12 +54,10 @@
     "dev:trigger": {
       "cache": false
     },
-    "deploy:trigger":  {
+    "deploy:trigger": {
       "cache": false
     }
   },
   "envMode": "loose",
-  "globalEnv": [
-    "NEXT_RUNTIME"
-  ]
+  "globalEnv": ["NEXT_RUNTIME"]
 }

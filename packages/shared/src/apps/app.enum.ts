@@ -1,7 +1,12 @@
 import z  from "zod"
 
 export enum AppSlug {
-    GMAIL = "gmail"
+    GMAIL = "gmail",
+    OUTLOOK = "outlook"
+}
+export enum AppType {
+    SOURCE = "source",
+    DESTINATION = "destination"
 }
 export enum AppCategory {
     EMAIL = "email",
@@ -18,4 +23,7 @@ export const ZAppSlug = z.enum(
 )
 export const ZAppCategory = z.enum(
     Object.values(AppCategory) as [AppCategory, ...AppCategory[]]
+)
+export const ZAppType = z.enum(
+    Object.values(AppType) as [AppType, ...AppType[]]
 )

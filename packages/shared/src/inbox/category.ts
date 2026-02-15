@@ -1,8 +1,6 @@
 export const EmailCategoryValues = [
   "INVOICE",
   "RECEIPT",
-  "PAYMENT_CONFIRMATION",
-  "TRANSACTIONAL",
   "OTHER"
 ] as const
 

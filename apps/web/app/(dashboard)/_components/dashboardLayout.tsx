@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { H4, Small } from '@snappin/ui/components/typography';
+import { H2, Small } from '@snappin/ui/components/typography';
 
 type DashboardContextValue = {
   scope: 'dashboard';
@@ -26,7 +26,7 @@ export const Dashboard = ({
 }) => {
   return (
     <DashboardContext.Provider value={{ scope: 'dashboard' }}>
-      <div className="p-8 px-14">
+      <div className="p-4 xl:p-0">
         {children}
       </div>
     </DashboardContext.Provider>
@@ -68,9 +68,9 @@ export const DashboardTitle = ({
   useDashboard();
 
   return (
-    <H4 className="font-extrabold tracking-tight">
+    <H2 className='font-medium'>
       {children}
-    </H4>
+    </H2>
   );
 };
 

@@ -1,0 +1,66 @@
+"use client"
+
+import { cn } from "@snappin/ui/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogMedia,
+} from "../alert-dialog";
+import { useConfirmStore } from "./fn/store";
+
+export const GlobalConfirmDialog = () => {
+  const {
+    open,
+    title,
+    description,
+    icon,
+    confirmLabel = "Confirm",
+    cancelLabel = "Cancel",
+    destructive,
+    size= "default",
+    onConfirm,
+    close,
+  } = useConfirmStore();
+
+  return (
+    <AlertDialog open={open} onOpenChange={close}>
+      <AlertDialogContent size={size}>
+        <AlertDialogHeader>
+            {icon && 
+              <AlertDialogMedia className={cn("w-fit h-fit p-2", destructive && "bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive ")}>
+                {icon}
+              </AlertDialogMedia>
+            }
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {description}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <AlertDialogFooter className="group-data-[size=sm]/alert-dialog-content:grid-cols-1 grid-rows-2 justify-center">
+            <AlertDialogAction
+              className={cn("min-w-full")}
+              variant={destructive ? "destructive" : "primary"}
+              size={"lg"}
+              onClick={() => {
+                onConfirm?.();
+                close();
+              }}
+            >
+                {confirmLabel}
+            </AlertDialogAction>
+            
+            <AlertDialogCancel size={"lg"} className="min-w-full" onClick={close}>
+              {cancelLabel}
+            </AlertDialogCancel>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};

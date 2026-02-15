@@ -16,12 +16,14 @@
   "license": "ISC",
   "devDependencies": {
     "@snappin/typescript-config": "workspace:*",
+    "@snappin/eslint-config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:"
   },
   "dependencies": {
     "@snappin/env": "workspace:*",
+    "@snappin/shared": "workspace:*",
     "tslog": "^4.10.2"
   }
 }

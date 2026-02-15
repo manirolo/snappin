@@ -31,6 +31,7 @@ const badgeVariants = cva(
         info: 'bg-[var(--color-info-accent,var(--color-violet-500))] text-[var(--color-info-foreground,var(--color-white))]',
         outline: 'bg-transparent border border-border text-secondary-foreground',
         destructive: 'bg-destructive text-destructive-foreground',
+        mono: 'bg-black/80 text-white'
       },
       appearance: {
         default: '',
@@ -58,7 +59,7 @@ const badgeVariants = cva(
         variant: 'primary',
         appearance: 'light',
         className:
-          'text-[var(--color-primary-accent,var(--color-blue-700))] bg-[var(--color-primary-soft,var(--color-blue-50))] dark:bg-[var(--color-primary-soft,var(--color-blue-950))] dark:text-[var(--color-primary-soft,var(--color-blue-600))]',
+          'text-[var(--color-primary-accent,var(--color-brand-700))] bg-[var(--color-primary-soft,var(--color-brand-50))] dark:bg-[var(--color-primary-soft,var(--color-brand-950))] dark:text-[var(--color-primary-soft,var(--color-brand-600))]',
       },
       {
         variant: 'secondary',

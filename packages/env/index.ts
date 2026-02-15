@@ -17,15 +17,36 @@ export const env = {
     url: process.env.DB_URL!,
   },
 
-  env: process.env.ENV!,
+  env: process.env.NEXT_PUBLIC_ENV!,
   app_url: process.env.NEXT_PUBLIC_APP_URL!,
+
+  app: {
+    frontend_url: process.env.NEXT_PUBLIC_APP_URL!,
+    api_url: process.env.NEXT_PUBLIC_API_URL!,
+    worker_port: process.env.NEXT_PUBLIC_PORT!,
+    worker_url: process.env.NEXT_PUBLIC_WORKER_URL!,
+  },
 
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     projectId: process.env.GOOGLE_PROJECT_ID!,
     serviceKey: process.env.GOOGLE_SERVICE_KEY!,
-    invoiceExtractorId: process.env.GOOGLE_INVOICE_EXTRACTOR_ID!
+    invoiceExtractorId: process.env.GOOGLE_INVOICE_EXTRACTOR_ID!,
+    region: process.env.GOOGLE_REGION!,
+  },
+  aws: {
+    region: process.env.AWS_REGION!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!
+  },
+  microsoft: {
+    clientId: process.env.MS_CLIENT_ID!,
+    clientSecret: process.env.MS_CLIENT_SECRET!,
+    tenantId: process.env.MS_TENANT_ID!,
+  },
+  logoDev: {
+    publicKey: process.env.NEXT_PUBLIC_LOGO_DEV_PUBLIC_KEY!
   }
 };
 
