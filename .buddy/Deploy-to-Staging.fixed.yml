@@ -7,7 +7,7 @@
   events:
   - type: PUSH
   actions:
-  - action: npm test
+  - action: 'pnpm install & build '
     type: BUILD
     execute_commands:
     - corepack enable
