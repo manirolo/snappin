@@ -1,0 +1,32 @@
+name: Turbo
+description: Use turbo for lint, check-types, and build
+
+inputs:
+  app_path:
+    description: Path to the app directory
+    required: true
+  app_name:
+    description: Name of the app for log visibility
+    required: true
+
+runs:
+  using: composite
+  steps:
+  - name: Install Turbo CLI
+    shell: bash
+    run: pnpm add -g turbo
+
+  - name: Run ESLint for ${{ inputs.app_name }}
+    shell: bash
+    continue-on-error: true
+    run: turbo lint --filter=${{ inputs.app_path }}
+
+  - name: Run check types for ${{ inputs.app_name }}
+    shell: bash
+    continue-on-error: true
+    run: turbo check-types --filter=${{ inputs.app_path }}
+
+  - name: Run test for ${{ inputs.app_name }}
+    shell: bash
+    continue-on-error: true
+    run: infisical run -- turbo test --filter=${{ inputs.app_path }}

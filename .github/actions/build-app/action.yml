@@ -1,0 +1,27 @@
+name: Build App
+description: Build any app using Infisical, pnpm, and shared setup
+
+inputs:
+  app_path:
+    description: Path to the app directory (e.g. apps/api)
+    required: true
+  app_name:
+    description: Name of the app for log visibility
+    required: true
+
+runs:
+  using: composite
+  steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
+
+  - name: Setup environment
+    uses: ./.github/actions/setup
+  - uses: ./.github/actions/turbo
+    with:
+      app_name: ${{ inputs.app_name }}
+      app_path: ${{ inputs.app_path }}
+
+  - name: Build ${{ inputs.app_name }}
+    shell: bash
+    run: turbo build --filter=${{ inputs.app_path }}

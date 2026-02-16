@@ -1,0 +1,83 @@
+name: Pull request build and test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  SECRET_PLATFORM_METHOD: ${{ secrets.SECRET_PLATFORM_METHOD }}
+  SECRET_PLATFORM_IDENTITY_ID: ${{ secrets.SECRET_PLATFORM_IDENTITY_ID }}
+  SECRET_PLATFORM_DOMAIN: ${{ secrets.SECRET_PLATFORM_DOMAIN }}
+  SECRET_PLATFORM_CLIENT_ID: ${{ secrets.SECRET_PLATFORM_CLIENT_ID }}
+  SECRET_PLATFORM_CLIENT_SECRET: ${{ secrets.SECRET_PLATFORM_CLIENT_SECRET }}
+  SECRET_PLATFORM_ENV_SLUG: ${{ secrets.SECRET_PLATFORM_ENV_SLUG }}
+  SECRET_PLATFORM_PROJECT: ${{ secrets.SECRET_PLATFORM_PROJECT }}
+  HUGEICONS_LICENSE_KEY: ${{ secrets.HUGEICONS_LICENSE_KEY }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+      api: ${{ steps.filter.outputs.api }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+              - 'packages/trpc/**'
+              - 'packages/env/**'
+              - 'packages/lib/**'
+              - 'packages/shared/**'
+              - 'packages/apps/**'
+              - 'packages/features/**'
+
+            web:
+              - 'apps/web/**'
+              - 'packages/trpc/**'
+              - 'packages/env/**'
+              - 'packages/lib/**'
+              - 'packages/shared/**'
+              - 'packages/apps/**'
+              - 'packages/features/**'
+              - 'packages/ui/**'
+
+  build-web:
+    needs: [changes]
+    runs-on: ubuntu-latest
+    if: needs.changes.outputs.web == 'true'
+    continue-on-error: true
+    outputs:
+      result: ${{ steps.build.conclusion }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        uses: ./.github/actions/build-app
+        with:
+          app_name: Landing website
+          app_path: "@snappin/web"
+  build-api:
+    needs: [changes]
+    runs-on: ubuntu-latest
+    if: needs.changes.outputs.api == 'true'
+    continue-on-error: true
+    outputs:
+      result: ${{ steps.build.conclusion }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: build
+        uses: ./.github/actions/build-app
+        with:
+          app_name: Landing website
+          app_path: "@snappin/api"

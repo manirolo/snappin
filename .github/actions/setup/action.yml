@@ -1,0 +1,50 @@
+name: Environment Setup
+description: Setup pnpm & node with dependencies
+
+inputs:
+  node_version:
+    description: Use specified node version
+    required: false
+    default: "20"
+  pnpm_version:
+    description: Use specified pnpm version
+    required: false
+    default: "10.4.1"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup node ${{ inputs.node_version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+
+    - name: Load Infisical Secrets
+      uses: Infisical/secrets-action@v1.0.9
+      with:
+        method: ${{ env.SECRET_PLATFORM_METHOD }}
+        identity-id: ${{ env.SECRET_PLATFORM_IDENTITY_ID }}
+        domain: ${{ env.SECRET_PLATFORM_DOMAIN }}
+        client-id: ${{ env.SECRET_PLATFORM_CLIENT_ID }}
+        client-secret: ${{ env.SECRET_PLATFORM_CLIENT_SECRET }}
+        env-slug: ${{ env.SECRET_PLATFORM_ENV_SLUG }}
+        project-slug: ${{ env.SECRET_PLATFORM_PROJECT }}
+
+    - name: Install Infisical CLI
+      shell: bash
+      run: npm install -g @infisical/cli
+
+    - name: Setup .npmrc
+      shell: bash
+      run: |
+        echo "@hugeicons-pro:registry=https://npm.hugeicons.com/" >> ~/.npmrc
+        echo "//npm.hugeicons.com/:_authToken=${HUGEICONS_LICENSE_KEY}" >> ~/.npmrc
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v3
+      with:
+        version: ${{ inputs.pnpm_version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile

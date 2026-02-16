@@ -39,6 +39,7 @@ yarn-error.log*
 
 # Environment Variables
 .env
+.npmrc
 
 # Infisical Environment Variables
 .infisical.*
