@@ -12,6 +12,7 @@
         "NEXT_PUBLIC_CLERK_SIGN_UP_URL",
         "SENTRY_DNS",
         "DB_URL",
+        "PORT",
         "NEXT_PUBLIC_ENV",
         "NEXT_PUBLIC_APP_URL",
         "NEXT_PUBLIC_API_URL",

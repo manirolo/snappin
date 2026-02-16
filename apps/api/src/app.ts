@@ -37,10 +37,11 @@ app.all(`/api/${API_VERSION}/trpc/*`, async (c) => {
 })
 
 app.route(`/api/${API_VERSION}`, router)
+const port = Number(process.env.PORT) || 8080
 
 serve({
   fetch: app.fetch,
-  port: 3014
+  port
 }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`)
 })

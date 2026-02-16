@@ -29,6 +29,6 @@ COPY --from=installer --chown=app:app /app .
 
 USER app
 WORKDIR /app/apps/api
-EXPOSE 3001
+EXPOSE 8080
 
 CMD ["pnpm", "start"]
