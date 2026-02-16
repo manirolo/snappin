@@ -5,6 +5,11 @@
   fail_on_prepare_env_warning: true
   events:
   - type: PUSH
+  variables:
+  - key: INFISICAL_PROJECT_ID
+    value: e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc
+  - key: INFISICAL_TOKEN
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGl0eUlkIjoiODBmMzYyZTAtZmE4ZC00ZGRkLWEyYWYtZmM0YzRkZDc2ZTlhIiwiaWRlbnRpdHlBY2Nlc3NUb2tlbklkIjoiMmMwZmZjMGMtMmE2Ni00MTI5LTk0YmMtZDA0MWU2YmRiN2NjIiwiYXV0aFRva2VuVHlwZSI6ImlkZW50aXR5QWNjZXNzVG9rZW4iLCJpYXQiOjE3NzEyMTk5NjIsImV4cCI6MTc3ODk5NTk2Mn0.g2pxy2WI2kKfyMP4M-laIQaWzowz7_nO7sXHcWfQXTs
   actions:
   - action: 'pnpm install & build '
     type: BUILD
