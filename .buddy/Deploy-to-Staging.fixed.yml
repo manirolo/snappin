@@ -3,7 +3,6 @@
   refs:
   - refs/heads/main
   fail_on_prepare_env_warning: true
-  resources: NANO
   events:
   - type: PUSH
   actions:
@@ -16,3 +15,24 @@
     shell: BASH
     docker_image_name: library/node
     docker_image_tag: 20
+  - action: Build Docker image
+    type: DOCKERFILE
+    do_not_prune_images: true
+    dockerfile_path: apps/api/Dockerfile
+    context_path: .
+  - action: Push Docker image
+    type: DOCKER_PUSH
+    docker_image_tag: "stg-$BUDDY_EXECUTION_REVISION,stg-latest"
+    docker_registry: GOOGLE_ARTIFACT_REGISTRY
+    registry: us-central1-docker.pkg.dev
+    integration: google-cloud
+    repository: us-central1-docker.pkg.dev/snappin-ai/snappin-api/api
+  - action: Deploy container to Google Cloud Run
+    type: GOOGLE_CLOUD_RUN_DEPLOY
+    application_name: snappin-ai
+    arguments: --allow-unauthenticated
+    service: snappin-api-stg
+    image: us-central1-docker.pkg.dev/snappin-ai/snappin-api/api:stg-$BUDDY_EXECUTION_REVISION
+    platform: MANAGED
+    region: us-central1
+    integration: google-cloud
