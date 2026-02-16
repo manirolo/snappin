@@ -19,7 +19,11 @@
     - corepack enable
     - pnpm install --frozen-lockfile
     - ""
-    - npx infisical run --env=staging -- pnpm turbo build
+    - npx infisical run \
+    - '  --token=$INFISICAL_TOKEN \'
+    - '  --projectId=$INFISICAL_PROJECT_ID \'
+    - '  --env=staging \'
+    - '  -- pnpm turbo build'
     shell: BASH
     docker_image_name: library/node
     docker_image_tag: 20
