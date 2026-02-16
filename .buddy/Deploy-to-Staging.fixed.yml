@@ -9,6 +9,8 @@
   - action: 'pnpm install & build '
     type: BUILD
     execute_commands:
+    - export NODE_OPTIONS="--max-old-space-size=4096"
+    - ""
     - corepack enable
     - pnpm install --frozen-lockfile
     - pnpm turbo build
