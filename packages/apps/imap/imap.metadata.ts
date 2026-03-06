@@ -1,0 +1,19 @@
+import { AppCategory, AppMetadata, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
+
+export const imapMetadata: AppMetadata = {
+    name: "IMAP",
+    publisher: {
+        name: "Snappin",
+        email: "support@snappinapp.com"
+    },
+    description: "Connect your company email account to extract invoices",
+    iconifyIcon: "tabler:at",
+    disclaimer: "We only scan invoice-related emails",
+    slug: AppSlug.IMAP,
+    role: [AppRole.EMAIL_SOURCE],
+    category: AppCategory.EMAIL,
+    type: AppType.SOURCE,
+    // services: GmailAppServices,
+    enableOnOnboarding: true,
+    isComingSoon: true,
+}

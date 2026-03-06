@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import { timestampPlugin } from "../plugin/timestamps.plugin"
 import { IntegrationStatus } from "@snappin/shared/integration/status.enum"
-import { AppCategory, AppSlug, AppType } from "@snappin/shared/apps/app.enum"
+import { AppCategory, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema"
 import { IntegrationResource } from "@snappin/shared/integration/integration.schema"
 
 const IntegrationSchema = new mongoose.Schema<IntegrationResource>({
@@ -20,6 +20,7 @@ const IntegrationSchema = new mongoose.Schema<IntegrationResource>({
 
     appSlug: { type: String, enum: AppSlug, required: true },
     appCategory: { type: String, enum: AppCategory, required: true },
+    appRole: { type: [String], enum: AppRole, required: true },
     appType: { type: String, enum: AppType, default: null }, 
 
     identifierEmail: { type: String, default: null },
@@ -34,6 +35,15 @@ const IntegrationSchema = new mongoose.Schema<IntegrationResource>({
     createdAt: Number,
     updatedAt: Number
 })
+
+IntegrationSchema.index({ orgId: 1, appSlug: 1 }, { unique: true })
+IntegrationSchema.index({ identifierEmail: 1 })
+IntegrationSchema.index({ status: 1 })
+IntegrationSchema.index({ accessTokenExpiresAt: 1 })
+IntegrationSchema.index(
+  { orgId: 1, identifierEmail: 1, appSlug: 1 },
+  { unique: true, sparse: true }
+)
 
 IntegrationSchema.plugin(timestampPlugin)
 

@@ -1,11 +1,11 @@
 import z from "zod";
-import { AppCategory, AppSlug, AppType } from "../apps/app.enum";
+import { AppCategory, AppRole, AppSlug, AppType } from "../apps/app.schema";
 import { IntegrationStatus } from "./status.enum";
 
 export type BaseIntegration = {
   _id?: string | null
 
-  userId?: string | null
+  userId: string
   orgId?: string | null
 
   accessToken?: string | null
@@ -20,6 +20,7 @@ export type BaseIntegration = {
 
   appSlug?: AppSlug | null
   appCategory?: AppCategory | null
+  appRole?: AppRole[] | null
   appType?: AppType | null
 
   identifierEmail?: string | null

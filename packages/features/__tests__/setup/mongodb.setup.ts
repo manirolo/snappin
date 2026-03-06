@@ -1,0 +1,24 @@
+import { MongoMemoryServer } from "mongodb-memory-server"
+import mongoose from "mongoose"
+import { beforeAll, afterAll, afterEach } from "vitest"
+
+let mongod: MongoMemoryServer
+
+beforeAll(async () => {
+  mongod = await MongoMemoryServer.create()
+  const uri = mongod.getUri()
+  // Connect directly with mongoose — bypasses connectDB's env requirement
+  await mongoose.connect(uri)
+})
+
+afterEach(async () => {
+  const collections = mongoose.connection.collections
+  for (const key in collections) {
+    await collections[key]?.deleteMany({})
+  }
+})
+
+afterAll(async () => {
+  await mongoose.disconnect()
+  await mongod.stop()
+})

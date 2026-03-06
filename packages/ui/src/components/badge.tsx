@@ -95,7 +95,7 @@ const badgeVariants = cva(
         variant: 'primary',
         appearance: 'outline',
         className:
-          'text-[var(--color-primary-accent,var(--color-blue-700))] border-[var(--color-primary-soft,var(--color-blue-100))] bg-[var(--color-primary-soft,var(--color-blue-50))] dark:bg-[var(--color-primary-soft,var(--color-blue-950))] dark:border-[var(--color-primary-soft,var(--color-blue-900))] dark:text-[var(--color-primary-soft,var(--color-blue-600))]',
+          'text-[var(--color-primary-accent,var(--color-brand-700))] border-[var(--color-primary-soft,var(--color-brand-100))] bg-[var(--color-primary-soft,var(--color-brand-50))] dark:bg-[var(--color-primary-soft,var(--color-brand-950))] dark:border-[var(--color-primary-soft,var(--color-brand-900))] dark:text-[var(--color-primary-soft,var(--color-brand-600))]',
       },
       {
         variant: 'success',
@@ -107,7 +107,7 @@ const badgeVariants = cva(
         variant: 'warning',
         appearance: 'outline',
         className:
-          'text-[var(--color-warning-accent,var(--color-yellow-700))] border-[var(--color-warning-soft,var(--color-yellow-200))] bg-[var(--color-warning-soft,var(--color-yellow-50))] dark:bg-[var(--color-warning-soft,var(--color-yellow-950))] dark:border-[var(--color-warning-soft,var(--color-yellow-900))] dark:text-[var(--color-warning-soft,var(--color-yellow-600))]',
+          'text-[var(--color-warning-accent,var(--color-yellow-700))] border-0 bg-[var(--color-warning-soft,var(--color-yellow-50))] dark:bg-[var(--color-warning-soft,var(--color-yellow-950))] dark:border-0 dark:text-[var(--color-warning-soft,var(--color-yellow-600))]',
       },
       {
         variant: 'info',

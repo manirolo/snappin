@@ -1,4 +1,4 @@
-import { ZAnalyzeEngine } from "@snappin/shared/invoice/invoice.schema"
+import { ZAnalyzeEngine } from "@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema"
 
 export type SnappinErrorCode =
     | "llm_empty_response"
@@ -12,6 +12,8 @@ export type SnappinErrorCode =
     | "invalid_integration_request"
 
     | "no_integration_found"
+
+    | "no_attachment_with_request"
 
 export type LLMErrorMeta = {
     analyzeEngine?: (typeof ZAnalyzeEngine.options)[number];

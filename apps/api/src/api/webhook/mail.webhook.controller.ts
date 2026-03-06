@@ -1,5 +1,5 @@
 import type { Context } from 'hono'
-import { AppSlug } from '@snappin/shared/apps/app.enum'
+import { AppSlug } from '@snappin/shared/apps/app.schema'
 import { mailReceived } from "@snappin/features/inbox/trigger/mail/mail.received.task"
 import { EmailAppsStore } from '@snappin/apps/appRegistry';
 

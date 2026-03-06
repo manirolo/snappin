@@ -1,50 +1,49 @@
-import * as React from 'react';
-import { cn } from '@snappin/ui/lib/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from "react";
+import { cn } from "@snappin/ui/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 
 // Define input size variants
 const inputVariants = cva(
   `
-    flex w-full bg-white border border-input transition-[color,box-shadow] text-foreground placeholder:text-muted-foreground/80 
-    focus-visible:ring-border focus-visible:ring-offset-2  focus-visible:border-border focus-visible:outline-none focus-visible:ring-[2px]     
+    flex w-full bg-input font-dm-sans border border-border-input transition-[color,box-shadow] text-foreground placeholder:text-muted-foreground/80     
     disabled:cursor-not-allowed disabled:opacity-60 
     [&[readonly]]:bg-muted/80 [&[readonly]]:cursor-not-allowed
     file:h-full [&[type=file]]:py-0 file:border-solid file:border-input file:bg-transparent 
     file:font-medium file:not-italic file:text-foreground file:p-0 file:border-0 file:border-e
     aria-invalid:border-destructive/60 aria-invalid:ring-destructive/10 dark:aria-invalid:border-destructive dark:aria-invalid:ring-destructive/20
-    shadow-[0px_2px_0px_var(--color-gray-3)] hover:shadow-[0px_2px_0px_var(--color-shadow)] hover:border-shadow bg-white border border-gray-4
+    hover:border-shadow bg-input border-border-input border outline-none focus-visible:outline-none
   `,
   {
     variants: {
       variant: {
-        lg: 'h-10 px-4 text-sm rounded-md file:pe-4 file:me-4',
-        md: 'h-9 px-3 text-sm rounded-md file:pe-3 file:me-3',
-        sm: 'h-7 px-2.5 text-xs rounded-md file:pe-2.5 file:me-2.5',
+        lg: "h-10 px-4 rounded-md file:pe-4 file:me-4",
+        md: "h-8 px-2 rounded-md file:pe-3 file:me-3",
+        sm: "h-7 px-2.5 text-xs rounded-md file:pe-2.5 file:me-2.5",
       },
     },
     defaultVariants: {
-      variant: 'md',
+      variant: "md",
     },
   },
 );
 
 const inputAddonVariants = cva(
-  'flex items-center shrink-0 justify-center bg-muted border border-input shadow-xs shadow-[rgba(0,0,0,0.05)] text-secondary-foreground [&_svg]:text-secondary-foreground/60',
+  "flex items-center shrink-0 justify-center bg-muted border border-input shadow-xs shadow-[rgba(0,0,0,0.05)] text-secondary-foreground [&_svg]:text-secondary-foreground/60",
   {
     variants: {
       variant: {
-        lg: 'rounded-md h-10 min-w-10 px-4 text-sm [&_svg:not([class*=size-])]:size-4.5',
-        md: 'rounded-md h-9 min-w-9 px-3 text-sm [&_svg:not([class*=size-])]:size-4.5',
-        sm: 'rounded-md h-8 min-w-7 text-xs px-2.5 [&_svg:not([class*=size-])]:size-3.5',
+        lg: "rounded-md h-10 min-w-10 px-4 [&_svg:not([class*=size-])]:size-4.5",
+        md: "rounded-md h-9 min-w-9 px-3 [&_svg:not([class*=size-])]:size-4.5",
+        sm: "rounded-md h-8 min-w-7 text-xs px-2.5 [&_svg:not([class*=size-])]:size-3.5",
       },
       mode: {
-        default: '',
-        icon: 'px-0 justify-center',
+        default: "",
+        icon: "px-0 justify-center",
       },
     },
     defaultVariants: {
-      variant: 'md',
-      mode: 'default',
+      variant: "md",
+      mode: "default",
     },
   },
 );
@@ -79,15 +78,19 @@ const inputGroupVariants = cva(
 const inputWrapperVariants = cva(
   `
     flex items-center gap-1.5
-    has-[:focus-visible]:ring-gray-5/50 
-    has-[:focus-visible]:ring-offset-2 
-    has-[:focus-visible]:border-gray-6
+    has-[:focus-visible]:ring-blue-300  
+    has-[:focus-visible]:border-blue-300  
+    has-[:focus-visible]:ring
     has-[:focus-visible]:outline-none 
-    has-[:focus-visible]:ring-[2px]
-
+    bg-transparent
+    border-border-input
+    border-2
+    shadow-none
+    rounded-lg
+    transition-all duration-200
     [&_[data-slot=datefield]]:grow 
     [&_[data-slot=input]]:data-focus-within:ring-transparent  
-    [&_[data-slot=input]]:data-focus-within:ring-0 
+    [&_[data-slot=input]]:data-focus-within:ring-1 
     [&_[data-slot=input]]:data-focus-within:border-0 
     [&_[data-slot=input]]:flex 
     [&_[data-slot=input]]:w-full 
@@ -115,13 +118,13 @@ const inputWrapperVariants = cva(
   {
     variants: {
       variant: {
-        sm: 'gap-1.25 [&_svg:not([class*=size-])]:size-3.5',
-        md: 'gap-1.5 [&_svg:not([class*=size-])]:size-4',
-        lg: 'gap-1.5 [&_svg:not([class*=size-])]:size-4',
+        sm: "gap-1.25 [&_svg:not([class*=size-])]:size-3.5",
+        md: "gap-1.5 [&_svg:not([class*=size-])]:size-4",
+        lg: "gap-1.5 [&_svg:not([class*=size-])]:size-4",
       },
     },
     defaultVariants: {
-      variant: 'md',
+      variant: "md",
     },
   },
 );
@@ -131,8 +134,15 @@ function Input({
   type,
   variant,
   ...props
-}: React.ComponentProps<'input'> & VariantProps<typeof inputVariants>) {
-  return <input data-slot="input" type={type} className={cn(inputVariants({ variant }), className)} {...props} />;
+}: React.ComponentProps<"input"> & VariantProps<typeof inputVariants>) {
+  return (
+    <input
+      data-slot="input"
+      type={type}
+      className={cn(inputVariants({ variant }), className)}
+      {...props}
+    />
+  );
 }
 
 function InputAddon({
@@ -140,26 +150,52 @@ function InputAddon({
   variant,
   mode,
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof inputAddonVariants>) {
-  return <div data-slot="input-addon" className={cn(inputAddonVariants({ variant, mode }), className)} {...props} />;
+}: React.ComponentProps<"div"> & VariantProps<typeof inputAddonVariants>) {
+  return (
+    <div
+      data-slot="input-addon"
+      className={cn(inputAddonVariants({ variant, mode }), className)}
+      {...props}
+    />
+  );
 }
 
-function InputGroup({ className, ...props }: React.ComponentProps<'div'> & VariantProps<typeof inputGroupVariants>) {
-  return <div data-slot="input-group" className={cn(inputGroupVariants(), className)} {...props} />;
+function InputGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div"> & VariantProps<typeof inputGroupVariants>) {
+  return (
+    <div
+      data-slot="input-group"
+      className={cn(inputGroupVariants(), className)}
+      {...props}
+    />
+  );
 }
 
 function InputWrapper({
   className,
   variant,
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof inputWrapperVariants>) {
+}: React.ComponentProps<"div"> & VariantProps<typeof inputWrapperVariants>) {
   return (
     <div
       data-slot="input-wrapper"
-      className={cn(inputVariants({ variant }), inputWrapperVariants({ variant }), className)}
+      className={cn(
+        inputVariants({ variant }),
+        inputWrapperVariants({ variant }),
+        className,
+      )}
       {...props}
     />
   );
 }
 
-export { Input, InputAddon, InputGroup, InputWrapper, inputVariants, inputAddonVariants };
+export {
+  Input,
+  InputAddon,
+  InputGroup,
+  InputWrapper,
+  inputVariants,
+  inputAddonVariants,
+};

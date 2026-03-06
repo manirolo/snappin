@@ -2,86 +2,114 @@
 
 import * as React from "react";
 import { H4, Small } from "@snappin/ui/components/typography";
+import { cn } from "@snappin/ui/lib/utils";
 
-type DashboardContextValue = {
-  scope: "dashboard";
-};
-
-const DashboardContext = React.createContext<DashboardContextValue | null>(
-  null,
+export const Dashboard = ({
+  children,
+  sidePanel,
+  sidePanelClassName,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & {
+  sidePanel?: React.ReactNode;
+  sidePanelClassName?: string;
+}) => (
+  <div className={cn("relative flex h-full w-full overflow-hidden", className)} {...props}>
+    <div className={cn("flex min-w-0 flex-1 flex-col h-screen overflow-y-auto")}>
+      {children}
+    </div>
+    {sidePanel && (
+      <aside
+        className={cn(
+          "sticky top-0 h-screen w-md shrink-0 overflow-y-auto border-l border-sidebar-border bg-background",
+          sidePanelClassName,
+        )}
+      >
+        {sidePanel}
+      </aside>
+    )}
+  </div>
 );
-
-function useDashboard() {
-  const context = React.useContext(DashboardContext);
-  if (!context) {
-    throw new Error("Dashboard components must be used within <Dashboard />");
-  }
-  return context;
-}
-
-export const Dashboard = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <DashboardContext.Provider value={{ scope: "dashboard" }}>
-      <div className="px-4 xl:px-0">{children}</div>
-    </DashboardContext.Provider>
-  );
-};
 
 export const DashboardHeader = ({
   children,
-}: {
-  children: React.ReactNode;
-}) => {
-  useDashboard();
-
-  return (
-    <div className="flex my-2 items-start justify-between gap-4">
-      {children}
-    </div>
-  );
-};
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-wrap items-center border-b pb-6 justify-start gap-4 px-8 pt-4",
+      className,
+    )}
+    {...props}
+  >
+    {children}
+  </div>
+);
 
 export const DashboardHeaderMain = ({
   children,
+  className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
-  return <div {...props}>{children}</div>;
-};
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={cn("flex flex-col gap-0.5", className)} {...props}>
+    {children}
+  </div>
+);
 
-export const DashboardTitle = ({ children }: { children: React.ReactNode }) => {
-  useDashboard();
-
-  return <H4>{children}</H4>;
-};
+export const DashboardTitle = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => <H4 className={cn("text-start font-bold", className)}>{children}</H4>;
 
 export const DashboardDescription = ({
   children,
+  className,
 }: {
   children: React.ReactNode;
-}) => {
-  useDashboard();
-
-  return (
-    <Small className="text-muted-foreground mt-1 max-w-2xl">{children}</Small>
-  );
-};
+  className?: string;
+}) => (
+  <Small className={cn("max-w-2xl text-start font-medium text-muted-foreground", className)}>
+    {children}
+  </Small>
+);
 
 export const DashboardActions = ({
   children,
+  className,
 }: {
   children: React.ReactNode;
-}) => {
-  useDashboard();
-
-  return <div className="ml-auto flex items-center gap-2">{children}</div>;
-};
+  className?: string;
+}) => (
+  <div className={cn("ml-auto flex items-center gap-2", className)}>
+    {children}
+  </div>
+);
 
 export const DashboardContent = ({
   children,
+  className,
 }: {
   children: React.ReactNode;
-}) => {
-  useDashboard();
+  className?: string;
+}) => (
+  <div className={cn("mt-4 w-full px-8", className)}>{children}</div>
+);
 
-  return <div className="mt-5 w-full">{children}</div>;
+export const DashboardDetailPanel = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+
+  return (
+    <div className={cn("flex h-full w-full flex-col p-6", className)}>
+      {children}
+    </div>
+  );
 };

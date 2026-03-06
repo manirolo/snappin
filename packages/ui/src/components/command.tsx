@@ -11,6 +11,7 @@ import { type DialogProps } from "@radix-ui/react-dialog";
 import { Command as CommandPrimitive } from "cmdk";
 import { Search } from "lucide-react";
 import { Icon } from "@iconify/react";
+import { InputWrapper } from "./input";
 
 /* eslint-disable react/no-unknown-property */
 function Command({
@@ -49,14 +50,11 @@ const CommandDialog = ({
 
 function CommandInput({
   className,
+  inputClassName,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Input>) {
+}: React.ComponentProps<typeof CommandPrimitive.Input> & {inputClassName?: string}) {
   return (
-    <div
-      className="flex items-center border-border border-b px-3"
-      cmdk-input-wrapper=""
-      data-slot="command-input"
-    >
+    <InputWrapper className={cn("h-8", inputClassName)} data-slot="command-input">
       <CommandPrimitive.Input
         className={cn(
           "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-hidden text-foreground placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50",
@@ -65,7 +63,7 @@ function CommandInput({
         {...props}
       />
       <Search className="me-2 h-4 w-4 shrink-0 opacity-50" />
-    </div>
+    </InputWrapper>
   );
 }
 

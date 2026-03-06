@@ -1,20 +1,40 @@
-import { trpc } from "@snappin/trpc/react/client";
+import { AppRole } from "@snappin/shared/apps/app.schema";
+import { trpc } from "@snappin/features/trpc/react/client";
 
-export const useIntegration = ({ connectedSource, }: { connectedSource?: boolean;}) => {
-  const query = trpc.integration.connectedSource.useQuery(
-    undefined,
+export const useIntegration = ({
+  connectedEmailAccounts: fetchEmailAccounts,
+  connectedMobileScanners: fetchMobileScanners,
+}: {
+  connectedEmailAccounts?: boolean;
+  connectedMobileScanners?: boolean;
+}) => {
+  const emailAccountsQuery = trpc.integration.connectedSource.useQuery(
+    { appRole: AppRole.EMAIL_SOURCE },
     {
-      enabled: connectedSource === true, 
+      enabled: fetchEmailAccounts === true,
       refetchOnWindowFocus: false,
       retry: 1,
-    }
+    },
+  );
+
+  const mobileScannerQuery = trpc.integration.connectedSource.useQuery(
+    { appRole: AppRole.MOBILE_SCANNER },
+    {
+      enabled: fetchMobileScanners === true,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
   );
 
   return {
-    connectedSource: query.data,
-    isLoading: query.isLoading,
-    isFetching: query.isFetching,
-    error: query.error,
-    refetch: query.refetch,
+    connectedEmailAccounts: emailAccountsQuery.data,
+    connectedMobileScanners: mobileScannerQuery.data,
+    isLoading: emailAccountsQuery.isLoading || mobileScannerQuery.isLoading,
+    isFetching: emailAccountsQuery.isFetching || mobileScannerQuery.isFetching,
+    error: emailAccountsQuery.error ?? mobileScannerQuery.error,
+    refetch: () => {
+      emailAccountsQuery.refetch();
+      mobileScannerQuery.refetch();
+    },
   };
 };

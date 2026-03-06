@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React from "react";
 import {
@@ -20,8 +20,8 @@ import { DotSpinner } from "@snappin/ui/assets/svg/dotSpinner";
 import Link from "next/link";
 
 export const Home = () => {
-  const { connectedSource, isLoading } = useIntegration({
-    connectedSource: true,
+  const { connectedEmailAccounts, isLoading } = useIntegration({
+    connectedEmailAccounts: true,
   });
 
   if (isLoading) return <DotSpinner />;
@@ -31,10 +31,10 @@ export const Home = () => {
       <DashboardHeader>
         <DashboardTitle>Overview</DashboardTitle>
       </DashboardHeader>
-      {(!connectedSource || connectedSource.length === 0) && (
+      {(!connectedEmailAccounts || connectedEmailAccounts.length === 0) && (
         <WaitingForFirstSourceConnection />
       )}
-      {(connectedSource && connectedSource.length > 0) &&<DashboardContent>
+      {(connectedEmailAccounts && connectedEmailAccounts.length > 0) &&<DashboardContent>
         <div>
           <Card>
             <CardContent className="border-t-0">
@@ -45,10 +45,10 @@ export const Home = () => {
                 </CardDescription>
               </div>
               <div className="flex gap-2">
-                <Button size={"sm"} asChild>
+                <Button variant="mono" size={"sm"} asChild>
                   <Link href="/invoices">View Invoices</Link>
                 </Button>
-                <Button size={"sm"} asChild>
+                <Button variant="mono" size={"sm"} asChild>
                   <Link href="/retroSearch">Find Past Invoices</Link>
                 </Button>
               </div>

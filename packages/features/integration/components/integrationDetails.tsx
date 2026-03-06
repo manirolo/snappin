@@ -3,7 +3,7 @@ import DialogContent, { Dialog, DialogTrigger, DialogHeader, DialogTitle, Dialog
 import { Icon } from '@iconify/react'
 import { Button } from '@snappin/ui/components/button'
 import { useOAuthRedirect } from '../../auth/redirectToOAuthScreen'
-import { AppCategory, AppSlug, AppType } from '@snappin/shared/apps/app.enum'
+import { AppCategory, AppSlug, AppType } from '@snappin/shared/apps/app.schema'
 import { Spinner } from "@snappin/ui/assets/svg/spinner"
 
 export const IntegrationDetailsWrapper = ({ children, name, description, icon, appSlug, appCategory, appType } : {

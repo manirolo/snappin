@@ -17,6 +17,7 @@
     "@clerk/nextjs": "catalog:",
     "@clerk/types": "^4.101.14",
     "@hugeicons-pro/core-bulk-rounded": "^3.1.0",
+    "@hugeicons-pro/core-solid-rounded": "^3.1.0",
     "@hugeicons-pro/core-stroke-rounded": "^3.1.0",
     "@hugeicons/react": "^1.1.4",
     "@iconify/react": "^6.0.2",
@@ -25,7 +26,6 @@
     "@snappin/features": "workspace:*",
     "@snappin/lib": "workspace:*",
     "@snappin/shared": "workspace:*",
-    "@snappin/trpc": "workspace:*",
     "@snappin/ui": "workspace:*",
     "@tanstack/react-query": "^5.90.19",
     "@trpc/client": "^11.8.1",
@@ -33,12 +33,14 @@
     "@trpc/server": "^11.8.1",
     "currency-symbol-map": "^5.1.0",
     "http-status-codes": "^2.3.0",
+    "iso-country-currency": "^0.7.2",
     "next": "catalog:",
     "next-themes": "catalog:",
     "nprogress": "0.2.0",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hot-toast": "^2.6.0"
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@snappin/eslint-config": "workspace:*",

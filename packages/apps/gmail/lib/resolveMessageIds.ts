@@ -1,7 +1,7 @@
 import { logger } from "@snappin/lib/logger";
 import { ResolveMessageIdsProps, ResolveMessageIdsResponse } from "../../appRegistry.interface";
-import { getGmailClient } from "../config";
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { getGmailClient } from "../gmail.client";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { SnappinError } from "@snappin/lib/error/snappin.error";
 import { getAccessToken } from "./getAccessToken";
 

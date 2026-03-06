@@ -1,3 +1,4 @@
+import { cn } from "@snappin/ui/lib/utils";
 import React from "react";
 
 interface SpinnerProps extends React.SVGProps<SVGSVGElement> {
@@ -16,7 +17,7 @@ export function Spinner({
         height="24"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
-        className={className}
+        className={cn("text-gray-8", className)}
         {...props}
         >
         <style>

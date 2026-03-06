@@ -1,6 +1,6 @@
 import { HttpError } from "@snappin/lib/http-error";
 import { GetUserEmailAddressProps, GetUserEmailAddressResponse } from "../../appRegistry.interface";
-import { getGmailClient } from "../config";
+import { getGmailClient } from "../gmail.client";
 import { StatusCodes } from "http-status-codes"
 
 export async function getUserEmailAddress({ accessToken }: GetUserEmailAddressProps): Promise<GetUserEmailAddressResponse> {

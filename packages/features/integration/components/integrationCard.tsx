@@ -4,7 +4,7 @@ import { ExtraSmall, Lead, Small } from '@snappin/ui/components/typography'
 import { Card, CardHeader, CardContent, CardFooter } from '@snappin/ui/components/card'
 import { Spinner} from '@snappin/ui/assets/svg/spinner'
 import React from 'react'
-import { AppSlug } from '@snappin/shared/apps/app.enum'
+import { AppSlug } from '@snappin/shared/apps/app.schema'
 import { cn } from "@snappin/ui/lib/utils"
 
 export const IntegrationCard = ({children, className,}: {children: React.ReactNode, className?: string}) => {
@@ -25,7 +25,7 @@ export const IntegrationCardHeader = ({children,}: {children: React.ReactNode}) 
 
 export const IntegrationCardIcon = ({icon,}: {icon: string}) => {
     return (
-        <Icon icon={icon} className="size-5 flex items-center justify-center" />
+        <Icon icon={icon} className="size-6 flex items-center justify-center" />
     )
 }
 
@@ -58,12 +58,13 @@ type IntegrationCardProps = {
     description: string;
     appSlug: string;
     icon: string;
-    note?: string;
+    note?: string | null;
+    isComingSoon?: boolean;
     onClick?: () => void;
     loading?: AppSlug | null;
 }
 
-export const Integration = ({ name, description, icon, onClick, loading, note, appSlug }: IntegrationCardProps) => {
+export const Integration = ({ name, description, icon, onClick, loading, note, isComingSoon, appSlug }: IntegrationCardProps) => {
     return(
         <Card className='gap-0'>
             <CardHeader className='border-b-0'>
@@ -85,11 +86,11 @@ export const Integration = ({ name, description, icon, onClick, loading, note, a
             <CardFooter className="flex flex-col gap-2 pb-2 mt-4">
                 <Button variant={"outline"} className='w-full' onClick={onClick} disabled={loading != null} asChild>
                     <div className='flex gap-2'>
-                        {loading == appSlug && <Spinner className="animate-spin" /> }
-                        Connect
+                        {loading == appSlug && <Spinner /> }
+                        {isComingSoon ? "I want this" : "Connect"}
                     </div>
                 </Button>
-                <ExtraSmall className='text-xs pb-2'>{note}</ExtraSmall>
+                {note && <ExtraSmall className='text-xs pb-2'>{note}</ExtraSmall>}
             </CardFooter>
         </Card>
     )

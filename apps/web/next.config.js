@@ -10,16 +10,19 @@ const nextConfig = {
     },
     "@hugeicons-pro/core-duotone-rounded": {
       transform: "@hugeicons-pro/core-duotone-rounded/{{member}}"
-    }
+    },
   },
-  cacheHandler: undefined,
-  cacheMaxMemorySize: 0,
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "img.logo.dev",
-        pathname: "/**", 
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        pathname: "/**",
       },
     ],
   },

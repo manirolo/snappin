@@ -73,7 +73,7 @@ export function formatDate(
 
   const date = normalizeDate(input)
 
-  if (!date) return "--"
+  if (!date) return "—"
 
   if (Number.isNaN(date.getTime())) {
     throw new Error("Invalid date input")

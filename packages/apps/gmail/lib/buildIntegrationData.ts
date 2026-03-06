@@ -1,4 +1,4 @@
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { BuildEmailIntegrationData, BuildEmailIntegrationDataResponse } from "../../appRegistry.interface";
 import { GmailAppServices } from "../gmail.app";
 import { SnappinError } from "@snappin/lib/error/snappin.error";
@@ -18,8 +18,10 @@ export async function buildIntegrationData({
         accessToken
     })
 
+    const integration = { accessToken, refreshToken, accessTokenExpiresAt }
+
     const { historyId, expiresAt } = await GmailAppServices.startWatching({
-        accessToken
+        integration
     })
 
     return {

@@ -1,13 +1,13 @@
 import { Icon } from "@iconify/react";
-import { RouterOutputs } from "@snappin/trpc/_root";
+import { RouterOutputs } from "@snappin/features/trpc/_root";
 import { ColumnDef } from "@snappin/ui/components/table";
 import { appMetadata } from "@snappin/apps/app.metadata"
 import { Paragraph } from "@snappin/ui/components/typography";
 import { Button } from "@snappin/ui/components/button";
 import { Delete02Icon } from "@hugeicons-pro/core-solid-rounded";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { trpc } from "@snappin/trpc/react/client";
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { trpc } from "@snappin/features/trpc/react/client";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
 import { useState } from "react";
 import { Spinner } from "@snappin/ui/assets/svg/spinner";
@@ -65,7 +65,7 @@ export const integrationColumns = (): ColumnDef<IntegrationRow>[] => [
         header: "",
         cell: ({ row }) => (
             <div className="flex items-center gap-2">
-                <Icon icon={row.original.appSlug ? appMetadata[row?.original?.appSlug].icon : ""} />
+                <Icon icon={row.original.appSlug ? appMetadata[row?.original?.appSlug].iconifyIcon : ""} />
                 <Paragraph className="text-slate-400!">{row.original.identifierEmail}</Paragraph>
             </div>
         )

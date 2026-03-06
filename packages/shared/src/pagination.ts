@@ -3,6 +3,7 @@ import type { Model, PopulateOptions } from "mongoose";
 export type PaginateOptions<T> = {
   model: Model<T>;
   query: Record<string, unknown>;
+  extraMatch?: Record<string, unknown>;
   page: number;
   limit: number;
   select?: string;

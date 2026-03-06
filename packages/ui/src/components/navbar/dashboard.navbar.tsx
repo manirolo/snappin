@@ -1,208 +1,128 @@
-"use client";
+import Link from "next/link";
 import { Logo } from "../logo";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
-import { Small } from "../typography";
-import Link from "next/link";
-import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
-import { usePathname } from "next/navigation";
-import { cn } from "@snappin/ui/lib/utils";
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarGroupLabel,
+} from "../sidebar";
+import { IconType } from "react-icons";
 import {
-  Home01Icon,
-  MenuSquareIcon,
-  Search01Icon,
-} from "@hugeicons-pro/core-duotone-rounded";
-import { Icon } from "@iconify/react";
+  HiOutlineCollection,
+  HiOutlineDeviceMobile,
+  HiOutlineInbox,
+  HiOutlineDocument ,
+  HiOutlinePuzzle,
+  HiOutlineCog ,
+} from "react-icons/hi";
+import { cn } from "@snappin/ui/lib/utils";
+import { usePathname } from "next/navigation";
 
-type User = {
-  firstName?: string | null | undefined;
-  lastName?: string | null | undefined;
-  fullName?: string | null | undefined;
-  imageUrl?: string | undefined;
-  primaryEmailAddress?:
-    | {
-        emailAddress: string | null | undefined;
-      }
-    | null
-    | undefined;
+export type Navbar = {
+  href?: string;
+  icon: IconType;
+  label: string;
 };
+
+const mainNav: Navbar[] = [
+  { href: "/home", label: "Home", icon: HiOutlineCollection },
+];
+
+const accountingNav: Navbar[] = [
+  {
+    href: "/bookkeeping/documents",
+    label: "Documents",
+    icon: HiOutlineDocument,
+  },
+];
+
+const sourceNav: Navbar[] = [
+  {
+    href: "/accounts",
+    label: "Email Accounts",
+    icon: HiOutlineInbox ,
+  },
+  {
+    href: "/mobile-scanners",
+    label: "Mobile Scanners",
+    icon: HiOutlineDeviceMobile,
+  },
+];
+
+const settingsNav: Navbar[] = [
+  { href: "/integrations", label: "Integration", icon: HiOutlinePuzzle },
+  { href: "/settings", label: "Settings", icon: HiOutlineCog  },
+];
 
 const isActivePath = (pathname: string, href: string) => {
   if (href === "/") return pathname === "/";
   return pathname.startsWith(href);
 };
 
-type Navbar = {
-  href?: string;
-  icon: IconSvgElement;
-  label: string;
-  type?: "link" | "dropdown";
-};
-
-const nav: Navbar[] = [
-  { href: "/", icon: Home01Icon, label: "Dashboard", type: "link" },
-  { href: "/invoices", icon: Home01Icon, label: "Invoices", type: "link" },
-  { label: "Source", icon: MenuSquareIcon, type: "dropdown" },
-  {
-    href: "/retroSearch",
-    icon: Search01Icon,
-    label: "Retroactive",
-    type: "link",
-  },
-  {
-    href: "/integrations",
-    icon: MenuSquareIcon,
-    label: "Integrations",
-    type: "link",
-  },
-  { href: "/settings", icon: MenuSquareIcon, label: "Settings", type: "link" },
-];
-
-const NavItems = () => {
+const NavItem = ({ href, icon: Icon, label }: Navbar) => {
   const pathname = usePathname();
+  const active = isActivePath(pathname, href!);
 
   return (
-    <>
-      {nav.map((item, i) => {
-        const active = isActivePath(pathname, item.href!);
-        // 🔹 Dropdown case
-        if (item.type === "dropdown") {
-          return (
-            <DropdownMenu key={i}>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-2 p-2 py-1.5 rounded-xl border border-transparent bg-black/8 text-foreground transition-all duration-300 hover:bg-black/10">
-                  
-                  {active &&  <HugeiconsIcon icon={item.icon} className="size-4" />}
-                  
-                  <span className="text-[14px] font-rubik font-medium">
-                    {item.label}
-                  </span>
-
-                  <Icon icon={"iconamoon:arrow-down-2"} className="text-muted-foreground"/>
-                </button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="center" className="w-44">
-                <DropdownMenuItem asChild>
-                  <Link href="/source/email">Email</Link>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem asChild>
-                  <Link href="/source/mobile-scanner">Mobile Scanner</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          );
-        }
-
-        // 🔹 Normal link case
-
-        return (
-          <Link
-            key={i}
-            href={item.href!}
-            className={cn(
-              "flex items-center gap-2 p-2 py-1.5 rounded-xl border transition-all duration-300",
-              active
-                ? "bg-blue-100 border-blue-300 text-blue-500 shadow-[0px_3px_0px_var(--color-blue-300)]"
-                : "border border-transparent bg-black/8 hover:bg-black/10",
-            )}
-          >
-            {/* {active &&  <HugeiconsIcon icon={item.icon} className="size-4" />} */}
-
-            <span className="text-[14px] font-rubik font-medium">
-              {item.label}
-            </span>
-          </Link>
-        );
-      })}
-    </>
-  );
-};
-
-const DesktopNavbar = ({
-  user,
-  signOut,
-  showNavItems = true,
-}: {
-  user: User;
-  signOut: () => void;
-  showNavItems?: boolean;
-}) => {
-  return (
-    <div>
-      <div
+    <SidebarMenuItem>
+      <Link
         className={cn(
-          "flex items-center justify-between py-2.5 px-4 min-h-20 xl:px-0 max-w-4xl mx-auto",
-          !showNavItems && "border-b-0",
+          "flex items-center hover:bg-sidebar-accent py-2 rounded-lg px-2 gap-3 text-sm font-medium text-center",
+          active && "bg-sidebar-accent text-sidebar-accent-foreground [&_svg]:text-primary",
         )}
+        href={href ?? ""}
       >
-        {/* Logo */}
-        <Logo darkLogo />
-
-        {/* User dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="hover:bg-gray-4 cursor-pointer rounded-md transition-all duration-300 p-1">
-            <Avatar className="size-7">
-              <AvatarImage src={user?.imageUrl} />
-              <AvatarFallback></AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end">
-            <div className="flex items-center gap-2 p-1">
-              <div>
-                <Avatar className="size-7">
-                  <AvatarImage src={user?.imageUrl} />
-                  <AvatarFallback></AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="flex flex-col gap-0">
-                <Small className="text-foreground leading-4">
-                  {user?.fullName}
-                </Small>
-                <Small className="md:text-[13px]">
-                  {user?.primaryEmailAddress?.emailAddress}
-                </Small>
-              </div>
-            </div>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem asChild>
-              <Link href="/account/settings">Settings</Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem onSelect={signOut}>Sign Out</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      {/* Center nav */}
-      {showNavItems && (
-        <div className="flex flex-wrap md:flex-nowrap px-4 xl:px-0 mt-8 justify-start max-w-4xl mx-auto items-center gap-3">
-          <NavItems />
-        </div>
-      )}
-    </div>
+        <Icon className="size-5" />
+        {label}
+      </Link>
+    </SidebarMenuItem>
   );
 };
 
-export const DashboardNavbar = ({
-  user,
-  signOut,
-  showNavItems = true,
-}: {
-  user: User;
-  signOut: () => void;
-  showNavItems?: boolean;
-}) => {
+export const AppSidebar = () => {
   return (
-    <DesktopNavbar showNavItems={showNavItems} user={user} signOut={signOut} />
+    <Sidebar className="border-r-0">
+      <SidebarHeader className="pt-5">
+        <Logo darkLogo />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Main</SidebarGroupLabel>
+          <SidebarMenu>
+            {mainNav.map((nav, i) => (
+              <NavItem key={i} {...nav} />
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Accounting</SidebarGroupLabel>
+          <SidebarMenu>
+            {accountingNav.map((nav, i) => (
+              <NavItem key={i} {...nav} />
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Sources</SidebarGroupLabel>
+          <SidebarMenu>
+            {sourceNav.map((nav, i) => (
+              <NavItem key={i} {...nav} />
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+          <SidebarMenu>
+            {settingsNav.map((nav, i) => (
+              <NavItem key={i} {...nav} />
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
   );
 };

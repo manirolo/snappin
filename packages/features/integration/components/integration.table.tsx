@@ -8,7 +8,7 @@ import {
   SortingState,
   useReactTable,
 } from "@snappin/ui/components/table";
-import { trpc } from "@snappin/trpc/react/client";
+import { trpc } from "@snappin/features/trpc/react/client";
 import { toast } from "react-hot-toast";
 import { integrationColumns } from "./integration.column";
 import { Button } from "@snappin/ui/components/button";
@@ -72,7 +72,7 @@ export const IntegrationListTable = () => {
         }}
         next={() => setPage((p) => p + 1)}
         prev={() => setPage((p) => Math.max(1, p - 1))}
-        toolbar={toolbar}
+        // toolbar={toolbar}
         loading={isLoading}
         changeLimit={(newLimit) => {
           setLimit(newLimit);

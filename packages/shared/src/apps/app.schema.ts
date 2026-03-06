@@ -1,0 +1,76 @@
+import z from "zod"
+
+export enum AppSlug {
+    GMAIL = "gmail",
+    OUTLOOK = "outlook",
+    IMAP = "imap",
+    WHATSAPP = "whatsapp",
+    GOOGLE_DRIVE = "google_drive",
+    XERO = "xero"
+}
+export type EmailAppSlug = AppSlug.GMAIL | AppSlug.OUTLOOK;
+export enum AppRole {
+    EMAIL_SOURCE = "email_source",
+    FILE_SOURCE = "file_source",
+    MANUAL_SOURCE = "manual_source",
+    INVOICE_DESTINATION = "invoice_destination",
+    WEBHOOK_SOURCE = "webhook_source",
+    MOBILE_SCANNER = "mobile_scanner",
+    STORAGE = "storage"
+}
+export enum AppType {
+    SOURCE = "source",
+    DESTINATION = "destination"
+}
+export enum AppCategory {
+    EMAIL = "email",
+    PAYMENTS = "payments",
+    CALENDAR = "calendar",
+    ECOMMERCE = "ecommerce",
+    ACCOUNTING = "accounting",
+    COMMUNICATION = "communication",
+    PRODUCTIVITY = "productivity",
+}
+export enum SourceKind {
+    INTEGRATION = "integration",
+    MANUAL = "manual"
+}
+
+export type AppMetadata = {
+    name: string
+    publisher: {
+        name: string
+        email: string
+    }
+    description: string
+    cta?: string
+    iconifyIcon: string
+    logoUrl?: string
+    disclaimer: string | null
+    slug: AppSlug
+    role: AppRole[]
+    category: AppCategory
+    type: AppType
+    isComingSoon?: boolean
+    enableOnOnboarding: boolean
+}
+export interface AppDefinition<TConfigData = unknown> {
+    slug: AppSlug
+    role: AppRole[]
+    category: AppCategory
+    type: AppType
+    config: TConfigData,
+    metadata: AppMetadata,
+}
+export const ZAppSlug = z.enum(
+    Object.values(AppSlug) as [AppSlug, ...AppSlug[]]
+)
+export const ZAppCategory = z.enum(
+    Object.values(AppCategory) as [AppCategory, ...AppCategory[]]
+)
+export const ZAppType = z.enum(
+    Object.values(AppType) as [AppType, ...AppType[]]
+)
+export const ZAppRole = z.enum(AppRole)
+export const ZSourceKind = z.enum(SourceKind)
+export const ZEmailAppSlug = z.enum([AppSlug.GMAIL, AppSlug.OUTLOOK] as const)

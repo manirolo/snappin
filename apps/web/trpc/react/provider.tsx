@@ -2,7 +2,7 @@
 
 import { useAuth } from "@clerk/nextjs"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { trpc } from "@snappin/trpc/react/client"
+import { trpc } from "@snappin/features/trpc/react/client"
 import { env } from "@snappin/env"
 import { useState } from "react"
 import { httpBatchLink } from "@trpc/client"

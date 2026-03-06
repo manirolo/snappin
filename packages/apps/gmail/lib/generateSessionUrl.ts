@@ -1,9 +1,9 @@
 import { GenerateOAuthSessionProps, GenerateOAuthSessionResponse } from "../../appRegistry.interface";
-import { google } from "../config"
-import { gmailConfig } from "../config/gmail.config";
+import { google } from "../gmail.client"
+import { gmailConfigData } from "../gmail.config";
 
 export async function generateSessionUrl({ state, codeVerifier, loginHint }: GenerateOAuthSessionProps): Promise<GenerateOAuthSessionResponse> {
-    const url = google.createAuthorizationURL(state, codeVerifier, gmailConfig.permissions)
+    const url = google.createAuthorizationURL(state, codeVerifier, gmailConfigData.permissions)
     url.searchParams.set("access_type", "offline");
     url.searchParams.set("prompt", "consent")
     if (loginHint) url.searchParams.set("login_hint", loginHint)

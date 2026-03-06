@@ -14,12 +14,15 @@ import { renewWatching } from "./lib/renewWatching";
 import { buildIntegrationData } from "./lib/buildIntegrationData";
 import { normalizeNotification } from "./lib/normalizeNotification";
 import { resolveMessageIds } from "./lib/resolveMessageIds";
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { AppCategory, AppDefinition, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
 import { OutlookRepository } from "./lib/db/outlook.repository";
+import { OutlookConfigData } from "./outlook.types"
+import { outlookConfig } from "./outlook.config";
+import { outlookMetadata } from "./outlook.metadata";
 
 const { getIntegrationData } = new OutlookRepository()
 
-export const OutlookAppServices = { 
+export const OutlookAppServices = {
     exchangeCodeForTokens,
     generateSessionUrl,
     getAccessToken,
@@ -34,6 +37,15 @@ export const OutlookAppServices = {
     renewWatching,
     buildIntegrationData,
     normalizeNotification,
+    resolveMessageIds,
     getIntegrationData,
-    resolveMessageIds
 } as EmailApps<AppSlug.OUTLOOK>
+
+export const outlookApp: AppDefinition<OutlookConfigData> = {
+    slug: AppSlug.OUTLOOK,
+    role: [AppRole.EMAIL_SOURCE],
+    category: AppCategory.EMAIL,
+    type: AppType.SOURCE,
+    config: outlookConfig,
+    metadata: outlookMetadata,
+}

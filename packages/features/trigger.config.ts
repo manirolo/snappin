@@ -4,19 +4,13 @@ export default defineConfig({
   project: "proj_zwtnczkjxkhnfysisekz",
   runtime: "node",
   logLevel: "log",
-
   machine: "medium-1x",
-
-  dirs: [
-    "./inbox/trigger",
-    "./invoices/trigger"
-  ],
   // The max compute seconds a task is allowed to run. If the task run exceeds this duration, it will be stopped.
   // You can override this on an individual task.
   // See https://trigger.dev/docs/runs/max-duration
   maxDuration: 3600,
   retries: {
-    enabledInDev: false,
+    enabledInDev: true,
     default: {
       maxAttempts: 3,
       minTimeoutInMs: 1000,
@@ -25,4 +19,5 @@ export default defineConfig({
       randomize: true,
     },
   },
+  dirs: ["./invoice/trigger", "./inbox/trigger"],
 });

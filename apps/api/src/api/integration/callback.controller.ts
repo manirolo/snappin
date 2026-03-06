@@ -1,6 +1,6 @@
 import { Context } from 'hono'
-import { appRouter } from '@snappin/trpc/_root'
-import { createContext } from '@snappin/trpc/_trpc'
+import { appRouter } from '@snappin/features/trpc/_root'
+import { createContext } from '@snappin/features/trpc/_trpc'
 import { env } from '@snappin/env'
 
 export class CallbackController {
@@ -15,7 +15,6 @@ export class CallbackController {
     }
 
     try {
-      // 👇 IMPORTANT: createContext must accept raw Request now
       const ctx = await createContext({ honoCtx: c })
 
       const caller = appRouter.createCaller(ctx)

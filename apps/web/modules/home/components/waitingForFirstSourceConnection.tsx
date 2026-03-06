@@ -1,6 +1,8 @@
+'use client'
+
 import { appMetadata } from "@snappin/apps/app.metadata";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
-import { AppType } from "@snappin/shared/apps/app.enum";
+import { AppType } from "@snappin/shared/apps/app.schema";
 import { Small, ExtraSmall, H4 } from "@snappin/ui/components/typography";
 import {
   CompactIntegrationCard,
@@ -14,7 +16,7 @@ export const WaitingForFirstSourceConnection = () => {
   const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();
 
   const sourceApps = Object.values(appMetadata).filter(
-    (app) => app.type == AppType.SOURCE,
+    (app) => app.schema == AppType.SOURCE,
   );
 
   return (
@@ -23,10 +25,6 @@ export const WaitingForFirstSourceConnection = () => {
         <div className="space-y-2">
           <H4>⚠️ You have 0 connected sources</H4>
           <Small>Connect one to start extracting invoices automatically.</Small>
-        </div>
-
-        <div className="mt-8">
-            <ExtraSmall>🔒 We only scan invoice-related emails.</ExtraSmall>
         </div>
 
         <div className="grid grid-cols-2 max-w-xs my-8">
@@ -38,16 +36,20 @@ export const WaitingForFirstSourceConnection = () => {
                 redirectToOAuthConsentScreen({
                   appSlug: app.slug,
                   appCategory: app.category,
-                  appType: app.type,
+                  appType: app.schema,
                 })
               }
             >
-              <CompactIntegrationIcon icon={appMetadata[app.slug].icon} />
+              <CompactIntegrationIcon icon={appMetadata[app.slug].iconifyIcon} />
               <CompactIntegrationName>
                 {appMetadata[app.slug].name}
               </CompactIntegrationName>
             </CompactIntegrationCard>
           ))}
+        </div>
+
+        <div className="my-8">
+          <ExtraSmall>We only scan invoice-related emails.</ExtraSmall>
         </div>
 
         <div>

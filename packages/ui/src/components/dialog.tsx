@@ -7,11 +7,11 @@ import { X } from 'lucide-react';
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
 const dialogContentVariants = cva(
-  'flex flex-col fixed outline-0 z-50 border border-border bg-white p-6 shadow-lg shadow-black/5 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 rounded-3xl',
+  'flex flex-col fixed outline-0 z-50 border border-border bg-background p-6 shadow-lg shadow-black/5 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 rounded-lg',
   {
     variants: {
       variant: {
-        default: 'left-[50%] top-[50%] max-w-lg translate-x-[-50%] translate-y-[-70%] w-full',
+        default: 'left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]',
         fullscreen: 'inset-5',
       },
     },
@@ -72,8 +72,8 @@ function DialogContent({
       >
         {children}
         {showCloseButton && (
-          <DialogClose className="cursor-pointer outline-0 absolute end-5 top-5 rounded-sm opacity-60 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-            <X className="size-4" />
+          <DialogClose className="cursor-pointer p-2 bg-accent/90 hover:bg-accent outline-0 absolute end-5 top-4.5 rounded-full opacity-60 ring-offset-background transition-all duration-300 hover:opacity-100 focus:outline-hidden disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+            <X className="size-5" />
             <span className="sr-only">Close</span>
           </DialogClose>
         )}
@@ -87,7 +87,7 @@ export default DialogContent;
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     data-slot="dialog-header"
-    className={cn('flex flex-col space-y-1 text-center sm:text-start mb-5', className)}
+    className={cn('flex flex-col space-y-2 text-center sm:text-start mt-1 mr-10 mb-8', className)}
     {...props}
   />
 );
@@ -104,7 +104,7 @@ function DialogTitle({ className, ...props }: React.ComponentProps<typeof Dialog
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn('text-[1rem] font-medium leading-none', className)}
+      className={cn('text-[1.2rem] font-semibold leading-none', className)}
       {...props}
     />
   );
@@ -118,7 +118,7 @@ function DialogDescription({ className, ...props }: React.ComponentProps<typeof 
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn('text-sm text-muted-foreground', className)}
+      className={cn('text-[13px] font-onest text-muted-foreground', className)}
       {...props}
     />
   );

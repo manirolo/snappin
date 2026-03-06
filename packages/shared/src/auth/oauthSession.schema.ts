@@ -1,4 +1,4 @@
-import { AppCategory, AppSlug, AppType } from "../apps/app.enum"
+import { AppCategory, AppRole, AppSlug, AppType } from "../apps/app.schema"
 
 export type OAuthSessionResource = {
     // User who requested OAuth Session
@@ -26,6 +26,8 @@ export type OAuthSessionResource = {
     appCategory?: AppCategory | null,
 
     appType?: AppType | null,
+
+    appRole?: AppRole[] | null,
 
     // We are gone have wide range of scopes/permissions 
     // (i.e) https://www.googleapis.com/auth/gmail.readonly - It is a scope for reading mails from gmail

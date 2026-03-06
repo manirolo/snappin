@@ -1,6 +1,6 @@
 import { logger } from "@snappin/lib/logger";
 import { RetrieveAccessToken, RetrieveAccessTokenResponse } from "../../appRegistry.interface";
-import { google } from "../config";
+import { google } from "../gmail.client"
 import { compareAndSaveIfNewToken } from "../../utils/compareAndSaveIfNewToken";
 import { isInvalidGrantError } from "../../utils/isInvalidGrantError";
 import { markReAuthenticationRequired } from "../../utils/markReAuthenticationRequired";
@@ -40,6 +40,7 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
         return {
             accessToken: newAccessToken,
         };
+        
     } catch (error) {
         logger.error("Failed to refresh Google access token", error);
 

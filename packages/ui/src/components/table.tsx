@@ -7,12 +7,12 @@ import {
   Table as ReactTableType,
   flexRender,
   Column,
+  Row,
 } from "@tanstack/react-table";
 import { Icon } from "@iconify/react";
-import { ExtraSmall,} from "./typography";
+import { ExtraSmall } from "./typography";
 import { PaginatedResponse } from "@snappin/shared/pagination";
 import { Skeleton } from "./skeleton";
-import { Card, CardContent, CardFooter, CardHeader } from "./card";
 import {
   Select,
   SelectContent,
@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
+import { Spinner } from "../assets/svg/spinner";
 
 type SortableHeaderProps<TData> = {
   column: Column<TData, unknown>;
@@ -39,29 +40,19 @@ export function SortableHeader<TData>({
       type="button"
       onClick={column.getToggleSortingHandler()}
       className={cn(
-        "flex items-center gap-1 Capitalize cursor-pointer select-none hover:opacity-80",
+        "w-full flex items-center gap-1 text-[11px] font-medium text-muted-foreground cursor-pointer select-none hover:opacity-80",
         className,
       )}
     >
-      {title}
+      <span className="flex items-center gap-1">
+        {title}
 
-      <span className="relative flex h-4 w-4 items-center justify-center">
-        {/* Unsorted: both arrows */}
-        {!sorted && (
-          <span className="absolute flex flex-col items-center opacity-40">
-            <Icon icon="dashicons:arrow-up" className="size-4 -mb-2" />
-            <Icon icon="dashicons:arrow-down" className="size-4" />
-          </span>
-        )}
-
-        {/* Sorted ASC */}
         {sorted === "asc" && (
-          <Icon icon="dashicons:arrow-up" className="size-4 text-primary" />
+          <Icon icon="dashicons:arrow-up" className="size-4" />
         )}
 
-        {/* Sorted DESC */}
         {sorted === "desc" && (
-          <Icon icon="dashicons:arrow-down" className="size-4 text-primary" />
+          <Icon icon="dashicons:arrow-down" className="size-4" />
         )}
       </span>
     </button>
@@ -72,7 +63,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div
       data-slot="table-container"
-      className="relative rounded-2xl pb-2 w-full max-w-[100vw] overflow-x-auto"
+      className="relative w-full max-w-[100vw] overflow-x-auto"
     >
       <table
         data-slot="table"
@@ -181,10 +172,19 @@ function TableSkeleton({
   return (
     <>
       {Array.from({ length: rows }).map((_, rowIdx) => (
-        <TableRow key={rowIdx}>
+        <TableRow
+          key={rowIdx}
+          className={cn(
+            "bg-card border-b-0 hover:bg-card-secondary",
+            rowIdx === 0 &&
+              "[&>td:first-child]:rounded-tl-2xl [&>td:last-child]:rounded-tr-2xl",
+            rowIdx === rows - 1 &&
+              "[&>td:first-child]:rounded-bl-2xl [&>td:last-child]:rounded-br-2xl",
+          )}
+        >
           {Array.from({ length: columns }).map((_, colIdx) => (
             <TableCell key={colIdx} className="py-4">
-              <Skeleton className="h-8 w-full rounded-md" />
+              <Skeleton className="h-6 w-full rounded-md" />
             </TableCell>
           ))}
         </TableRow>
@@ -255,6 +255,11 @@ export type PaginatedTableProps<T> = {
   emptyTitle?: string;
   emptyDescription?: string;
   emptyAction?: React.ReactNode;
+  processingStateText?: string | null;
+  onRowClick?: (row: Row<T>) => void;
+  hidePagination?: boolean;
+  emptyStateComponent?: React.ReactNode;
+  selectedRowIndex?: number | null;
 };
 
 export function PaginatedTable<T>({
@@ -265,135 +270,282 @@ export function PaginatedTable<T>({
   prev,
   changeLimit,
   toolbar,
+  selectedRowIndex,
+  hidePagination = false,
+  processingStateText,
+  emptyStateComponent,
+  onRowClick,
   // emptyTitle,
   // emptyDescription,
   // emptyAction,
 }: PaginatedTableProps<T>) {
   const { page, totalPages, limit, hasPrevPage, hasNextPage } = pagination;
   const pages = getVisiblePages(page, totalPages);
+  const colSpan = table.getAllLeafColumns().length;
 
   return (
-    <Card>
-      {toolbar && <CardHeader className="border-b px-4 py-4 border-dashed">{toolbar}</CardHeader>}
-      <CardContent>
-        <Table>
-          <TableHeader className="h-12">
-            {table.getHeaderGroups().map((group) => (
-              <TableRow key={group.id} className="hover:bg-transparent">
-                {group.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    className="text-[12px] font-medium tracking-wide text-muted-foreground"
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
+    <>
+      {!loading &&
+      table.getRowModel().rows.length <= 0 &&
+      emptyStateComponent ? (
+        emptyStateComponent
+      ) : (
+        <div>
+          {toolbar && <div className="pb-4">{toolbar}</div>}
+          <div className="rounded-lg pt-0">
+            <div className="overflow-hidden">
+              <Table>
+                <TableHeader>
+                  {table.getHeaderGroups().map((group) => (
+                    <TableRow key={group.id} className="hover:bg-transparent">
+                      {group.headers.map((header) => (
+                        <TableHead
+                          key={header.id}
+                          style={{ width: header.getSize() }}
+                          className="text-[11px] font-medium tracking-wide text-muted-foreground"
+                        >
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                              )}
+                        </TableHead>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableHeader>
+                {loading ? (
+                  <TableBody>
+                    <TableSkeleton
+                      columns={table.getAllLeafColumns().length}
+                      rows={5}
+                    />
+                  </TableBody>
+                ) : (
+                  <TableBody className="bg-background border-b last:border-b-transparent">
+                    {processingStateText && (
+                      <TableRow>
+                        <TableCell colSpan={colSpan}>
+                          <div className="flex items-center text-gray-500 gap-2">
+                            <Spinner className="size-4" />
+                            {processingStateText}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                    {table.getRowModel().rows.map((row, rowIndex) => (
+                      <TableRow
+                        key={row.id}
+                        onClick={() => onRowClick?.(row)}
+                        className={cn(
+                          "group transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80", // ← add `group`
+                          "transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80",
+                          row
+                            .getAllCells()
+                            .some(
+                              (c) => c.column.columnDef.meta?.disableHover,
+                            ) && "hover:bg-transparent cursor-default",
+                          rowIndex === 0 &&
+                            "[&>td:first-child]:rounded-tl-lg [&>td:last-child]:rounded-tr-lg",
+                          rowIndex === selectedRowIndex &&
+                            "bg-accent hover:bg-accent/90", // ← highlight selected
                         )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-
-          {loading ? (
-            <TableBody>
-              <TableSkeleton
-                columns={table.getAllLeafColumns().length}
-                rows={3}
-              />
-            </TableBody>
-          ) : (
-            <TableBody className="bg-white border-b last:border-b-transparent">
-              {table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  className="transition-colors border-b last:border-b-0 hover:bg-gray-2 cursor-pointer border-border"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      className="first:rounded-l-lg last:rounded-r-lg"
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell
+                            key={cell.id}
+                            style={{ width: cell.column.getSize() }}
+                            className="py-3 first:rounded-l-md last:rounded-r-md text-gray-700"
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                )}
+              </Table>
+            </div>
+            {!hidePagination && (
+              <div className="flex items-center justify-between mt-8 p-3 pb-4 w-full">
+                {/* Left Section - Limit Selector (Optional) */}
+                {changeLimit && (
+                  <div className="flex items-center gap-2">
+                    <ExtraSmall className="text-muted-foreground">
+                      Rows per page
+                    </ExtraSmall>
+                    <Select
+                      value={String(limit)}
+                      onValueChange={(value) => changeLimit?.(Number(value))}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
+                      <SelectTrigger size="sm">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent position="popper" align="start">
+                        {[5, 10, 20, 50].map((size) => (
+                          <SelectItem
+                            className="py-1.5"
+                            key={size}
+                            value={String(size)}
+                          >
+                            {size}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                {/* Middle Section - Page Numbers */}
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={prev}
+                    disabled={!hasPrevPage}
+                    className="px-2 py-1 text-sm disabled:opacity-50"
+                  >
+                    Prev
+                  </button>
+
+                  {pages.map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => {
+                        if (p < page) prev();
+                        if (p > page) next();
+                      }}
+                      className={`px-3 py-1 text-sm rounded ${
+                        p === page ? "font-semibold" : ""
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  ))}
+
+                  <button
+                    onClick={next}
+                    disabled={!hasNextPage}
+                    className="px-2 py-1 text-sm disabled:opacity-50"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+export type SimpleTableProps<T> = {
+  table: ReactTableType<T>;
+  loading?: boolean;
+  toolbar?: React.ReactNode;
+  emptyStateComponent?: React.ReactNode;
+  processingStateText?: string | null;
+  onRowClick?: (row: Row<T>) => void;
+  selectedRowIndex?: number | null;
+};
+
+export function SimpleTable<T>({
+  table,
+  loading = false,
+  toolbar,
+  emptyStateComponent,
+  processingStateText,
+  onRowClick,
+  selectedRowIndex,
+}: SimpleTableProps<T>) {
+  const colSpan = table.getAllLeafColumns().length;
+
+  if (!loading && table.getRowModel().rows.length <= 0 && emptyStateComponent) {
+    return <>{emptyStateComponent}</>;
+  }
+
+  return (
+    <div>
+      {toolbar && <div className="pb-4">{toolbar}</div>}
+      <div className="pt-0">
+        <div className="overflow-hidden">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((group) => (
+                <TableRow key={group.id} className="hover:bg-transparent">
+                  {group.headers.map((header) => (
+                    <TableHead
+                      key={header.id}
+                      style={{ width: header.getSize() }}
+                      className="text-[11px] font-medium tracking-wide text-gray-400"
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
                   ))}
                 </TableRow>
               ))}
-            </TableBody>
-          )}
-        </Table>
-      </CardContent>
-      <CardFooter>
-        <div className="flex items-center justify-between w-full py-3">
-          {/* Left Section - Limit Selector (Optional) */}
-          {changeLimit && (
-            <div className="flex items-center gap-2">
-              <ExtraSmall className="text-muted-foreground">
-                Rows per page
-              </ExtraSmall>
-              <Select
-                value={String(limit)}
-                onValueChange={(value) => changeLimit?.(Number(value))}
-              >
-                <SelectTrigger size="sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent position="popper" align="start">
-                  {[5, 10, 20, 50].map((size) => (
-                    <SelectItem
-                      className="py-1.5"
-                      key={size}
-                      value={String(size)}
-                    >
-                      {size}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
+            </TableHeader>
 
-          {/* Middle Section - Page Numbers */}
-          <div className="flex items-center gap-1">
-            <button
-              onClick={prev}
-              disabled={!hasPrevPage}
-              className="px-2 py-1 text-sm disabled:opacity-50"
-            >
-              Prev
-            </button>
-
-            {pages.map((p) => (
-              <button
-                key={p}
-                onClick={() => {
-                  if (p < page) prev();
-                  if (p > page) next();
-                }}
-                className={`px-3 py-1 text-sm rounded ${
-                  p === page ? "font-semibold" : ""
-                }`}
-              >
-                {p}
-              </button>
-            ))}
-
-            <button
-              onClick={next}
-              disabled={!hasNextPage}
-              className="px-2 py-1 text-sm disabled:opacity-50"
-            >
-              Next
-            </button>
-          </div>
+            {loading ? (
+              <TableBody>
+                <TableSkeleton columns={colSpan} rows={5} />
+              </TableBody>
+            ) : (
+              <TableBody className="bg-background">
+                {processingStateText && (
+                  <TableRow>
+                    <TableCell colSpan={colSpan}>
+                      <div className="flex items-center text-gray-500 gap-2">
+                        <Spinner className="size-4" />
+                        {processingStateText}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                )}
+                {table.getRowModel().rows.map((row, rowIndex) => (
+                  <TableRow
+                    key={row.id}
+                    onClick={() => onRowClick?.(row)}
+                    className={cn(
+                      "transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80",
+                      row
+                        .getAllCells()
+                        .some((c) => c.column.columnDef.meta?.disableHover) &&
+                        "hover:bg-transparent cursor-default",
+                      rowIndex === 0 &&
+                        "[&>td:first-child]:rounded-tl-lg [&>td:last-child]:rounded-tr-lg",
+                      rowIndex === selectedRowIndex &&
+                        "bg-accent hover:bg-accent/90", // ← highlight selected
+                    )}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        style={{ width: cell.column.getSize() }}
+                        className="py-3 text-gray-700 first:rounded-l-md last:rounded-r-md"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
+          </Table>
         </div>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }
 

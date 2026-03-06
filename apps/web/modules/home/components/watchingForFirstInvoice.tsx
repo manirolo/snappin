@@ -1,6 +1,6 @@
-import { appMetadata } from "@snappin/apps/app.metadata";
+import { AppRegistry } from "@snappin/apps/appRegistry";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
-import { AppType } from "@snappin/shared/apps/app.enum";
+import { AppType } from "@snappin/shared/apps/app.schema";
 import { Small, ExtraSmall, H4 } from "@snappin/ui/components/typography";
 import {
   CompactIntegrationCard,
@@ -13,8 +13,8 @@ import Link from "next/link";
 export const WatchingForFirstInvoice = () => {
   const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();
 
-  const sourceApps = Object.values(appMetadata).filter(
-    (app) => app.type == AppType.SOURCE,
+  const sourceApps = Object.values(AppRegistry).filter(
+    (app) => app.schema == AppType.SOURCE,
   );
 
   return (
@@ -36,13 +36,13 @@ export const WatchingForFirstInvoice = () => {
                 redirectToOAuthConsentScreen({
                   appSlug: app.slug,
                   appCategory: app.category,
-                  appType: app.type,
+                  appType: app.schema,
                 })
               }
             >
-              <CompactIntegrationIcon icon={appMetadata[app.slug].icon} />
+              <CompactIntegrationIcon icon={AppRegistry[app.slug].metadata.iconifyIcon} />
               <CompactIntegrationName>
-                {appMetadata[app.slug].name}
+                {AppRegistry[app.slug].metadata.name}
               </CompactIntegrationName>
             </CompactIntegrationCard>
           ))}

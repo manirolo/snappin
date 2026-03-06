@@ -27,6 +27,10 @@ export const env = {
     worker_url: process.env.NEXT_PUBLIC_WORKER_URL!,
   },
 
+  openai: {
+    apiKey: process.env.OPEN_API_KEY!,
+  },
+
   google: {
     clientId: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -34,6 +38,10 @@ export const env = {
     serviceKey: process.env.GOOGLE_SERVICE_KEY!,
     invoiceExtractorId: process.env.GOOGLE_INVOICE_EXTRACTOR_ID!,
     region: process.env.GOOGLE_REGION!,
+    workerUrl: process.env.GOOGLE_WORKER_URL!,
+    cloudTaskQueue: process.env.GOOGLE_CLOUD_TASK_QUEUE!,
+    taskPubSubTopic: process.env.GOOGLE_TASK_PUB_SUB_TOPIC!,
+    cloudTasksServiceAccountEmail: process.env.GOOGLE_TASK_SERVICE_ACCOUNT_EMAIL!,
   },
   aws: {
     region: process.env.AWS_REGION!,

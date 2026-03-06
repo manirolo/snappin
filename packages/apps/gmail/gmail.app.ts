@@ -14,8 +14,11 @@ import { renewWatching } from "./lib/renewWatching";
 import { buildIntegrationData } from "./lib/buildIntegrationData";
 import { normalizeNotification } from "./lib/normalizeNotification";
 import { resolveMessageIds } from "./lib/resolveMessageIds";
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { AppCategory, AppDefinition, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
 import { GmailRepository } from "./lib/db/gmail.repository";
+import { gmailMetadata } from "./gmail.metadata";
+import { gmailConfigData } from "./gmail.config";
+import { GmailConfigData } from "./gmail.types";
 
 const { getIntegrationData } = new GmailRepository()
 
@@ -37,3 +40,13 @@ export const GmailAppServices = {
     resolveMessageIds,
     getEmail
 } as EmailApps<AppSlug.GMAIL>
+
+
+export const gmailApp: AppDefinition<GmailConfigData> = {
+    slug: AppSlug.GMAIL,
+    role: [AppRole.EMAIL_SOURCE],
+    category: AppCategory.EMAIL,
+    type: AppType.SOURCE,
+    metadata: gmailMetadata,
+    config: gmailConfigData,
+}

@@ -26,7 +26,7 @@ export const Client = () => {
                             size={"_2xl"}
                             radius={"full"}
                             disabled={loading == AuthProviders.GOOGLE || loading != null}
-                            className='min-w-xs flex-1 sm:min-w-sm mx-auto md:min-w-102 font-bold text-lg font-dm-sans'
+                            className='min-w-xs flex-1 sm:min-w-sm mx-auto md:min-w-102 font-bold text-lg font-onest'
                             onClick={() => setLoading(AuthProviders.GOOGLE)}>
                                 <div className='flex items-center gap-2'>
                                     {loading == AuthProviders.GOOGLE ? <DotSpinner className='size-10 text-gray-6' gap={3.5}/> : (

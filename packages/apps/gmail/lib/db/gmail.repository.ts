@@ -1,4 +1,4 @@
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { db } from "@snappin/db/index";
 import { GetIntegrationProps } from "../../../appRegistry.interface";
 import { IntegrationResource } from "@snappin/shared/integration/integration.schema";

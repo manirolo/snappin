@@ -2,7 +2,10 @@ import z from "zod";
 
 export enum IntegrationStatus {
     ACTIVE = "active",
-    EXPIRED = "expired"
+    TOKEN_EXPIRED = "token_expired",
+    REAUTH_REQUIRED = "reauth_required",
+    DISABLED = "disabled",
+    ERROR = "error"
 }
 
 export const ZIntegrationStatus = z.enum(

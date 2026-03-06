@@ -22,7 +22,7 @@ import {
   CardContent,
 } from "@snappin/ui/components/card";
 import { ExtraSmall } from "@snappin/ui/components/typography";
-import { trpc } from "@snappin/trpc/react/client";
+import { trpc } from "@snappin/features/trpc/react/client";
 import { Icon } from "@iconify/react";
 import { appMetadata } from "@snappin/apps/app.metadata";
 
@@ -89,7 +89,7 @@ export const NewScanCard = () => {
                           className="flex items-center gap-2 px-3"
                         >
                           <Icon
-                            icon={appMetadata[email.appSlug].icon}
+                            icon={appMetadata[email.appSlug].iconifyIcon}
                             className="h-4 w-4"
                           />
                           <span className="flex-1 truncate">

@@ -3,7 +3,7 @@ import { db } from "@snappin/db/index";
 import { IntegrationResource } from "@snappin/shared/integration/integration.schema"
 
 type CompareAndSaveIfNewTokenProps = {
-    integration: IntegrationResource,
+    integration: Partial<IntegrationResource>,
     accessTokenFromFn: string,
     accessTokenExpiresAtFromFn?: Date | null
 }

@@ -28,7 +28,7 @@ export function H3({children, className}: {children?: React.ReactNode, className
 
 export function H4({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h4 className={cn(headingStyle, "scroll-m-20 text-lg md:text-[1.3rem] tracking-[-0.3px] font-semibold", className)}>
+    <h4 className={cn(headingStyle, "scroll-m-20 text-lg md:text-[1.38rem] tracking-[-0.3px] font-semibold", className)}>
       {children}
     </h4>
   )
@@ -36,7 +36,7 @@ export function H4({children, className}: {children?: React.ReactNode, className
 
 export function H5({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h5 className={cn(headingStyle, 'scroll-m-20 text-lg font-semibold', className)}>
+    <h5 className={cn(headingStyle, 'scroll-m-20 text-[19px] font-semibold', className)}>
       {children}
     </h5>
   )
@@ -44,7 +44,7 @@ export function H5({children, className}: {children?: React.ReactNode, className
 
 export function Paragraph({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-foreground font-onest", className)}>
+    <p className={cn("text-foreground font-dm-sans", className)}>
       {children}
     </p>
   )
@@ -52,7 +52,7 @@ export function Paragraph({children, className}: {children?: React.ReactNode, cl
 
 export function Small({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("font-onest text-[14.2px] md:text-[14.5px] text-muted-foreground", className)}>
+    <p className={cn("font-dm-sans text-[14px] md:text-sm text-muted-foreground", className)}>
       {children}
     </p>
   )
@@ -60,7 +60,7 @@ export function Small({children, className}: {children?: React.ReactNode, classN
 
 export const ExtraSmall = ({children, className}: {children?: React.ReactNode, className?: string}) => {
   return (
-    <p className={cn("font-onest text-xs text-muted-foreground", className)}>{children}</p>
+    <p className={cn("font-dm-sans text-xs text-muted-foreground", className)}>{children}</p>
   )
 } 
 

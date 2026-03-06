@@ -10,7 +10,7 @@ export async function revokeToken({ token }: RevokeTokenProps) {
     params.append("token_type_hint", "refresh_token");
 
     const res = await fetch(
-        `https://login.microsoftonline.com/${outlookConfig.tenantId}/oauth2/v2.0/logout`,
+        `https://login.microsoftonline.com/common/oauth2/v2.0/logout`,
         {
             method: "POST",
             headers: {

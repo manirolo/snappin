@@ -1,5 +1,5 @@
 import { GetCursorProps, GetCursorResponse } from "../../appRegistry.interface";
-import { getGmailClient } from "../config";
+import { getGmailClient } from "../gmail.client"
 
 export async function getCursor({ accessToken }: GetCursorProps): Promise<GetCursorResponse> {
     const gmail = getGmailClient(accessToken);

@@ -10,22 +10,22 @@
   },
   "dependencies": {
     "@clerk/backend": "^2.31.0",
+    "@hono/clerk-auth": "^3.1.0",
     "@hono/node-server": "^1.19.9",
-    "@snappin/trpc": "workspace:*",
+    "@snappin/apps": "workspace:*",
     "@snappin/env": "workspace:*",
+    "@snappin/features": "workspace:*",
     "@snappin/lib": "workspace:*",
     "@snappin/shared": "workspace:*",
-    "@snappin/apps": "workspace:*",
-    "@snappin/features": "workspace:*",
     "@trpc/server": "^11.8.1",
     "hono": "^4.11.9",
     "zod": "^4.3.5"
   },
   "packageManager": "pnpm@9.15.0",
   "devDependencies": {
-    "@types/node": "^20.11.17",
-    "@snappin/typescript-config": "workspace:*",
     "@snappin/eslint-config": "workspace:*",
+    "@snappin/typescript-config": "workspace:*",
+    "@types/node": "^20.11.17",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
   }

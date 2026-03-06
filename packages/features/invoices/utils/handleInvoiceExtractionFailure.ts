@@ -1,32 +1,34 @@
-import { logger } from "@snappin/lib/logger";
-import { invoiceSave } from "../trigger/invoice.save";
-import { TInvoiceExtract } from "../trigger/invoice.extract.schema";
-import { LLMErrorMeta, SnappinError } from "@snappin/lib/error/snappin.error";
-import { ZAnalyzeEngine, ZOCREngine, ZExtractionStatus } from "@snappin/shared/invoice/invoice.schema";
+export async function handleInvoiceExtractionFailure(err: unknown, extractionRequestId: string) {
+    const [
+        { logger },
+        { SnappinError },
+        { InvoiceExtractionRequestService },
+        { ZExtractionStatus },
+        { getUnixSeconds }
+    ] = await Promise.all([
+        import("@snappin/lib/logger"),
+        import("@snappin/lib/error/snappin.error"),
+        import("../services/invoiceExtractionRequest.service"),
+        import("@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema"),
+        import("@snappin/lib/date/unixSeconds"),
+    ]);
 
-export async function handleInvoiceExtractionFailure(err: unknown, payload: TInvoiceExtract) {
+    const invoiceExtractionRequest = new InvoiceExtractionRequestService();
+
     if (err instanceof SnappinError) {
-        const meta = err.meta as LLMErrorMeta | undefined;
         logger.error({
             name: err.name,
             code: err.code,
             message: err.message
         });
 
-        await invoiceSave.trigger({
-            invoice: null,
-            vendor: null,
-            extraction: {
-                ocrEngine: ZOCREngine.options[0],
-                analyzeEngine: meta?.analyzeEngine ? meta?.analyzeEngine : null,
-                status: ZExtractionStatus.options[2], // FAILED
-                error: {
-                    code: err.code,
-                    message: err.message
-                }
+        await invoiceExtractionRequest.updateRequest(extractionRequestId, {
+            error: {
+                code: err.code,
+                message: err.message
             },
-            source: payload.source,
-            integration: payload.integration
+            status: ZExtractionStatus.options[3],
+            completedAt: getUnixSeconds()
         });
 
         return;
@@ -34,20 +36,8 @@ export async function handleInvoiceExtractionFailure(err: unknown, payload: TInv
 
     // Unknown / system error
     logger.error(err);
-
-    await invoiceSave.trigger({
-        invoice: null,
-        vendor: null,
-        extraction: {
-            ocrEngine: ZOCREngine.options[0],
-            analyzeEngine: ZAnalyzeEngine.options[0],
-            status: ZExtractionStatus.options[2], // FAILED
-            error: {
-                code: "unknown",
-                message: "Unhandled invoice extraction error",
-            }
-        },
-        source: payload.source,
-        integration: payload.integration
+    await invoiceExtractionRequest.updateRequest(extractionRequestId, {
+        status: ZExtractionStatus.options[3],
+        completedAt: getUnixSeconds()
     });
 }

@@ -1,6 +1,6 @@
 import { SnappinError } from "@snappin/lib/error/snappin.error";
 import { ExchangeCodeForTokensProps, ExchangeCodeForTokensResponse } from "../../appRegistry.interface";
-import { google } from "../config";
+import { google } from "../gmail.client";
 
 export async function exchangeCodeForTokens(payload: ExchangeCodeForTokensProps): Promise<ExchangeCodeForTokensResponse> {
 
