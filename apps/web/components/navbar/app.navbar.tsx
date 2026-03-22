@@ -1,10 +1,10 @@
 "use client";
 
 import { useClerk, useUser } from "@clerk/nextjs";
-import { Navbar as TNavbar, DashboardNavbar as Navbar } from "@snappin/ui/components/navbar/dashboard_old.navbar";
+import { DashboardNavbar as Navbar } from "@snappin/ui/components/navbar/dashboard.navbar";
 import React from "react";
 
-export default function AppNavbar({ showNavItems, nav }: { showNavItems?: boolean, nav: TNavbar[] }) {
+export default function AppNavbar({ showNavItems }: { showNavItems?: boolean }) {
   const { user } = useUser();
   const { signOut } = useClerk();
 

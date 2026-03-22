@@ -1,6 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { TOCREngine, AnalyzeEngine, ZExtractionStatus }
-    from "@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema";
+import { ZExtractionStatus } from "@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema";
 import { timestampPlugin } from "../plugin/timestamps.plugin";
 
 const InvoiceExtractionRequestSchema = new Schema({
@@ -20,19 +19,25 @@ const InvoiceExtractionRequestSchema = new Schema({
         retroactiveScanId: { type: String, default: null },
         isRetroactiveScan: { type: Boolean, default: null },
         externalId: { type: String, default: null },
-        metadata: { type: Schema.Types.Mixed, required: true }
+        metadata: { type: Schema.Types.Mixed, required: false }
     },
     status: { type: String, enum: ZExtractionStatus.options, default: "queued", index: true },
-
-    ocrEngine: { type: String, enum: Object.values(TOCREngine), default: null },
-
-    analyzeEngine: { type: String, enum: Object.values(AnalyzeEngine), default: null },
 
     error: { code: { type: String, default: null }, message: { type: String, default: null } },
 
     attempts: { type: Number, default: 0 },
 
     invoiceId: { type: String, default: null, index: true },
+
+    _integration: {
+        type: {
+            id: { type: String, default: null },
+            appSlug: { type: String, default: null },
+            identifier: { type: String, default: null },
+        },
+        default: null,
+        _id: false, 
+    },
 
     startedAt: { type: Number, default: null },
 
@@ -43,11 +48,21 @@ const InvoiceExtractionRequestSchema = new Schema({
 });
 
 InvoiceExtractionRequestSchema.virtual("integration", {
-  ref:          "Integration",
-  localField:   "source.integrationId", 
-  foreignField: "_id",
-  justOne:      true,
+    ref: "Integration",
+    localField: "source.integrationId",
+    foreignField: "_id",
+    justOne: true,
 });
+
+InvoiceExtractionRequestSchema.virtual("user", {
+    ref: "User",
+    localField: "source.metadata.uploadedBy",
+    foreignField: "clerkUserId",
+    justOne: true,
+});
+
+InvoiceExtractionRequestSchema.set("toJSON", { virtuals: true })
+InvoiceExtractionRequestSchema.set("toObject", { virtuals: true })
 
 InvoiceExtractionRequestSchema.plugin(timestampPlugin)
 

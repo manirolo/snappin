@@ -22,7 +22,7 @@ const OAuthSessionSchema = new mongoose.Schema<OAuthSessionResource>({
     appType: { type: String, enum: AppType, default: null },
     appRole: { type: [String], enum: AppRole, default: null },
     scope: { type: [String], required: true },
-    redirectAfter: { type: [String], default: null },
+    redirectAfter: { type: String, default: null },
     reAuthenticateSession: { type: Boolean, default: false },
     reAuthenticate: { type: ReAuthenticate, default: null },
     expiresAt: { type: Date, default: () => new Date(Date.now() + TTLMinutes * 60 * 1000), index: { expires: 0 } },

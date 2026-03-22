@@ -1,23 +1,30 @@
-import { paginate } from "@snappin/features/trpc/utils/paginated"
 import { ContextProps } from "../../_trpc"
-import { GetIntegrationResponse, TGetIntegration } from "./getIntegration.schema"
-import { PaginatedResponse } from "@snappin/shared/pagination"
+import { assertResourceAccess } from "../../lib/assertResourceAccess"
+import { GetIntegrationResponse } from "./getIntegration.schema"
+import { TGetIntegration } from "./getIntegration.schema"
 
 export type GetIntegration = {
-    ctx: ContextProps,
-    input: TGetIntegration
+    ctx: ContextProps
+    input?: TGetIntegration
 }
 
-export async function getIntegration({ ctx, input }: GetIntegration): Promise<PaginatedResponse<GetIntegrationResponse>> {
-    return await paginate({
-        model: ctx.db.integration,
-        query: {
-            userId: ctx.userId,
-            orgId: ctx.orgId,
-        },
-        page: input.page,
-        limit: input.limit,
-        select: "_id appType appSlug appCategory identifierEmail mailMonitored reAuthenticationRequired status",
-        sort: { createdAt: -1 },
-    });
+export async function getIntegration({ ctx, input }: GetIntegration): Promise<GetIntegrationResponse | null> {
+    const filter: Record<string, unknown> = {
+        userId: ctx.userId,
+        ...(ctx.orgId && { orgId: ctx.orgId }),
+    }
+
+    if (input?.appSlug?.length) {
+        filter.appSlug = { $in: input.appSlug }
+    }
+
+    if (input?.integrationId?.length) {
+        filter._id = { $in: input.integrationId }
+    }
+
+    const integration = await ctx.db.integration.findOne(filter).select("appType appSlug appType appRole config identifierEmail status reAuthenticationRequired")
+
+    await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId, resourceOwnerId: integration?.userId })
+
+    return integration
 }

@@ -3,14 +3,51 @@ import { TUploadTempInvoice } from "./uploadTempInvoice.schema"
 import { SourceKind } from "@snappin/shared/apps/app.schema"
 import { invoiceExtractionRequestService } from "@snappin/features/invoice/services/invoiceExtractionRequest.service"
 import { documentService } from "@snappin/features/invoice/services/invoiceDocument.service"
+import { assertResourceAccess } from "../../lib/assertResourceAccess"
+import { TRPCError } from "@trpc/server"
+import { getMimeType } from "@snappin/lib/file/getMimeType"
 
 export type UploadTempInvoice = {
   ctx: ContextProps,
   input: TUploadTempInvoice
 }
 
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024
+const ALLOWED_MIME_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/webp"]
+
 export async function uploadTempInvoice({ ctx, input }: UploadTempInvoice) {
-  if (!ctx.userId) return
+  await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
+  if (!ctx.userId) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: `Authorization required `,
+    })
+  }
+  if (!input.buffer) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: `Attachment is empty`,
+    })
+  }
+  const mimeType = await getMimeType(input.buffer)
+
+  if (!ALLOWED_MIME_TYPES.includes(mimeType)) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: `Unsupported file type '${input.mimeType}'. Allowed: ${ALLOWED_MIME_TYPES.join(", ")}`,
+    })
+  }
+
+  if (input.buffer.byteLength > MAX_FILE_SIZE_BYTES) {
+    throw new TRPCError({
+      code: "BAD_REQUEST",
+      message: `File exceeds maximum size of ${MAX_FILE_SIZE_BYTES / 1024 / 1024}MB`,
+    })
+  }
+
+  if (!input.fileName?.trim()) {
+    throw new TRPCError({ code: "BAD_REQUEST", message: "File name is required" })
+  }
 
   const { fileId, fileName } = await documentService.uploadToTemp({
     attachment: {
@@ -22,16 +59,15 @@ export async function uploadTempInvoice({ ctx, input }: UploadTempInvoice) {
     userId: ctx.userId,
   })
 
-  const jobId = crypto.randomUUID()
-
   const request = await invoiceExtractionRequestService.createRequest({
     userId: ctx.userId,
     orgId: ctx.orgId,
-    jobId,
+    jobId: crypto.randomUUID(),
     source: {
       kind: SourceKind.MANUAL,
       metadata: { uploadedBy: ctx.userId }
     },
+    _integration: null,
     status: "queued",
     documentId: fileId,
     fileName,

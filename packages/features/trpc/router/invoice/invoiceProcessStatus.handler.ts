@@ -1,4 +1,5 @@
 import { ContextProps } from "../../_trpc"
+import { assertResourceAccess } from "../../lib/assertResourceAccess"
 import { TInvoiceProcessStatusResponse } from "./invoiceProcessStatus.schema"
 
 export type InvoiceProcessStatus = {
@@ -6,6 +7,9 @@ export type InvoiceProcessStatus = {
 }
 
 export async function invoiceProcessingStatus({ ctx }: InvoiceProcessStatus): Promise<TInvoiceProcessStatusResponse> {
+
+    await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
+    
     const docs = await ctx.db.invoiceExtractionRequest.find({
         userId: ctx.userId,
         orgId: ctx.orgId,

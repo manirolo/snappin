@@ -28,7 +28,7 @@ export const SelectProvider = () => {
   const handleProviderSelect = (e: Event, app: (typeof sourceApps)[number]) => {
     e.preventDefault();
     redirectToOAuthConsentScreen({
-      appType: app.schema,
+      appType: app.type,
       appSlug: app.slug,
       appRole: app.role,
       appCategory: app.category,
@@ -39,8 +39,8 @@ export const SelectProvider = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button radius="full" variant="outline" size="lg">
-          <HugeiconsIcon icon={Add01Icon} className="size-4" />
+        <Button variant="outline" className="bg-background" size="sm" >
+          <HugeiconsIcon icon={Add01Icon} className="size-3" />
           Add Account
         </Button>
       </DropdownMenuTrigger>

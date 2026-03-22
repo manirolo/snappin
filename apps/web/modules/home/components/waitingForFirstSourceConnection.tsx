@@ -2,7 +2,7 @@
 
 import { appMetadata } from "@snappin/apps/app.metadata";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
-import { AppType } from "@snappin/shared/apps/app.schema";
+import { AppCategory, AppType, EmailAppSlug } from "@snappin/shared/apps/app.schema";
 import { Small, ExtraSmall, H4 } from "@snappin/ui/components/typography";
 import {
   CompactIntegrationCard,
@@ -10,24 +10,23 @@ import {
   CompactIntegrationName,
 } from "@snappin/features/integration/components/compactIntegrationCard";
 import React from "react";
-import Link from "next/link";
 
 export const WaitingForFirstSourceConnection = () => {
   const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();
 
   const sourceApps = Object.values(appMetadata).filter(
-    (app) => app.schema == AppType.SOURCE,
+    (app) => app.type == AppType.SOURCE && app.category == AppCategory.EMAIL && app.enableOnOnboarding == true,
   );
 
   return (
-    <div className="flex flex-col gap-4 mt-16">
+    <div className="flex flex-col items-center mx-auto gap-4 mt-14">
       <div>
-        <div className="space-y-2">
-          <H4>⚠️ You have 0 connected sources</H4>
-          <Small>Connect one to start extracting invoices automatically.</Small>
+        <div className="space-y-2 text-center">
+          <H4>Connect your sources</H4>
+          <Small>Connect one account to start extracting invoices automatically.</Small>
         </div>
 
-        <div className="grid grid-cols-2 max-w-xs my-8">
+        <div className="grid grid-cols-2 max-w-xs gap-4 my-8 mx-auto">
           {sourceApps.map((app, i) => (
             <CompactIntegrationCard
               loading={app.slug == loading}
@@ -36,28 +35,21 @@ export const WaitingForFirstSourceConnection = () => {
                 redirectToOAuthConsentScreen({
                   appSlug: app.slug,
                   appCategory: app.category,
-                  appType: app.schema,
+                  appType: app.type,
+                  redirectAfterPath: "/home"
                 })
               }
             >
-              <CompactIntegrationIcon icon={appMetadata[app.slug].iconifyIcon} />
+              <CompactIntegrationIcon icon={appMetadata[app.slug as EmailAppSlug].iconifyIcon} />
               <CompactIntegrationName>
-                {appMetadata[app.slug].name}
+                {appMetadata[app.slug as EmailAppSlug].name}
               </CompactIntegrationName>
             </CompactIntegrationCard>
           ))}
         </div>
 
-        <div className="my-8">
+        <div className="my-8 text-center">
           <ExtraSmall>We only scan invoice-related emails.</ExtraSmall>
-        </div>
-
-        <div>
-          <ExtraSmall>
-            <Link className="underline hover:text-gray-11" href="/integrations">
-              More integrations
-            </Link>
-          </ExtraSmall>
         </div>
       </div>
     </div>

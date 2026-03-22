@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 // Define input size variants
 const inputVariants = cva(
   `
-    flex w-full bg-input font-dm-sans border border-border-input transition-[color,box-shadow] text-foreground placeholder:text-muted-foreground/80     
+    flex w-full bg-input font-inter border border-border-input transition-[color,box-shadow] text-foreground placeholder:text-muted-foreground/80     
     disabled:cursor-not-allowed disabled:opacity-60 
     [&[readonly]]:bg-muted/80 [&[readonly]]:cursor-not-allowed
     file:h-full [&[type=file]]:py-0 file:border-solid file:border-input file:bg-transparent 
@@ -83,9 +83,9 @@ const inputWrapperVariants = cva(
     has-[:focus-visible]:ring
     has-[:focus-visible]:outline-none 
     bg-transparent
-    border-border-input
-    border-2
-    shadow-none
+    border-border
+    border
+    shadow-xs
     rounded-lg
     transition-all duration-200
     [&_[data-slot=datefield]]:grow 

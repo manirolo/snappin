@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import { DM_Sans, Onest } from "next/font/google";
+import { Inter, Onest } from "next/font/google";
 import { Providers } from "./provider";
 
 const onest = Onest({
@@ -10,9 +10,9 @@ const onest = Onest({
   variable: "--font-onest",
 });
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -35,15 +35,15 @@ export default function RootLayout({
   return (
     <ClerkProvider
       publishableKey={env.clerk.publishableKey}
-      signInForceRedirectUrl={"/"}
-      signUpForceRedirectUrl={"/"}
+      signInForceRedirectUrl={"/home"}
+      signUpForceRedirectUrl={"/home"}
       signInUrl={env.clerk.signInUrl}
       signUpUrl={env.clerk.signUpUrl}
       afterSignOutUrl={"/login"}
     >
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${onest.variable} ${dmSans.variable} font-onest`}
+          className={`${onest.variable} ${inter.variable} font-inter`}
           suppressHydrationWarning
         >
           <Providers>{children}</Providers>

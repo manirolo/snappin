@@ -6,7 +6,12 @@ export const env = {
     publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!,
     secretKey: process.env.CLERK_SECRET_KEY!,
     signInUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL!,
-    signUpUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL!
+    signUpUrl: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL!,
+    webhookSecretKey: process.env.CLERK_WEBHOOK_SIGNING_SECRET!,
+  },
+
+  encryption: {
+    secret: process.env.ENCRYPTION_SECRET!,
   },
 
   sentry: {
@@ -29,6 +34,18 @@ export const env = {
 
   openai: {
     apiKey: process.env.OPEN_API_KEY!,
+  },
+
+  xero: {
+    clientId: process.env.XERO_CLIENT_ID!,
+    clientSecret: process.env.XERO_CLIENT_SECRET!,
+  },
+
+  whatsapp: {
+    token: process.env.WHATSAPP_APP_SECRET!,
+    verifyToken: process.env.WHATSAPP_VERIFY_TOKEN!,
+    phoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID!,
+    appSecret: process.env.WA_APP_SECRET!,
   },
 
   google: {

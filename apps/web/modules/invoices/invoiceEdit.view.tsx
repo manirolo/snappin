@@ -38,9 +38,44 @@ import {
 import { HiOutlineX } from "react-icons/hi";
 import { InvoiceActions } from "@snappin/features/invoices/components/invoiceActions";
 import { InvoiceAttachmentEmpty } from "./components/empty/invoiceAttachment.empty";
+import { InvoiceResource } from "@snappin/shared/invoice/invoice.schema";
 
 type TabKey = "basic" | "lineItems";
 type FormState = { isDirty: boolean; isSaving: boolean };
+
+const InvoiceEditActions = ({
+  isDirty,
+  isSaving,
+  invoiceId,
+  onClick,
+  invoice
+}: {
+  isDirty: boolean;
+  isSaving: boolean;
+  invoiceId: string;
+  onClick: () => void;
+  invoice?: InvoiceResource
+}) => {
+  return (
+    <>
+      <Button
+        radius="full"
+        variant="mono"
+        className="p-5 min-w-20"
+        disabled={!isDirty || isSaving}
+        onClick={onClick}
+      >
+        {isSaving ? <Spinner className="size-4" /> : "Save"}
+      </Button>
+
+      <InvoiceActions invoiceId={invoiceId} side="bottom" invoice={invoice} sideOffset={8}>
+        <Button radius="full" variant="outline" className="p-5">
+          More Actions
+        </Button>
+      </InvoiceActions>
+    </>
+  );
+};
 
 export const InvoiceEditView = () => {
   const params = useParams();
@@ -51,15 +86,27 @@ export const InvoiceEditView = () => {
   const lineItemsRef = useRef<LineItemsInvoiceHandle>(null);
 
   const [activeTab, setActiveTab] = useState<TabKey>("basic");
-  const [basicState, setBasicState] = useState<FormState>({ isDirty: false, isSaving: false });
-  const [lineItemsState, setLineItemsState] = useState<FormState>({ isDirty: false, isSaving: false });
+  const [basicState, setBasicState] = useState<FormState>({
+    isDirty: false,
+    isSaving: false,
+  });
+  const [lineItemsState, setLineItemsState] = useState<FormState>({
+    isDirty: false,
+    isSaving: false,
+  });
 
-  const handleBasicStateChange     = useCallback((s: FormState) => setBasicState(s),     []);
-  const handleLineItemsStateChange = useCallback((s: FormState) => setLineItemsState(s), []);
+  const handleBasicStateChange = useCallback(
+    (s: FormState) => setBasicState(s),
+    [],
+  );
+  const handleLineItemsStateChange = useCallback(
+    (s: FormState) => setLineItemsState(s),
+    [],
+  );
 
   // Save button reflects the active tab only
   const activeState = activeTab === "basic" ? basicState : lineItemsState;
-  const handleSave  = () =>
+  const handleSave = () =>
     activeTab === "basic"
       ? basicInfoRef.current?.save()
       : lineItemsRef.current?.save();
@@ -76,7 +123,11 @@ export const InvoiceEditView = () => {
   const { data: doc, isLoading: isDocLoading } =
     trpc.invoices.getInvoiceDocumentUrl.useQuery(
       documentId ? { documentId } : skipToken,
-      { refetchOnWindowFocus: false, refetchIntervalInBackground: false, retry: 1 },
+      {
+        refetchOnWindowFocus: false,
+        refetchIntervalInBackground: false,
+        retry: 1,
+      },
     );
 
   if (isInvoiceLoading) return <DashboardLoading />;
@@ -87,42 +138,39 @@ export const InvoiceEditView = () => {
       ? getDomainFromEmail(invoice.extraction.source.metadata.from)
       : invoice?.vendor?.name;
 
+  const invoiceData = invoice as InvoiceResource | undefined 
+
   return (
     <Dashboard>
-      <DashboardHeader className="sticky top-0 bg-background z-20 border-b py-4 mb-0">
+      <DashboardHeader className="sticky top-0 bg-background z-20 border-b py-4 xl:px-4 mb-0">
         <DashboardHeaderMain className="flex flex-row gap-4 items-center justify-start">
           {getLogoByDomain(senderAddress ?? "unknown", "size-10", "text-lg")}
           <div className="flex flex-col gap-0">
             <DashboardTitle>{invoice?.vendor?.name}</DashboardTitle>
             <DashboardDescription>
-              {capitalize(invoice?.invoice?.metadata?.documentType ?? "invoice")}
+              {capitalize(invoice?.metadata?.documentType ?? "invoice")}
+              {" #"}
+              {invoice?.invoiceId ?? "invoice"}
             </DashboardDescription>
           </div>
         </DashboardHeaderMain>
 
-        <DashboardActions className="divide divide-x space-x-4">
-          <div className="space-x-2 flex pr-5">
-            <Button
-              radius="full"
-              variant="mono"
-              className="p-5 min-w-20"
-              disabled={!activeState.isDirty || activeState.isSaving}
+        <DashboardActions className="divide lg:divide-x space-x-4">
+          <div className="space-x-2 hidden lg:flex pr-5">
+            <InvoiceEditActions
+              invoiceId={id ?? ""}
+              isDirty={activeState.isDirty}
+              isSaving={activeState.isSaving}
               onClick={handleSave}
-            >
-              {activeState.isSaving ? <Spinner className="size-4" /> : "Save"}
-            </Button>
-
-            <InvoiceActions invoiceId={id ?? ""} side="bottom" sideOffset={8}>
-              <Button radius="full" variant="outline" className="p-5">
-                More Actions
-              </Button>
-            </InvoiceActions>
+              invoice={invoiceData}
+            />
+            
           </div>
 
           <Button
             radius="full"
             variant="outline"
-            className="min-w-fit min-h-fit p-2"
+            className="min-w-fit absolute top-5 right-5 md:top-0 md:right-0 md:relative min-h-fit p-2"
             onClick={() => router.push("/bookkeeping/documents")}
           >
             <HiOutlineX className="size-5" />
@@ -130,9 +178,9 @@ export const InvoiceEditView = () => {
         </DashboardActions>
       </DashboardHeader>
 
-      <DashboardContent className="p-0 mt-0 justify-between h-screen overflow-visible">
-        <div className="flex w-full sticky top-0 left-0 h-screen overflow-hidden">
-          <div className="w-8/12 flex justify-center items-center h-screen overflow-hidden">
+      <DashboardContent className="p-0 mt-0 justify-between md:px-0 xl:px-0 h-screen overflow-visible">
+        <div className="flex flex-col md:flex-row w-full sticky top-0 left-0 h-screen overflow-hidden">
+          <div className="w-6/12 2xl:w-8/12 xl:w-7/12 lg:flex hidden justify-center items-center h-screen overflow-hidden">
             {isDocLoading ? (
               <Spinner />
             ) : doc?.url ? (
@@ -144,10 +192,10 @@ export const InvoiceEditView = () => {
             )}
           </div>
 
-          <div className="max-w-4/12 w-full h-screen overflow-hidden">
+          <div className="w-full lg:w-6/12 xl:max-w-5/12 2xl:max-w-4/12 h-screen overflow-hidden">
             <Tabs
               defaultValue="basic"
-              className="mx-auto max-w-md"
+              className="xl:px-4 2xl:px-0 mx-auto max-w-md"
               onValueChange={(v) => setActiveTab(v as TabKey)}
             >
               <TabsList size="lg" className="my-4 w-auto mb-8">
@@ -173,6 +221,17 @@ export const InvoiceEditView = () => {
                 />
               </TabsContent>
             </Tabs>
+          </div>
+        </div>
+
+        <div className="lg:hidden absolute bottom-0 left-0 right-0 flex shadow drop-shadow-3xl items-center min-h-12 bg-background py-4 border-t">
+          <div className="ml-auto flex items-center gap-2">
+            <InvoiceEditActions
+              invoiceId={id ?? ""}
+              isDirty={activeState.isDirty}
+              isSaving={activeState.isSaving}
+              onClick={handleSave}
+            />
           </div>
         </div>
       </DashboardContent>

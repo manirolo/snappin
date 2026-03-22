@@ -7,7 +7,7 @@ import { X } from 'lucide-react';
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
 const dialogContentVariants = cva(
-  'flex flex-col fixed outline-0 z-50 border border-border bg-background p-6 shadow-lg shadow-black/5 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 rounded-lg',
+  'flex flex-col fixed outline-0 z-50 border border-border bg-background shadow-lg shadow-black/5 duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 rounded-lg',
   {
     variants: {
       variant: {
@@ -87,7 +87,7 @@ export default DialogContent;
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     data-slot="dialog-header"
-    className={cn('flex flex-col space-y-2 text-center sm:text-start mt-1 mr-10 mb-8', className)}
+    className={cn('flex flex-col space-y-2 p-4 text-center border-b sm:text-start mt-1 mb-2', className)}
     {...props}
   />
 );
@@ -95,7 +95,7 @@ const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     data-slot="dialog-footer"
-    className={cn('flex flex-col-reverse sm:flex-row sm:justify-end pt-5 sm:space-x-2.5', className)}
+    className={cn('flex flex-col-reverse p-6 sm:flex-row sm:justify-end pt-5 sm:space-x-2.5', className)}
     {...props}
   />
 );
@@ -104,7 +104,7 @@ function DialogTitle({ className, ...props }: React.ComponentProps<typeof Dialog
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn('text-[1.2rem] font-semibold leading-none', className)}
+      className={cn('text-[1rem] text-start font-semibold leading-none', className)}
       {...props}
     />
   );
@@ -118,7 +118,7 @@ function DialogDescription({ className, ...props }: React.ComponentProps<typeof 
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn('text-[13px] font-onest text-muted-foreground', className)}
+      className={cn('text-[13px] text-start font-onest text-muted-foreground', className)}
       {...props}
     />
   );

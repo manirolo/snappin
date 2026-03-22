@@ -13,6 +13,7 @@ interface TextInputProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'
   value?: string
   disable?: boolean
   onChange?: (value: string) => void
+  inputWrapperClassName?: string;
   prefix?: string
   inputProps?: Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value' | 'defaultValue'>
 }
@@ -28,6 +29,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
       disable,
       inputProps,
       className,
+      inputWrapperClassName,
       prefix,
       ...rest
     },
@@ -53,6 +55,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
         <InputWrapper
           className={cn(
             'min-h-11 w-full focus-visible:outline-0 border-border-input text-sm has-focus-visible:border-blue-300 has-focus-visible:ring has-focus-visible:ring-blue-300',
+            inputWrapperClassName
           )}
           
         >

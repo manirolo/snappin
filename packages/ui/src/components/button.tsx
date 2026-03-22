@@ -1,6 +1,5 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ChevronDown, LucideIcon, LucideProps } from "lucide-react";
 import { Slot as SlotPrimitive } from "radix-ui";
 import { cn } from "@snappin/ui/lib/utils";
 
@@ -10,18 +9,18 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-primary/80 hover:bg-primary border border-transparent text-white rounded-full active:scale-95 transition-all duration-150",
-        mono: "bg-gradient-to-b from-zinc-800 to-zinc-950 text-white dark:bg-zinc-300 dark:text-black hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
+        mono: "bg-gradient-to-b from-zinc-800 to-zinc-950 text-white dark:bg-zinc-300 dark:text-black active:scale-95 hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 data-[state=open]:bg-destructive/90",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/90 data-[state=open]:bg-secondary/90",
         outline:
-          "bg-transparent text-foreground border border-border transition-all duration-150 hover:bg-accent data-[state=open]:bg-accent transition-colors duration-300 ",
+          "bg-transparent shadow text-foreground border border-border active:scale-95 transition-all duration-150 hover:bg-accent data-[state=open]:bg-accent transition-colors duration-300 ",
         dashed:
           "text-accent-foreground border-2 border-input border-dashed bg-transparent hover:bg-accent hover:text-accent-foreground data-[state=open]:text-accent-foreground",
         ghost:
           "text-foreground hover:bg-accent hover:text-foreground  transition-all data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-        dim: "text-foreground bg-muted border shadow-xs disabled:text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
+        dim: "text-foreground bg-muted/50 border border-border/40 disabled:text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
         foreground: "",
         inverse: "",
         link: "hover:opacity-100 opacity-70 transition-opacity duration-300",
@@ -45,7 +44,7 @@ const buttonVariants = cva(
         _2xl: "min-w-xs sm:min-w-sm mx-auto md:min-w-102 min-h-[4.2rem] flex-1 gap-4 font-bold! text-lg font-onest",
         xl: "h-[3rem] text-md gap-2",
         lg: "h-[2.5rem] text-[0.85rem] px-4 gap-1.5 [&_svg:not([class*=size-])]:size-4",
-        md: "h-9 px-2 min-w-17 gap-1.5 text-sm [&_svg:not([class*=size-])]:size-4",
+        md: "h-10 px-3 min-w-17 gap-1.5 text-sm [&_svg:not([class*=size-])]:size-4",
         sm: "h-8 px-2 gap-1.25 text-xs [&_svg:not([class*=size-])]:size-3.5",
         xs: "h-6 px-1 gap-1 text-xs [&_svg:not([class*=size-])]:size-3.5",
         icon: "size-9 [&_svg:not([class*=size-])]:size-4 shrink-0",
@@ -381,7 +380,7 @@ const buttonVariants = cva(
       variant: "primary",
       mode: "default",
       size: "md",
-      radius: "md",
+      radius: "lg",
       appearance: "default",
     },
   },
@@ -431,22 +430,4 @@ function Button({
   );
 }
 
-interface ButtonArrowProps extends Omit<LucideProps, "ref"> {
-  icon?: LucideIcon;
-}
-
-function ButtonArrow({
-  icon: Icon = ChevronDown,
-  className,
-  ...props
-}: ButtonArrowProps) {
-  return (
-    <Icon
-      data-slot="button-arrow"
-      className={cn("ms-auto -me-1", className)}
-      {...props}
-    />
-  );
-}
-
-export { Button, ButtonArrow, buttonVariants };
+export { Button, buttonVariants };

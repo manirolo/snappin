@@ -3,6 +3,7 @@ import z from "zod";
 export const ZAddIntegration = z.object({
     code: z.string(),
     state: z.string(),
+    callbackUrl: z.string(),
 })
 
 export type TAddIntegrationResponse = {

@@ -9,17 +9,19 @@
 @source "../**/*.{ts,tsx}";
 @source "../../../../apps/**/*.{ts,tsx}";
 @source "../../../**/*.{ts,tsx}";
+@source "../../../../apps/**/**/*.{ts,tsx}";
+@source "../../../**/**/*.{ts,tsx}";
 
 :root {
   --radius: 0.625rem;
 
   /* === Base === */
-  --background: #fff;
+  --background: #F8F8F1;
   --foreground: #222;
   --secondary-background: #fafafb;
 
   /* === Card === */
-  --card: #fff;
+  --card: #fbfcf9;
   --card-foreground: #222;
 
   /* === Popover === */
@@ -39,7 +41,7 @@
   --secondary-foreground: #f8f4f0;
 
   /* === Accent === */
-  --accent: #F5F5F5;
+  --accent: #F2EDE7;
   --accent-foreground: #222;
 
   /* === Icons === */
@@ -51,7 +53,7 @@
   --accent-secondary-foreground: var(--color-gray-12);
 
   /* === Muted === */
-  --muted: var(--color-gray-200);
+  --muted: #E6E1DA;
   --muted-foreground: #707070;
 
   /* === Links === */
@@ -64,7 +66,7 @@
   --destructive-foreground: #ffffff;
 
   /* === Borders / Inputs / Rings === */
-  --border: var(--color-slate-200);
+  --border: var(--color-gray-5);
   --border-input: var(--color-gray-200);
   --border-secondary: var(--color-blue-500);
   --input: #f5f5f5;
@@ -79,11 +81,11 @@
   --chart-6: #ef4444; /* Red */
 
   /* === Sidebar === */
-  --sidebar: var(--color-emerald-950);
+  --sidebar: #061B09;
   --sidebar-foreground: #77857F;
   --sidebar-primary: #03d47c;
   --sidebar-primary-foreground: #002e22;
-  --sidebar-accent: #133A2E;
+  --sidebar-accent: #1a3d21;
   --sidebar-accent-foreground: #FFF;
   --sidebar-border: #00000014;
   --sidebar-ring: #03d47c;
@@ -119,7 +121,7 @@
   --color-card-2: #f2ede7;
   --overlay: #17171733;
   --shadow: #ebe6df;
-  --table: var(--color-gray-4);
+  --table: #fbfcf9;
 }
 
 .dark {
@@ -248,10 +250,11 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-link: var(--link);
 
   /* === Font Families === */
   --font-onest: var(--font-onest), system-ui, sans-serif;
-  --font-dm-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-inter: var(--font-inter), system-ui, sans-serif;
 
   /* === Brand Scale === */
   --color-brand-50: #edfdf5;
@@ -309,7 +312,7 @@
 }
 
 body {
-  font-family: "DM Sans", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   overflow-y: hidden;
   font-weight: 500;
 }
@@ -332,5 +335,5 @@ button, a {
 }
 
 p, span, * {
-  font-family: "DM Sans", Arial, Helvetica, sans-serif !important;
+  font-family: "Inter", Arial, Helvetica, sans-serif !important;
 }

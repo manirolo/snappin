@@ -11,7 +11,7 @@ export class CallbackController {
     const state = url.searchParams.get('state')
 
     if (!code || !state) {
-      return c.redirect(`${env.app_url}/?error=invalid_oauth_callback`)
+      return c.redirect(`${env.app_url}/integrations?error=invalid_oauth_callback`)
     }
 
     try {
@@ -22,6 +22,7 @@ export class CallbackController {
       const integration = await caller.integration.addIntegration({
         code,
         state,
+        callbackUrl: c.req.url,
       })
 
       return c.redirect(integration.redirectAfter)

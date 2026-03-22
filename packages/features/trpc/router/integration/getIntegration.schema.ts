@@ -1,9 +1,10 @@
 import z from "zod";
 import { IntegrationResource } from "@snappin/shared/integration/integration.schema";
+import { ZAppSlug } from "@snappin/shared/apps/app.schema";
 
 export const ZGetIntegration = z.object({
-    page: z.number().min(1).default(1),
-    limit: z.number().min(1).max(100).default(10),
+    appSlug: ZAppSlug.optional(),
+    integrationId: z.string().optional(),
 })
 
 export type TGetIntegration = z.infer<typeof ZGetIntegration>

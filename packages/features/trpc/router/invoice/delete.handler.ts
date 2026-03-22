@@ -1,7 +1,8 @@
-import { HttpError } from "@snappin/lib/http-error"
 import { ContextProps } from "../../_trpc"
+import { assertResourceAccess } from "../../lib/assertResourceAccess"
 import { TDeleteInvoice } from "./delete.schema"
 import { storageService } from "@snappin/infra/google/storage"
+import { TRPCError } from "@trpc/server"
 export type DeleteInvoice = {
     ctx: ContextProps
     input: TDeleteInvoice
@@ -11,14 +12,21 @@ export const deleteInvoice = async ({ ctx, input }: DeleteInvoice): Promise<void
     const invoice = await ctx.db.invoice.findOne({ _id: input.invoiceId }).populate("extraction");
 
     if (!invoice) {
-        throw new HttpError({ statusCode: 404, message: "Invoice couldn't found" });
+        throw new TRPCError({ code: "NOT_FOUND", message: "Invoice couldn't found" });
     }
+    await assertResourceAccess({
+        userId: ctx.userId,
+        orgId: ctx.orgId,
+        resourceOwnerId: invoice.userId.toString(),
+    })
 
-    if (invoice?.extraction?._id) {
-        await storageService.delete(invoice?.extraction?.documentId)
-        await storageService.delete(invoice?.extraction?.thumbnail)
-        await ctx.db.invoiceExtractionRequest.findOneAndDelete({ _id: invoice.extractionId })
-    }
-
-    await ctx.db.invoice.deleteOne({ _id: input.invoiceId })
+    await Promise.all([
+        invoice.extraction?.documentId
+            ? storageService.delete(invoice.extraction.documentId)
+            : Promise.resolve(),
+        invoice.extractionId
+            ? ctx.db.invoiceExtractionRequest.deleteOne({ _id: invoice.extractionId })
+            : Promise.resolve(),
+        ctx.db.invoice.deleteOne({ _id: input.invoiceId }),
+    ])
 }

@@ -1,6 +1,7 @@
+import * as React from "react"
 import { cn } from "@snappin/ui/lib/utils"
 
-const headingStyle = 'font-onest'
+const headingStyle = 'font-onest!'
 
 export function H1({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
@@ -28,7 +29,7 @@ export function H3({children, className}: {children?: React.ReactNode, className
 
 export function H4({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h4 className={cn(headingStyle, "scroll-m-20 text-lg md:text-[1.38rem] tracking-[-0.3px] font-semibold", className)}>
+    <h4 className={cn(headingStyle, "scroll-m-20 text-xl md:text-[1.2rem] tracking-[-0.3px] font-semibold", className)}>
       {children}
     </h4>
   )
@@ -44,7 +45,7 @@ export function H5({children, className}: {children?: React.ReactNode, className
 
 export function Paragraph({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-foreground font-dm-sans", className)}>
+    <p className={cn("text-foreground font-inter", className)}>
       {children}
     </p>
   )
@@ -52,7 +53,7 @@ export function Paragraph({children, className}: {children?: React.ReactNode, cl
 
 export function Small({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("font-dm-sans text-[14px] md:text-sm text-muted-foreground", className)}>
+    <p className={cn("font-inter text-[14px] md:text-sm text-muted-foreground", className)}>
       {children}
     </p>
   )
@@ -60,7 +61,7 @@ export function Small({children, className}: {children?: React.ReactNode, classN
 
 export const ExtraSmall = ({children, className}: {children?: React.ReactNode, className?: string}) => {
   return (
-    <p className={cn("font-dm-sans text-xs text-muted-foreground", className)}>{children}</p>
+    <p className={cn("font-inter text-xs text-muted-foreground", className)}>{children}</p>
   )
 } 
 

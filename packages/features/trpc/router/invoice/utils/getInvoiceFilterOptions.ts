@@ -22,7 +22,7 @@ export function getInvoiceFilterOptions(
     const currencies: Set<string> = new Set();
 
     for (const invoice of invoices) {
-        const vendorId = invoice.invoice?.vendorId;
+        const vendorId = invoice?.vendorId;
 
         // Still collect vendor domains from invoice extraction
         if (vendorId && invoice.extraction?.source?.kind === "integration" && invoice.extraction?.source?.metadata?.from) {
@@ -32,11 +32,11 @@ export function getInvoiceFilterOptions(
             vendorDomains[vendorId.toString()] = email;
         }
 
-        if (invoice.invoice?.currency) {
-            currencies.add(invoice.invoice.currency.toUpperCase());
+        if (invoice?.totals?.currency) {
+            currencies.add(invoice?.totals?.currency.toUpperCase());
         }
 
-        const recipient = invoice.invoice?.recipient;
+        const recipient = invoice?.recipient;
         if (recipient?.name) {
             invoice_recipients[recipient.name] = recipient.name;
         }

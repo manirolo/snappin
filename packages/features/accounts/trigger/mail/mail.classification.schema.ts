@@ -1,6 +1,6 @@
 import { ZSource } from '@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema'
 import z from 'zod'
-import { ZBufferAttachment } from '../../../invoices/trigger/invoice.extractRequest.schema'
+import { ZBufferAttachment } from '../../../invoice/trigger/invoice.extractRequest.schema'
 
 export const ZMailClassification = z.object({
     userId: z.string(),

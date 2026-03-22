@@ -4,11 +4,13 @@ import { useState, useEffect } from "react";
 import {
   getCoreRowModel,
   getSortedRowModel,
-  PaginatedTable,
   SimpleTable,
   SortingState,
   useReactTable,
 } from "@snappin/ui/components/table";
+import { trpc } from "@snappin/features/trpc/react/client";
+import { toast } from "react-hot-toast";
+import { scanColumn } from "./scan.column";
 import {
   Empty,
   EmptyDescription,
@@ -16,24 +18,29 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@snappin/ui/components/empty";
-import { trpc } from "@snappin/features/trpc/react/client";
-import { toast } from "react-hot-toast";
-import { scanColumns } from "./scan.column";
-import { Icon } from "@iconify/react"
+import { HugeiconsIcon } from "@hugeicons/react";
+import { SmartPhone01Icon } from "@hugeicons-pro/core-bulk-rounded";
 
-const EmptyScanHistoryComponent = () => (
-  <Empty>
-    <EmptyHeader>
-      <EmptyMedia variant="icon">
-        <Icon icon="tabler:invoice" />
-      </EmptyMedia>
-      <EmptyTitle>No scan history found</EmptyTitle>
-      <EmptyDescription>
-        Capture, extract and categorize bills, receipts and more in seconds
-      </EmptyDescription>
-    </EmptyHeader>
-  </Empty>
-);
+const EmptyScanHistoryStateComponent = () => {
+  return (
+    <Empty>
+      <EmptyHeader>
+        <EmptyMedia>
+          <HugeiconsIcon
+            icon={SmartPhone01Icon}
+            className="text-primary size-14"
+          />
+        </EmptyMedia>
+        <EmptyTitle>No scans yet</EmptyTitle>
+        <EmptyDescription>
+          Capture, extract and categorize bills, receipts and more in seconds
+        </EmptyDescription>
+      </EmptyHeader>
+    </Empty>
+  );
+};
+
+// type IntegrationTab = "all" | "own" | "guest";
 
 export const ScanListTable = () => {
   // const [tab, setTab] = useState<IntegrationTab>("all");
@@ -41,10 +48,11 @@ export const ScanListTable = () => {
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const { data, isLoading, error } = trpc.retroSearch.getScans.useQuery(
-    undefined,
-    { refetchOnWindowFocus: false, refetchIntervalInBackground: false },
-  );
+  const { data, isLoading, error } =
+    trpc.retroSearch.getScans.useQuery(
+      undefined,
+      { refetchOnWindowFocus: false, refetchIntervalInBackground: false },
+    );
 
   useEffect(() => {
     if (error) {
@@ -52,9 +60,9 @@ export const ScanListTable = () => {
     }
   }, [error]);
 
-  const scansTable = useReactTable({
+  const scanTable = useReactTable({
     data: data ?? [],
-    columns: scanColumns(),
+    columns: scanColumn(),
     state: { sorting, columnVisibility, rowSelection },
     onSortingChange: setSorting,
     onColumnVisibilityChange: setColumnVisibility,
@@ -71,10 +79,10 @@ export const ScanListTable = () => {
   return (
     <div>
       <SimpleTable
-        table={scansTable}
+        table={scanTable}
         // toolbar={toolbar}
         loading={isLoading}
-        emptyStateComponent={<EmptyScanHistoryComponent />}
+        emptyStateComponent={<EmptyScanHistoryStateComponent />}
       />
     </div>
   );

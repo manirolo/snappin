@@ -26,6 +26,7 @@ export const Client = () => {
               variant={"outline"}
               size={"_2xl"}
               radius={"full"}
+              className="border-2"
               disabled={loading == AuthProviders.GOOGLE || loading != null}
               onClick={() => setLoading(AuthProviders.GOOGLE)}
             >

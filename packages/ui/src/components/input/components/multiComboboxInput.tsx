@@ -64,7 +64,6 @@ export const MultiComboBox = React.forwardRef<
 
     const value = controlledValue ?? internal;
     const isSearching = search.trim().length > 0;
-    const selectedOptions = options.filter((o) => value.includes(o.value));
 
     useEffect(() => {
       if (listRef.current) listRef.current.scrollTop = 0;
@@ -80,13 +79,6 @@ export const MultiComboBox = React.forwardRef<
       const next = value.includes(val)
         ? value.filter((v) => v !== val)
         : [...value, val];
-      setInternal(next);
-      onChange?.(next);
-    };
-
-    const removeOne = (val: string, e: React.MouseEvent) => {
-      e.stopPropagation();
-      const next = value.filter((v) => v !== val);
       setInternal(next);
       onChange?.(next);
     };

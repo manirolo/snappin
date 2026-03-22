@@ -40,7 +40,7 @@ export function SortableHeader<TData>({
       type="button"
       onClick={column.getToggleSortingHandler()}
       className={cn(
-        "w-full flex items-center gap-1 text-[11px] font-medium text-muted-foreground cursor-pointer select-none hover:opacity-80",
+        "w-full flex items-center gap-1 text-xs p-0 font-medium text-muted-foreground cursor-pointer select-none hover:opacity-80",
         className,
       )}
     >
@@ -63,7 +63,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div
       data-slot="table-container"
-      className="relative w-full max-w-[100vw] overflow-x-auto"
+      className="relative w-full max-w-full overflow-x-auto"
     >
       <table
         data-slot="table"
@@ -128,7 +128,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
     <th
       data-slot="table-head"
       className={cn(
-        "h-10 px-2 text-left align-middle font-semibold text-slate-600 text-[12.5px] whitespace-nowrap [&:has([role=checkbox])]:pr-0 *:[role=checkbox]:translate-y-0.5",
+        "h-10 px-2 text-left align-middle font-semibold text-slate-600 text-xs whitespace-nowrap [&:has([role=checkbox])]:pr-0 *:[role=checkbox]:translate-y-0.5",
         className,
       )}
       {...props}
@@ -290,19 +290,19 @@ export function PaginatedTable<T>({
       emptyStateComponent ? (
         emptyStateComponent
       ) : (
-        <div>
+        <div className="w-full bg-table shadow mb-2 border border-border/50 px-2 rounded-xl pt-0">
           {toolbar && <div className="pb-4">{toolbar}</div>}
-          <div className="rounded-lg pt-0">
-            <div className="overflow-hidden">
+          <div className="w-full">
+            <div className="w-full overflow-hidden">
               <Table>
-                <TableHeader>
+                <TableHeader className="p-0 h-12 border-b! border-border/40">
                   {table.getHeaderGroups().map((group) => (
                     <TableRow key={group.id} className="hover:bg-transparent">
                       {group.headers.map((header) => (
                         <TableHead
                           key={header.id}
                           style={{ width: header.getSize() }}
-                          className="text-[11px] font-medium tracking-wide text-muted-foreground"
+                          className="text-xs font-medium tracking-wide text-muted-foreground"
                         >
                           {header.isPlaceholder
                             ? null
@@ -323,7 +323,7 @@ export function PaginatedTable<T>({
                     />
                   </TableBody>
                 ) : (
-                  <TableBody className="bg-background border-b last:border-b-transparent">
+                  <TableBody className="bg-table border-b border-border last:border-b-transparent">
                     {processingStateText && (
                       <TableRow>
                         <TableCell colSpan={colSpan}>
@@ -340,7 +340,7 @@ export function PaginatedTable<T>({
                         onClick={() => onRowClick?.(row)}
                         className={cn(
                           "group transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80", // ← add `group`
-                          "transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80",
+                          "transition-colors border-b hover:bg-accent/30 cursor-pointer border-border/50",
                           row
                             .getAllCells()
                             .some(
@@ -349,14 +349,14 @@ export function PaginatedTable<T>({
                           rowIndex === 0 &&
                             "[&>td:first-child]:rounded-tl-lg [&>td:last-child]:rounded-tr-lg",
                           rowIndex === selectedRowIndex &&
-                            "bg-accent hover:bg-accent/90", // ← highlight selected
+                            "bg-accent hover:bg-accent", // ← highlight selected
                         )}
                       >
                         {row.getVisibleCells().map((cell) => (
                           <TableCell
                             key={cell.id}
                             style={{ width: cell.column.getSize() }}
-                            className="py-3 first:rounded-l-md last:rounded-r-md text-gray-700"
+                            className="py-3.5 text-gray-700"
                           >
                             {flexRender(
                               cell.column.columnDef.cell,
@@ -371,7 +371,7 @@ export function PaginatedTable<T>({
               </Table>
             </div>
             {!hidePagination && (
-              <div className="flex items-center justify-between mt-8 p-3 pb-4 w-full">
+              <div className="flex items-center justify-between p-3 pb-4 w-full">
                 {/* Left Section - Limit Selector (Optional) */}
                 {changeLimit && (
                   <div className="flex items-center gap-2">
@@ -468,19 +468,19 @@ export function SimpleTable<T>({
   }
 
   return (
-    <div>
+    <div className="w-full bg-table shadow pb-2 mb-2 border border-border/50 px-2 rounded-xl pt-0">
       {toolbar && <div className="pb-4">{toolbar}</div>}
       <div className="pt-0">
-        <div className="overflow-hidden">
-          <Table>
-            <TableHeader>
+        <div className="w-full">
+          <Table className="px-0">
+            <TableHeader className="h-12 border-b! border-border/40">
               {table.getHeaderGroups().map((group) => (
                 <TableRow key={group.id} className="hover:bg-transparent">
                   {group.headers.map((header) => (
                     <TableHead
                       key={header.id}
                       style={{ width: header.getSize() }}
-                      className="text-[11px] font-medium tracking-wide text-gray-400"
+                      className="text-xs font-medium tracking-wide text-gray-400"
                     >
                       {header.isPlaceholder
                         ? null
@@ -496,10 +496,10 @@ export function SimpleTable<T>({
 
             {loading ? (
               <TableBody>
-                <TableSkeleton columns={colSpan} rows={5} />
+                <TableSkeleton columns={colSpan} rows={2} />
               </TableBody>
             ) : (
-              <TableBody className="bg-background">
+              <TableBody className="bg-table">
                 {processingStateText && (
                   <TableRow>
                     <TableCell colSpan={colSpan}>
@@ -515,7 +515,7 @@ export function SimpleTable<T>({
                     key={row.id}
                     onClick={() => onRowClick?.(row)}
                     className={cn(
-                      "transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80",
+                      "transition-colors border-b hover:bg-accent/20 cursor-pointer border-border/80",
                       row
                         .getAllCells()
                         .some((c) => c.column.columnDef.meta?.disableHover) &&

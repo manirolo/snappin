@@ -14,6 +14,7 @@ import { renewWatching } from "./lib/renewWatching";
 import { buildIntegrationData } from "./lib/buildIntegrationData";
 import { normalizeNotification } from "./lib/normalizeNotification";
 import { resolveMessageIds } from "./lib/resolveMessageIds";
+import { resolveIdentity } from "./lib/resolveIdentity";
 import { AppCategory, AppDefinition, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
 import { GmailRepository } from "./lib/db/gmail.repository";
 import { gmailMetadata } from "./gmail.metadata";
@@ -35,6 +36,7 @@ export const GmailAppServices = {
     stopWatching,
     renewWatching,
     buildIntegrationData,
+    resolveIdentity,
     normalizeNotification,
     getIntegrationData,
     resolveMessageIds,

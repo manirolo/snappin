@@ -8,7 +8,6 @@ import {
   useReactTable,
   SimpleTable,
 } from "@snappin/ui/components/table";
-import { trpc } from "@snappin/features/trpc/react/client";
 import { toast } from "react-hot-toast";
 import { accountsColumn } from "./account.column";
 import {
@@ -19,6 +18,7 @@ import {
   EmptyTitle,
 } from "@snappin/ui/components/empty";
 import { Icon } from "@iconify/react";
+import { useAccounts } from "../hooks/useInvoices";
 
 const EmptyConnectedAccountsStateComponent = () => {
   return (
@@ -48,11 +48,7 @@ export const AccountsListTable = ({
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const { data, isLoading, error } =
-    trpc.integration.connectedEmailAccounts.useQuery(undefined, {
-      refetchOnWindowFocus: false,
-      refetchIntervalInBackground: false,
-    });
+  const { accounts, isLoading, error } = useAccounts();
 
   useEffect(() => {
     if (error) {
@@ -61,7 +57,7 @@ export const AccountsListTable = ({
   }, [error]);
 
   const integrationTable = useReactTable({
-    data: data ?? [],
+    data: accounts ?? [],
     columns: accountsColumn(),
     state: { sorting, columnVisibility, rowSelection },
     onSortingChange: setSorting,
@@ -79,14 +75,14 @@ export const AccountsListTable = ({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    if (data && data?.length > 0 && selectedIndex === null) {
+    if (accounts && accounts?.length > 0 && selectedIndex === null) {
       setSelectedIndex(0);
 
-      if (onRowClick && data[0]?._id) {
-        onRowClick(data[0]._id);
+      if (onRowClick && accounts[0]?._id) {
+        onRowClick(accounts[0]._id);
       }
     }
-  }, [data, selectedIndex, onRowClick]);
+  }, [accounts, selectedIndex, onRowClick]);
 
   return (
     <div>
@@ -94,7 +90,7 @@ export const AccountsListTable = ({
         table={integrationTable}
         // toolbar={toolbar}
 
-        selectedRowIndex={selectedIndex}
+        // selectedRowIndex={selectedIndex}
         onRowClick={(row) => {
           const id = row.original?._id;
           const index = row.index;

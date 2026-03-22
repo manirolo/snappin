@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Dashboard,
   DashboardActions,
@@ -12,17 +12,18 @@ import {
 } from "../../components/layout/dashboardLayout";
 import { AccountsListTable } from "@snappin/features/accounts/components/accounts.table";
 import { SelectProvider } from "./components/selectProvider";
-import { AccountDetails } from "./components/accountDetail";
+import { useAccounts } from "@snappin/features/accounts/hooks/useInvoices";
+import { DashboardLoading } from "../../components/progress/loading";
+import { AccountEmpty } from "./account.empty";
 
 export const AccountView = () => {
-  const [selectedAccountId, setSelectedAccountId] = useState<string | null>(
-    null,
-  );
+  const { accounts, isLoading } = useAccounts();
+
+  if (isLoading) return <DashboardLoading />;
+  if (!accounts || accounts.length <= 0) return <AccountEmpty />;
+
   return (
-    <Dashboard
-      sidePanel={<AccountDetails accountId={selectedAccountId ?? ""} />}
-      sidePanelClassName="sticky top-0 min-h-[95vh]"
-    >
+    <Dashboard>
       <DashboardHeader>
         <DashboardHeaderMain>
           <DashboardTitle>Email Accounts</DashboardTitle>
@@ -35,7 +36,9 @@ export const AccountView = () => {
         </DashboardActions>
       </DashboardHeader>
       <DashboardContent>
-        <AccountsListTable onRowClick={(id) => setSelectedAccountId(id)} />
+        <div className="max-w-6xl">
+          <AccountsListTable />
+        </div>
       </DashboardContent>
     </Dashboard>
   );

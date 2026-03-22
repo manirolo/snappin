@@ -13,7 +13,6 @@ import { Search } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { InputWrapper } from "./input";
 
-/* eslint-disable react/no-unknown-property */
 function Command({
   className,
   ...props

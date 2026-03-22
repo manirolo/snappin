@@ -13,6 +13,9 @@ type RedirectParams = {
     appType?: AppType
     appRole?: AppRole[]
     redirectAfterPath?: string
+    reAuthenticate?: {
+        integrationId: string
+    }
 }
 
 export function useOAuthRedirect() {
@@ -24,7 +27,7 @@ export function useOAuthRedirect() {
         return {
             appSlug: app.slug,
             appCategory: app.category,
-            appType: app.schema,
+            appType: app.type,
             appRole: app.role,
             isComing: app.isComingSoon ?? false
         }
@@ -43,12 +46,12 @@ export function useOAuthRedirect() {
     const redirectToOAuthConsentScreen = async ({
         appSlug,
         redirectAfterPath,
+        reAuthenticate,
     }: RedirectParams): Promise<boolean> => {
         try {
             setLoading(appSlug)
 
             const { isComing, ...appInfo } = getAppInfo(appSlug)
-
 
             if (isComing) {
                 toast.error("This integration coming soon")
@@ -61,6 +64,7 @@ export function useOAuthRedirect() {
                 redirectAfter: redirectAfterPath
                     ? `${env.app_url}${redirectAfterPath}`
                     : `${env.app_url}`,
+                ...(reAuthenticate && { reAuthenticate }),
             })
 
             return true

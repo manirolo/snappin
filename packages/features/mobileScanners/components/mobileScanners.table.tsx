@@ -4,11 +4,10 @@ import { useState, useEffect } from "react";
 import {
   getCoreRowModel,
   getSortedRowModel,
-  PaginatedTable,
+  SimpleTable,
   SortingState,
   useReactTable,
 } from "@snappin/ui/components/table";
-import { trpc } from "@snappin/features/trpc/react/client";
 import { toast } from "react-hot-toast";
 import { accountsColumn } from "./mobileScanners.column";
 import {
@@ -20,13 +19,17 @@ import {
 } from "@snappin/ui/components/empty";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { SmartPhone01Icon } from "@hugeicons-pro/core-bulk-rounded";
+import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
 
 const EmptyMobileScannersStateComponent = () => {
   return (
     <Empty>
       <EmptyHeader>
         <EmptyMedia>
-          <HugeiconsIcon icon={SmartPhone01Icon} className="text-primary size-14" />
+          <HugeiconsIcon
+            icon={SmartPhone01Icon}
+            className="text-primary size-14"
+          />
         </EmptyMedia>
         <EmptyTitle>No mobile scanners yet</EmptyTitle>
         <EmptyDescription>
@@ -45,14 +48,9 @@ export const MobileScannersListTable = () => {
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-
-  const { data, isLoading, error } =
-    trpc.integration.connectedMobileScanners.useQuery(
-      { page, limit },
-      { refetchOnWindowFocus: false, refetchIntervalInBackground: false },
-    );
+  const { connectedMobileScanners, error, isLoading } = useIntegration({
+    connectedMobileScanners: true,
+  });
 
   useEffect(() => {
     if (error) {
@@ -61,7 +59,7 @@ export const MobileScannersListTable = () => {
   }, [error]);
 
   const integrationTable = useReactTable({
-    data: data?.data ?? [],
+    data: connectedMobileScanners ?? [],
     columns: accountsColumn(),
     state: { sorting, columnVisibility, rowSelection },
     onSortingChange: setSorting,
@@ -78,23 +76,10 @@ export const MobileScannersListTable = () => {
 
   return (
     <div>
-      <PaginatedTable
+      <SimpleTable
         table={integrationTable}
-        pagination={{
-          page: data?.page ?? page,
-          totalPages: data?.totalPages ?? 1,
-          limit: data?.limit ?? limit,
-          hasNextPage: data?.hasNextPage ?? false,
-          hasPrevPage: data?.hasPrevPage ?? false,
-        }}
-        next={() => setPage((p) => p + 1)}
-        prev={() => setPage((p) => Math.max(1, p - 1))}
         // toolbar={toolbar}
         loading={isLoading}
-        changeLimit={(newLimit) => {
-          setLimit(newLimit);
-          setPage(1);
-        }}
         emptyStateComponent={<EmptyMobileScannersStateComponent />}
       />
     </div>

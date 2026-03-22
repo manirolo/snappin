@@ -1,13 +1,14 @@
 {
   "extends": "@snappin/typescript-config/nextjs.json",
   "compilerOptions": {
+    "rootDir": ".",
     "outDir": "dist",
     "resolveJsonModule": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "baseUrl": ".",
+    "paths": {
+      "@snappin/features/*": ["./*"]
+    },
+    "plugins": [{ "name": "next" }]
   },
   "include": [".", "trigger.config.ts"],
   "exclude": ["node_modules", "dist", "build"]

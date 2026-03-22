@@ -1,7 +1,9 @@
-import { AppCategory, AppMetadata, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
+import { AppCategory, AppMetadata, AppRole, AppSlug, AppType, Provider } from "@snappin/shared/apps/app.schema";
 
 export const gmailMetadata: AppMetadata = {
+    id: "IN001",
     name: "Gmail",
+    provider: Provider.GOOGLE,
     publisher: {
         name: "Snappin",
         email: "support@snappinapp.com"

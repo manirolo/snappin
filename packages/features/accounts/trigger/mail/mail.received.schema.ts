@@ -7,3 +7,5 @@ export const ZMailNotificationSchema = z.object({
   messageId: z.string().optional().nullable(),
   cursor: z.number().optional().nullable(), // historyId or deltaToken
 });
+
+export type MailNotificationSchema = z.infer<typeof ZMailNotificationSchema>

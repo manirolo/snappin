@@ -1,0 +1,10 @@
+@import "@snappin/ui/globals.css";
+
+html,
+body,
+#root {
+  width: 320px;
+  height: 100%;
+  min-height: 500px;
+  overflow-x: hidden;
+}

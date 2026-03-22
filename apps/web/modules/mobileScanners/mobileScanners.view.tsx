@@ -8,15 +8,12 @@ import {
   DashboardHeaderMain,
   DashboardTitle,
 } from "../../components/layout/dashboardLayout";
-import { Button } from "@snappin/ui/components/button";
 import { MobileScannersListTable } from "@snappin/features/mobileScanners/components/mobileScanners.table";
-import { Add01Icon } from "@hugeicons-pro/core-solid-rounded";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { MobileScannerDetails } from "./components/mobileScannerDetail";
+import { NewMobileScannerDialog } from "./components/newMobileScanner.dialog";
 
 export const MobileScannersView = () => {
   return (
-    <Dashboard sidePanel={<MobileScannerDetails />}>
+    <Dashboard>
       <DashboardHeader>
         <DashboardHeaderMain>
           <DashboardTitle>Mobile Scanners</DashboardTitle>
@@ -25,9 +22,7 @@ export const MobileScannersView = () => {
           </DashboardDescription>
         </DashboardHeaderMain>
         <DashboardActions>
-          <Button size="md" variant={"outline"} radius="full" className="min-w-fit">
-            <HugeiconsIcon icon={Add01Icon} />
-          </Button>
+          <NewMobileScannerDialog />
         </DashboardActions>
       </DashboardHeader>
       <DashboardContent>

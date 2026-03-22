@@ -15,27 +15,16 @@ import { InvoiceListTable } from "@snappin/features/invoices/components/table/in
 import { ManualInvoiceUploadDialog } from "@snappin/features/invoices/components/manualInvoiceUpload.dialog";
 import { FilterInvoice } from "@snappin/features/invoices/components/filter/filterByCategory";
 import { Input, InputWrapper } from "@snappin/ui/components/input";
+import { ExportAll } from "@snappin/features/export/components/exportAll";
 import { Kbd, KbdGroup } from "@snappin/ui/components/kbd";
 import { Icon } from "@iconify/react";
-import { InvoiceDetail } from "./components/invoiceDetails";
 import { useInvoices } from "@snappin/features/invoices/hooks/useInvoices";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { DocumentAttachmentIcon } from "@hugeicons-pro/core-bulk-rounded";
-import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@snappin/ui/components/empty";
 import { DashboardLoading } from "../../components/progress/loading";
+import { InvoiceEmpty } from "./invoice.empty";
 
 export const InvoiceView = () => {
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState<string | null>(
-    null,
-  );
   const { invoices, isLoading } = useInvoices();
 
   useEffect(() => {
@@ -50,41 +39,12 @@ export const InvoiceView = () => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  if (isLoading) return <DashboardLoading />
+  if (isLoading) return <DashboardLoading />;
 
-  if (!invoices)
-    return (
-      <Dashboard>
-        <DashboardHeader>
-          <DashboardHeaderMain>
-            <DashboardTitle>Documents</DashboardTitle>
-            <DashboardDescription>
-              List of documents collected from various sources
-            </DashboardDescription>
-          </DashboardHeaderMain>
-        </DashboardHeader>
-        <DashboardContent>
-          <Empty>
-            <EmptyHeader>
-              <EmptyMedia>
-                <HugeiconsIcon
-                  icon={DocumentAttachmentIcon}
-                  className="size-14 text-primary"
-                />
-              </EmptyMedia>
-              <EmptyTitle>No invoices yet</EmptyTitle>
-              <EmptyDescription>
-                Add and manage your favorite services.
-              </EmptyDescription>
-            </EmptyHeader>
-          </Empty>
-        </DashboardContent>
-      </Dashboard>
-    );
   return (
     <Dashboard
-      // sidePanel={<InvoiceDetail invoiceId={selectedInvoiceId ?? ""} />}
-      // sidePanelClassName="sticky top-0 max-h-[100vh]"
+    // sidePanel={<InvoiceDetail invoiceId={selectedInvoiceId ?? ""} />}
+    // sidePanelClassName="sticky top-0 max-h-[100vh]"
     >
       <DashboardHeader>
         <DashboardHeaderMain>
@@ -108,17 +68,16 @@ export const InvoiceView = () => {
             </KbdGroup>
           </InputWrapper>
           <FilterInvoice />
+          <ExportAll />
           <ManualInvoiceUploadDialog />
         </DashboardActions>
       </DashboardHeader>
       <DashboardContent>
-        <div className="w-full"></div>
-        <div className="flex flex-col gap-8 mt-6 mb-10">
-          <InvoiceListTable
-            search={search}
-            onRowClick={(id) => setSelectedInvoiceId(id)}
-          />
-        </div>
+        {!invoices || invoices.data.length <= 0 ? (
+          <InvoiceEmpty />
+        ) : (
+          <InvoiceListTable search={search} />
+        )}
       </DashboardContent>
     </Dashboard>
   );

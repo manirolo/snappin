@@ -5,7 +5,8 @@ import { Card } from "@snappin/ui/components/card";
 import { cn } from "@snappin/ui/lib/utils";
 import { ChevronRight } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
-import { truncateMiddle } from "@snappin/lib/string/truncate"
+import { truncateMiddle } from "@snappin/lib/string/truncate";
+import { Spinner } from "../assets/svg/spinner";
 
 export const DetailCard = ({
   children,
@@ -47,7 +48,7 @@ export const DetailCardHeader = ({
 }) => (
   <div
     className={cn(
-      "flex flex-col items-start gap-1.5 mb-4 text-start",
+      "flex flex-col items-center gap-1.5 mb-4 text-center",
       className,
     )}
   >
@@ -91,7 +92,7 @@ export const DetailCardSection = ({
 }) => (
   <Card
     className={cn(
-      "w-full divide-y divide-border rounded-xl border border-border p-0 shadow-none gap-0",
+      "w-full bg-transparent border-0 rounded-xl p-0 shadow-none gap-0",
       className,
     )}
   >
@@ -134,15 +135,12 @@ export const DetailRow = ({
       className,
     )}
   >
-    <span className={cn("text-sm text-muted-foreground shrink-0", labelClassName)}>
+    <span
+      className={cn("text-sm text-muted-foreground shrink-0", labelClassName)}
+    >
       {label}
     </span>
-    <span
-      className={cn(
-        "text-sm font-medium text-foreground",
-        valueClassName,
-      )}
-    >
+    <span className={cn("text-sm font-medium text-foreground", valueClassName)}>
       <TruncatedValue value={value} />
     </span>
   </div>
@@ -167,6 +165,7 @@ export const DetailCardAction = ({
   variant = "default",
   disabled = false,
   chevron = true,
+  loading = false,
 }: {
   icon?: React.ReactNode;
   label: string;
@@ -174,24 +173,34 @@ export const DetailCardAction = ({
   onClick?: () => void;
   className?: string;
   variant?: "default" | "destructive";
+  loading?: boolean;
   disabled?: boolean;
   chevron?: boolean;
 }) => (
   <div
     onClick={disabled ? undefined : onClick}
     className={cn(
-      "flex! w-full cursor-pointer items-center gap-2 rounded-xl px-4 py-1 shadow-none transition-colors",
-      variant === "default" && "bg-accent hover:bg-muted text-foreground",
+      "flex! w-full gap-2 cursor-pointer items-center rounded-lg px-4 py-2.5 shadow-none transition-colors",
+      variant === "default" && "bg-transparent hover:bg-accent text-foreground",
       variant === "destructive" &&
-        "bg-accent hover:bg-destructive/10 text-destructive",
+        "bg-transparent hover:bg-destructive/10 text-destructive",
       disabled && "pointer-events-none opacity-50",
+      loading && "cursor-progress",
       className,
     )}
   >
-    {icon && (
+    {loading ? (
+      <Spinner
+        className={cn(
+          "size-4",
+          variant === "destructive" &&
+            "text-destructive",
+        )}
+      />
+    ) : icon ? (
       <span
         className={cn(
-          "flex size-8 shrink-0 items-center",
+          "flex items-center",
           variant === "destructive"
             ? "text-destructive"
             : "text-muted-foreground",
@@ -199,6 +208,8 @@ export const DetailCardAction = ({
       >
         {icon}
       </span>
+    ) : (
+      <></>
     )}
     <span
       className={cn(
@@ -217,7 +228,7 @@ export const DetailCardAction = ({
             : "text-muted-foreground",
         )}
       >
-        {trailing}
+        <TruncatedValue value={trailing} />
         {chevron && <ChevronRight size={14} />}
       </span>
     )}
@@ -232,10 +243,7 @@ export const DetailCardActionGroup = ({
   className?: string;
 }) => (
   <div
-    className={cn(
-      "w-full overflow-hidden rounded-2xl p-1 bg-accent",
-      className,
-    )}
+    className={cn("w-full overflow-hidden rounded-xl p-1 bg-card", className)}
   >
     {children}
   </div>

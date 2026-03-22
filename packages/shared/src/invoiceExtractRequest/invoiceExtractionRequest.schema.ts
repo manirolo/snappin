@@ -1,19 +1,8 @@
 import { z } from "zod";
 import { SourceKind } from "../apps/app.schema";
 import { ZMail } from "../inbox/mail.schema";
-import { ZIntegration } from "../integration/integration.schema";
-
-export enum TOCREngine {
-    AWS_TEXTRACT = "aws-textract",
-    GOOGLE_DOCUMENT_AI = "google-document-ai",
-}
-export const ZOCREngine = z.enum(TOCREngine);
-
-export enum AnalyzeEngine {
-    GEMINI = "gemini",
-    TEXTRACT = "textract",
-}
-export const ZAnalyzeEngine = z.enum(AnalyzeEngine);
+import { ZIntegration, ZIntegrationSnapshot } from "../integration/integration.schema";
+import { ZUser } from "../user/user.schema";
 
 export const ZExtractionStatus = z.enum([
     "queued",
@@ -24,12 +13,13 @@ export const ZExtractionStatus = z.enum([
 export type ExtractionStatus = z.infer<typeof ZExtractionStatus>;
 const ZMailIntegrationSource = z.object({
     kind: z.literal(SourceKind.INTEGRATION),
-    integrationId: z.string().optional().nullable(),      // reference to Integration _id
+    integrationId: z.string().optional().nullable(),
     externalId: z.string().nullable().optional(),
     isRetroactiveScan: z.boolean().optional(),
     retroactiveScanId: z.string().nullable().optional(),
-    metadata: ZMail
+    metadata: ZMail.optional().nullable()
 })
+export type MailIntegrationSource = z.infer<typeof ZMailIntegrationSource>
 export const ZIntegrationSource = ZMailIntegrationSource
 export const ZManualSource = z.object({
     kind: z.literal(SourceKind.MANUAL),
@@ -61,17 +51,16 @@ export const ZInvoiceExtractionRequest = z.object({
 
     // Where this extraction originated from
     source: ZSource,
+    user: ZUser.optional(),
 
     // Processing state
     status: ZExtractionStatus.default("queued"),
-
-    ocrEngine: ZOCREngine.nullable().optional(),
-    analyzeEngine: ZAnalyzeEngine.nullable().optional(),
 
     error: ZInvoiceError.nullable().optional(),
 
     attempts: z.number().default(0),
     integration: ZIntegration.nullable().optional(),
+    _integration: ZIntegrationSnapshot.optional().nullable(),
 
     // Link to created invoice after success
     invoiceId: z.string().nullable().optional(),

@@ -4,7 +4,6 @@ import React from "react";
 import { Button } from "@snappin/ui/components/button";
 import { Input } from "@snappin/ui/components/input";
 import { Label } from "@snappin/ui/components/label";
-import { ExtraSmall } from "@snappin/ui/components/typography";
 import { Icon } from "@iconify/react";
 import { useIntegration } from "../../integration/hooks/useIntegration";
 import { appMetadata } from "@snappin/apps/app.metadata";
@@ -18,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
+  DialogDescription,
 } from "@snappin/ui/components/dialog";
 import ComboBox, {
   ComboBoxOption,
@@ -76,12 +76,27 @@ export const NewScanDialog = () => {
         return { from, to };
       }
       case "last-month": {
-        const from = new Date(now.getFullYear(), now.getMonth() - 1, 1).getTime();
-        const lastTo = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59).getTime();
+        const from = new Date(
+          now.getFullYear(),
+          now.getMonth() - 1,
+          1,
+        ).getTime();
+        const lastTo = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          0,
+          23,
+          59,
+          59,
+        ).getTime();
         return { from, to: lastTo };
       }
       case "last-6-months": {
-        const from = new Date(now.getFullYear(), now.getMonth() - 6, 1).getTime();
+        const from = new Date(
+          now.getFullYear(),
+          now.getMonth() - 6,
+          1,
+        ).getTime();
         return { from, to };
       }
       case "custom": {
@@ -116,8 +131,8 @@ export const NewScanDialog = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="lg" radius="full">
-          <HugeiconsIcon icon={Search01Icon} className="size-4" />
+        <Button size="sm" variant="dim">
+          <HugeiconsIcon icon={Search01Icon} className="size-3.5" />
           Find past invoices
         </Button>
       </DialogTrigger>
@@ -125,9 +140,12 @@ export const NewScanDialog = () => {
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Let's catch up missed invoices</DialogTitle>
+          <DialogDescription>
+            Fill the fields to start extracting past invoices
+          </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-8 py-6">
+        <div className="space-y-8 py-6 pt-4 px-4">
           {/* Email ComboBox */}
           <ComboBox
             label="Email account"
@@ -139,6 +157,7 @@ export const NewScanDialog = () => {
             onChange={(val) => setSelectedEmail(val)}
             showOptionValue={false}
             alphabetical={false}
+            inputWrapperClassName="min-h-9.5"
           />
 
           {/* Date range buttons */}
@@ -176,9 +195,6 @@ export const NewScanDialog = () => {
                   onChange={(e) => setCustomTo(e.target.value)}
                 />
               </div>
-              <ExtraSmall className="text-xs">
-                Note: Range should not be longer than 6 months
-              </ExtraSmall>
             </div>
           )}
         </div>
@@ -186,13 +202,19 @@ export const NewScanDialog = () => {
         <DialogFooter>
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setOpen(false)}
             disabled={scanInvoices.isPending}
           >
             Cancel
           </Button>
-          <Button onClick={handleSubmit} disabled={scanInvoices.isPending}>
-            {scanInvoices.isPending && <Spinner className="size-4" />}
+          <Button
+            size="sm"
+            variant="mono"
+            onClick={handleSubmit}
+            disabled={scanInvoices.isPending}
+          >
+            {scanInvoices.isPending && <Spinner className="size-4 text-white!" />}
             Start scan now
           </Button>
         </DialogFooter>

@@ -2,7 +2,7 @@ import pLimit from "p-limit";
 import { EmailAppSlug, SourceKind } from "@snappin/shared/apps/app.schema";
 import { IntegrationResource } from "@snappin/shared/integration/integration.schema";
 import { EmailApps } from "@snappin/apps/appRegistry.interface";
-import { TMailClassification } from "@snappin/features/inbox/trigger/mail/mail.classification.schema";
+import { TMailClassification } from "@snappin/features/accounts/trigger/mail/mail.classification.schema";
 
 type ProcessMailOptions = {
     integration: IntegrationResource;

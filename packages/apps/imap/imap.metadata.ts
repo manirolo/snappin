@@ -1,6 +1,7 @@
 import { AppCategory, AppMetadata, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
 
 export const imapMetadata: AppMetadata = {
+    id: "IN005",
     name: "IMAP",
     publisher: {
         name: "Snappin",
@@ -14,6 +15,6 @@ export const imapMetadata: AppMetadata = {
     category: AppCategory.EMAIL,
     type: AppType.SOURCE,
     // services: GmailAppServices,
-    enableOnOnboarding: true,
+    enableOnOnboarding: false,
     isComingSoon: true,
 }

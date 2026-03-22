@@ -1,4 +1,4 @@
-import { createTRPCRouter, protectedProcedure } from "../../_trpc";
+import { createTRPCRouter, orgProcedure } from "../../_trpc";
 import { deleteInvoice, DeleteInvoice } from "./delete.handler";
 import { ZDeleteInvoice } from "./delete.schema";
 import { getAllInvoices, GetInvoice } from "./getInvoice.handler";
@@ -19,45 +19,42 @@ import { getInvoiceData, GetInvoiceData } from "./getInvoiceData.handler";
 import { GetInvoiceDocumentUrl, getInvoiceDocumentUrl } from "./getInvoiceDocumentUrl.handler";
 import { ZGetInvoiceDocumentUrl } from "./getInvoiceDocumentUrl.schema";
 import { ZUpdateInvoice } from "./update.schema";
-import { GetInvoiceThumbnailUrl, getInvoiceThumbnailUrl } from "./getInvoiceThumbnailUrl.handler";
-import { ZGetInvoiceThumbnailUrl } from "./getInvoiceThumbnailUrl.schema";
 import { invoiceUpdateRouter } from "./update/_router";
 
 export const invoiceRouter = createTRPCRouter({
-    getInvoices: protectedProcedure.input(ZGetInvoices).query(async (opts: GetInvoice) => {
+    getInvoices: orgProcedure.input(ZGetInvoices).query(async (opts: GetInvoice) => {
         return getAllInvoices(opts)
     }),
-    getInvoice: protectedProcedure.input(ZGetInvoiceData).query(async (opts: GetInvoiceData) => {
+    getInvoice: orgProcedure.input(ZGetInvoiceData).query(async (opts: GetInvoiceData) => {
         return getInvoiceData(opts)
     }),
-    getInvoiceDocumentUrl: protectedProcedure.input(ZGetInvoiceDocumentUrl).query(async (opts: GetInvoiceDocumentUrl) => {
+    getInvoiceDocumentUrl: orgProcedure.input(ZGetInvoiceDocumentUrl).query(async (opts: GetInvoiceDocumentUrl) => {
         return getInvoiceDocumentUrl(opts)
     }),
-    getInvoiceThumbnailUrl: protectedProcedure.input(ZGetInvoiceThumbnailUrl).query(async (opts: GetInvoiceThumbnailUrl) => getInvoiceThumbnailUrl(opts)),
-    updateVendor: protectedProcedure.input(ZUpdateVendor).mutation(async (opts: UpdateVendor) => {
+    updateVendor: orgProcedure.input(ZUpdateVendor).mutation(async (opts: UpdateVendor) => {
         return updateVendor(opts)
     }),
-    uploadTempInvoice: protectedProcedure.input(ZUploadTempInvoice).mutation(async (opts: UploadTempInvoice) => {
+    uploadTempInvoice: orgProcedure.input(ZUploadTempInvoice).mutation(async (opts: UploadTempInvoice) => {
         return uploadTempInvoice(opts)
     }),
-    extractInvoice: protectedProcedure.input(ZExtractInvoice).mutation(async (opts: ExtractInvoice) => {
+    extractInvoice: orgProcedure.input(ZExtractInvoice).mutation(async (opts: ExtractInvoice) => {
         return extractInvoice(opts)
     }),
-    invoiceProcessingStatus: protectedProcedure.query(async (opts: InvoiceProcessStatus) => {
+    invoiceProcessingStatus: orgProcedure.query(async (opts: InvoiceProcessStatus) => {
         return invoiceProcessingStatus(opts)
     }),
-    deleteInvoice: protectedProcedure.input(ZDeleteInvoice).mutation(async (opts: DeleteInvoice) => {
+    deleteInvoice: orgProcedure.input(ZDeleteInvoice).mutation(async (opts: DeleteInvoice) => {
         return deleteInvoice(opts)
     }),
-    getQueryParams: protectedProcedure.query(async (opts: GetQueryParams) => {
+    getQueryParams: orgProcedure.query(async (opts: GetQueryParams) => {
         return getQueryParams(opts)
     }),
-    updateInvoice: protectedProcedure.input(ZUpdateInvoice).mutation(async(opts: UpdateInvoice) => updateInvoice(opts)),
+    updateInvoice: orgProcedure.input(ZUpdateInvoice).mutation(async(opts: UpdateInvoice) => updateInvoice(opts)),
     
     update: invoiceUpdateRouter,
     
     // Bulk Actions
-    bulkInvoiceDelete: protectedProcedure.input(ZBulkInvoiceDelete).mutation(async (opts: BulkInvoiceDelete) => {
+    bulkInvoiceDelete: orgProcedure.input(ZBulkInvoiceDelete).mutation(async (opts: BulkInvoiceDelete) => {
         return bulkInvoiceDelete(opts)
     })
 })

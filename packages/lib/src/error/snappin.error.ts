@@ -1,5 +1,3 @@
-import { ZAnalyzeEngine } from "@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema"
-
 export type SnappinErrorCode =
     | "llm_empty_response"
     | "llm_invalid_json"
@@ -15,9 +13,7 @@ export type SnappinErrorCode =
 
     | "no_attachment_with_request"
 
-export type LLMErrorMeta = {
-    analyzeEngine?: (typeof ZAnalyzeEngine.options)[number];
-};
+    | "webhook_unhandled_event"
 
 export class SnappinError extends Error {
     public readonly code: SnappinErrorCode;

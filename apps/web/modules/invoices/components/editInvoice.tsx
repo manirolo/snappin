@@ -18,7 +18,7 @@ import React from "react";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
 export const EditInvoice = ({ invoiceId }: { invoiceId: string }) => {
-  const { data: invoice, isLoading: isInvoiceLoading } =
+  const { data: invoice } =
     trpc.invoices.getInvoice.useQuery(
       { invoiceId },
       {
@@ -53,14 +53,14 @@ export const EditInvoice = ({ invoiceId }: { invoiceId: string }) => {
           label="Edit"
         />
       </DialogTrigger>
-      <DialogContent className="md:min-w-5xl overflow-hidden">
+      <DialogContent className="md:min-w-5xl xl:p-0 overflow-hidden">
         <DialogHeader className="flex flex-row gap-2">
           {getLogoByDomain(senderAddress ?? "unknown", "size-12", "text-lg")}
           <div className="flex flex-col gap-1">
             <DialogTitle>{invoice?.vendor?.name}</DialogTitle>
             <DialogDescription>
               {capitalize(
-                invoice?.invoice?.metadata?.documentType ?? "invoice",
+                invoice?.metadata?.documentType ?? "invoice",
               )}
             </DialogDescription>
           </div>

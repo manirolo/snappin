@@ -1,7 +1,9 @@
-import { AppCategory, AppMetadata, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
+import { AppCategory, AppMetadata, AppRole, AppSlug, AppType, Provider } from "@snappin/shared/apps/app.schema";
 
 export const outlookMetadata: AppMetadata = {
+    id: "IN002",
     name: "Outlook",
+    provider: Provider.MICROSOFT,
     publisher: {
         name: "Snappin",
         email: "support@snappinapp.com"

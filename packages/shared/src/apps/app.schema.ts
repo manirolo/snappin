@@ -1,14 +1,23 @@
 import z from "zod"
 
+export enum Provider {
+    GOOGLE = "google",
+    MICROSOFT = "microsoft",
+    XERO = "xero"
+}
+
 export enum AppSlug {
     GMAIL = "gmail",
     OUTLOOK = "outlook",
     IMAP = "imap",
     WHATSAPP = "whatsapp",
     GOOGLE_DRIVE = "google_drive",
-    XERO = "xero"
+    XERO = "xero",
 }
 export type EmailAppSlug = AppSlug.GMAIL | AppSlug.OUTLOOK;
+export type StorageAppSlug = AppSlug.GOOGLE_DRIVE
+export type AccountingAppSlug = AppSlug.XERO
+
 export enum AppRole {
     EMAIL_SOURCE = "email_source",
     FILE_SOURCE = "file_source",
@@ -30,6 +39,7 @@ export enum AppCategory {
     ACCOUNTING = "accounting",
     COMMUNICATION = "communication",
     PRODUCTIVITY = "productivity",
+    STORAGE = "storage",
 }
 export enum SourceKind {
     INTEGRATION = "integration",
@@ -37,6 +47,7 @@ export enum SourceKind {
 }
 
 export type AppMetadata = {
+    id?: string
     name: string
     publisher: {
         name: string
@@ -47,6 +58,7 @@ export type AppMetadata = {
     iconifyIcon: string
     logoUrl?: string
     disclaimer: string | null
+    provider?: Provider,
     slug: AppSlug
     role: AppRole[]
     category: AppCategory
@@ -55,6 +67,7 @@ export type AppMetadata = {
     enableOnOnboarding: boolean
 }
 export interface AppDefinition<TConfigData = unknown> {
+    provider?: Provider,
     slug: AppSlug
     role: AppRole[]
     category: AppCategory

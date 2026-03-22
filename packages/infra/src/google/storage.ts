@@ -22,7 +22,7 @@ const storage = new Storage({
     },
 })
 
-const invoiceBucket = storage.bucket(getBucket())
+export const invoiceBucket = storage.bucket(getBucket())
 const TEMP_EXPIRY_HOURS = 24
 
 type UploadInvoiceProps = {

@@ -9,8 +9,11 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
     // Safety buffer (e.g. refresh 1 min before expiry)
     const REFRESH_BUFFER_MS = 60 * 1000;
 
-    const isExpired = !integration.accessTokenExpiresAt || integration.accessTokenExpiresAt.getTime() - REFRESH_BUFFER_MS <= Date.now();
+    const expiresAt = integration.accessTokenExpiresAt
+        ? new Date(integration.accessTokenExpiresAt).getTime()
+        : null;
 
+    const isExpired = !expiresAt || expiresAt - REFRESH_BUFFER_MS <= Date.now();
     // If token is still valid, reuse it
     if (!isExpired && integration.accessToken) {
         return { accessToken: integration.accessToken };
@@ -40,7 +43,7 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
         return {
             accessToken: newAccessToken,
         };
-        
+
     } catch (error) {
         logger.error("Failed to refresh Google access token", error);
 

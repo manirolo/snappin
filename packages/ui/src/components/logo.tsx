@@ -33,7 +33,7 @@ export const Logo = ({
   }
 
   return (
-    <div className="">
+    <div className="relative">
       <Link
         href={onClickRedirectLink || "/"}
         className={cn("relative inline-block shrink-0 w-28 h-8", className)}

@@ -19,5 +19,5 @@ export default defineConfig({
       randomize: true,
     },
   },
-  dirs: ["./invoice/trigger", "./inbox/trigger"],
+  dirs: ["./invoice/trigger", "./accounts/trigger", "./mobileScanners/trigger"],
 });

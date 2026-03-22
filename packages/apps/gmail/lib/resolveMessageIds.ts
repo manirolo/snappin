@@ -14,6 +14,11 @@ export async function resolveMessageIds({ integration, historyId }: ResolveMessa
         throw new SnappinError("No integration found", "no_integration_found")
     }
 
+    if (!historyId) {
+        console.warn("No historyId provided, skipping history fetch")
+        return { messageIds: [], nextHistoryId: null }
+    }
+
     const { accessToken } = await getAccessToken({ integration })
 
     const gmail = getGmailClient(accessToken)

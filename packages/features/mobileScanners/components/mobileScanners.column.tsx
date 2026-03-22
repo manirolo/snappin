@@ -4,7 +4,8 @@ import { Icon } from "@iconify/react";
 import { RouterOutputs } from "@snappin/features/trpc/_root";
 import { ColumnDef } from "@snappin/ui/components/table";
 import { appMetadata } from "@snappin/apps/app.metadata";
-import { Paragraph } from "@snappin/ui/components/typography";
+import { Paragraph, Small } from "@snappin/ui/components/typography";
+import { Image } from "@snappin/ui/components/Image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { trpc } from "@snappin/features/trpc/react/client";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
@@ -22,9 +23,13 @@ import {
 import { MoreHorizontalIcon } from "@hugeicons-pro/core-solid-rounded";
 import { cn } from "@snappin/ui/lib/utils";
 import { AppSlug } from "@snappin/shared/apps/app.schema";
+import {
+  IntegrationStatus,
+  statusLabel,
+} from "@snappin/shared/integration/status.enum";
+import { Badge } from "@snappin/ui/components/badge";
 
-type IntegrationRow =
-  RouterOutputs["integration"]["connectedEmailAccounts"]["data"][number];
+type IntegrationRow = RouterOutputs["integration"]["connectedSource"][number];
 
 type ActionKey = "delete";
 
@@ -43,7 +48,13 @@ const actionsConfig: ActionConfig[] = [
   },
 ];
 
-const ActionsCell = ({ id, appSlug }: { id: string, appSlug?: AppSlug | null }) => {
+const ActionsCell = ({
+  id,
+  appSlug,
+}: {
+  id: string;
+  appSlug?: AppSlug | null;
+}) => {
   const [activeAction, setActiveAction] = useState<ActionKey | null>(null);
   const utils = trpc.useUtils();
   const openConfirm = useConfirmStore((s) => s.openConfirm);
@@ -52,7 +63,7 @@ const ActionsCell = ({ id, appSlug }: { id: string, appSlug?: AppSlug | null }) 
     onSuccess: async () => {
       toast.success("Account deleted successfully");
       setActiveAction(null);
-      await utils.integration.getIntegration.invalidate();
+      await utils.integration.connectedSource.invalidate();
     },
     onError: () => {
       toast.error("Failed to delete account");
@@ -71,8 +82,8 @@ const ActionsCell = ({ id, appSlug }: { id: string, appSlug?: AppSlug | null }) 
         size: "sm",
         onConfirm: () => {
           setActiveAction("delete");
-          if(!appSlug) return
-          deleteIntegration.mutate({ integrationId: id, appSlug  });
+          if (!appSlug) return;
+          deleteIntegration.mutate({ integrationId: id, appSlug });
         },
       });
     },
@@ -145,34 +156,70 @@ const ActionsCell = ({ id, appSlug }: { id: string, appSlug?: AppSlug | null }) 
 export const accountsColumn = (): ColumnDef<IntegrationRow>[] => [
   {
     id: "appSlug",
-    header: "Email",
+    header: "Mobile",
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <Icon
-          icon={
+        <Image
+          className="size-4 shrink-0"
+          src={
             row.original.appSlug
-              ? appMetadata[row?.original?.appSlug].iconifyIcon
+              ? (appMetadata[row.original.appSlug]?.logoUrl ?? "")
               : ""
           }
+          alt={
+            row.original.appSlug
+              ? appMetadata[row.original.appSlug].name + "'s logo"
+              : "logo"
+          }
         />
-        <Paragraph className="text-slate-400!">
-          {row.original.identifierEmail}
-        </Paragraph>
+        <div>
+          <Paragraph className="font-semibold text-gray-500">
+            {row.original?.appSlug && appMetadata[row.original.appSlug].name}
+          </Paragraph>
+          <Small className="text-[13px]! text-gray-500">
+            {row.original.config?.phone}
+          </Small>
+        </div>
       </div>
     ),
   },
   {
-    id: "monitored",
-    header: "Monitored",
+    id: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.original.status as IntegrationStatus;
+      const config = status ? statusLabel[status] : null;
+      if (!config) return null;
+
+      return (
+        <Badge appearance="outline" size="sm" variant={config.variant}>
+          {config.label}
+        </Badge>
+      );
+    },
+  },
+  {
+    id: "user",
+    header: "User",
     cell: ({ row }) => (
-      <span>{row.original?.config?.mailMonitored ? "Yes" : "No"}</span>
+      <div className="flex items-center gap-2">
+        <Image
+          className="size-5 rounded-md"
+          src={row.original?.user?.profileUrl ?? ""}
+          alt={row.original?.user?.fullName + "'s profile photo"}
+        />{" "}
+        {row.original?.user?.fullName}
+      </div>
     ),
   },
   {
     id: "action",
     header: "Actions",
     cell: ({ row }) => (
-      <ActionsCell id={row.original?._id?.toString() ?? ""} appSlug={row.original?.appSlug ?? null} />
+      <ActionsCell
+        id={row.original?._id?.toString() ?? ""}
+        appSlug={row.original?.appSlug ?? null}
+      />
     ),
   },
 ];

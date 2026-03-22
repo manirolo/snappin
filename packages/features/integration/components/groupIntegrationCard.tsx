@@ -6,7 +6,7 @@ export const GroupIntegrationCard = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <div className="flex flex-col gap-3 mt-6">{children}</div>;
+  return <div className="flex flex-col gap-3">{children}</div>;
 };
 
 export const GroupIntegrationHeader = ({

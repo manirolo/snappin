@@ -34,6 +34,7 @@
     "currency-symbol-map": "^5.1.0",
     "http-status-codes": "^2.3.0",
     "iso-country-currency": "^0.7.2",
+    "libphonenumber-js": "^1.12.40",
     "next": "catalog:",
     "next-themes": "catalog:",
     "nprogress": "0.2.0",

@@ -1,11 +1,12 @@
 import z from "zod";
+import { IntegrationResource, ZIntegration } from "@snappin/shared/integration/integration.schema";
 
 export const ZUpdateIntegration = z.object({
     integrationId: z.string(),
-    mailMonitored: z.boolean()
+    data: ZIntegration
 })
 
 export type TUpdateIntegration = {
     integrationId: string
-    mailMonitored: boolean
+    data: IntegrationResource
 }

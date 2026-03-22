@@ -1,5 +1,5 @@
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../_trpc"
-import { ZCreateNewOAuthSession } from "./createoauthSession.schema"
+import { createTRPCRouter, orgProcedure, publicProcedure } from "../../_trpc"
+import { ZCreateNewOAuthSession } from "./createOAuthSession.schema"
 import { createNewOAuthSession, CreateOAuthSession } from "./createOAuthSession.handler"
 import { addIntegration, AddIntegration } from "./addIntegration.handler"
 import { ZAddIntegration } from "./addIntegration.schema"
@@ -14,33 +14,36 @@ import { connectedSource, ConnectedSource } from "./connectedSources.handler"
 import { ZConnectedSource } from "./connectedSource.schema"
 import { connectedMobileScanners, ConnectedMobileScanners } from "./mobileScanners/connectedMobileScanners.handler"
 import { emailAccountRouter } from "./emailAccounts/_router"
+import { mobileScannerRouter } from "./mobileScanners/_router"
 
 export const integrationRouter = createTRPCRouter({
-    createOAuthSession: protectedProcedure.input(ZCreateNewOAuthSession).mutation(async (opts: CreateOAuthSession) => {
+    createOAuthSession: orgProcedure.input(ZCreateNewOAuthSession).mutation(async (opts: CreateOAuthSession) => {
         return createNewOAuthSession(opts)
     }),
     addIntegration: publicProcedure.input(ZAddIntegration).mutation(async (opts: AddIntegration) => {
         return addIntegration(opts)
     }),
-    getIntegration: protectedProcedure.input(ZGetIntegration).query(async (opts: GetIntegration) => {
+    getIntegration: orgProcedure.input(ZGetIntegration).query(async (opts: GetIntegration) => {
         return getIntegration(opts)
     }),
-    connectedEmailAccounts: protectedProcedure.query(async (opts: ConnectedEmailAccounts) => {
+    connectedEmailAccounts: orgProcedure.query(async (opts: ConnectedEmailAccounts) => {
         return connectedEmailAccounts(opts)
     }),
-    connectedMobileScanners: protectedProcedure.input(ZGetIntegration).query(async (opts: ConnectedMobileScanners) => {
+    connectedMobileScanners: orgProcedure.input(ZGetIntegration).query(async (opts: ConnectedMobileScanners) => {
         return connectedMobileScanners(opts)
     }),
-    connectedSource: protectedProcedure.input(ZConnectedSource).query(async (opts: ConnectedSource) => {
+    connectedSource: orgProcedure.input(ZConnectedSource).query(async (opts: ConnectedSource) => {
         return connectedSource(opts)
     }),
-    updateIntegration: protectedProcedure.input(ZUpdateIntegration).mutation(async (opts: UpdateIntegration) => {
+    updateIntegration: orgProcedure.input(ZUpdateIntegration).mutation(async (opts: UpdateIntegration) => {
         return updateIntegration(opts)
     }),
-    removeIntegration: protectedProcedure.input(ZRemoveIntegration).mutation(async (opts: RemoveIntegration) => {
+    removeIntegration: orgProcedure.input(ZRemoveIntegration).mutation(async (opts: RemoveIntegration) => {
         return removeIntegration(opts)
     }),
 
     // Email accounts
-    accounts: emailAccountRouter
+    accounts: emailAccountRouter,
+
+    mobileScanners: mobileScannerRouter
 })

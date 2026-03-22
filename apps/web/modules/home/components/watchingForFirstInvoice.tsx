@@ -9,12 +9,13 @@ import {
 } from "@snappin/features/integration/components/compactIntegrationCard";
 import React from "react";
 import Link from "next/link";
+import { appMetadata } from "@snappin/apps/app.metadata";
 
 export const WatchingForFirstInvoice = () => {
   const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();
 
   const sourceApps = Object.values(AppRegistry).filter(
-    (app) => app.schema == AppType.SOURCE,
+    (app) => app.type == AppType.SOURCE,
   );
 
   return (
@@ -36,13 +37,13 @@ export const WatchingForFirstInvoice = () => {
                 redirectToOAuthConsentScreen({
                   appSlug: app.slug,
                   appCategory: app.category,
-                  appType: app.schema,
+                  appType: app.type,
                 })
               }
             >
-              <CompactIntegrationIcon icon={AppRegistry[app.slug].metadata.iconifyIcon} />
+              <CompactIntegrationIcon icon={appMetadata[app.slug].iconifyIcon} />
               <CompactIntegrationName>
-                {AppRegistry[app.slug].metadata.name}
+                {appMetadata[app.slug].name}
               </CompactIntegrationName>
             </CompactIntegrationCard>
           ))}

@@ -38,6 +38,7 @@ interface ComboBoxProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChange">
   alphabetical?: boolean;
   disabled?: boolean;
   popoverWidth?: string;
+  inputWrapperClassName?: string;
 }
 
 function groupByLetter(options: ComboBoxOption[]): Record<string, ComboBoxOption[]> {
@@ -76,6 +77,7 @@ export const ComboBox = React.forwardRef<HTMLDivElement, ComboBoxProps>(
       defaultOpen,
       className,
       showOptionValue = true,
+      inputWrapperClassName,
       ...rest
     },
     ref,
@@ -171,7 +173,7 @@ export const ComboBox = React.forwardRef<HTMLDivElement, ComboBoxProps>(
         value={opt.value} 
         onSelect={() => handleSelect(opt.value)}
         className={cn(
-          "flex cursor-pointer text-sm items-center hover:bg-accent! data-[selected=true]:bg-accent! gap-3 rounded-md px-2 py-3",
+          "flex cursor-pointer text-sm items-center hover:bg-accent! data-[selected=true]:bg-accent! gap-3 rounded-md px-2 py-2",
           opt.value === value && "bg-card",
         )}
       >
@@ -201,6 +203,7 @@ export const ComboBox = React.forwardRef<HTMLDivElement, ComboBoxProps>(
                 "bg-transparent ring-1 ring-transparent text-foreground",
                 "focus-within:ring-2 focus-within:ring-blue-300",
                 disabled && "cursor-not-allowed opacity-60 text-sm",
+                inputWrapperClassName
               )}
             >
               <span className="flex items-center mr-2 text-sm gap-2">
@@ -220,12 +223,12 @@ export const ComboBox = React.forwardRef<HTMLDivElement, ComboBoxProps>(
           </PopoverTrigger>
 
           <PopoverContent
-            className={cn("p-5 rounded-lg drop-shadow-xl drop-shadow-black/5", popoverWidth)}
+            className={cn("p-2 rounded-lg drop-shadow-xl bg-background drop-shadow-black/5", popoverWidth)}
             align="start"
             style={{ width: "var(--radix-popover-trigger-width)" }}
             sideOffset={6}
           >
-            <Command shouldFilter={false}>
+            <Command shouldFilter={false} className="bg-background">
               <div className="px-1 pb-4 py-1">
                 <CommandInput
                   placeholder={searchPlaceholder}
@@ -241,7 +244,7 @@ export const ComboBox = React.forwardRef<HTMLDivElement, ComboBoxProps>(
                 onWheel={(e) => e.stopPropagation()}
                 onTouchMove={(e) => e.stopPropagation()}
               >
-                <CommandEmpty className="py-4 text-center text-muted-foreground">
+                <CommandEmpty className="py-4 text-xs text-center text-muted-foreground">
                   {emptyText}
                 </CommandEmpty>
 

@@ -13,22 +13,22 @@ import { Button } from "./button";
 import { Spinner } from "../assets/svg/spinner";
 
 export type FloatingToolbarAction = {
-  /** Unique key */
   key: string;
-  /** Button label */
-  label: string;
-  /** Iconify icon string e.g. "lucide:trash-2" */
-  icon: string;
-  /** Called when button is clicked */
-  onClick: () => void;
-  /** Shown in the three-dots overflow menu instead of inline */
+  label?: string;
+  icon?: string;
+  onClick?: () => void;
   overflow?: boolean;
-  /** Danger styling */
   destructive?: boolean;
-  /** Disable the action — button unclickable, visually dimmed */
   disabled?: boolean;
-  /** Show a spinner and block clicks — for in-flight async operations */
   loading?: boolean;
+  trigger?: React.ReactNode;
+  submenu?: {
+    key: string;
+    label: string;
+    icon: string;
+    onClick: () => void;
+    disabled?: boolean;
+  }[];
 };
 
 type FloatingTableToolbarProps = {
@@ -52,7 +52,9 @@ export function FloatingTableToolbar({
   // first render, which triggers the "state update on unmounted component"
   // warning in Next.js. Defer the entire toolbar until after client mount.
   const [hasMounted, setHasMounted] = useState(false);
-  useEffect(() => { setHasMounted(true); }, []);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   const visible = selectedCount > 0;
   const barRef = useRef<HTMLDivElement>(null);
@@ -93,7 +95,7 @@ export function FloatingTableToolbar({
         )}
       >
         {/* ── Count badge ── */}
-        <div className="flex items-center gap-2 pl-2 pr-3 border-r border-border mr-1">
+        <div className="flex items-center gap-2 pl-2 pr-7 border-r border-border mr-6">
           <span className="flex items-center justify-center size-6 rounded-full bg-primary text-primary-foreground text-xs font-bold leading-none tabular-nums">
             {selectedCount}
           </span>
@@ -105,6 +107,70 @@ export function FloatingTableToolbar({
         {/* ── Inline action buttons ── */}
         {inlineActions.map((action) => {
           const isDisabled = action.disabled || action.loading;
+
+          if (action.trigger && !action.submenu) {
+            return <div key={action.key}>{action.trigger}</div>;
+          }
+
+          // ── Submenu variant ──
+          if (action.submenu) {
+            return (
+              <DropdownMenu key={action.key}>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="md"
+                    disabled={isDisabled}
+                    className={cn(
+                      "mx-1 gap-2 min-w-0",
+                      action.loading && "opacity-75 cursor-not-allowed",
+                    )}
+                  >
+                    {action.loading ? (
+                      <Spinner className="size-4 shrink-0" />
+                    ) : (
+                      <div>
+                        {action.icon && (
+                          <Icon
+                            icon={action.icon}
+                            className="size-4 shrink-0"
+                          />
+                        )}
+                      </div>
+                    )}
+                    <span>{action.label}</span>
+                    <Icon
+                      icon="lucide:chevron-up"
+                      className="size-3.5 shrink-0 opacity-60"
+                    />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="center"
+                  side="top"
+                  sideOffset={8}
+                  className="min-w-44 rounded-xl"
+                >
+                  {action.submenu.map((sub) => (
+                    <DropdownMenuItem
+                      key={sub.key}
+                      onClick={sub.onClick}
+                      disabled={sub.disabled}
+                      className="flex items-center gap-2 rounded-lg cursor-pointer"
+                    >
+                      <Icon
+                        icon={sub.icon}
+                        className="size-4 shrink-0 text-muted-foreground"
+                      />
+                      <span className="flex-1">{sub.label}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            );
+          }
+
+          // ── Default button variant (existing code unchanged) ──
           return (
             <Button
               key={action.key}
@@ -115,14 +181,18 @@ export function FloatingTableToolbar({
               className={cn(
                 "mx-1 gap-2 min-w-0",
                 action.destructive &&
-                  "text-destructive hover:text-destructive hover:bg-destructive/10",
+                  "text-destructive hover:text-destructive disabled:text-destructive! hover:bg-destructive/10",
                 action.loading && "opacity-75 cursor-not-allowed",
               )}
             >
               {action.loading ? (
-                <Spinner className="size-4 shrink-0" />
+                <Spinner className="size-4 shrink-0 text-destructive opacity-75" />
               ) : (
-                <Icon icon={action.icon} className="size-4 shrink-0" />
+                <div>
+                  {action.icon && (
+                    <Icon icon={action.icon} className="size-4 shrink-0" />
+                  )}
+                </div>
               )}
               <span>
                 {action.label}
@@ -147,7 +217,7 @@ export function FloatingTableToolbar({
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              align="end"
+              align="start"
               sideOffset={8}
               className="min-w-44 rounded-xl"
             >
@@ -168,7 +238,14 @@ export function FloatingTableToolbar({
                     {action.loading ? (
                       <Spinner className="size-4 shrink-0" />
                     ) : (
-                      <Icon icon={action.icon} className="size-4 shrink-0" />
+                      <div>
+                        {action.icon && (
+                          <Icon
+                            icon={action.icon}
+                            className="size-4 shrink-0"
+                          />
+                        )}
+                      </div>
                     )}
                     <span className="flex-1">{action.label}</span>
                     {action.loading && (

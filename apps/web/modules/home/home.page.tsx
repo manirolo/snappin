@@ -1,61 +1,62 @@
-"use client"
+"use client";
 
 import React from "react";
 import {
   Dashboard,
   DashboardContent,
-  DashboardHeader,
-  DashboardTitle,
 } from "../../components/layout/dashboardLayout";
-import {
-  Card,
-  CardDescription,
-  CardTitle,
-  CardContent,
-} from "@snappin/ui/components/card";
-import { Button } from "@snappin/ui/components/button";
 import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
 import { WaitingForFirstSourceConnection } from "./components/waitingForFirstSourceConnection";
-import { DotSpinner } from "@snappin/ui/assets/svg/dotSpinner";
-import Link from "next/link";
+import { DashboardLoading } from "../../components/progress/loading";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CheckmarkBadge01Icon } from "@hugeicons-pro/core-bulk-rounded";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@snappin/ui/components/empty";
+import { Button } from "@snappin/ui/components/button";
+import { useRouter } from "next/navigation";
 
 export const Home = () => {
   const { connectedEmailAccounts, isLoading } = useIntegration({
     connectedEmailAccounts: true,
   });
+  const router = useRouter();
 
-  if (isLoading) return <DotSpinner />;
+  if (isLoading) return <DashboardLoading />;
 
   return (
     <Dashboard>
-      <DashboardHeader>
-        <DashboardTitle>Overview</DashboardTitle>
-      </DashboardHeader>
-      {(!connectedEmailAccounts || connectedEmailAccounts.length === 0) && (
-        <WaitingForFirstSourceConnection />
-      )}
-      {(connectedEmailAccounts && connectedEmailAccounts.length > 0) &&<DashboardContent>
-        <div>
-          <Card>
-            <CardContent className="border-t-0">
-              <div className="flex flex-col gap-2 mb-5">
-                <CardTitle>Congratulations</CardTitle>
-                <CardDescription>
-                  We have take in-charge for invoice extraction
-                </CardDescription>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="mono" size={"sm"} asChild>
-                  <Link href="/invoices">View Invoices</Link>
-                </Button>
-                <Button variant="mono" size={"sm"} asChild>
-                  <Link href="/retroSearch">Find Past Invoices</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </DashboardContent>}
+      <DashboardContent>
+        {(!connectedEmailAccounts || connectedEmailAccounts.length === 0) && (
+          <WaitingForFirstSourceConnection />
+        )}
+        {connectedEmailAccounts && connectedEmailAccounts.length > 0 && (
+          <Empty>
+            <EmptyHeader>
+              <EmptyMedia>
+                <HugeiconsIcon
+                  icon={CheckmarkBadge01Icon}
+                  className="size-14 text-primary"
+                />
+              </EmptyMedia>
+              <EmptyTitle>All set, relax</EmptyTitle>
+              <EmptyDescription>
+                We actively monitoring your connected sources
+              </EmptyDescription>
+            </EmptyHeader>
+            <EmptyContent>
+              <Button onClick={() => router.push("/bookkeeping/documents")}>
+                View invoices
+              </Button>
+            </EmptyContent>
+          </Empty>
+        )}
+      </DashboardContent>
     </Dashboard>
   );
 };

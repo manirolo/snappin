@@ -1,7 +1,5 @@
-import { createTRPCRouter, protectedProcedure } from "../../../_trpc";
-import { updateInvoiceTotal, UpdateInvoiceTotal } from "./updateInvoiceTotal.handler";
-import { ZUpdateInvoiceTotal } from "./updateInvoiceTotal.schema";
+import { createTRPCRouter } from "../../../_trpc";
 
 export const invoiceUpdateRouter = createTRPCRouter({
-    total: protectedProcedure.input(ZUpdateInvoiceTotal).mutation(async (opts: UpdateInvoiceTotal) => updateInvoiceTotal(opts))
+    // total: protectedProcedure.input(ZUpdateInvoiceTotal).mutation(async (opts: UpdateInvoiceTotal) => updateInvoiceTotal(opts))
 })

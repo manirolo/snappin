@@ -11,6 +11,7 @@ export const mailReceived = schemaTask({
         const { db } = await import("@snappin/db/index");
         const { mailService } = await import("../../services/mail.service");
         const { mailClassification } = await import("./mail.classification.task");
+        const { getUnixSeconds } = await import("@snappin/lib/date/unixSeconds");
 
         const { provider, integrationKey, cursor, messageId } = payload;
 
@@ -31,10 +32,17 @@ export const mailReceived = schemaTask({
 
         const { messageIds, nextHistoryId } = await app.resolveMessageIds({ integration, historyId: cursor, messageId });
 
-        if (integration.appSlug == AppSlug.GMAIL) {
+        if (integration.appSlug == AppSlug.GMAIL && nextHistoryId != null) {
             await db.integration.findOneAndUpdate({ _id: integration._id }, { $max: { "config.historyId": nextHistoryId } })
         }
 
+        
+        await db.integration.findOneAndUpdate({ _id: integration?._id }, { lastActivityAt: getUnixSeconds() })
+
+        if(messageIds.length <= 0 ) {
+            console.warn("No messageIds were supplied")
+            return
+        }
 
         const payloads = await mailService.processMails({ integration, messageIds });
 

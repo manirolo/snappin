@@ -50,44 +50,44 @@ const getCurrencyName = (currencyCode: string): string => {
   }
 };
 
-function filterAndRank(
-  options: ComboBoxOption[],
-  search: string,
-): ComboBoxOption[] {
-  if (!search) return options;
+// function filterAndRank(
+//   options: ComboBoxOption[],
+//   search: string,
+// ): ComboBoxOption[] {
+//   if (!search) return options;
 
-  const q = search.toLowerCase();
+//   const q = search.toLowerCase();
 
-  return options
-    .map((option) => {
-      const value = option.value.toLowerCase();
-      const label = option.label.toLowerCase();
-      const keywords = option.keywords?.map((k) => k.toLowerCase()) ?? [];
+//   return options
+//     .map((option) => {
+//       const value = option.value.toLowerCase();
+//       const label = option.label.toLowerCase();
+//       const keywords = option.keywords?.map((k) => k.toLowerCase()) ?? [];
 
-      let score = 0;
+//       let score = 0;
 
-      if (value === q)
-        score = 100; // exact value match  (USD → USD)
-      else if (value.startsWith(q))
-        score = 90; // prefix value match (US  → USD)
-      else if (label === q)
-        score = 80; // exact label match
-      else if (label.startsWith(q))
-        score = 70; // prefix label match
-      else if (keywords.some((k) => k === q))
-        score = 60; // exact keyword match
-      else if (keywords.some((k) => k.startsWith(q)))
-        score = 50; // prefix keyword
-      else if (value.includes(q) || label.includes(q)) score = 30;
-      else if (keywords.some((k) => k.includes(q))) score = 20;
-      else return null; // no match
+//       if (value === q)
+//         score = 100; // exact value match  (USD → USD)
+//       else if (value.startsWith(q))
+//         score = 90; // prefix value match (US  → USD)
+//       else if (label === q)
+//         score = 80; // exact label match
+//       else if (label.startsWith(q))
+//         score = 70; // prefix label match
+//       else if (keywords.some((k) => k === q))
+//         score = 60; // exact keyword match
+//       else if (keywords.some((k) => k.startsWith(q)))
+//         score = 50; // prefix keyword
+//       else if (value.includes(q) || label.includes(q)) score = 30;
+//       else if (keywords.some((k) => k.includes(q))) score = 20;
+//       else return null; // no match
 
-      return { option, score };
-    })
-    .filter(Boolean)
-    .sort((a, b) => b!.score - a!.score)
-    .map((r) => r!.option);
-}
+//       return { option, score };
+//     })
+//     .filter(Boolean)
+//     .sort((a, b) => b!.score - a!.score)
+//     .map((r) => r!.option);
+// }
 
 function buildCurrencyOptions(): ComboBoxOption[] {
   const entries = getAllISOCodes() as ISOEntry[];

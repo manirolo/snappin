@@ -3,7 +3,7 @@ import { TRPCError } from "@trpc/server";
 
 export async function retryScan(scanId: string) {
     const { db } = await import("@snappin/db/index");
-    const { inboxScanChunk } = await import("@snappin/features/inbox/trigger/inbox/scan.chunk.task");
+    const { inboxScanChunk } = await import("@snappin/features/accounts/trigger/inbox/scan.chunk.task");
 
     const scan = await db.scan.findById(scanId);
 

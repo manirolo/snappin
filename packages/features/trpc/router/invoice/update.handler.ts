@@ -1,6 +1,7 @@
 import { ContextProps } from "@snappin/features/trpc/_trpc";
 import { TUpdateInvoice } from "./update.schema";
 import { TRPCError } from "@trpc/server"
+import { assertResourceAccess } from "../../lib/assertResourceAccess";
 
 export type UpdateInvoice = {
   ctx: ContextProps;
@@ -8,6 +9,7 @@ export type UpdateInvoice = {
 };
 
 export async function updateInvoice({ ctx, input }: UpdateInvoice) {
+  await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
   const { invoiceId, data } = input;
 
   const updated = await ctx.db.invoice.findOneAndUpdate(
@@ -17,15 +19,10 @@ export async function updateInvoice({ ctx, input }: UpdateInvoice) {
         $mergeObjects: [
           "$$ROOT",
           data,
-          {
-            invoice: {
-              $mergeObjects: ["$$ROOT.invoice", data.invoice]
-            }
-          }
         ]
       }
     }],
-    { returnDocument: "after", new: true, updatePipeline: true },
+    { returnDocument: "after", updatePipeline: true },
   );
 
   if (!updated) {

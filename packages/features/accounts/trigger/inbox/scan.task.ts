@@ -8,7 +8,8 @@ export const inboxScan = schemaTask({
     run: async (payload) => {
         const { db } = await import("@snappin/db/index");
         const { connectDB } = await import("@snappin/db/connect");
-        const { buildMonthlyChunks } = await import("../../../../inbox/lib/scan.chunkMaker");
+        const { buildMonthlyChunks } = await import("../../lib/scan.chunkMaker");
+        const { enforceOrgScanLimit } = await import("../../lib/scan.cleanup");
         const { inboxScanChunk } = await import("./scan.chunk.task");
 
         await connectDB();
@@ -18,6 +19,10 @@ export const inboxScan = schemaTask({
         if (!scanRequest?.integration || !scanRequest._id || !scanRequest.integrationId || !scanRequest?.integration?._id) return;
 
         const scanId = scanRequest._id?.toString();
+
+        if (scanRequest.orgId) {
+            await enforceOrgScanLimit(scanRequest.orgId, 10);
+        }
 
         try {
             if (!scanRequest.startDate || !scanRequest.endDate) {

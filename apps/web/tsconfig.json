@@ -8,6 +8,8 @@
     ],
     "paths": {
       "@snappin/web": ["./src/*"],
+      "@snappin/features/invoices/*": ["../../packages/features/invoice/*"],
+      "@snappin/features/*": ["../../packages/features/*"]
     }
   },
   "include": [

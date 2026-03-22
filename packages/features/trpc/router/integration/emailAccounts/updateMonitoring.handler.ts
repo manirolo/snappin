@@ -4,6 +4,7 @@ import { TUpdateMonitoringIntegration } from "./updateMonitoring.schema"
 import { AppRole, EmailAppSlug } from "@snappin/shared/apps/app.schema";
 import { EmailAppsStore } from "@snappin/apps/appRegistry"
 import { TRPCError } from "@trpc/server"
+import { assertResourceAccess } from "../../../lib/assertResourceAccess";
 
 export type UpdateMonitoringIntegration = {
     ctx: ContextProps
@@ -11,9 +12,11 @@ export type UpdateMonitoringIntegration = {
 }
 
 export async function updateMonitoringIntegration({ ctx, input }: UpdateMonitoringIntegration): Promise<IntegrationResource | null> {
-    const integration = await ctx.db.integration.findOne({ _id: input.integrationId, appRole: AppRole.EMAIL_SOURCE })
+    const integration = await ctx.db.integration.findOne({ _id: input.integrationId, orgId: ctx?.orgId, appRole: AppRole.EMAIL_SOURCE })
 
     if (!integration) throw new TRPCError({ code: "NOT_FOUND", message: "Integration not found" })
+
+    await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId, resourceOwnerId: integration?.userId })
 
     const provider = EmailAppsStore[integration.appSlug as EmailAppSlug]
 
@@ -25,7 +28,7 @@ export async function updateMonitoringIntegration({ ctx, input }: UpdateMonitori
     try {
         if (input.mailMonitored) {
             const watch = await provider.startWatching({ integration })
-            
+
             watchConfig = watch
             watchConfig["mailMonitored"] = input.mailMonitored
         } else {
@@ -38,8 +41,8 @@ export async function updateMonitoringIntegration({ ctx, input }: UpdateMonitori
     }
 
     return await ctx.db.integration.findOneAndUpdate(
-        { _id: input.integrationId, appRole: AppRole.EMAIL_SOURCE },
+        { _id: input.integrationId, orgId: ctx.orgId, appRole: AppRole.EMAIL_SOURCE },
         { config: watchConfig },
-        { new: true }
+        { returnDocument: "after" }
     )
 }

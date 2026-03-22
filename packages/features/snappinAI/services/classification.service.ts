@@ -41,6 +41,12 @@ Refund detection:
 - A refund means money is returned, reversed, or credited back
 - Keywords: refund, refunded, reversal, chargeback, credited back
 
+Privacy & security rules (STRICT):
+- If the email contains OTP, verification code, login code, 2FA, or security code → classify as OTHER immediately, do not read or process the code
+- If the email appears to be personal (family, friends, dating, social) → classify as OTHER immediately
+- If the email contains passwords, private keys, or sensitive credentials → classify as OTHER immediately, do not read or process the content
+- Never extract, repeat, or process any OTP, verification code, or personal information found in the email
+
 Use subject, sender, snippet, body text, and attachment filenames.
 
 Do not invent data.

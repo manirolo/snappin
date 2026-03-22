@@ -15,13 +15,13 @@ export const Dashboard = ({
   sidePanelClassName?: string;
 }) => (
   <div className={cn("relative flex h-full w-full overflow-hidden", className)} {...props}>
-    <div className={cn("flex min-w-0 flex-1 flex-col h-screen overflow-y-auto")}>
+    <div className={cn("flex min-w-0 flex-1 flex-col overflow-y-auto")}>
       {children}
     </div>
     {sidePanel && (
       <aside
         className={cn(
-          "sticky top-0 h-screen w-md shrink-0 overflow-y-auto border-l border-sidebar-border bg-background",
+          "sticky top-0 w-md shrink-0 overflow-y-auto border-l border-sidebar-border bg-background",
           sidePanelClassName,
         )}
       >
@@ -38,7 +38,7 @@ export const DashboardHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-wrap items-center border-b pb-6 justify-start gap-4 px-8 pt-4",
+      "flex flex-wrap items-center pb-6 justify-start gap-4 px-4 xl:px-2",
       className,
     )}
     {...props}
@@ -52,7 +52,7 @@ export const DashboardHeaderMain = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col gap-0.5", className)} {...props}>
+  <div className={cn("flex flex-col gap-1.5", className)} {...props}>
     {children}
   </div>
 );
@@ -63,7 +63,7 @@ export const DashboardTitle = ({
 }: {
   children: React.ReactNode;
   className?: string;
-}) => <H4 className={cn("text-start font-bold", className)}>{children}</H4>;
+}) => <H4 className={cn("text-start font-semibold", className)}>{children}</H4>;
 
 export const DashboardDescription = ({
   children,
@@ -84,7 +84,7 @@ export const DashboardActions = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={cn("ml-auto flex items-center gap-2", className)}>
+  <div className={cn("md:ml-auto flex items-center gap-2", className)}>
     {children}
   </div>
 );
@@ -96,7 +96,7 @@ export const DashboardContent = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={cn("mt-4 w-full px-8", className)}>{children}</div>
+  <div className={cn("mt-4 w-full px-4 pb-4 max-w-screen sm:w-full xl:px-2", className)}>{children}</div>
 );
 
 export const DashboardDetailPanel = ({

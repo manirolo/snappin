@@ -7,6 +7,7 @@ import type { Context as HonoContext } from "hono"
 type CreateContextProps = {
     userId?: string | null,
     orgId?: string | null,
+    orgRole?: string | null,
 }
 
 export type ContextProps = CreateContextProps & {
@@ -42,6 +43,7 @@ export const createContext = async (opts: {
     return createInnerTRPCContext({
         userId: auth?.userId ?? null,
         orgId: auth?.orgId ?? null,
+        orgRole: auth?.orgRole ?? null,
     })
 }
 
@@ -76,6 +78,43 @@ const enforceUserIsAuthed = t.middleware(async (opts) => {
     })
 })
 
+const enforceUserHasOrg = t.middleware(async (opts) => {
+    const { ctx } = opts;
+    if (!ctx.userId) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    if (!ctx.orgId) {
+        throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "No active organization selected"
+        });
+    }
+    return opts.next({
+        ctx: {
+            ...ctx,
+            userId: ctx.userId, 
+            orgId: ctx.orgId,   
+        }
+    });
+});
+
+// Checks user is in an org AND is an admin
+const enforceOrgAdmin = t.middleware(async (opts) => {
+    const { ctx } = opts;
+    if (!ctx.userId) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+    if (!ctx.orgId) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "No active organization" });
+    }
+    if (ctx.orgRole !== "org:admin") {
+        throw new TRPCError({ code: "FORBIDDEN", message: "Admin access required" });
+    }
+    return opts.next({
+        ctx: { ...ctx, userId: ctx.userId, orgId: ctx.orgId, orgRole: ctx.orgRole }
+    });
+});
+
 /**
  * This is how you create new routers and sub routers in your tRPC API
  * @see https://trpc.io/docs/router
@@ -85,3 +124,5 @@ export const mergeRouters = t.mergeRouters;
 
 export const publicProcedure = t.procedure
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
+export const orgProcedure = t.procedure.use(enforceUserHasOrg)
+export const adminProcedure = t.procedure.use(enforceOrgAdmin);

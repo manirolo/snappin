@@ -1,4 +1,4 @@
-import { IntegrationResource } from "../integration/integration.schema"
+import { IntegrationResource, IntegrationSnapshot } from "../integration/integration.schema"
 import mongoose from "mongoose";
 
 export enum ScanStatus {
@@ -15,6 +15,7 @@ export type ScanResource = {
     orgId?: string | null;
     integrationId?: string | null;
     integration?: IntegrationResource | null;
+    _integration?: IntegrationSnapshot | null,
     scanId?: string | null;
     startDate?: number | null;
     endDate?: number | null;
@@ -25,10 +26,11 @@ export type ScanResource = {
     failedMessages?: number | null;
     startedAt?: number | null;
     completedAt?: number | null;
+    estimatedDuration?: string | null;
     status?: ScanStatus;
     errorReason?: string | null;
     invoiceFound?: string[] | null;
-    rateLimit?: RateLimitInfo;       
+    rateLimit?: RateLimitInfo;
     wasThrottled?: boolean | null;
     rateLimitHits?: number | null;
     createdAt?: number;
@@ -48,7 +50,7 @@ export type RateLimitInfo = {
     isThrottled: boolean;
     throttledAt?: number | null;        // unix ms when throttling started
     retryAfter?: number | null;         // seconds to wait (from Retry-After header)
-    retryAfterAt?: number | null; 
+    retryAfterAt?: number | null;
     retryCount: number;                 // how many times this chunk was throttled
     lastThrottleReason?: string | null; // "userRateLimitExceeded" | "rateLimitExceeded" | "429"
 }
@@ -57,7 +59,7 @@ export type ScanChunkResource = {
     _id?: mongoose.Types.ObjectId | string;
     scanId: mongoose.Types.ObjectId | string;
     integrationId: mongoose.Types.ObjectId | string;
-    integration?: IntegrationResource 
+    integration?: IntegrationResource
     startDate: number;
     endDate: number;
     status: ScanChunkStatus;
@@ -70,6 +72,8 @@ export type ScanChunkResource = {
     errorReason?: string;
     startedAt?: number | null;
     completedAt?: number | null;
+
+    expiresAt?: Date | null;
     createdAt: number;
     updatedAt: number;
 };
@@ -102,6 +106,7 @@ export type ScanMessageResource = {
 
     retryCount: number;
 
+    expiresAt?: Date | null;
     createdAt: number;
     updatedAt: number;
 };

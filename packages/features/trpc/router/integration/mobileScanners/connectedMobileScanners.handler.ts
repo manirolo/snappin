@@ -1,26 +1,38 @@
 import { ContextProps } from "@snappin/features/trpc/_trpc"
-import { paginate } from "@snappin/features/trpc/utils/paginated";
-import { TGetIntegration } from "../getIntegration.schema";
-import { PaginatedResponse } from "@snappin/shared/pagination";
 import { ConnectedMobileScannersResponse } from "./connectedMobileScanners.schema";
 import { AppRole } from "@snappin/shared/apps/app.schema";
+import { clerk } from "@snappin/features/trpc/config/clerk";
+import { TRPCError } from "@trpc/server";
 
 export type ConnectedMobileScanners = {
     ctx: ContextProps,
-    input: TGetIntegration
 }
 
-export async function connectedMobileScanners({ ctx, input }: ConnectedMobileScanners): Promise<PaginatedResponse<ConnectedMobileScannersResponse>> {
-    return await paginate({
-        model: ctx.db.integration,
-        query: {
+export async function connectedMobileScanners({ ctx }: ConnectedMobileScanners): Promise<ConnectedMobileScannersResponse[]> {
+
+    if (!ctx.userId || !ctx.orgId) {
+        throw new TRPCError({ code: "UNAUTHORIZED", message: "Authentication required" })
+    }
+
+    let isMember = false
+    try {
+        const { data: memberships } = await clerk.users.getOrganizationMembershipList({
             userId: ctx.userId,
-            orgId: ctx.orgId,
-            appRole: AppRole.MOBILE_SCANNER
-        },
-        page: input.page,
-        limit: input.limit,
-        select: "_id appType appSlug appCategory appRole config reAuthenticationRequired status",
-        sort: { createdAt: -1 },
-    });
+        })
+        isMember = memberships.some(
+            (membership) => membership.organization.id === ctx.orgId
+        )
+    } catch {
+        throw new TRPCError({ code: "FORBIDDEN", message: "You are not a member of this organization" })
+    }
+
+    if (!isMember) {
+        throw new TRPCError({ code: "FORBIDDEN", message: "You are not a member of this organization" })
+    }
+
+    return await ctx.db.integration
+        .find({ userId: ctx.userId, orgId: ctx.orgId, appRole: AppRole.MOBILE_SCANNER })
+        .populate("user")
+        .select("_id orgId userId appSlug config.phone status updatedAt")
+        .sort({ createdAt: -1 })
 }
