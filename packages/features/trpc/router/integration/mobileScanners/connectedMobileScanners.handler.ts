@@ -33,6 +33,6 @@ export async function connectedMobileScanners({ ctx }: ConnectedMobileScanners):
     return await ctx.db.integration
         .find({ orgId: ctx.orgId, appRoles: [AppRole.MOBILE_SCANNER] })
         .populate("user")
-        .select("_id orgId userId appSlug config.phone status updatedAt")
+        .select("_id orgId userId appSlug metadata.phone status updatedAt")
         .sort({ createdAt: -1 })
 }

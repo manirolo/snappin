@@ -331,9 +331,9 @@ function AccountingIntegrationRow({
             <span className="text-sm font-medium">
               {app?.name ?? integration.appSlug}
             </span>
-            {integration.config?.orgName && (
+            {integration.metadata?.orgName && (
               <span className="text-xs text-muted-foreground truncate">
-                {integration.config.orgName}
+                {integration.metadata.orgName}
               </span>
             )}
           </div>

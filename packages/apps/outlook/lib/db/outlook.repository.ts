@@ -7,7 +7,7 @@ export class OutlookRepository {
     getIntegrationData({ integrationKey }: GetIntegrationProps): Promise<IntegrationResource | null> {
         return db.integration.findOne({
             appSlug: AppSlug.OUTLOOK,
-            "config.subscriptionId": integrationKey,
+            "metadata.subscriptionId": integrationKey,
         });
     }
 }

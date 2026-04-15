@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { ZExtractionStatus } from "@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema";
+import { InvoiceExtractionRequestResource, ZExtractionStatus } from "@snappin/shared/invoiceExtractRequest/invoiceExtractionRequest.schema";
 import { timestampPlugin } from "../plugin/timestamps.plugin";
 
 const InvoiceExtractionRequestSchema = new Schema({
@@ -36,7 +36,7 @@ const InvoiceExtractionRequestSchema = new Schema({
             identifier: { type: String, default: null },
         },
         default: null,
-        _id: false, 
+        _id: false,
     },
 
     startedAt: { type: Number, default: null },
@@ -66,4 +66,6 @@ InvoiceExtractionRequestSchema.set("toObject", { virtuals: true })
 
 InvoiceExtractionRequestSchema.plugin(timestampPlugin)
 
-export const InvoiceExtractionRequestModel = mongoose.model("InvoiceExtractionRequest", InvoiceExtractionRequestSchema);
+export const InvoiceExtractionRequestModel: mongoose.Model<InvoiceExtractionRequestResource> =
+    (mongoose.models.InvoiceExtractionRequest as mongoose.Model<InvoiceExtractionRequestResource>)
+    ?? mongoose.model("InvoiceExtractionRequest", InvoiceExtractionRequestSchema);

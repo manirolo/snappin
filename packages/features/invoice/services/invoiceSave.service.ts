@@ -1,7 +1,6 @@
 import { AppCategory } from "@snappin/shared/apps/app.schema";
 import { TInvoiceSave } from "../trigger/invoice.save.schema";
 import { StorageIntegrationResource } from "@snappin/shared/integration/integration.schema";
-import { usageService } from "@snappin/features/billing/service/usage.service";
 
 export class InvoiceSaveService {
     async save(props: TInvoiceSave) {
@@ -16,6 +15,7 @@ export class InvoiceSaveService {
         const { storageExportService } = await import("@snappin/features/export/services/storageExport.service");
         const { documentService } = await import("./invoiceDocument.service");
         const { createFileName } = await import("@snappin/lib/file/fileName");
+        const { usageService } = await import("@snappin/features/billing/service/usage.service");
 
         await connectDB()
 
@@ -102,7 +102,7 @@ export class InvoiceSaveService {
         const storageIntegrations = await db.integration.find({
             orgId: request.orgId,
             appCategory: AppCategory.STORAGE,
-            "config.storageFolderId": { $exists: true },
+            "metadata.storageFolderId": { $exists: true },
         });
 
         const org = await db.organization.findOne({ clerkOrgId: request.orgId })

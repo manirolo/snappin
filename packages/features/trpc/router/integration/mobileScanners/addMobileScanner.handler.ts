@@ -16,7 +16,7 @@ export async function addMobileScanner({ ctx, input }: AddMobileScanner) {
 
     if (!ctx.userId || !ctx.orgId) throw new TRPCError({ code: "UNAUTHORIZED" })
 
-    const existMobileScanner = await ctx.db.integration.findOne({ "config.phone": input.phone })
+    const existMobileScanner = await ctx.db.integration.findOne({ "metadata.phone": input.phone })
 
     if (existMobileScanner) {
         throw new TRPCError({ code: "CONFLICT", message: "Mobil scanner already exist" })

@@ -1,7 +1,9 @@
 {
   "extends": "@snappin/typescript-config/nextjs.json",
   "compilerOptions": {
+    "target": "ES2017",
     "outDir": "dist",
+    "ignoreDeprecations": "5.0",
     "plugins": [{ "name": "next" }]
   },
   "include": ["."],

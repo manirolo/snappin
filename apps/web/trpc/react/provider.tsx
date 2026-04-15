@@ -1,6 +1,5 @@
 "use client"
 
-import { useAuth } from "@clerk/nextjs"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { trpc } from "@snappin/features/trpc/react/client"
 import { env } from "@snappin/env"
@@ -8,21 +7,13 @@ import { useState } from "react"
 import { httpBatchLink } from "@trpc/client"
 
 export function TRPCProviders({ children }: { children: React.ReactNode }) {
-  const { getToken } = useAuth()
-
   const [queryClient] = useState(() => new QueryClient())
 
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${env.app.api_url}/api/v1/trpc`,
-          async headers() {
-            const token = await getToken()
-            return token
-              ? { Authorization: `Bearer ${token}` }
-              : {}
-          },
+          url: `${env.app.frontend_url}/api/v1/trpc`,
         }),
       ],
     })

@@ -36,7 +36,7 @@ export const mailReceived = schemaTask({
         const { messageIds, nextHistoryId } = await app.resolveMessageIds({ integration, historyId: cursor, messageId });
 
         if (integration.appSlug == AppSlug.GMAIL && nextHistoryId != null) {
-            await db.integration.findOneAndUpdate({ _id: integration._id }, { $max: { "config.historyId": nextHistoryId } })
+            await db.integration.findOneAndUpdate({ _id: integration._id }, { $max: { "metadata.historyId": nextHistoryId } })
         }
 
 

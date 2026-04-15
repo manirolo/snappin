@@ -10,5 +10,5 @@ export async function getExportIntegrations({ ctx }: GetExportIntegrations) {
     if (!ctx.orgId) {
         throw new TRPCError({ code: "FORBIDDEN", message: "Organization required" });
     }
-    return await ctx.db.integration.find({ orgId: ctx.orgId, appType: AppType.DESTINATION }).lean().select("_id appSlug appCategory appType identifierEmail config.orgName")
+    return await ctx.db.integration.find({ orgId: ctx.orgId, appType: AppType.DESTINATION }).lean().select("_id appSlug appCategory appType identifierEmail metadata.orgName")
 }

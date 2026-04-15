@@ -1,8 +1,8 @@
 import { initTRPC, TRPCError } from "@trpc/server"
-import { getAuth } from "@hono/clerk-auth"
+import { auth } from "@clerk/nextjs/server"
 import { db } from "@snappin/db/index"
 import { connectDB } from "@snappin/db/connect"
-import type { Context as HonoContext } from "hono"
+import { NextRequest } from "next/server"
 
 type CreateContextProps = {
     userId?: string | null,
@@ -28,22 +28,26 @@ const createInnerTRPCContext = (opts: CreateContextProps) => {
     }
 }
 
+type CreateContextProp = {
+    req: NextRequest
+}
+
 /**
  * This is the actual context you'll use in your router. It will be used to
  * process every request that goes through your tRPC endpoint
  * @link https://trpc.io/docs/context
  */
-export const createContext = async (opts: {
-    honoCtx: HonoContext
-}) => {
-    const auth = getAuth(opts.honoCtx)
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const createContext = async (opts: CreateContextProp) => {
+    const { userId, orgId, orgRole } = await auth()
 
     await connectDB()
 
     return createInnerTRPCContext({
-        userId: auth?.userId ?? null,
-        orgId: auth?.orgId ?? null,
-        orgRole: auth?.orgRole ?? null,
+        userId: userId ?? null,
+        orgId: orgId ?? null,
+        orgRole: orgRole ?? null,
     })
 }
 
@@ -92,8 +96,8 @@ const enforceUserHasOrg = t.middleware(async (opts) => {
     return opts.next({
         ctx: {
             ...ctx,
-            userId: ctx.userId, 
-            orgId: ctx.orgId,   
+            userId: ctx.userId,
+            orgId: ctx.orgId,
         }
     });
 });

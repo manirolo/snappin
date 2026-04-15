@@ -163,7 +163,8 @@ export const accountsColumn = (): ColumnDef<IntegrationRow>[] => [
       <div className="flex items-center gap-10 p-1">
         <div className="flex items-center gap-4">
           <Image
-            className="size-6 shrink-0"
+            className="size-6"
+            imageClassName="object-contain"
             src={
               row.original.appSlug
                 ? (appMetadata[row.original.appSlug]?.logoUrl ?? "")

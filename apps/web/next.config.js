@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@snappin/ui"],
+  output: "standalone",
   modularizeImports: {
     "@hugeicons-pro/core-bulk-rounded": {
       transform: "@hugeicons-pro/core-bulk-rounded/{{member}}"
@@ -17,7 +18,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "img.logo.dev",
-        pathname: "/**", 
+        pathname: "/**",
       },
     ],
   },
