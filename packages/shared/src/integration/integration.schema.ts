@@ -60,7 +60,7 @@ export const ZIntegrationSnapshot = z.object({
 
 export type GmailMetadata = {
   historyId: number | null
-  watchExpiresAt?: string | null
+  watchExpiresAt?: number | null
 }
 
 export type GmailIntegration = BaseIntegration & {
