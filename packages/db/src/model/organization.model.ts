@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { OrganizationResource, OrganizationPreferenceResource, OrganizationMetadataResource } from "@snappin/shared/organization/organization.schema"
-import { InvoiceFileFormatPreference } from "@snappin/shared/Organization/preference/invoiceFileFormatPreference.schema"
+import { InvoiceFileFormatPreference } from "@snappin/shared/organization/preference/invoiceFileFormatPreference.schema"
 import { timestampPlugin } from "../plugin/timestamps.plugin";
 import { AppSlug } from "@snappin/shared/apps/app.schema";
 
