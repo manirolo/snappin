@@ -3,7 +3,7 @@ import { LemonSqueezyWebhookVerifier } from "@snappin/features/webhook/ls/ls.web
 import { WebhookDispatcher } from '@snappin/features/webhook/webhook-dispatcher'
 import { LSSubscriptionHandler } from '@snappin/features/billing/handler/subscription.handler'
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<Response> {
 
     const subscription = new LSSubscriptionHandler()
     const lsController = new WebhookController(
@@ -11,5 +11,5 @@ export async function POST(request: Request) {
         new WebhookDispatcher({ subscription })
     );
 
-    return lsController.webhook(request)
+    return lsController.webhook(request) as Promise<Response>
 }

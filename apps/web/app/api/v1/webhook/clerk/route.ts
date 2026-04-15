@@ -4,7 +4,7 @@ import { WebhookDispatcher } from '@snappin/features/webhook/webhook-dispatcher'
 import { WebhookController } from '@snappin/features/webhook/webhook-controller'
 import { ClerkWebhookVerifier } from '@snappin/features/webhook/clerk/clerk.webhook'
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<Response> {
 
     const user = new UserHandler();
     const organization = new OrganizationHandler();
@@ -16,5 +16,5 @@ export async function POST(request: Request) {
         dispatcher
     );
 
-    return clerkController.webhook(request)
+    return clerkController.webhook(request) as Promise<Response>
 }
