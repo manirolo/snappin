@@ -44,7 +44,7 @@ jobs:
               - 'packages/shared/**'
               - 'packages/ui/**'
 
-            web:
+            admin:
               - 'apps/admin/**'
               - 'packages/db/**'
               - 'packages/env/**'
