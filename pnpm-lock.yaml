@@ -474,43 +474,6 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
-  packages/document:
-    dependencies:
-      '@snappin/env':
-        specifier: workspace:*
-        version: link:../env
-      '@snappin/infra':
-        specifier: workspace:*
-        version: link:../infra
-      '@snappin/shared':
-        specifier: workspace:*
-        version: link:../shared
-      tslog:
-        specifier: ^4.10.2
-        version: 4.10.2
-      zod:
-        specifier: ^3.23.8
-        version: 3.25.76
-      zod-to-json-schema:
-        specifier: ^3.24.2
-        version: 3.25.1(zod@3.25.76)
-    devDependencies:
-      '@snappin/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@snappin/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      '@types/node':
-        specifier: 'catalog:'
-        version: 22.19.15
-      eslint:
-        specifier: 'catalog:'
-        version: 9.39.3(jiti@2.6.1)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-
   packages/env:
     devDependencies:
       '@snappin/eslint-config':
