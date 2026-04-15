@@ -8,9 +8,15 @@
       "env": [
         "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
         "CLERK_SECRET_KEY",
+        "OPEN_API_KEY",
         "NEXT_PUBLIC_CLERK_SIGN_IN_URL",
         "NEXT_PUBLIC_CLERK_SIGN_UP_URL",
+        "CLERK_WEBHOOK_SIGNING_SECRET",
         "SENTRY_DNS",
+        "GOOGLE_WORKER_URL",
+        "GOOGLE_CLOUD_TASK_QUEUE",
+        "GOOGLE_TASK_PUB_SUB_TOPIC",
+        "GOOGLE_TASK_SERVICE_ACCOUNT_EMAIL",
         "DB_URL",
         "PORT",
         "NEXT_PUBLIC_ENV",
@@ -30,7 +36,24 @@
         "MS_CLIENT_ID",
         "MS_CLIENT_SECRET",
         "MS_TENANT_ID",
-        "NEXT_PUBLIC_LOGO_DEV_PUBLIC_KEY"
+        "NEXT_PUBLIC_LOGO_DEV_PUBLIC_KEY",
+        "WXT_CLERK_PUBLISHABLE_KEY",
+        "CLERK_FRONTEND_API",
+        "WXT_APP_URL",
+        "XERO_CLIENT_ID",
+        "XERO_CLIENT_SECRET",
+        "ENCRYPTION_SECRET",
+        "WHATSAPP_APP_SECRET",
+        "WHATSAPP_VERIFY_TOKEN",
+        "WHATSAPP_PHONE_NUMBER_ID",
+        "WA_APP_SECRET",
+        "POLAR_ACCESS_TOKEN",
+        "POLAR_WEBHOOK_SECRET",
+        "NEXT_PUBLIC_ADMIN_URL",
+        "HYPERTUNE_TOKEN",
+        "LEMONESQUEEZY_WEBHOOK_SECRET",
+        "LEMONSQUEEZY_API_KEY",
+        "LEMONESQUEEZY_STORE_ID"
       ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
@@ -50,6 +73,9 @@
       "cache": false
     },
     "env": {
+      "cache": false
+    },
+    "dev:extension": {
       "cache": false
     },
     "dev:trigger": {

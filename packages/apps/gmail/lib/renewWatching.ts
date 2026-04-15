@@ -1,6 +1,6 @@
 import { RenewWatchingProps, RenewWatchingResponse } from "../../appRegistry.interface";
-import { getGmailClient } from "../config";
-import { gmailConfig } from "../config/gmail.config";
+import { getGmailClient } from "../gmail.client";
+import { gmailConfigData } from "../gmail.config";
 
 export async function renewWatching({ accessToken }: RenewWatchingProps): Promise<RenewWatchingResponse> {
     const gmail = getGmailClient(accessToken);
@@ -8,7 +8,7 @@ export async function renewWatching({ accessToken }: RenewWatchingProps): Promis
     const res = await gmail.users.watch({
         userId: "me",
         requestBody: {
-            topicName: gmailConfig.topic,
+            topicName: gmailConfigData.topic,
             labelIds: ["INBOX"],
             labelFilterAction: "include",
         },
@@ -16,6 +16,6 @@ export async function renewWatching({ accessToken }: RenewWatchingProps): Promis
 
     return {
         historyId: res.data.historyId!,
-        expiresAt: res.data.expiration,
+        watchExpiresAt: res.data.expiration,
     };
 }

@@ -4,7 +4,10 @@ import { getOutlookClient } from "../outlook.client";
 export async function renewWatching({
   accessToken,
   subscriptionId,
-}: RenewWatchingProps & { subscriptionId: string }): Promise<RenewWatchingResponse> {
+}: RenewWatchingProps): Promise<RenewWatchingResponse | undefined> {
+  if (!subscriptionId) {
+    return
+  }
   const client = getOutlookClient(accessToken);
 
   const newExpiration = new Date(Date.now() + 60 * 60 * 1000 * 48).toISOString();
@@ -17,6 +20,6 @@ export async function renewWatching({
 
   return {
     subscriptionId: res.id,
-    expiresAt: res.expirationDateTime,
+    subscriptionExpiresAt: res.expirationDateTime,
   };
 }

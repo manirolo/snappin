@@ -283,7 +283,7 @@ function FileUpload(props: FileUploadProps) {
 
         case "SET_FILES": {
           const newFileSet = new Set(action.files);
-          for (const existingFile of files.keys()) {
+          for (const existingFile of Array.from(files.keys())) {
             if (!newFileSet.has(existingFile)) {
               files.delete(existingFile);
             }
@@ -365,7 +365,7 @@ function FileUpload(props: FileUploadProps) {
         }
 
         case "CLEAR": {
-          for (const file of files.keys()) {
+          for (const file of Array.from(files.keys())) {
             const cachedUrl = urlCache.get(file);
             if (cachedUrl) {
               URL.revokeObjectURL(cachedUrl);
@@ -389,7 +389,7 @@ function FileUpload(props: FileUploadProps) {
       getState: () => state,
       dispatch: (action) => {
         state = reducer(state, action);
-        for (const listener of listeners) {
+        for (const listener of Array.from(listeners)) {
           listener();
         }
       },
@@ -434,7 +434,7 @@ function FileUpload(props: FileUploadProps) {
 
   React.useEffect(() => {
     return () => {
-      for (const file of files.keys()) {
+      for (const file of Array.from(files.keys())) {
         const cachedUrl = urlCache.get(file);
         if (cachedUrl) {
           URL.revokeObjectURL(cachedUrl);
@@ -645,7 +645,7 @@ function FileUpload(props: FileUploadProps) {
           data-slot="file-upload"
           dir={dir}
           {...rootProps}
-          className={cn("relative flex flex-col gap-2", className)}
+          className={cn("relative h-full flex flex-col gap-2", className)}
         >
           {children}
           <input
@@ -864,7 +864,7 @@ function FileUploadDropzone(props: FileUploadDropzoneProps) {
       tabIndex={context.disabled ? undefined : 0}
       {...dropzoneProps}
       className={cn(
-        "relative flex select-none flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed p-6 outline-none transition-colors hover:bg-accent/30 focus-visible:border-ring/50 data-disabled:pointer-events-none data-dragging:border-primary/30 data-invalid:border-destructive data-dragging:bg-accent/30 data-invalid:ring-destructive/20",
+        "relative flex select-none flex-col shrink-0 items-center justify-center gap-2 rounded-lg border-2 border-dashed p-6 outline-none transition-colors hover:bg-accent/30 focus-visible:border-ring/50 data-disabled:pointer-events-none data-dragging:border-primary/30 data-invalid:border-destructive data-dragging:bg-accent/30 data-invalid:ring-destructive/20",
         className,
       )}
       onClick={onClick}

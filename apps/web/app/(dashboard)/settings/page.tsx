@@ -1,7 +1,8 @@
 import React from 'react'
+import { SettingsView } from '../../../modules/settings/settings.view'
 
 export default function Page() {
   return (
-    <div>Dashboard</div>
+    <SettingsView />
   )
 }

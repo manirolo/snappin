@@ -1,31 +1,31 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ChevronDown, LucideIcon, LucideProps } from "lucide-react";
 import { Slot as SlotPrimitive } from "radix-ui";
 import { cn } from "@snappin/ui/lib/utils";
 
 const buttonVariants = cva(
-  "cursor-pointer font-onest group whitespace-nowrap focus-visible:outline-hidden transition-colors duration-300 inline-flex items-center justify-center has-data-[arrow=true]:justify-between whitespace-nowrap text-sm font-medium ring-offset-background transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-60 [&_svg]:shrink-0",
+  "cursor-pointer group whitespace-nowrap focus-visible:outline-hidden transition-colors duration-300 font-medium tracking-normal inline-flex items-center justify-center has-data-[arrow=true]:justify-between whitespace-nowrap ring-offset-background transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-60 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        primary: "bg-gray-12 hover:bg-gray-12 text-white rounded-full border-2 border-gray-12/20 active:scale-95 shadow shadow-gray-12 transition-all duration-150",
-        mono: "bg-zinc-950 text-white dark:bg-zinc-300 dark:text-black hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
+        primary: "bg-primary hover:bg-primary border border-transparent text-white rounded-full 0",
+        mono: "bg-gradient-to-b from-zinc-800 to-zinc-950 text-white dark:bg-zinc-300 dark:text-black active:scale-95 hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 data-[state=open]:bg-destructive/90",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/90 data-[state=open]:bg-secondary/90",
         outline:
-          "bg-transparent text-foreground border-2 border-card-2 active:scale-95 transition-all duration-150 hover:bg-card-2 data-[state=open]:bg-accent transition-colors duration-300 ",
+          "bg-transparent shadow-none text-foreground border border-bg-4 hover:bg-accent data-[state=open]:bg-accent transition-colors duration-300 ",
         dashed:
           "text-accent-foreground border-2 border-input border-dashed bg-transparent hover:bg-accent hover:text-accent-foreground data-[state=open]:text-accent-foreground",
         ghost:
-          "text-foreground hover:bg-accent hover:text-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-        dim: "text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
+          "text-foreground hover:bg-accent hover:text-foreground  transition-all data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
+        dim: "text-foreground bg-bg-a2 disabled:text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
         foreground: "",
         inverse: "",
-        outline_2: "bg-white shadow-xs border border-gray-2",
-        warning: "bg-yellow-500",
+        link: "hover:opacity-100 opacity-70 transition-opacity p-0 duration-300",
+        outline_2: "bg-card border border-border",
+        warning: "bg-yellow-4",
       },
       appearance: {
         default: "",
@@ -41,13 +41,13 @@ const buttonVariants = cva(
       },
       size: {
         _3xl: "h-[4.5rem]",
-        _2xl: "h-[4.2rem]",
-        xl: "h-[3.5rem]",
-        lg: "h-[2.6rem] text-[0.9rem] px-4 gap-1.5 [&_svg:not([class*=size-])]:size-4",
-        md: "h-9 px-3 gap-1.5 text-sm [&_svg:not([class*=size-])]:size-4",
-        sm: "h-7.5 px-2 gap-1.25 text-xs [&_svg:not([class*=size-])]:size-3.5",
+        _2xl: "min-w-xs sm:min-w-sm mx-auto md:min-w-102 min-h-[4.2rem] flex-1 gap-4 font-bold! text-lg",
+        xl: "h-[3rem] text-[0.9rem] gap-2 px-5",
+        lg: "h-[2.85rem] text-[0.9rem] px-4 gap-1.5 [&_svg:not([class*=size-])]:size-4",
+        md: "h-8.5 px-3 min-w-14.5 gap-1.5 text-[13px] [&_svg:not([class*=size-])]:size-4",
+        sm: "h-8 px-2 gap-1.25 text-xs [&_svg:not([class*=size-])]:size-3.5",
         xs: "h-6 px-1 gap-1 text-xs [&_svg:not([class*=size-])]:size-3.5",
-        icon: "size-9 [&_svg:not([class*=size-])]:size-4 shrink-0",
+        icon: "size-8 [&_svg:not([class*=size-])]:size-3.5 shrink-0",
       },
       autoHeight: {
         true: "",
@@ -56,7 +56,7 @@ const buttonVariants = cva(
       radius: {
         md: "rounded-md",
         lg: "rounded-lg",
-        xl: "rounded-xl",
+        xl: "rounded-2xl",
         full: "rounded-full",
       },
       mode: {
@@ -128,12 +128,12 @@ const buttonVariants = cva(
       {
         size: "md",
         autoHeight: true,
-        className: "h-auto min-h-9",
+        className: "h-auto min-h-10",
       },
       {
         size: "sm",
         autoHeight: true,
-        className: "h-auto min-h-8",
+        className: "h-auto min-h-10",
       },
       {
         size: "lg",
@@ -141,7 +141,7 @@ const buttonVariants = cva(
         className: "h-auto min-h-10",
       },
 
-      // Shadow support
+      // shadow-xssupport
       {
         variant: "primary",
         mode: "default",
@@ -179,7 +179,7 @@ const buttonVariants = cva(
         className: "shadow-xs shadow-black/5",
       },
 
-      // Shadow support
+      // shadow-xssupport
       {
         variant: "primary",
         mode: "icon",
@@ -430,22 +430,4 @@ function Button({
   );
 }
 
-interface ButtonArrowProps extends Omit<LucideProps, "ref"> {
-  icon?: LucideIcon;
-}
-
-function ButtonArrow({
-  icon: Icon = ChevronDown,
-  className,
-  ...props
-}: ButtonArrowProps) {
-  return (
-    <Icon
-      data-slot="button-arrow"
-      className={cn("ms-auto -me-1", className)}
-      {...props}
-    />
-  );
-}
-
-export { Button, ButtonArrow, buttonVariants };
+export { Button, buttonVariants };

@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import { timestampPlugin } from "../plugin/timestamps.plugin"
-import { AppCategory, AppSlug, AppType } from "@snappin/shared/apps/app.enum"
+import { AppCategory, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema"
 import { OAuthSessionResource } from "@snappin/shared/auth/oauthSession.schema"
 
 // Session valid for 5 minutes only
@@ -20,8 +20,9 @@ const OAuthSessionSchema = new mongoose.Schema<OAuthSessionResource>({
     appSlug: { type: String, enum: AppSlug, required: true },
     appCategory: { type: String, enum: AppCategory, required: true },
     appType: { type: String, enum: AppType, default: null },
+    appRoles: { type: [String], enum: AppRole, default: null },
     scope: { type: [String], required: true },
-    redirectAfter: { type: [String], default: null },
+    redirectAfter: { type: String, default: null },
     reAuthenticateSession: { type: Boolean, default: false },
     reAuthenticate: { type: ReAuthenticate, default: null },
     expiresAt: { type: Date, default: () => new Date(Date.now() + TTLMinutes * 60 * 1000), index: { expires: 0 } },

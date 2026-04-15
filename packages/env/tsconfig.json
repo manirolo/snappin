@@ -1,10 +1,12 @@
 {
   "extends": "@snappin/typescript-config/react-library.json",
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "outDir": "dist",
-    "baseUrl": ".",
+    "types": ["node"],
+    // "baseUrl": ".",
     "paths": {
-      "@snappin/shared/*": ["./src/*"] 
+      "@snappin/shared/*": ["./src/*"]
     }
   },
   "include": ["."],

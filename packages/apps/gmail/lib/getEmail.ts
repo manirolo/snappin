@@ -1,6 +1,6 @@
 import { gmail_v1 } from "googleapis";
 import type { GetEmail, GetEmailResponse } from "../../appRegistry.interface";
-import { getGmailClient } from "../config";
+import { getGmailClient } from "../gmail.client";
 import { logger } from "@snappin/lib/logger";
 import { AttachmentResource } from "@snappin/shared/inbox/mail.schema";
 
@@ -73,15 +73,21 @@ async function getAttachmentBuffer({ gmail, messageId, attachmentId }:
     return Buffer.from(normalized, "base64");
 }
 
+export const parseEmailAddress = (raw?: string): { email?: string; name?: string } => {
+    if (!raw) return {};
+    const match = raw.match(/^(.*?)\s*<(.+?)>$/);
+    if (match) {
+        return { name: match[1]?.trim() || undefined, email: match[2]?.trim() };
+    }
+    return { email: raw.trim() };
+};
 
 export async function getEmail(payload: GetEmail): Promise<GetEmailResponse | null> {
-
     if (!payload.accessToken) return null;
 
     const gmail = getGmailClient(payload.accessToken);
 
     try {
-
         const { data } = await gmail.users.messages.get({
             userId: "me",
             id: payload.messageId,
@@ -90,40 +96,42 @@ export async function getEmail(payload: GetEmail): Promise<GetEmailResponse | nu
 
         const headers = data.payload?.headers ?? [];
 
-        // ✅ Always an array
+        const rawFrom = getHeader("From", headers);
+        const rawTo = getHeader("To", headers);
+        const parsedFrom = parseEmailAddress(rawFrom ?? "");
+        const parsedTo = parseEmailAddress(rawTo ?? "");
+
         const rawAttachments = extractAttachments(data.payload?.parts) ?? [];
 
         const attachments = (
             await Promise.all(
                 rawAttachments.map(async (attachment) => {
                     if (!attachment.attachmentId) return null;
-
                     const buffer = await getAttachmentBuffer({
                         gmail,
                         messageId: payload.messageId,
                         attachmentId: attachment.attachmentId,
                     });
-
                     const result: AttachmentResource = {
                         fileName: attachment.fileName ?? null,
                         mimeType: attachment.mimeType ?? null,
                         attachmentId: attachment.attachmentId,
                         buffer,
                     };
-
                     return result;
                 })
             )
-        ).filter(
-            (a): a is AttachmentResource => a !== null
-        ); 
+        ).filter((a): a is AttachmentResource => a !== null);
 
         const email: GetEmailResponse = {
             subject: getHeader("Subject", headers),
-            from: getHeader("From", headers),
+            from: parsedFrom.email,
+            senderName: parsedFrom.name,
+            to: parsedTo.email,
+            receiverName: parsedTo.name,
             snippet: data.snippet,
             body: extractMailBody(data.payload?.parts),
-            attachments: attachments,
+            attachments,
         };
 
         return email;

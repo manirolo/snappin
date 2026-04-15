@@ -1,4 +1,4 @@
-import { AppCategory, AppSlug, AppType } from "../apps/app.enum"
+import { AppCategory, AppRole, AppSlug, AppType } from "../apps/app.schema"
 
 export type OAuthSessionResource = {
     // User who requested OAuth Session
@@ -27,10 +27,12 @@ export type OAuthSessionResource = {
 
     appType?: AppType | null,
 
+    appRoles?: AppRole[] | null,
+
     // We are gone have wide range of scopes/permissions 
     // (i.e) https://www.googleapis.com/auth/gmail.readonly - It is a scope for reading mails from gmail
     // (refer) -> https://oauth.net/2/scope/
-    scope?: string[] | null,
+    scope: string[] | null,
 
     // Redirect user after session callback
     redirectAfter?: string | null,

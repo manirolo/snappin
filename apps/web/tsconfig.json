@@ -1,6 +1,7 @@
 {
   "extends": "@snappin/typescript-config/nextjs.json",
   "compilerOptions": {
+    "target": "ES2017",
     "plugins": [
       {
         "name": "next"
@@ -8,6 +9,8 @@
     ],
     "paths": {
       "@snappin/web": ["./src/*"],
+      "@snappin/features/invoices/*": ["../../packages/features/invoice/*"],
+      "@snappin/features/*": ["../../packages/features/*"]
     }
   },
   "include": [

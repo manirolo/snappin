@@ -1,6 +1,6 @@
 import { Context } from 'hono'
-import { appRouter } from '@snappin/trpc/_root'
-import { createContext } from '@snappin/trpc/_trpc'
+import { appRouter } from '@snappin/features/trpc/_root'
+import { createContext } from '@snappin/features/trpc/_trpc'
 import { env } from '@snappin/env'
 
 export class CallbackController {
@@ -11,11 +11,10 @@ export class CallbackController {
     const state = url.searchParams.get('state')
 
     if (!code || !state) {
-      return c.redirect(`${env.app_url}/?error=invalid_oauth_callback`)
+      return c.redirect(`${env.app_url}/integrations?error=invalid_oauth_callback`)
     }
 
     try {
-      // 👇 IMPORTANT: createContext must accept raw Request now
       const ctx = await createContext({ honoCtx: c })
 
       const caller = appRouter.createCaller(ctx)
@@ -23,13 +22,14 @@ export class CallbackController {
       const integration = await caller.integration.addIntegration({
         code,
         state,
+        callbackUrl: c.req.url,
       })
 
-      return c.redirect(integration.redirectAfter)
+      return c.redirect(integration.redirectAfter ?? "/dashboard")
     } catch (err) {
       console.error(err)
       return c.redirect(
-        `${env.app_url}/integrations?error=invalid_oauth_callback`
+        `${env.app_url}/connection-failed`
       )
     }
   }

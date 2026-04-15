@@ -8,15 +8,14 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@snappin/typescript-config": "workspace:*",
     "@snappin/eslint-config": "workspace:*",
+    "@snappin/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:"
@@ -24,6 +23,7 @@
   "dependencies": {
     "@snappin/env": "workspace:*",
     "@snappin/shared": "workspace:*",
+    "file-type": "^21.3.0",
     "tslog": "^4.10.2"
   }
 }

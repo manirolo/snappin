@@ -1,0 +1,51 @@
+{
+  "name": "@snappin/admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "infisical run -- next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint --max-warnings 0",
+    "check-types": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@hugeicons-pro/core-stroke-rounded": "^3.1.0",
+    "@hugeicons/react": "^1.1.4",
+    "@iconify/react": "^6.0.2",
+    "@snappin/apps": "workspace:*",
+    "@snappin/env": "workspace:*",
+    "@snappin/features": "workspace:*",
+    "@snappin/lib": "workspace:*",
+    "@snappin/shared": "workspace:*",
+    "@snappin/ui": "workspace:*",
+    "@tanstack/react-query": "^5.90.19",
+    "@trpc/client": "^11.8.1",
+    "@trpc/react-query": "^11.8.1",
+    "@trpc/server": "^11.8.1",
+    "chart.js": "^4.5.1",
+    "currency-symbol-map": "^5.1.0",
+    "http-status-codes": "^2.3.0",
+    "iso-country-currency": "^0.7.2",
+    "nprogress": "0.2.0",
+    "react-hot-toast": "^2.6.0",
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "@snappin/eslint-config": "workspace:*",
+    "@snappin/typescript-config": "workspace:*",
+    "@types/nprogress": "^0.2.3",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "@tailwindcss/postcss": "^4",
+    "eslint-config-next": "16.2.1",
+    "tailwindcss": "^4"
+  }
+}

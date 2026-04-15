@@ -1,10 +1,12 @@
 {
   "extends": "@snappin/typescript-config/nextjs.json",
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "module": "preserve",
+    "moduleResolution": "bundler",
     "outDir": "dist",
     "paths": {
-      "@snappin/shared/*": ["./src/*"] 
+      "@snappin/db/*": ["./src/*"]
     }
   },
   "include": ["src"],

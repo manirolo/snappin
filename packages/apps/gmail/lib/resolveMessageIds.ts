@@ -1,7 +1,7 @@
 import { logger } from "@snappin/lib/logger";
 import { ResolveMessageIdsProps, ResolveMessageIdsResponse } from "../../appRegistry.interface";
-import { getGmailClient } from "../config";
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { getGmailClient } from "../gmail.client";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { SnappinError } from "@snappin/lib/error/snappin.error";
 import { getAccessToken } from "./getAccessToken";
 
@@ -12,6 +12,11 @@ export async function resolveMessageIds({ integration, historyId }: ResolveMessa
         console.log("⚠️ Problem here: Access token not given. So you will get an empty array.")
 
         throw new SnappinError("No integration found", "no_integration_found")
+    }
+
+    if (!historyId) {
+        console.warn("No historyId provided, skipping history fetch")
+        return { messageIds: [], nextHistoryId: null }
     }
 
     const { accessToken } = await getAccessToken({ integration })
@@ -29,7 +34,7 @@ export async function resolveMessageIds({ integration, historyId }: ResolveMessa
 
             const historyResponse = await gmail.users.history.list({
                 userId: "me",
-                startHistoryId: String(integration.config.historyId),
+                startHistoryId: String(integration.metadata.historyId),
                 historyTypes: ["messageAdded"],
                 pageToken
             })

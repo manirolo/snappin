@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { cn } from "@snappin/ui/lib/utils";
 import {
@@ -20,10 +20,11 @@ export const GlobalConfirmDialog = () => {
     title,
     description,
     icon,
+    content,
     confirmLabel = "Confirm",
     cancelLabel = "Cancel",
     destructive,
-    size= "default",
+    size = "default",
     onConfirm,
     close,
   } = useConfirmStore();
@@ -32,33 +33,42 @@ export const GlobalConfirmDialog = () => {
     <AlertDialog open={open} onOpenChange={close}>
       <AlertDialogContent size={size}>
         <AlertDialogHeader>
-            {icon && 
-              <AlertDialogMedia className={cn("w-fit h-fit p-2", destructive && "bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive ")}>
-                {icon}
-              </AlertDialogMedia>
-            }
+          {icon && (
+            <AlertDialogMedia
+              className={cn(
+                "w-fit h-fit p-2",
+                destructive &&
+                  "bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive ",
+              )}
+            >
+              {icon}
+            </AlertDialogMedia>
+          )}
           <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {description}
-          </AlertDialogDescription>
+          {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
         </AlertDialogHeader>
 
-        <AlertDialogFooter className="group-data-[size=sm]/alert-dialog-content:grid-cols-1 grid-rows-2 justify-center">
-            <AlertDialogAction
-              className={cn("min-w-full")}
-              variant={destructive ? "destructive" : "primary"}
-              size={"lg"}
-              onClick={() => {
-                onConfirm?.();
-                close();
-              }}
-            >
-                {confirmLabel}
-            </AlertDialogAction>
-            
-            <AlertDialogCancel size={"lg"} className="min-w-full" onClick={close}>
-              {cancelLabel}
-            </AlertDialogCancel>
+        {content && <div>{content}</div>}
+
+        <AlertDialogFooter>
+          <AlertDialogCancel
+            size={"md"}
+            className="group-data-[size=sm]:min-w-full border-2"
+            onClick={close}
+          >
+            {cancelLabel}
+          </AlertDialogCancel>
+          <AlertDialogAction
+            // className={cn("group-data-[size=sm]:min-w-full")}
+            variant={destructive ? "destructive" : "primary"}
+            size={"md"}
+            onClick={() => {
+              onConfirm?.();
+              close();
+            }}
+          >
+            {confirmLabel}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

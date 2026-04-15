@@ -1,4 +1,4 @@
-import { AppSlug } from "@snappin/shared/apps/app.enum";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { NormalizeNotificationProps, NormalizeNotificationResponse } from "../../appRegistry.interface";
 
 export async function normalizeNotification({ body }: NormalizeNotificationProps<AppSlug.OUTLOOK>): Promise<NormalizeNotificationResponse> {

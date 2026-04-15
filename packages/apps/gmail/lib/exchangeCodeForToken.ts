@@ -1,6 +1,6 @@
 import { SnappinError } from "@snappin/lib/error/snappin.error";
 import { ExchangeCodeForTokensProps, ExchangeCodeForTokensResponse } from "../../appRegistry.interface";
-import { google } from "../config";
+import { google } from "../gmail.client";
 
 export async function exchangeCodeForTokens(payload: ExchangeCodeForTokensProps): Promise<ExchangeCodeForTokensResponse> {
 
@@ -11,7 +11,7 @@ export async function exchangeCodeForTokens(payload: ExchangeCodeForTokensProps)
     const tokens = await google.validateAuthorizationCode(payload.code, payload.codeVerifier)
     const accessToken = tokens.accessToken()
     const refreshToken = tokens.refreshToken()
-    const accessTokenExpiresAt = tokens.accessTokenExpiresAt()
+    const accessTokenExpiresAt = String(tokens.accessTokenExpiresAt())
 
     return { accessToken, refreshToken, accessTokenExpiresAt }
 }

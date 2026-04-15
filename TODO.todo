@@ -1,0 +1,11 @@
+Snappin:
+    ✔ Show progress count for processing documents @done (2/19/2026, 5:15:43 PM)
+    ✔ Add toast messages for manual upload @done (2/19/2026, 5:15:49 PM)
+    ✔ Improve vendor management @done (2/20/2026, 8:09:24 AM)
+    ☐ Prevent processing again for same mail
+    ☐ Implement unit e2e testing
+    ☐ Viewing invoice details page / dialog
+    ☐ Filtering the invoice
+    ☐ Settings
+    ☐ Subscription
+    

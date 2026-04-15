@@ -12,8 +12,6 @@ const nextConfig = {
       transform: "@hugeicons-pro/core-duotone-rounded/{{member}}"
     }
   },
-  cacheHandler: undefined,
-  cacheMaxMemorySize: 0,
   images: {
     remotePatterns: [
       {

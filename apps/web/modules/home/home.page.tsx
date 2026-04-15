@@ -1,61 +1,21 @@
-"use client";
-
 import React from "react";
-import {
-  Dashboard,
-  DashboardContent,
-  DashboardHeader,
-  DashboardTitle,
-} from "../../components/layout/dashboardLayout";
-import {
-  Card,
-  CardDescription,
-  CardTitle,
-  CardContent,
-} from "@snappin/ui/components/card";
-import { Button } from "@snappin/ui/components/button";
-import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
-import { WaitingForFirstSourceConnection } from "./components/waitingForFirstSourceConnection";
-import { DotSpinner } from "@snappin/ui/assets/svg/dotSpinner";
-import Link from "next/link";
+import { HeroSection } from "./sections/hero";
+import { Benefits } from "./sections/benefits";
+import { HowTo } from "./sections/howTo";
+import { BillingView } from "../billing/billing.view";
+import { Cta } from "./sections/cta";
+import { Faq } from "./sections/faq";
 
-export const Home = () => {
-  const { connectedSource, isLoading } = useIntegration({
-    connectedSource: true,
-  });
-
-  if (isLoading) return <DotSpinner />;
-
+export const HomPage = () => {
   return (
-    <Dashboard>
-      <DashboardHeader>
-        <DashboardTitle>Overview</DashboardTitle>
-      </DashboardHeader>
-      {(!connectedSource || connectedSource.length === 0) && (
-        <WaitingForFirstSourceConnection />
-      )}
-      {(connectedSource && connectedSource.length > 0) &&<DashboardContent>
-        <div>
-          <Card>
-            <CardContent className="border-t-0">
-              <div className="flex flex-col gap-2 mb-5">
-                <CardTitle>Congratulations</CardTitle>
-                <CardDescription>
-                  We have take in-charge for invoice extraction
-                </CardDescription>
-              </div>
-              <div className="flex gap-2">
-                <Button size={"sm"} asChild>
-                  <Link href="/invoices">View Invoices</Link>
-                </Button>
-                <Button size={"sm"} asChild>
-                  <Link href="/retroSearch">Find Past Invoices</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </DashboardContent>}
-    </Dashboard>
+    <div>
+      <HeroSection />
+      <Benefits />
+      <HowTo />
+      <BillingView />
+      <Faq />
+      <Cta />
+    </div>
   );
 };
+

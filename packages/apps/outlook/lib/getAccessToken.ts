@@ -9,9 +9,11 @@ import { outlookConfig } from "../outlook.config";
 export async function getAccessToken({ integration }: RetrieveAccessToken): Promise<RetrieveAccessTokenResponse> {
     const REFRESH_BUFFER_MS = 60 * 1000;
 
-    const isExpired =
-        !integration.accessTokenExpiresAt ||
-        integration.accessTokenExpiresAt.getTime() - REFRESH_BUFFER_MS <= Date.now();
+    const expiresAt = integration.accessTokenExpiresAt
+        ? new Date(integration.accessTokenExpiresAt).getTime()
+        : null;
+
+    const isExpired = !expiresAt || expiresAt - REFRESH_BUFFER_MS <= Date.now();
 
     // ✅ If still valid, reuse
     if (!isExpired  && integration.accessToken) {
@@ -29,7 +31,7 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
         );
 
         const newAccessToken = tokens.accessToken();
-        const newAccessTokenExpiresAt = tokens.accessTokenExpiresAt();
+        const newAccessTokenExpiresAt = String(tokens.accessTokenExpiresAt());
 
         await compareAndSaveIfNewToken({
             integration,

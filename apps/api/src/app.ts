@@ -4,19 +4,20 @@ import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { secureHeaders } from 'hono/secure-headers'
-import { appRouter } from "@snappin/trpc/_root"
-import { createContext } from "@snappin/trpc/_trpc"
+import { appRouter } from "@snappin/features/trpc/_root"
+import { createContext } from "@snappin/features/trpc/_trpc"
 import { logger } from 'hono/logger'
 import router from './api/router'
+import { clerkMiddleware } from "@hono/clerk-auth"
 
 const app = new Hono()
 
-app.use("*", secureHeaders())
+app.use("*", secureHeaders(), clerkMiddleware({publishableKey: env.clerk.publishableKey, secretKey: env.clerk.secretKey }))
 
 app.use(
   "*",
   cors({
-    origin: [env.app.frontend_url],
+    origin: [env.app.frontend_url, env.app.admin_url],
     allowHeaders: ["Authorization", "Content-Type"],
     allowMethods: ["GET", "POST", "OPTIONS"],
     credentials: true,

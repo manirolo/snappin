@@ -4,18 +4,22 @@ import { TRPCProviders } from "../trpc/react/provider"
 import { ProgressWrapper } from "../components/progress/provider";
 import { Toaster } from "react-hot-toast"
 import { GlobalConfirmDialog } from "@snappin/ui/components/alert/alert";
+import { PostHogProvider } from "./posthog-provider";
+import PostHogIdentify from "../components/posthogIdentity";
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
-        <ThemeProviders>
-            <ProgressWrapper>
-                <TRPCProviders>
-                    <GlobalConfirmDialog />
-                    <Toaster />
-                    {children}
-                </TRPCProviders>
-            </ProgressWrapper>
-        </ThemeProviders>
-
+        <PostHogProvider>
+            <ThemeProviders>
+                <ProgressWrapper>
+                    <TRPCProviders>
+                        <GlobalConfirmDialog />
+                        <Toaster />
+                        <PostHogIdentify />
+                        {children}
+                    </TRPCProviders>
+                </ProgressWrapper>
+            </ThemeProviders>
+        </PostHogProvider>
     )
 }

@@ -1,7 +1,7 @@
 export const appearance = {
   variables: {
-    colorPrimary: "hsl(var(--primary))",
-    colorBackground: "hsl(var(--card))",
-    colorText: "hsl(var(--foreground))",
+    colorBackground: "var(--card)",
+    colorText: "var(--foreground)",
+    colorShadow: "var(--color-bg-2)"
   },
 };

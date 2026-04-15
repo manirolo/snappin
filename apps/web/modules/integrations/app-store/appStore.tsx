@@ -1,39 +1,21 @@
-"use client";
-
-import { appMetadata } from "@snappin/apps/app.metadata";
-import { AppType } from "@snappin/shared/apps/app.enum";
-import { Integration } from "@snappin/features/integration/components/integrationCard";
-import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
-import React from "react";
+import {
+  GroupIntegrationCard,
+  GroupIntegrationContent,
+} from "@snappin/features/integration/components/groupIntegrationCard";
+import { GoogleDrive } from "./googleDrive";
+import { Xero } from "./xero";
 
 export const AppStore = () => {
-  const { redirectToOAuthConsentScreen, loading } = useOAuthRedirect();
-
-  const sourceApps = Object.values(appMetadata).filter(
-    (app) => app.type == AppType.SOURCE,
-  );
-  
   return (
-        <div className="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {sourceApps.map((app, i) => (
-            <Integration
-              key={i}
-              name={app.name}
-              description={app.description}
-              icon={app.icon}
-              loading={loading}
-              appSlug={app.slug}
-              note={app.note}
-              onClick={() =>
-                redirectToOAuthConsentScreen({
-                  appType: app.type,
-                  appSlug: app.slug,
-                  appCategory: app.category,
-                  redirectAfterPath: "/integrations",
-                })
-              }
-            />
-          ))}
-        </div>
+    <div className="w-full">
+      <GroupIntegrationCard>
+        <GroupIntegrationContent>
+          <div className="grid grid-cols-1 md:grid-cols-4 min-w-full gap-4">
+            <GoogleDrive />
+            <Xero />
+          </div>
+        </GroupIntegrationContent>
+      </GroupIntegrationCard>
+    </div>
   );
 };
