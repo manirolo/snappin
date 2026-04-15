@@ -64,7 +64,7 @@ type ExportIntegration = {
   appSlug?: string | null;
   identifierEmail?: string | null;
   appCategory?: string | null;
-  config?: { orgName?: string | null };
+  metadata?: { orgName?: string | null };
 };
 
 type ExportEntry = {
@@ -315,8 +315,8 @@ function AccountingIntegrationRow({
     <>
       <DropdownMenuItem
         onSelect={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
+          e.preventDefault();
+          e.stopPropagation();
           setDialogOpen(true); // ✅ open dialog instead of direct export
         }}
         className="h-fit"
