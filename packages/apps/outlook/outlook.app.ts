@@ -15,6 +15,7 @@ import { buildIntegrationData } from "./lib/buildIntegrationData";
 import { normalizeNotification } from "./lib/normalizeNotification";
 import { resolveMessageIds } from "./lib/resolveMessageIds";
 import { resolveIdentity } from "./lib/resolveIdentity";
+import { isWatchExpires } from "./lib/isWatchExpires";
 import { AppCategory, AppDefinition, AppRole, AppSlug, AppType } from "@snappin/shared/apps/app.schema";
 import { OutlookRepository } from "./lib/db/outlook.repository";
 import { OutlookConfigData } from "./outlook.types"
@@ -36,6 +37,7 @@ export const OutlookAppServices = {
     startWatching,
     stopWatching,
     renewWatching,
+    isWatchExpires,
     buildIntegrationData,
     resolveIdentity,
     normalizeNotification,

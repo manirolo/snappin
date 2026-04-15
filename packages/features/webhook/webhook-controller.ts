@@ -7,19 +7,15 @@ export class WebhookController {
         private readonly dispatcher: WebhookDispatcher
     ) { }
 
-    async webhook<TResponse>(
-        req: unknown,
-        respond: (body: unknown, status?: number) => TResponse
-    ): Promise<TResponse> {
+    async webhook(req: Request): Promise<Response> {
         try {
             const event = await this.verifier.verify(req);
-            return await this.dispatcher.dispatch(event).then(() => {
-                return respond({ ok: true }, 200);
-            }).catch((err) => respond({ ok: false, err: err instanceof Error ? err.message : "Unknown" }, 400));
+            await this.dispatcher.dispatch(event);
+            return Response.json({ ok: true }, { status: 200 });
         } catch (err) {
-            return respond(
+            return Response.json(
                 { ok: false, error: err instanceof Error ? err.message : "Unknown" },
-                400
+                { status: 400 }
             );
         }
     }

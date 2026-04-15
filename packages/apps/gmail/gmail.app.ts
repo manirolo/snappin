@@ -11,6 +11,7 @@ import { normalizeTimestamps } from "./lib/normalizeTimestamps";
 import { startWatching } from "./lib/startWatching";
 import { stopWatching } from "./lib/stopWatching";
 import { renewWatching } from "./lib/renewWatching";
+import { isWatchExpires } from "./lib/isWatchExpires";
 import { buildIntegrationData } from "./lib/buildIntegrationData";
 import { normalizeNotification } from "./lib/normalizeNotification";
 import { resolveMessageIds } from "./lib/resolveMessageIds";
@@ -35,6 +36,7 @@ export const GmailAppServices = {
     startWatching,
     stopWatching,
     renewWatching,
+    isWatchExpires,
     buildIntegrationData,
     resolveIdentity,
     normalizeNotification,

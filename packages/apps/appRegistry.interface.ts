@@ -60,8 +60,8 @@ export type RenewWatchingProps = {
 
 export type RenewWatchingResponse = {
     subscriptionId?: string | null
-    historyId?: string | null,
-    watchExpiresAt?: string | null
+    historyId?: number | null,
+    watchExpiresAt?: number | null
     subscriptionExpiresAt?: string | null
 }
 
@@ -204,6 +204,12 @@ export type CreateFileProps = {
     currency?: string | null
 }
 
+export type IsWatchExpires = {
+    integration: IntegrationResource
+}
+
+export type IsWatchExpiresResponse = boolean
+
 export type CreateFileResponse = {
     fileId: string,
     fileUrl?: string | null,
@@ -312,7 +318,8 @@ export interface EmailApps<TSlug extends EmailAppSlug> extends BaseOAuth {
     resolveIdentity(props: ResolveIntegrationIdentity): Promise<ResolveIntegrationIdentityResponse>
     buildIntegrationData(props: BuildEmailIntegrationData): Promise<BuildEmailIntegrationDataResponse<TSlug>>
     normalizeNotification(props: NormalizeNotificationProps<TSlug>): Promise<NormalizeNotificationResponse>;
-    getIntegrationData(props: GetIntegrationProps): Promise<EmailProviderMap[TSlug]["integration"] | null>
+    getIntegrationData(props: GetIntegrationProps): Promise<EmailProviderMap[TSlug]["integration"] | null>;
+    isWatchExpires(props: IsWatchExpires): Promise<IsWatchExpiresResponse>;
 }
 
 export interface StorageApps<TSlug extends StorageAppSlug> extends BaseOAuth {
