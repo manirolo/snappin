@@ -4,7 +4,7 @@ import z from "zod"
 
 export const ZConnectedSource = z.object({
     appType: ZAppType.optional().nullable(),
-    appRole: ZAppRole.optional().nullable(),
+    appRoles: z.array(ZAppRole.optional().nullable()).optional().nullable(),
 })
 export type TConnectedSource = z.infer<typeof ZConnectedSource>
 
@@ -13,12 +13,11 @@ export type ConnectedSourceResponse = {
     identifierEmail: string
     appType: AppType
     appSlug: AppSlug
-    appRole: [AppRole]
+    appRoles: [AppRole]
     appCategory: AppCategory
     updatedAt: number
     reAuthenticationRequired: boolean
-    config: {
-        mailMonitored: boolean
+    metadata: {
         phone: string
     }
     user: {

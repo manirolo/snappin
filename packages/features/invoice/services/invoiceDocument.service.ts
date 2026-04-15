@@ -15,6 +15,7 @@ export interface InvoiceDocumentSaveOutput {
 export interface InvoiceDocumentPromoteInput {
     tempFileId: string
     userId: string
+    orgId: string
     fileName: string
 }
 
@@ -42,11 +43,11 @@ export class InvoiceDocumentService {
 
     // Resolves to: user/{userId}/documents/{invoiceDbId}/invoice.pdf
     //              user/{userId}/documents/{invoiceDbId}/thumbnail.jpg
-    static buildPaths(userId: string, fileName?: string, ext?: string) {
+    static buildPaths(orgId: string, userId: string, fileName?: string, ext?: string) {
         const uuid = crypto.randomUUID()
-        const base = `user/${userId}/documents`
+        const base = `orgs/${orgId}/users/${userId}/documents`
         return {
-            document: fileName ? `${base}/${fileName}.${ext}`: `${base}/${uuid}.${ext}`,
+            document: fileName ? `${base}/${fileName}.${ext}` : `${base}/${uuid}.${ext}`,
         }
     }
 
@@ -56,7 +57,10 @@ export class InvoiceDocumentService {
 
         const { attachment, userId } = input
 
-        let fileName = attachment.fileName ? `temp_${Date.now()}_${crypto.randomUUID()}_${attachment.fileName}` : `temp_${Date.now()}_${crypto.randomUUID()}`
+        let fileName = attachment.fileName
+            ? `temp_${Date.now()}_${crypto.randomUUID()}_${attachment.fileName}`
+            : `temp_${Date.now()}_${crypto.randomUUID()}`
+            
         let mimeType = attachment.mimeType ?? "application/octet-stream"
 
         // Already in GCS — return as-is, no re-upload needed
@@ -96,10 +100,10 @@ export class InvoiceDocumentService {
     async promote(input: InvoiceDocumentPromoteInput): Promise<InvoiceDocumentPromoteOutput> {
         const { storageService, SnappinError, getFileExtension } = await this.getServices()
 
-        const { tempFileId, userId, fileName } = input
+        const { tempFileId, userId, orgId, fileName } = input
         const buffer = await storageService.download(tempFileId)
         const resolvedExt = await getFileExtension(buffer)
-        const paths = InvoiceDocumentService.buildPaths(userId, fileName, resolvedExt ?? ".pdf")
+        const paths = InvoiceDocumentService.buildPaths(orgId, userId, fileName, resolvedExt ?? ".pdf")
 
         // Promote main document
         const promoteResponse = await storageService.move({

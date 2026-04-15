@@ -16,6 +16,6 @@ export async function renewWatching({ accessToken }: RenewWatchingProps): Promis
 
     return {
         historyId: res.data.historyId!,
-        expiresAt: res.data.expiration,
+        watchExpiresAt: res.data.expiration,
     };
 }

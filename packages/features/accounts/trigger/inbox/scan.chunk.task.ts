@@ -22,6 +22,8 @@ export const inboxScanChunk = schemaTask({
         const { SnappinError } = await import("@snappin/lib/error/snappin.error");
         const { estimateScanDuration } = await import("../../lib/scan.timeEstimate");
         const { resolveIntegrationSnapshot } = await import("@snappin/features/integration/lib/resolveIntegrationSnapshot");
+
+        const { UsageLimitError, usageService } = await import("@snappin/features/billing/service/usage.service");
         const pLimit = (await import("p-limit")).default;
 
         await connectDB();
@@ -109,14 +111,35 @@ export const inboxScanChunk = schemaTask({
                                 return;
                             }
 
+                            try {
+                                await usageService.assertWithinLimit(mailPayload.orgId ?? "", "invoices");
+                            } catch (err) {
+                                if (err instanceof UsageLimitError) {
+                                    await db.scanMessage.findOneAndUpdate(
+                                        { scanId, providerMessageId: mailPayload.source.externalId },
+                                        {
+                                            status: ScanMessageStatus.FAILED,
+                                            errorReason: "invoice_limit_reached",
+                                        }
+                                    );
 
+                                    await db.scan.findByIdAndUpdate(scanId, {
+                                        status: ScanStatus.FAILED,
+                                        errorReason: "invoice_limit_reached",
+                                        completedAt: Date.now(),
+                                    });
+
+                                    return; // ✅ stop processing this mail cleanly, don't rethrow
+                                }
+                                throw err; // rethrow anything unexpected
+                            }
 
                             const { category } = await classifyThisMail({
-                                subject: mailPayload.source.metadata.subject,
-                                from: mailPayload.source.metadata.from,
-                                snippet: mailPayload.source.metadata.snippet,
-                                body: mailPayload.source.metadata.body,
-                                attachments: mailPayload.source.metadata.attachments,
+                                subject: mailPayload.source.metadata?.subject,
+                                from: mailPayload.source.metadata?.from,
+                                snippet: mailPayload.source.metadata?.snippet,
+                                body: mailPayload.source.metadata?.body,
+                                attachments: mailPayload.source.metadata?.attachments,
                             });
 
                             if (category === "OTHER") {
@@ -155,13 +178,13 @@ export const inboxScanChunk = schemaTask({
                                             integrationId: chunk?.integrationId?.toString() ?? "null",
                                             isRetroactiveScan: true,
                                             metadata: {
-                                                subject: mailPayload.source.metadata.subject,
-                                                from: mailPayload.source.metadata.from,
-                                                to: mailPayload.source.metadata.to,
-                                                senderName: mailPayload.source.metadata.senderName,
-                                                receiverName: mailPayload.source.metadata.receiverName,
-                                                snippet: mailPayload.source.metadata.snippet,
-                                                body: mailPayload.source.metadata.body,
+                                                subject: mailPayload.source.metadata?.subject,
+                                                from: mailPayload.source.metadata?.from,
+                                                to: mailPayload.source.metadata?.to,
+                                                senderName: mailPayload.source.metadata?.senderName,
+                                                receiverName: mailPayload.source.metadata?.receiverName,
+                                                snippet: mailPayload.source.metadata?.snippet,
+                                                body: mailPayload.source.metadata?.body,
                                             },
                                         },
                                         _integration,
@@ -179,12 +202,11 @@ export const inboxScanChunk = schemaTask({
 
                                     const savedInvoice = await invoiceSaveService.save(extractInvoice);
                                     if (savedInvoice?._id) {
+                                        await usageService.decrement(mailPayload.orgId ?? "", "invoices");
                                         await db.scan.findByIdAndUpdate({ _id: scanId }, {
                                             $push: { invoiceFound: savedInvoice._id.toString() },
                                         });
                                     }
-
-
                                 })
                             );
                             await db.scanChunk.findByIdAndUpdate(chunkId, {

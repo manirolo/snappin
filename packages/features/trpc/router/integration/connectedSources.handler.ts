@@ -17,17 +17,16 @@ export async function connectedSource({ ctx, input }: ConnectedSource): Promise<
     await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
 
     const query: Record<string, unknown> = {
-        userId: ctx.userId,
         orgId: ctx.orgId,
     }
 
     if (input.appType) query.appType = input.appType
-    if (input.appRole) query.appRole = { $in: [input.appRole] }
+    if (input.appRoles) query.appRoles = { $in: [input.appRoles] }
 
     const results = await ctx.db.integration
         .find(query)
         .populate("user")
-        .select("_id appType userId appSlug appCategory appRole identifierEmail config.mailMonitored config.phone reAuthenticationRequired status lastActivityAt updatedAt")
+        .select("_id appType userId appSlug appCategory appRole identifierEmail metadata.phone reAuthenticationRequired status lastActivityAt updatedAt")
         .sort({ createdAt: -1 })
         .lean()
 

@@ -8,7 +8,6 @@ export function buildInvoiceQuery(
   filters?: TInvoiceFilters
 ) {
   const query: Record<string, unknown> = {
-    userId: ctx.userId,
     orgId: ctx.orgId,
   };
 

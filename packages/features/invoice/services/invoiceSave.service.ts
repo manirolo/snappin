@@ -1,6 +1,7 @@
 import { AppCategory } from "@snappin/shared/apps/app.schema";
 import { TInvoiceSave } from "../trigger/invoice.save.schema";
 import { StorageIntegrationResource } from "@snappin/shared/integration/integration.schema";
+import { usageService } from "@snappin/features/billing/service/usage.service";
 
 export class InvoiceSaveService {
     async save(props: TInvoiceSave) {
@@ -28,8 +29,28 @@ export class InvoiceSaveService {
         const matchFilter = getVendorMatchFilter({ userId: request.userId, orgId: request.orgId, vendor: vendor });
         const format = organization?.preference?.invoiceFileNameFormat
         const resolvedFileName = format
-            ? createFileName({ format, date: invoice?.invoiceDate, vendor: vendor?.name, invoiceId: invoice?.invoiceId, amount: invoice?.totals?.total, currency: invoice?.totals?.currency })
-            : request?.fileName;
+            ? createFileName({
+                format,
+                date: invoice?.invoiceDate,
+                vendor: vendor?.name,
+                invoiceId: invoice?.invoiceId,
+                amount: invoice?.totals?.total,
+                currency: invoice?.totals?.currency
+            })
+            : createFileName({
+                // fallback format when org has no preference set
+                format: {
+                    components: ["date", "vendor", "invoiceId"],
+                    separator: "_",
+                    dateFormat: "MMM_DD_YYYY",
+                    uppercase: false,
+                },
+                date: invoice?.invoiceDate,
+                vendor: vendor?.name,
+                invoiceId: invoice?.invoiceId,
+                amount: invoice?.totals?.total,
+                currency: invoice?.totals?.currency,
+            })
 
         const vendorInDB = matchFilter
             ? await db.vendor.findOneAndUpdate(
@@ -75,7 +96,8 @@ export class InvoiceSaveService {
             await documentService.promote({
                 tempFileId: request.documentId,
                 userId: request.userId,
-                fileName: resolvedFileName ?? request.fileName ?? crypto.randomUUID(),
+                orgId: request.orgId ?? crypto.randomUUID(),
+                fileName: resolvedFileName ?? crypto.randomUUID(),
             })
         const storageIntegrations = await db.integration.find({
             orgId: request.orgId,
@@ -83,6 +105,10 @@ export class InvoiceSaveService {
             "config.storageFolderId": { $exists: true },
         });
 
+        const org = await db.organization.findOne({ clerkOrgId: request.orgId })
+        if (org?.clerkOrgId) {
+            usageService.increment(org?.clerkOrgId, "invoices")
+        }
         /// upload to storage integrations 
         if (storageIntegrations.length > 0) {
             await Promise.allSettled(
@@ -91,7 +117,7 @@ export class InvoiceSaveService {
                         const result = await storageExportService.export({
                             integration: integration as unknown as StorageIntegrationResource,
                             documentId: fileId,
-                            fileName: resolvedFileName ?? request.fileName ?? crypto.randomUUID(),
+                            fileName: resolvedFileName ?? crypto.randomUUID(),
                             invoiceDate: invoice.invoiceDate ?? String(Date.now()),
                             invoiceId: invoice.invoiceId ?? null,
                             vendor: vendor?.name ?? null,

@@ -27,5 +27,9 @@
   "packageManager": "pnpm@9.15.0",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@lemonsqueezy/lemonsqueezy.js": "catalog:",
+    "framer-motion": "^12.31.0"
   }
 }

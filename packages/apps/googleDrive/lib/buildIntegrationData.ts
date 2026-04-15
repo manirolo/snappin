@@ -7,7 +7,9 @@ export async function buildIntegrationData({
     accessToken,
     refreshToken,
     accessTokenExpiresAt,
-}: BuildStorageIntegrationData): Promise<BuildStorageIntegrationDataResponse<AppSlug.GOOGLE_DRIVE>> {
+}: BuildStorageIntegrationData): Promise<BuildStorageIntegrationDataResponse<AppSlug.GOOGLE_DRIVE> | undefined> {
+
+    if(!accessToken) return
 
     // findOrCreateFolder is idempotent but still a side effect —
     // only runs after duplicate check passes in the handler
@@ -20,7 +22,7 @@ export async function buildIntegrationData({
         accessToken,
         accessTokenExpiresAt,
         refreshToken,
-        config: {
+        metadata: {
             storageFolderId: folderId,
             organization: {
                 strategy: DEFAULT_ORGANIZATION_STRATEGY,

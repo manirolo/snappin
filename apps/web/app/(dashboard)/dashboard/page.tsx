@@ -1,0 +1,8 @@
+import { Home } from '../../../modules/dashboard/dashboard.page'
+
+export default function Page() {
+
+  return (
+    <Home />
+  )
+}

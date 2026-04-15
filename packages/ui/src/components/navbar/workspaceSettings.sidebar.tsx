@@ -7,7 +7,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarFooter,
   SidebarGroupLabel,
 } from "../sidebar";
 import { IconType } from "react-icons";
@@ -16,7 +15,6 @@ import { cn } from "@snappin/ui/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "../button";
-import { Logo } from "../logo";
 
 export type Navbar = {
   href?: string;
@@ -68,7 +66,7 @@ export const WorkspaceSettingsSidebar = () => {
           variant={"ghost"}
           size={"sm"}
           className="bg-transparent hover:bg-sidebar-accent hover:text-sidebar-accent-foreground border-0 text-sidebar-foreground"
-          onClick={() => router.push("/home")}
+          onClick={() => router.push("/dashboard")}
         >
           <HiOutlineArrowSmLeft />
           Back to dashboard

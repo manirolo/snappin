@@ -5,7 +5,7 @@ export const ZCreateNewOAuthSession = z.object({
     appSlug: ZAppSlug,
     appCategory: ZAppCategory,
     appType: ZAppType,
-    appRole: z.array(ZAppRole),
+    appRoles: z.array(ZAppRole),
     redirectAfter: z.string(),
     reAuthenticate: z.object({
         integrationId: z.string()

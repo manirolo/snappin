@@ -9,8 +9,7 @@ export async function buildIntegrationData({ accessToken, refreshToken, accessTo
         accessToken,
         accessTokenExpiresAt,
         refreshToken,
-        config: {
-            mailMonitored: true,
+        metadata: {
             subscriptionId,
             subscriptionExpiresAt: expiresAt,
         }

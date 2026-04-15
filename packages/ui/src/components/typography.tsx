@@ -1,11 +1,11 @@
 import * as React from "react"
 import { cn } from "@snappin/ui/lib/utils"
 
-const headingStyle = 'font-onest!'
+const headingStyle = 'font-rubik!'
 
 export function H1({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h1 className={cn(headingStyle, "scroll-m-20 text-[1.7rem] sm:text-4xl font-bold tracking-tight md:text-[2.7rem]", className)}>
+    <h1 className={cn(headingStyle, "scroll-m-20 text-[2.4rem] leading-tight sm:text-4xl font-bold tracking-tight md:text-[3.5rem]", className)}>
       {children}
     </h1>
   )
@@ -13,7 +13,7 @@ export function H1({children, className}: {children?: React.ReactNode, className
 
 export function H2({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h2 className={cn(headingStyle, "scroll-m-20 pb-2 text-3xl font-bold first:mt-0", className)}>
+    <h2 className={cn(headingStyle, "text-4xl text-center font-medium tracking-tight text-fg-4 leading-11 text-balance", className)}>
       {children}
     </h2>
   )
@@ -21,7 +21,7 @@ export function H2({children, className}: {children?: React.ReactNode, className
 
 export function H3({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h3 className={cn(headingStyle, "scroll-m-20 text-2xl xl:text-[1.55rem] font-bold", className)}>
+    <h3 className={cn(headingStyle, "scroll-m-20 text-2xl xl:text-[1.85rem] tracking-tight font-medium", className)}>
       {children}
     </h3>
   )
@@ -29,7 +29,7 @@ export function H3({children, className}: {children?: React.ReactNode, className
 
 export function H4({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h4 className={cn(headingStyle, "scroll-m-20 text-xl md:text-[1.2rem] tracking-[-0.3px] font-semibold", className)}>
+    <h4 className={cn(headingStyle, "scroll-m-20 text-xl md:text-[1.1rem] tracking-[-0.3px] font-semibold", className)}>
       {children}
     </h4>
   )
@@ -45,15 +45,15 @@ export function H5({children, className}: {children?: React.ReactNode, className
 
 export function Paragraph({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-foreground font-inter", className)}>
+    <p className={cn("text-foreground", className)}>
       {children}
     </p>
   )
 }
 
-export function Small({children, className}: {children?: React.ReactNode, className?: string}) {
+export function Small({children, title, className}: {children?: React.ReactNode, title?: string, className?: string}) {
   return (
-    <p className={cn("font-inter text-[14px] md:text-sm text-muted-foreground", className)}>
+    <p className={cn("text-sm text-fg-2", className)} title={title}>
       {children}
     </p>
   )
@@ -61,7 +61,7 @@ export function Small({children, className}: {children?: React.ReactNode, classN
 
 export const ExtraSmall = ({children, className}: {children?: React.ReactNode, className?: string}) => {
   return (
-    <p className={cn("font-inter text-xs text-muted-foreground", className)}>{children}</p>
+    <p className={cn("text-xs text-fg-2", className)}>{children}</p>
   )
 } 
 

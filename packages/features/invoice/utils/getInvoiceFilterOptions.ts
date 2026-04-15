@@ -1,4 +1,4 @@
-import { RouterOutputs } from "@snappin/features/trpc/_root";
+import type { RouterOutputs } from "@snappin/features/trpc/_root";
 
 type Invoice = // your invoice type here — replace with actual RouterOutputs type
     RouterOutputs["invoices"]["getInvoices"]["data"][number];

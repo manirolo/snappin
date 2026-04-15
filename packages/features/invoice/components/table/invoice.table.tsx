@@ -1,6 +1,13 @@
 "use client";
 
-import { ReactNode, useEffect, useState, useMemo, useCallback } from "react";
+import {
+  ReactNode,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import {
   getCoreRowModel,
   getSortedRowModel,
@@ -19,7 +26,6 @@ import {
 import { invoiceColumns } from "./invoice.column";
 import { toast } from "react-hot-toast";
 import { useInvoices } from "../../hooks/useInvoices";
-import { Icon } from "@iconify/react";
 import { useInvoiceProcessingStore } from "../invoiceProcessing.store";
 import {
   FloatingTableToolbar,
@@ -29,7 +35,13 @@ import { trpc } from "@snappin/features/trpc/react/client";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
 import { Spinner } from "@snappin/ui/assets/svg/spinner";
 import { useRouter } from "next/navigation";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Happy01Icon } from "@hugeicons-pro/core-bulk-rounded";
+import { FilterInvoice } from "../filter/filterByCategory";
 import { ExportAll } from "@snappin/features/export/components/exportAll";
+import { Input, InputWrapper } from "@snappin/ui/components/input";
+import { Icon } from "@iconify/react";
+import { ManualInvoiceUploadDialog } from "../manualInvoiceUpload.dialog";
 
 type EmptyInvoiceStateProps = { processingStatus: boolean };
 
@@ -38,37 +50,55 @@ const EmptyInvoiceStateComponent = ({
 }: EmptyInvoiceStateProps) => (
   <Empty>
     <EmptyHeader>
-      <EmptyMedia variant="icon">
-        <Icon icon="tabler:invoice" />
+      <EmptyMedia>
+        <HugeiconsIcon icon={Happy01Icon} className="size-9" />
       </EmptyMedia>
-      <EmptyTitle>No documents found</EmptyTitle>
+      <EmptyTitle>No invoices</EmptyTitle>
       <EmptyDescription>
-        Capture, extract and categorize bills, receipts and more in seconds
+        Connect email accounts for automatic invoice extraction or upload a
+        document
       </EmptyDescription>
-      {processingStatus && (
-        <EmptyContent>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Spinner className="size-4" />
-            Processing uploaded documents. Just a moment
-          </div>
-        </EmptyContent>
-      )}
+      <EmptyContent>
+        <div>
+          {processingStatus && (
+            <div className="flex items-center gap-2 mb-6 text-muted-foreground">
+              <Spinner className="size-4" />
+              Processing uploaded documents. Just a moment
+            </div>
+          )}
+          <ManualInvoiceUploadDialog />
+        </div>
+      </EmptyContent>
     </EmptyHeader>
   </Empty>
 );
 
 export const InvoiceListTable = ({
-  toolbar,
-  search = "",
   onRowClick,
+  // search,
 }: {
   toolbar?: ReactNode;
-  search?: string;
   onRowClick?: (invoiceId: string) => void;
+  search?: string;
 }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "/") {
+        e.preventDefault();
+        searchRef.current?.focus();
+        searchRef.current?.select();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
 
@@ -87,7 +117,7 @@ export const InvoiceListTable = ({
   const rawData = useMemo(() => invoices?.data ?? [], [invoices?.data]);
 
   const data = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = search?.trim().toLowerCase();
     if (!q) return rawData;
     return rawData.filter((row) => {
       const vendorName = row.vendor?.name?.toLowerCase() ?? "";
@@ -174,7 +204,7 @@ export const InvoiceListTable = ({
   const floatingActions: FloatingToolbarAction[] = [
     {
       key: "export",
-      trigger: <ExportAll selectedInvoiceIds={selectedIds}/>
+      trigger: <ExportAll selectedInvoiceIds={selectedIds} />,
     },
     {
       key: "delete",
@@ -202,9 +232,31 @@ export const InvoiceListTable = ({
   }, [data, selectedIndex, onRowClick]);
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <PaginatedTable
         table={invoiceTable}
+        toolbar={
+          <div className="flex justify-between">
+            <div className="flex items-center gap-2">
+              <InputWrapper className="max-w-60 border-0 h-8 shadow-none">
+                <Icon icon="majesticons:search-line" />
+                <Input
+                  ref={searchRef}
+                  placeholder="Search for something"
+                  className="placeholder:font-medium text-[13px]"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </InputWrapper>
+
+              <FilterInvoice />
+              <ExportAll />
+            </div>
+            <div className="flex items-center gap-2">
+              <ManualInvoiceUploadDialog />
+            </div>
+          </div>
+        }
         loading={isLoading}
         pagination={{
           page: invoices?.page ?? page,
@@ -215,7 +267,7 @@ export const InvoiceListTable = ({
         }}
         onRowClick={(row) => {
           const id = row.original?._id;
-          router.push("documents/" + id + "/edit");
+          router.push("/bookkeeping/documents/" + id + "/edit");
         }}
         next={() => setPage((p) => p + 1)}
         prev={() => setPage((p) => Math.max(1, p - 1))}
@@ -223,7 +275,6 @@ export const InvoiceListTable = ({
           setLimit(newLimit);
           setPage(1);
         }}
-        toolbar={toolbar}
         processingStateText={
           processingStatus
             ? "Processing uploaded documents. Just a moment"

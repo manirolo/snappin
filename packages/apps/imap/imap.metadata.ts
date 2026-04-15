@@ -9,6 +9,8 @@ export const imapMetadata: AppMetadata = {
     },
     description: "Connect your company email account to extract invoices",
     iconifyIcon: "tabler:at",
+    cta: "Connect Company account",
+    logoUrl: "/images/vendors/logos/imap.png",
     disclaimer: "We only scan invoice-related emails",
     slug: AppSlug.IMAP,
     role: [AppRole.EMAIL_SOURCE],

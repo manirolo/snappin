@@ -12,7 +12,7 @@ const defaultRoutes = [
   {
     path: '/webhook',
     route: webhookRouter
-  }
+  },
 ]
 
 defaultRoutes.forEach((route) => {

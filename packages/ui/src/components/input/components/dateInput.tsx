@@ -152,7 +152,7 @@ export const DateInput = React.forwardRef<HTMLDivElement, DateInputProps>(
 
         <InputWrapper
           className={cn(
-            "min-h-11 border text-sm",
+            "min-h-11 border border-bg-4 text-sm",
             wrapperStateClass[state],
           )}
         >

@@ -17,7 +17,7 @@ export function Spinner({
         height="24"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
-        className={cn("text-gray-8", className)}
+        className={cn("text-fg-2", className)}
         {...props}
         >
         <style>

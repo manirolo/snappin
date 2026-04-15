@@ -92,7 +92,7 @@ export const DetailCardSection = ({
 }) => (
   <Card
     className={cn(
-      "w-full bg-transparent border-0 rounded-xl p-0 shadow-none gap-0",
+      "w-full bg-transparent border-0 rounded-2xl p-0 shadow-none gap-0",
       className,
     )}
   >
@@ -243,7 +243,7 @@ export const DetailCardActionGroup = ({
   className?: string;
 }) => (
   <div
-    className={cn("w-full overflow-hidden rounded-xl p-1 bg-card", className)}
+    className={cn("w-full overflow-hidden rounded-2xl p-1 bg-card", className)}
   >
     {children}
   </div>

@@ -34,7 +34,7 @@ export type Navbar = {
 };
 
 const mainNav: Navbar[] = [
-  { href: "/home", label: "Home", icon: HiOutlineCollection },
+  { href: "/dashboard", label: "Home", icon: HiOutlineCollection },
 ];
 
 const accountingNav: Navbar[] = [

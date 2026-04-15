@@ -1,34 +1,33 @@
-"use client"
+"use client";
 
-import { Button } from '../button';
-import Link from 'next/link';
-import { Small } from '../typography';
+import { Button } from "../button";
+import Link from "next/link";
+import { Small } from "../typography";
 
-export type DashboardOrLoginResource = {
-    isUserLoggedIn: boolean;
-}
-
-export const DashboardOrLogin = ({ isUserLoggedIn }: DashboardOrLoginResource) => {
-    return (
-        <div className='flex items-center gap-4'>
-            <div className='block xl:hidden'>
-                <Link href={"/"}><Small>Pricing</Small></Link>
-            </div>
-            {isUserLoggedIn ? (
-                <Button size={"sm"} asChild><Link href={"/dashboard"}>Dashboard</Link></Button>
-            ) : (
-                <Button variant={"outline"} size={"sm"} asChild><Link href={"/login"}>Login</Link></Button>
-            )}
-        </div>
-    )
-}
+export const DashboardOrLogin = () => {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
+        <Button variant={"inverse"} radius={"full"} asChild>
+          <Link href={"/login"} className="rounded-[22px] text-white/70">Login</Link>
+        </Button>
+        <Button radius={"full"} className="rounded-2xl" asChild>
+          <Link href={"/signup"}>Register</Link>
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 export const NavigationLinks = () => {
-    return (
-        <div className='hidden xl:flex gap-10'>
-            <Link href={"/pricing"}><Small>Pricing</Small></Link>
-            <Link href={"/#faq"}><Small>FAQ</Small></Link>
-            <Link href={"/features"}><Small>Features</Small></Link>
-        </div>
-    )
-}
+  return (
+    <div className="hidden xl:flex gap-6">
+      <Link href={"https://snappin.lemonsqueezy.com/affiliates"}>
+        <Small className="text-white/70 hover:text-fg-1">Affiliate</Small>
+      </Link>
+      <Link href={"/pricing"}>
+        <Small className="text-white/70 hover:text-fg-1">Pricing</Small>
+      </Link>
+    </div>
+  );
+};

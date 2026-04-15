@@ -6,7 +6,7 @@ export const GroupIntegrationCard = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <div className="flex flex-col gap-3">{children}</div>;
+  return <div className="flex flex-col gap-3 w-full">{children}</div>;
 };
 
 export const GroupIntegrationHeader = ({
@@ -38,5 +38,5 @@ export const GroupIntegrationContent = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <div className="inline-block">{children}</div>;
+  return <div className="inline-block w-full">{children}</div>;
 };

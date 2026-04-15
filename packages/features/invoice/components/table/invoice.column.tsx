@@ -94,7 +94,7 @@ export const invoiceColumns = (): ColumnDef<InvoiceRow>[] => [
     size: 30,
     minSize: 30,
     header: ({ table }) => (
-      <div className="flex pl-1 justify-start">
+      <div className="flex pr-2 justify-start">
         <Checkbox
           className="border-gray-200 cursor-pointer size-4"
           checked={
@@ -107,7 +107,7 @@ export const invoiceColumns = (): ColumnDef<InvoiceRow>[] => [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="flex pl-1 justify-start">
+      <div className="flex pr-2 justify-start">
         <Checkbox
           className="border-gray-200 bg-background size-4 cursor-pointer"
           checked={row.getIsSelected()}
@@ -151,27 +151,6 @@ export const invoiceColumns = (): ColumnDef<InvoiceRow>[] => [
     size: 40,
     minSize: 60,
     cell: ({ row }) => <SourceCell extraction={row.original.extraction} />,
-  },
-  {
-    accessorKey: "invoice.tax",
-    size: 50,
-    minSize: 40,
-    header: ({ column }) => (
-      <SortableHeader
-        column={column}
-        title="Tax"
-        className="justify-start pr-12"
-      />
-    ),
-    sortingFn: "basic",
-    cell: ({ row }) => (
-      <div className="w-full text-start pr-12">
-        <AmountCell
-          currency={row.original?.totals?.currency}
-          amount={row.original?.totals?.tax?.amount ?? 0}
-        />
-      </div>
-    ),
   },
   {
     accessorKey: "invoice.total",
@@ -225,7 +204,7 @@ export const invoiceColumns = (): ColumnDef<InvoiceRow>[] => [
     header: () => <div className="w-full text-end">Actions</div>,
     size: 120,
     cell: ({ row }) => (
-      <div className="flex justify-end">
+      <div className="flex justify-end pr-2">
         <InvoiceActions
           invoiceId={row.original?._id ?? ""}
           invoice={row.original as unknown as InvoiceResource}

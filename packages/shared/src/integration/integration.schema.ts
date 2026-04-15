@@ -4,6 +4,10 @@ import { IntegrationStatus } from "./status.enum";
 import { UserResource } from "../user/user.schema"
 import { StorageOrganizationStrategy } from "./storage.schema";
 
+export enum StatusReason {
+  PLAN_DOWNGRADE = "plan_downgrade"
+}
+
 export type BaseIntegration = {
   _id?: string | null
 
@@ -23,7 +27,7 @@ export type BaseIntegration = {
   provider?: Provider | null,
   appSlug?: AppSlug | null
   appCategory?: AppCategory | null
-  appRole?: AppRole[] | null
+  appRoles?: AppRole[] | null
   appType?: AppType | null
 
   identifierEmail?: string | null
@@ -32,10 +36,12 @@ export type BaseIntegration = {
   lockedAt?: string | null
 
   status: IntegrationStatus | null
+  statusReason?: StatusReason | null
 
   user?: UserResource,
 
   lastActivityAt?: number | null
+
   createdAt?: number | null
   updatedAt?: number | null
 }
@@ -52,26 +58,24 @@ export const ZIntegrationSnapshot = z.object({
   identifier: z.string().optional().nullable(),
 });
 
-export type GmailConfig = {
-  mailMonitored: boolean
+export type GmailMetadata = {
   historyId: number | null
   watchExpiresAt?: string | null
 }
 
 export type GmailIntegration = BaseIntegration & {
   appSlug?: AppSlug.GMAIL | null
-  config: GmailConfig
+  metadata: GmailMetadata
 }
 
-export type OutlookConfig = {
-  mailMonitored?: boolean | null
+export type OutlookMetadata = {
   subscriptionId?: string | null
   subscriptionExpiresAt?: string | null
 }
 
 export type OutlookIntegration = BaseIntegration & {
   appSlug?: AppSlug.OUTLOOK | null
-  config: OutlookConfig
+  metadata: OutlookMetadata
 }
 
 export type GmailWebhookPayload = {
@@ -93,7 +97,7 @@ export type OutlookWebhookPayload = {
 
 export type EmailProviderMap = {
   [AppSlug.GMAIL]: {
-    config: GmailConfig;
+    metadata: GmailMetadata;
     webhookPayload: GmailWebhookPayload;
     integration: GmailIntegration;
     resolveMessageInput: {
@@ -102,7 +106,7 @@ export type EmailProviderMap = {
   };
 
   [AppSlug.OUTLOOK]: {
-    config: OutlookConfig;
+    metadata: OutlookMetadata;
     webhookPayload: OutlookWebhookPayload;
     integration: OutlookIntegration;
     resolveMessageInput: {
@@ -111,56 +115,55 @@ export type EmailProviderMap = {
   };
 };
 
-export interface BaseStorageConfig {
+export interface BaseStorageMetadata {
   organization: {
     strategy: StorageOrganizationStrategy
   }
 }
 
-export type GoogleDriveConfig = BaseStorageConfig & {
+export type GoogleDriveMetadata = BaseStorageMetadata & {
   storageFolderId: string | null
-
 }
 
 export type GoogleDriveIntegration = BaseIntegration & {
   appSlug?: AppSlug.GOOGLE_DRIVE | null
-  config: GoogleDriveConfig
+  metadata: GoogleDriveMetadata
 }
 
-export type XeroConfig = {
-    tenantId?: string | null;
-    orgName?: string | null;
+export type XeroMetadata = {
+  tenantId?: string | null;
+  orgName?: string | null;
 }
 
 export type XeroIntegration = BaseIntegration & {
-  config: XeroConfig
+  metadata: XeroMetadata
 }
 
 
 export type StorageIntegrationResource = GoogleDriveIntegration
 // | OneDriveIntegration  — add future storage providers here
 
-export type WhatsAppConfig = {
-    phone: string | null  
+export type WhatsAppMetadata = {
+  phone: string | null
 }
 
 export type WhatsAppIntegration = BaseIntegration & {
-    appSlug?: AppSlug.WHATSAPP | null
-    config: WhatsAppConfig
+  appSlug?: AppSlug.WHATSAPP | null
+  metadata: WhatsAppMetadata
 }
 
 export type StorageProviderMap = {
   [AppSlug.GOOGLE_DRIVE]: {
-    config: GoogleDriveConfig
+    metadata: GoogleDriveMetadata
     integration: GoogleDriveIntegration
   }
 }
 
 export type AccountingProviderMap = {
-    [AppSlug.XERO]: {
-        integration: XeroIntegration;
-        config: XeroConfig;
-    }
+  [AppSlug.XERO]: {
+    integration: XeroIntegration;
+    metadata: XeroMetadata;
+  }
 }
 
 export type IntegrationResource =

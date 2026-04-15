@@ -15,7 +15,7 @@ export async function runDomLinks(vendor: VendorConfig) {
   const selector = vendor.selectors?.downloadLink ?? "a[href*='invoice']";
   let links = Array.from(document.querySelectorAll<HTMLAnchorElement>(selector));
 
-  // Fallback: if no links, look for any <a> with Stripe invoice URL (e.g. inside shadow DOM we can't query)
+  // Fallback: if no links, look for any <a> with Stripe invoice URL (e.g. inside shadow-xsDOM we can't query)
   if (links.length === 0 && (vendor.id === "railway" || selector.includes("stripe"))) {
     const allAnchors = document.querySelectorAll<HTMLAnchorElement>("a[href]");
     links = Array.from(allAnchors).filter(

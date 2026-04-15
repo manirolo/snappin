@@ -6,6 +6,7 @@ import { documentService } from "@snappin/features/invoice/services/invoiceDocum
 import { assertResourceAccess } from "../../lib/assertResourceAccess"
 import { TRPCError } from "@trpc/server"
 import { getMimeType } from "@snappin/lib/file/getMimeType"
+import { usageService } from "@snappin/features/billing/service/usage.service"
 
 export type UploadTempInvoice = {
   ctx: ContextProps,
@@ -17,12 +18,15 @@ const ALLOWED_MIME_TYPES = ["application/pdf", "image/jpeg", "image/png", "image
 
 export async function uploadTempInvoice({ ctx, input }: UploadTempInvoice) {
   await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
-  if (!ctx.userId) {
+  if (!ctx.userId || !ctx.orgId) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: `Authorization required `,
     })
   }
+
+  await usageService.assertWithinLimit(ctx?.orgId, "invoices")
+  
   if (!input.buffer) {
     throw new TRPCError({
       code: "BAD_REQUEST",

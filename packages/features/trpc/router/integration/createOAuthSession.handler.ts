@@ -6,6 +6,9 @@ import * as arctic from "arctic"
 import { AppRegistry, } from "@snappin/apps/appRegistry"
 import { assertResourceAccess } from "../../lib/assertResourceAccess"
 import { resolveProvider } from "@snappin/apps/lib/resolveProvider"
+import { IntegrationUsageKey, UsageLimitError, UsageService } from "@snappin/features/billing/service/usage.service"
+import { AppCategory } from "@snappin/shared/apps/app.schema"
+import { TRPCError } from "@trpc/server"
 
 export type CreateOAuthSession = {
     ctx: ContextProps
@@ -19,6 +22,28 @@ export async function createNewOAuthSession({ ctx, input }: CreateOAuthSession):
 
     await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
 
+    const usageService = new UsageService()
+
+    try {
+        if (input.appCategory === AppCategory.EMAIL) {
+            await usageService.assertWithinLimit(ctx.orgId ?? "", "emailAccounts")
+        } else if (
+            input.appCategory === AppCategory.STORAGE ||
+            input.appCategory === AppCategory.ACCOUNTING
+        ) {
+            await usageService.assertIntegrationAllowed(
+                ctx.orgId ?? "",
+                input.appSlug as IntegrationUsageKey
+            )
+        }
+        // WHATSAPP — no OAuth session, handled separately
+        // COMMUNICATION — no limit check needed
+    } catch (err) {
+        if (err instanceof UsageLimitError) {
+            throw new TRPCError({ code: "FORBIDDEN", message: err.displayMessage })
+        }
+        throw err
+    }
     // Resolve the app provider from the registry
     const app = resolveProvider(input.appCategory, input.appSlug)
 
@@ -40,7 +65,7 @@ export async function createNewOAuthSession({ ctx, input }: CreateOAuthSession):
         appSlug: input.appSlug,
         appCategory: input.appCategory,
         appType: input.appType,
-        appRole: input.appRole,
+        appRoles: input.appRoles,
         scope: AppRegistry[input.appSlug as keyof typeof AppRegistry].config.permissions,
         codeVerifier,
         redirectAfter: input.redirectAfter,

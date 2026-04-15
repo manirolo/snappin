@@ -17,8 +17,8 @@ export const SheetInput = ({
     <Sheet>
       <SheetTrigger className="px-4 py-3 flex justify-between items-center  hover:bg-accent w-full cursor-pointer">
         <div className="flex flex-col gap-1">
-          <Label className="text-muted-foreground font-onest tracking-[-0.1px] font-medium">{label}</Label>
-          <Paragraph className="text-start font-onest tracking-[-0.2px] font-medium">{value}</Paragraph>
+          <Label className="text-muted-foreground tracking-[-0.1px] font-medium">{label}</Label>
+          <Paragraph className="text-start tracking-[-0.2px] font-medium">{value}</Paragraph>
         </div>
         <div>
           <MdKeyboardArrowRight className="size-7 text-muted-foreground" />

@@ -1,8 +1,8 @@
-// At the top of table.tsx or in a separate table.d.ts
 import "@tanstack/react-table";
 
 declare module "@tanstack/react-table" {
-  interface ColumnMeta {
-    disableHover?: boolean;
-  }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    interface ColumnMeta<TData, TValue> {
+        disableHover?: boolean
+    }
 }

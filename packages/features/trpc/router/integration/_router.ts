@@ -15,6 +15,8 @@ import { ZConnectedSource } from "./connectedSource.schema"
 import { connectedMobileScanners, ConnectedMobileScanners } from "./mobileScanners/connectedMobileScanners.handler"
 import { emailAccountRouter } from "./emailAccounts/_router"
 import { mobileScannerRouter } from "./mobileScanners/_router"
+import { accountingRouter } from "./accounting/_router"
+import { storageRouter } from "./storage/_router"
 
 export const integrationRouter = createTRPCRouter({
     createOAuthSession: orgProcedure.input(ZCreateNewOAuthSession).mutation(async (opts: CreateOAuthSession) => {
@@ -42,8 +44,12 @@ export const integrationRouter = createTRPCRouter({
         return removeIntegration(opts)
     }),
 
+    accounting: accountingRouter,
+
     // Email accounts
     accounts: emailAccountRouter,
 
-    mobileScanners: mobileScannerRouter
+    mobileScanners: mobileScannerRouter,
+
+    storage: storageRouter
 })

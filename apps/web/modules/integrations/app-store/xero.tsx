@@ -8,6 +8,7 @@ import { trpc } from "@snappin/features/trpc/react/client";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
+import { XeroIntegration } from "@snappin/shared/integration/integration.schema";
 
 export const Xero = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ export const Xero = () => {
     integration: { enabled: true, appSlug: AppSlug.XERO },
   });
 
-  const connected = integration?.data;
+  const connected = integration?.data as XeroIntegration;
 
   const needReAuthorization = connected?.reAuthenticationRequired;
 
@@ -74,7 +75,7 @@ export const Xero = () => {
       note={appMetadata.xero.disclaimer}
       isLoading={integration.isLoading}
       isConnected={!!connected}
-      hint={connected?.config?.orgName ?? ""}
+      hint={connected?.metadata?.orgName ?? ""}
       connectLoading={loading}
       isProgress={isLoading}
       reAuthorizationNeeded={needReAuthorization ?? false}

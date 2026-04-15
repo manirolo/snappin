@@ -18,8 +18,8 @@ export async function connectedEmailAccounts({
   await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId })
 
   return ctx.db.integration
-    .find({ userId: ctx.userId, orgId: ctx.orgId, appRole: AppRole.EMAIL_SOURCE })
+    .find({ orgId: ctx.orgId, appRoles: [AppRole.EMAIL_SOURCE] })
     .populate("user")
-    .select("_id appType userId appSlug appCategory appRole identifierEmail config.mailMonitored reAuthenticationRequired status lastActivityAt updatedAt")
+    .select("_id appType userId appSlug appCategory appRole identifierEmail reAuthenticationRequired status lastActivityAt updatedAt")
     .sort({ createdAt: -1 });
 }

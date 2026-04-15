@@ -7,9 +7,12 @@ import { Image } from "@snappin/ui/components/Image";
 import { Button } from "@snappin/ui/components/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
+  DialogLabel,
   DialogTitle,
   DialogTrigger,
 } from "@snappin/ui/components/dialog";
@@ -17,6 +20,7 @@ import { formatDate } from "@snappin/lib/date/formateDate";
 import { HiExternalLink } from "react-icons/hi";
 import { HiOutlineClock } from "react-icons/hi";
 import { DropdownMenuItem } from "@snappin/ui/components/dropdown-menu";
+import { ScrollArea } from "@snappin/ui/components/scroll-area";
 
 type ExportEntry = {
   integrationId?: string | null;
@@ -35,28 +39,31 @@ type InvoiceExportHistoryProps = {
 export const InvoiceExportHistory = ({
   integrations,
 }: InvoiceExportHistoryProps) => {
+
+  const [open, setOpen] = React.useState(false); 
   const hasEntries = integrations && integrations.length > 0;
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <DropdownMenuItem
-          onClick={(e) => {
-            e.stopPropagation();
+          onSelect={(e) => {
+            e.preventDefault();
+            setOpen(true);
           }}
-          onSelect={(e) => e.preventDefault()} 
           className="flex gap-1 items-center"
         >
           Export History
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent className="max-w-lg w-full">
+      <DialogContent>
         <DialogHeader>
+          <DialogLabel>History</DialogLabel>
           <DialogTitle>Export History</DialogTitle>
           <DialogDescription>View all your document exports</DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-2 pt-0 p-2">
+        <ScrollArea className="flex flex-col gap-1 my-4 px-5 max-h-40">
           {!hasEntries ? (
             <p className="text-sm text-muted-foreground text-center py-6">
               No exports yet
@@ -70,15 +77,16 @@ export const InvoiceExportHistory = ({
                 return (
                   <div
                     key={`${entry.integrationId}-${entry.externalId}-${index}`}
-                    className="flex items-center gap-3 p-3 rounded-xl border bg-table"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-2xl hover:bg-bg-a2 cursor-pointer group transition-colors"
+                    onClick={() => window.open(entry.url!, "_blank")}
                   >
                     <Image
-                      className="size-6 shrink-0"
+                      className="size-8 object-contain shrink-0"
                       src={app?.logoUrl ?? ""}
                       alt={(app?.name ?? entry.appSlug ?? "") + "'s logo"}
                     />
-                    <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-                      <span className="text-sm font-medium">
+                    <div className="flex flex-col gap-1 min-w-0 flex-1">
+                      <span className="text-sm font-medium leading-tight truncate">
                         {app?.name ?? entry.appSlug}
                       </span>
                       {entry.exportedAt && (
@@ -95,21 +103,22 @@ export const InvoiceExportHistory = ({
                         </span>
                       )}
                     </div>
-                    {entry.url && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => window.open(entry.url!, "_blank")}
-                      >
-                        <HiExternalLink />
-                        View
-                      </Button>
-                    )}
+
+                    <div className="text-sm hidden group-hover:block text-link">
+                      View
+                    </div>
                   </div>
                 );
               })
           )}
-        </div>
+        </ScrollArea>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="dim" size="lg" className="min-w-30">
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

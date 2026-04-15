@@ -24,7 +24,7 @@ export async function buildIntegrationData({
         accessToken,
         accessTokenExpiresAt,
         refreshToken,
-        config: {
+        metadata: {
             tenantId,
             orgName
         },

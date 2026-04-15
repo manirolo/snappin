@@ -9,6 +9,10 @@ export enum ScanStatus {
     PAUSED = "paused"
 }
 
+export enum ScanErrorReason {
+    INVOICE_LIMIT_REACHED = "invoice_limit_reached"
+}
+
 export type ScanResource = {
     _id?: string | null;
     userId?: string | null;
@@ -28,7 +32,7 @@ export type ScanResource = {
     completedAt?: number | null;
     estimatedDuration?: string | null;
     status?: ScanStatus;
-    errorReason?: string | null;
+    errorReason?: ScanErrorReason | string | null;
     invoiceFound?: string[] | null;
     rateLimit?: RateLimitInfo;
     wasThrottled?: boolean | null;

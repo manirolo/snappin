@@ -18,12 +18,12 @@ import {
   DialogTrigger,
   DialogFooter,
   DialogDescription,
+  DialogLabel,
+  DialogClose,
 } from "@snappin/ui/components/dialog";
 import ComboBox, {
   ComboBoxOption,
 } from "@snappin/ui/components/input/components/comboboxInput";
-import { Search01Icon } from "@hugeicons-pro/core-solid-rounded";
-import { HugeiconsIcon } from "@hugeicons/react";
 
 const DATE_RANGES = [
   { id: "today", label: "Today" },
@@ -132,20 +132,20 @@ export const NewScanDialog = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button size="sm" variant="dim">
-          <HugeiconsIcon icon={Search01Icon} className="size-3.5" />
           Find past invoices
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
+          <DialogLabel>Retroactive</DialogLabel>
           <DialogTitle>Let's catch up missed invoices</DialogTitle>
           <DialogDescription>
             Fill the fields to start extracting past invoices
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-8 py-6 pt-4 px-4">
+        <div className="space-y-8 py-6 px-5">
           {/* Email ComboBox */}
           <ComboBox
             label="Email account"
@@ -171,6 +171,7 @@ export const NewScanDialog = () => {
                   radius="md"
                   variant={range === item.id ? "dim" : "outline"}
                   onClick={() => setRange(item.id)}
+                  className="border"
                   size="sm"
                 >
                   {item.label}
@@ -200,21 +201,25 @@ export const NewScanDialog = () => {
         </div>
 
         <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              disabled={scanInvoices.isPending}
+              className="w-full"
+            >
+              Cancel
+            </Button>
+          </DialogClose>
           <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setOpen(false)}
-            disabled={scanInvoices.isPending}
-          >
-            Cancel
-          </Button>
-          <Button
-            size="sm"
-            variant="mono"
+            size="lg"
             onClick={handleSubmit}
             disabled={scanInvoices.isPending}
+            className="w-full"
           >
-            {scanInvoices.isPending && <Spinner className="size-4 text-white!" />}
+            {scanInvoices.isPending && (
+              <Spinner className="size-4 text-white!" />
+            )}
             Start scan now
           </Button>
         </DialogFooter>

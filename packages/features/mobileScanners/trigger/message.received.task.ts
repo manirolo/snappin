@@ -1,4 +1,5 @@
 import { MessageReplyReason, PROCESSING_REACTIONS, buildExtractionSummary } from '@snappin/shared/apps/messaging/messaging.schema'
+import { IntegrationStatus } from '@snappin/shared/integration/status.enum'
 import { NormalizedMessageEvent } from "./message.received.schema"
 import { db } from '@snappin/db/index'
 import { connectDB } from '@snappin/db/connect'
@@ -20,7 +21,7 @@ export async function processEvent(event: NormalizedMessageEvent) {
     await whatsappClient.sendTyping(from, messageId)
     connectDB()
 
-    const integration = await db.integration.findOne({ "config.phone": from })
+    const integration = await db.integration.findOne({ status: IntegrationStatus.CONNECTED, "metadata.phone": from })
 
     if (!integration) {
         await whatsappClient.sendMessage(from, MessageReplyReason.ACCOUNT_NOT_CONNECTED)

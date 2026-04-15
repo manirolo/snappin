@@ -21,6 +21,8 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogClose,
+  DialogLabel,
 } from "@snappin/ui/components/dialog";
 import {
   Select,
@@ -130,10 +132,13 @@ function XeroExportDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md w-full">
         <DialogHeader>
+          <DialogLabel>Export</DialogLabel>
           <DialogTitle>Export to Xero</DialogTitle>
-          <DialogDescription>Send your invoice to xero accounting tool</DialogDescription>
+          <DialogDescription>
+            Send your invoice to xero accounting tool
+          </DialogDescription>
         </DialogHeader>
-        {isLoadingAccounts  && (
+        {isLoadingAccounts && (
           <div className="w-full flex flex-col gap-3 justify-center items-center py-12">
             <Spinner />
             <Small>Loading xero data...</Small>
@@ -141,7 +146,7 @@ function XeroExportDialog({
         )}
         {!isLoadingAccounts && (
           <>
-            <div className="flex flex-col gap-4 py-2 px-4">
+            <div className="flex flex-col gap-4 py-5 px-6">
               {/* Account selector */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-medium">Account</label>
@@ -155,7 +160,7 @@ function XeroExportDialog({
                   </SelectTrigger>
                   <SelectContent position="popper">
                     {accountsData?.accounts.map((acc) => (
-                      <SelectItem key={acc.code} value={acc.code}>
+                      <SelectItem key={acc.code} value={acc.code ?? ""}>
                         {acc.label}
                       </SelectItem>
                     ))}
@@ -188,20 +193,22 @@ function XeroExportDialog({
               </div>
             </div>
 
-            <DialogFooter>
+            <DialogFooter className="flex flex-col-reverse justify-between gap-4 sm:flex-row px-6 pb-6">
+              <DialogClose asChild>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  disabled={createBillMutation.isPending}
+                  className="w-full"
+                >
+                  Cancel
+                </Button>
+              </DialogClose>
               <Button
-                variant="outline"
-                size="sm"
-                onClick={() => onOpenChange(false)}
-                disabled={createBillMutation.isPending}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="mono"
-                size="sm"
+                size="lg"
                 onClick={handleSubmit}
                 disabled={createBillMutation.isPending || !accountCode}
+                className="w-full"
               >
                 {createBillMutation.isPending && (
                   <Spinner className="text-white" />
@@ -308,7 +315,8 @@ function AccountingIntegrationRow({
     <>
       <DropdownMenuItem
         onSelect={(e) => {
-          e.preventDefault();
+          e.preventDefault()
+          e.stopPropagation()
           setDialogOpen(true); // ✅ open dialog instead of direct export
         }}
         className="h-fit"

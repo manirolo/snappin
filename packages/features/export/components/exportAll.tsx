@@ -15,10 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@snappin/ui/components/dropdown-menu";
 import React from "react";
-import { HiOutlineDownload } from "react-icons/hi";
 import { triggerDownload } from "../utils/triggerDownload";
 import toast from "react-hot-toast";
 import { TExport } from "@snappin/features/trpc/router/export/export.schema";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Download01Icon } from "@hugeicons-pro/core-stroke-rounded";
 
 export const ExportAll = ({
   selectedInvoiceIds = [],
@@ -72,12 +73,12 @@ export const ExportAll = ({
       <DropdownMenuTrigger>
         <Button
           variant="outline"
-          size="sm"
+          size="icon"
           // className="pr-3.5"
           asChild
         >
           <div>
-            <HiOutlineDownload />
+            <HugeiconsIcon icon={Download01Icon} />
           </div>
         </Button>
       </DropdownMenuTrigger>

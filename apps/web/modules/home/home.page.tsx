@@ -1,62 +1,21 @@
-"use client";
-
 import React from "react";
-import {
-  Dashboard,
-  DashboardContent,
-} from "../../components/layout/dashboardLayout";
-import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
-import { WaitingForFirstSourceConnection } from "./components/waitingForFirstSourceConnection";
-import { DashboardLoading } from "../../components/progress/loading";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { CheckmarkBadge01Icon } from "@hugeicons-pro/core-bulk-rounded";
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@snappin/ui/components/empty";
-import { Button } from "@snappin/ui/components/button";
-import { useRouter } from "next/navigation";
+import { HeroSection } from "./sections/hero";
+import { Benefits } from "./sections/benefits";
+import { HowTo } from "./sections/howTo";
+import { BillingView } from "../billing/billing.view";
+import { Cta } from "./sections/cta";
+import { Faq } from "./sections/faq";
 
-export const Home = () => {
-  const { connectedEmailAccounts, isLoading } = useIntegration({
-    connectedEmailAccounts: true,
-  });
-  const router = useRouter();
-
-  if (isLoading) return <DashboardLoading />;
-
+export const HomPage = () => {
   return (
-    <Dashboard>
-      <DashboardContent>
-        {(!connectedEmailAccounts || connectedEmailAccounts.length === 0) && (
-          <WaitingForFirstSourceConnection />
-        )}
-        {connectedEmailAccounts && connectedEmailAccounts.length > 0 && (
-          <Empty>
-            <EmptyHeader>
-              <EmptyMedia>
-                <HugeiconsIcon
-                  icon={CheckmarkBadge01Icon}
-                  className="size-14 text-primary"
-                />
-              </EmptyMedia>
-              <EmptyTitle>All set, relax</EmptyTitle>
-              <EmptyDescription>
-                We actively monitoring your connected sources
-              </EmptyDescription>
-            </EmptyHeader>
-            <EmptyContent>
-              <Button onClick={() => router.push("/bookkeeping/documents")}>
-                View invoices
-              </Button>
-            </EmptyContent>
-          </Empty>
-        )}
-      </DashboardContent>
-    </Dashboard>
+    <div>
+      <HeroSection />
+      <Benefits />
+      <HowTo />
+      <BillingView />
+      <Faq />
+      <Cta />
+    </div>
   );
 };
+

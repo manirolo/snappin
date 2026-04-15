@@ -11,7 +11,7 @@ export const mailClassification = schemaTask({
         const { invoiceExtractRequest } = await import("../../../invoice/trigger/invoice.extractRequest");
         const { logger } = await import("@snappin/lib/logger");
 
-        if (payload.source.kind == SourceKind.INTEGRATION) {
+        if (payload.source.kind == SourceKind.INTEGRATION && payload.source.metadata) {
             const { category } = await classifyThisMail({ subject: payload.source.metadata.subject, from: payload.source.metadata.from, snippet: payload.source.metadata.snippet, body: payload.source.metadata.body, attachments: payload.source.metadata.attachments })
 
             if (category == "OTHER") {

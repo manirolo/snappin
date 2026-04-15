@@ -17,7 +17,7 @@ app.use("*", secureHeaders(), clerkMiddleware({publishableKey: env.clerk.publish
 app.use(
   "*",
   cors({
-    origin: [env.app.frontend_url],
+    origin: [env.app.frontend_url, env.app.admin_url],
     allowHeaders: ["Authorization", "Content-Type"],
     allowMethods: ["GET", "POST", "OPTIONS"],
     credentials: true,

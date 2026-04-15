@@ -11,7 +11,7 @@ export async function scanPastInvoices({ ctx, input }: { ctx: ContextProps; inpu
     userId: ctx.userId,
     orgId: ctx.orgId,
     identifierEmail: input.email,
-    appRole: AppRole.EMAIL_SOURCE,
+    appRoles: [AppRole.EMAIL_SOURCE],
   })
 
   if (!integration) throw new TRPCError({ code: "NOT_FOUND", message: "Integration not found" })

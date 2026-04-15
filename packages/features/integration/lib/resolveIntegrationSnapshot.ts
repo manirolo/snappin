@@ -10,8 +10,8 @@ export async function resolveIntegrationSnapshot(
 
     if (!integration) return null;
 
-    const phone = integration.config && "phone" in integration.config
-        ? (integration.config as { phone?: string | null }).phone
+    const phone = integration.metadata && "phone" in integration.metadata
+        ? (integration.metadata as { phone?: string | null }).phone
         : null;
 
     return {

@@ -25,11 +25,11 @@ export class CallbackController {
         callbackUrl: c.req.url,
       })
 
-      return c.redirect(integration.redirectAfter)
+      return c.redirect(integration.redirectAfter ?? "/dashboard")
     } catch (err) {
       console.error(err)
       return c.redirect(
-        `${env.app_url}/integrations?error=invalid_oauth_callback`
+        `${env.app_url}/connection-failed`
       )
     }
   }

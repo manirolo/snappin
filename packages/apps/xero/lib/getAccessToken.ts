@@ -34,7 +34,7 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
 
         const newAccessToken = newTokenSet.access_token;
         const newAccessTokenExpiresAt = newTokenSet.expires_at
-            ? new Date(newTokenSet.expires_at * 1000)
+            ? String(new Date(newTokenSet.expires_at * 1000))
             : null;
 
         if (!newAccessToken) {

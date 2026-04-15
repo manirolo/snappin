@@ -33,7 +33,7 @@ const FlagImage = (iso: string): React.ReactElement => (
   <Image
     src={`/images/country-flags/${iso.toLowerCase()}.png`}
     alt={iso}
-    className="rounded-full size-4 object-cover shadow-sm"
+    className="rounded-full size-4 object-cover shadow-xs"
     width={16}
     height={16}
   />

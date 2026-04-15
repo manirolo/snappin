@@ -7,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 export type AnyEmailProvider = EmailApps<EmailAppSlug>
 export type AnyStorageProvider = StorageApps<StorageAppSlug>
 export type AnyAccountingProvider = AccountingApps
-export type AnyMessagingProvider = unknown
+export type AnyMessagingProvider = never
 export type AnyProvider = AnyEmailProvider | AnyStorageProvider | AnyAccountingProvider | AnyMessagingProvider
 
 // export function resolveProvider(category: AppCategory.EMAIL, slug: EmailAppSlug): AnyEmailProvider

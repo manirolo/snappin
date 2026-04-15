@@ -20,7 +20,7 @@ const OAuthSessionSchema = new mongoose.Schema<OAuthSessionResource>({
     appSlug: { type: String, enum: AppSlug, required: true },
     appCategory: { type: String, enum: AppCategory, required: true },
     appType: { type: String, enum: AppType, default: null },
-    appRole: { type: [String], enum: AppRole, default: null },
+    appRoles: { type: [String], enum: AppRole, default: null },
     scope: { type: [String], required: true },
     redirectAfter: { type: String, default: null },
     reAuthenticateSession: { type: Boolean, default: false },

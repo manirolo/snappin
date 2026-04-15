@@ -46,7 +46,14 @@
         "WHATSAPP_APP_SECRET",
         "WHATSAPP_VERIFY_TOKEN",
         "WHATSAPP_PHONE_NUMBER_ID",
-        "WA_APP_SECRET"
+        "WA_APP_SECRET",
+        "POLAR_ACCESS_TOKEN",
+        "POLAR_WEBHOOK_SECRET",
+        "NEXT_PUBLIC_ADMIN_URL",
+        "HYPERTUNE_TOKEN",
+        "LEMONESQUEEZY_WEBHOOK_SECRET",
+        "LEMONSQUEEZY_API_KEY",
+        "LEMONESQUEEZY_STORE_ID"
       ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },

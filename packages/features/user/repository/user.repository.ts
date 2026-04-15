@@ -14,11 +14,19 @@ export class UserRepository {
         await db.user.findOneAndUpdate({ clerkUserId }, data, { new: true })
     }
 
-    async get(clerkUserId: string){
+    async get(clerkUserId: string) {
         return await db.user.findOne({ clerkUserId })
     }
 
-    async delete(clerkUserId: string){
+    async updateRaw(clerkUserId: string, update: Record<string, unknown>) {
+        return await db.user.findOneAndUpdate(
+            { clerkUserId },
+            { $set: update },
+            { new: true }
+        )
+    }
+
+    async delete(clerkUserId: string) {
         await db.user.findOneAndDelete({ clerkUserId })
     }
 }

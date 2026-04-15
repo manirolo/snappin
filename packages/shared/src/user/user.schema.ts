@@ -12,18 +12,17 @@ export const ZUserMetadata = z.object({
 })
 
 export const ZUser = z.object({
-    _id: z.string().optional(),
-    clerkUserId: z.string().optional(),
-    email: z.string().nullable().optional(),
-    firstName: z.string().nullable().optional(),
-    lastName: z.string().nullable().optional(),
-    fullName: z.string().nullable().optional(),
-    profileUrl: z.string().nullable().optional(),
+    _id:           z.string().optional(),
+    clerkUserId:   z.string().optional(),
+    email:         z.string().nullable().optional(),
+    firstName:     z.string().nullable().optional(),
+    lastName:      z.string().nullable().optional(),
+    fullName:      z.string().nullable().optional(),
+    profileUrl:    z.string().nullable().optional(),
     billingAccount: ZBillingAccount.optional().nullable(),
-    metadata: ZUserMetadata.optional().nullable(),
-
-    createdAt: z.number().optional(),
-    updatedAt: z.number().optional(),
+    metadata:      ZUserMetadata.optional().nullable(),
+    createdAt:     z.number().optional(),
+    updatedAt:     z.number().optional(),
 })
 
 export type BillingAccountResource = z.infer<typeof ZBillingAccount>

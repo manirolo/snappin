@@ -31,7 +31,7 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
         );
 
         const newAccessToken = tokens.accessToken();
-        const newAccessTokenExpiresAt = tokens.accessTokenExpiresAt();
+        const newAccessTokenExpiresAt = String(tokens.accessTokenExpiresAt());
 
         await compareAndSaveIfNewToken({
             integration,

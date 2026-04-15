@@ -23,7 +23,7 @@ export async function createBill({ ctx, input }: CreateBill) {
         throw new TRPCError({ message: "Selected integration is not an accounting provider", code: "BAD_REQUEST" });
     }
 
-    if (!integration.config?.tenantId) {
+    if (!integration.metadata?.tenantId) {
         throw new TRPCError({ message: "Accounting organisation is not configured", code: "PRECONDITION_FAILED" });
     }
 
@@ -51,7 +51,7 @@ export async function createBill({ ctx, input }: CreateBill) {
             invoice,
             {
                 accessToken,
-                tenantId: integration.config.tenantId,
+                tenantId: integration.metadata.tenantId,
             },
             {
                 lineAmountType: input.lineAmountType,

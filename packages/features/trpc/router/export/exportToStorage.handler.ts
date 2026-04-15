@@ -23,11 +23,11 @@ export async function exportToStorage({ ctx, input }: ExportToStorage) {
 
     const storageIntegration = integration as unknown as StorageIntegrationResource
 
-    if (!storageIntegration.config?.storageFolderId) {
+    if (!storageIntegration.metadata?.storageFolderId) {
         throw new TRPCError({ message: "Storage folder is not configured. Please update your integration settings", code: "PRECONDITION_FAILED" })
     }
 
-    if (!storageIntegration.config?.organization?.strategy) {
+    if (!storageIntegration.metadata?.organization?.strategy) {
         throw new TRPCError({ message: "Storage organization strategy is not configured. Please update your integration settings", code: "PRECONDITION_FAILED" })
     }
 

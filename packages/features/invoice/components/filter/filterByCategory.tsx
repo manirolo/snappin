@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { cn } from "@snappin/ui/lib/utils";
-import { HiOutlineFilter } from "react-icons/hi";
 import {
   HiOutlineOfficeBuilding,
   HiOutlinePaperAirplane,
@@ -15,10 +14,11 @@ import {
   SheetTitle,
 } from "@snappin/ui/components/sheet";
 import { Button } from "@snappin/ui/components/button";
-import { Badge } from "@snappin/ui/components/badge";
 import { useInvoiceFilterStore } from "./invoiceFilter.store";
 import { trpc } from "@snappin/features/trpc/react/client";
 import { MultiComboBox } from "@snappin/ui/components/input/components/multiComboboxInput";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { FilterMailIcon } from "@hugeicons-pro/core-stroke-rounded";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -71,7 +71,6 @@ export const FilterInvoice = () => {
     toggleInvoiceRecipient,
     reset,
     hasActiveFilters,
-    filterCount,
   } = useInvoiceFilterStore();
 
   const [open, setOpen] = useState(false);
@@ -198,24 +197,18 @@ export const FilterInvoice = () => {
   // ── Derived ────────────────────────────────────────────────────────────────
 
   const active = hasActiveFilters();
-  const count = filterCount();
 
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
     <>
       <Button
-        variant="outline"
-        size="sm"
-        className="shadow-xs min-w-fit"
+        variant={active ? "secondary" : "outline"}
+        size="icon"
+        className="min-w-fit"
         onClick={() => setOpen(true)}
       >
-        <HiOutlineFilter className={cn("size-3.5 text-muted-foreground")} />
-        {active && (
-          <Badge variant="mono" size="xs" className="rounded-full pl-0.5">
-            {count}
-          </Badge>
-        )}
+        <HugeiconsIcon strokeWidth={1.5} icon={FilterMailIcon} className={cn("size-4 text-fg-3")} />
       </Button>
 
       <Sheet open={open} onOpenChange={setOpen}>

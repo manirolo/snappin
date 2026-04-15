@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogLabel,
 } from "@snappin/ui/components/dialog";
 import React, { useRef, useState, useCallback } from "react";
 import { trpc } from "@snappin/features/trpc/react/client";
@@ -15,8 +16,8 @@ import { useInvoiceProcessingStore } from "./invoiceProcessing.store";
 import { Spinner } from "@snappin/ui/assets/svg/spinner";
 import { Upload04Icon } from "@hugeicons-pro/core-solid-rounded";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Small } from "@snappin/ui/components/typography";
-import { Image } from "@snappin/ui/components/Image";
+import { UpgradeButton } from "@snappin/features/billing/components/upgradeButton";
+import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 
 export const ManualInvoiceUploadDialog = () => {
   const [open, setOpen] = useState(false);
@@ -25,6 +26,7 @@ export const ManualInvoiceUploadDialog = () => {
   const { setProcessingStatus, reset } = useInvoiceProcessingStore();
   const utils = trpc.useUtils();
   const { invalidate } = utils.invoices.getInvoices;
+  const { usage, isLoading: isUsageLoading } = useUsage();
 
   const uploadTemp = trpc.invoices.uploadTempInvoice.useMutation({
     onSuccess: () => {
@@ -103,31 +105,43 @@ export const ManualInvoiceUploadDialog = () => {
   return (
     <>
       {/* Trigger Button */}
-      <Button
-        variant="outline"
-        size="sm"
-        disabled={isPending}
+      <UpgradeButton
+        popupId="manual-upload-dialog"
+        isLoading={isUsageLoading}
+        limitReached={
+          !!(
+            usage &&
+            (usage.usage?.invoices ?? 0) >= (usage.limits?.invoices ?? 0)
+          )
+        }
+        description={`You've reached the limit of ${usage?.limits?.invoices} invoices. To extract more, upgrade to a higher plan.`}
         onClick={() => setOpen(true)}
-        // className="pr-3.5"
-        asChild
       >
-        <div className="flex items-center">
-          {isPending && <Spinner className="size-4" />}
-          Upload
-        </div>
-      </Button>
+        <Button
+          variant="dim"
+          disabled={isPending}
+          // className="pr-3.5"
+          asChild
+        >
+          <div className="flex items-center">
+            {isPending && <Spinner className="size-4" />}
+            Upload
+          </div>
+        </Button>
+      </UpgradeButton>
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="w-full sm:max-w-xl flex md:flex-col">
           <DialogHeader>
-            <DialogTitle>Upload</DialogTitle>
+            <DialogLabel>Upload</DialogLabel>
+            <DialogTitle>Upload document</DialogTitle>
             <DialogDescription>
-              Drag & drop your files or click to browse. Supports PDF, PNG, JPG.
+              Upload your document for AI extraction. Supports PDF, PNG, JPG.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="p-4 pt-0">
+          <div className="p-4 pt-5">
             {/* Hidden file input */}
             <input
               ref={inputRef}
@@ -187,40 +201,6 @@ export const ManualInvoiceUploadDialog = () => {
                 </>
               )}
             </div>
-          </div>
-          <div className="w-[94%] h-[0.2px] bg-gray-5 mt-1 mb-4 mx-4"></div>
-          <div className="px-4 pb-4 space-y-2">
-            <Small>Import from external services</Small>
-            <Button variant="dim" className="w-full mt-2">
-              <div className="flex max-w-50 w-full gap-3">
-                <Image
-                  className="size-4.5 object-contain"
-                  src={"/images/vendors/logos/google_drive.png"}
-                  alt={"Google drive's logo"}
-                />
-                Import from Google Drive
-              </div>
-            </Button>
-            <Button variant="dim" className="w-full">
-              <div className="flex justify-start w-full max-w-50 gap-3">
-                <Image
-                  className="size-5 object-contain rounded-full"
-                  src={"/images/vendors/logos/dropbox.png"}
-                  alt={"Dropbox's logo"}
-                />
-                Import from Dropbox
-              </div>
-            </Button>
-            <Button variant="dim" className="w-full">
-              <div className="flex justify-start w-full max-w-50 gap-3">
-                <Image
-                  className="size-5 object-contain rounded-full"
-                  src={"/images/vendors/logos/onedrive.png"}
-                  alt={"OneDrive's logo"}
-                />
-                Import from OneDrive
-              </div>
-            </Button>
           </div>
         </DialogContent>
       </Dialog>

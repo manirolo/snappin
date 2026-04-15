@@ -59,7 +59,7 @@ const badgeVariants = cva(
         variant: 'primary',
         appearance: 'light',
         className:
-          'text-[var(--color-primary-accent,var(--color-brand-700))] bg-[var(--color-primary-soft,var(--color-brand-50))] dark:bg-[var(--color-primary-soft,var(--color-brand-950))] dark:text-[var(--color-primary-soft,var(--color-brand-600))]',
+          'text-[var(--color-primary-accent,var(--color-green-700))] bg-[var(--color-primary-soft,var(--color-green-50))] dark:bg-[var(--color-primary-soft,var(--color-green-950))] dark:text-[var(--color-primary-soft,var(--color-green-600))]',
       },
       {
         variant: 'secondary',
@@ -95,7 +95,7 @@ const badgeVariants = cva(
         variant: 'primary',
         appearance: 'outline',
         className:
-          'text-brand-500 border-[var(--color-primary-soft,var(--color-brand-100))] bg-[var(--color-primary-soft,var(--color-brand-50))] dark:bg-[var(--color-primary-soft,var(--color-brand-950))] dark:border-[var(--color-primary-soft,var(--color-brand-900))] dark:text-[var(--color-primary-soft,var(--color-brand-600))]',
+          'text-green-500 border-[var(--color-primary-soft,var(--color-green-100))] bg-[var(--color-primary-soft,var(--color-green-50))] dark:bg-[var(--color-primary-soft,var(--color-green-950))] dark:border-[var(--color-primary-soft,var(--color-green-900))] dark:text-[var(--color-primary-soft,var(--color-green-600))]',
       },
       {
         variant: 'success',

@@ -1,214 +1,310 @@
 "use client";
+
 import { Logo } from "../logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { Small } from "../typography";
 import Link from "next/link";
-import { IconSvgElement } from "@hugeicons/react";
+import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import { usePathname } from "next/navigation";
 import { cn } from "@snappin/ui/lib/utils";
 import {
   Home01Icon,
   MenuSquareIcon,
-  // Search01Icon,
-} from "@hugeicons-pro/core-duotone-rounded";
+  UserIcon,
+  DollarCircleIcon,
+  Search01Icon,
+} from "@hugeicons-pro/core-solid-rounded";
+import {
+  Comment02Icon,
+  Logout01Icon,
+  MoneyBag02Icon,
+  Settings01Icon as SettingsIcon,
+  Home01Icon as HomeIcon,
+} from "@hugeicons-pro/core-stroke-rounded";
+// import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
+import { Badge } from "../badge";
+import React from "react";
+
+// ─── Types ───────────────────────────────────────────────────────────────────
 
 type User = {
-  firstName?: string | null | undefined;
-  lastName?: string | null | undefined;
-  fullName?: string | null | undefined;
-  imageUrl?: string | undefined;
-  primaryEmailAddress?:
-    | {
-        emailAddress: string | null | undefined;
-      }
-    | null
-    | undefined;
+  firstName?: string | null;
+  lastName?: string | null;
+  fullName?: string | null;
+  imageUrl?: string;
+  primaryEmailAddress?: { emailAddress: string | null } | null;
 };
 
-const isActivePath = (pathname: string, href: string) => {
-  if (href === "/") return pathname === "/";
-  return pathname.startsWith(href);
-};
-
-type Navbar = {
-  href?: string;
+type NavItem = {
+  href: string;
   icon: IconSvgElement;
   label: string;
-  type?: "link" | "dropdown";
 };
 
-const nav: Navbar[] = [
-  { href: "/home", icon: Home01Icon, label: "Dashboard", type: "link" },
-  {
-    href: "/bookkeeping/documents",
-    icon: Home01Icon,
-    label: "Invoices",
-    type: "link",
-  },
-  {
-    href: "/retroSearch",
-    icon: Home01Icon,
-    label: "Retroactive",
-    type: "link",
-  },
-  {
-    href: "/accounts",
-    icon: Home01Icon,
-    label: "Email Accounts",
-    type: "link",
-  },
-  {
-    href: "/mobile-scanners",
-    icon: Home01Icon,
-    label: "Mobile Scanners",
-    type: "link",
-  },
-  {
-    href: "/integrations",
-    icon: MenuSquareIcon,
-    label: "Integrations",
-    type: "link",
-  },
-  // { href: "/settings", icon: MenuSquareIcon, label: "Settings", type: "link" },
+type NavbarVariant = "dashboard" | "admin";
+
+// ─── Nav Configs ─────────────────────────────────────────────────────────────
+
+const dashboardNav: NavItem[] = [
+  { href: "/dashboard", icon: Home01Icon, label: "Dashboard" },
+  { href: "/retroSearch", icon: Search01Icon, label: "Retroactive" },
+  { href: "/integrations", icon: MenuSquareIcon, label: "Integrations" },
 ];
 
-const NavItems = () => {
+const adminNav: NavItem[] = [
+  { href: "/", icon: Home01Icon, label: "Dashboard" },
+  { href: "/users", icon: UserIcon, label: "Users" },
+  { href: "/pricing", icon: DollarCircleIcon, label: "Pricing" },
+];
+
+const navConfigs: Record<NavbarVariant, NavItem[]> = {
+  dashboard: dashboardNav,
+  admin: adminNav,
+};
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+const isActivePath = (pathname: string, href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+// ─── Nav Items ────────────────────────────────────────────────────────────────
+
+const NavItems = ({ variant }: { variant: NavbarVariant }) => {
   const pathname = usePathname();
+  const items = navConfigs[variant];
 
   return (
     <>
-      {nav.map((item, i) => {
-        const active = isActivePath(pathname, item.href!);
-
+      {items.map((item) => {
+        const active = isActivePath(pathname, item.href);
         return (
+          // <Tooltip key={item.href}>
+          //   <TooltipTrigger>
           <Link
-            key={i}
-            href={item.href!}
+            key={item.href}
+            href={item.href}
             className={cn(
-              "flex items-center gap-2 px-3 cursor-pointer py-1.5 rounded-lg border transition-all duration-300",
+              "flex items-center justify-center hover:bg-bg-a2 gap-2 p-2 rounded-full border border-transparent text-sm font-semibold transition-all duration-200",
               active
-                ? "bg-blue-100 border-blue-300 text-blue-500 shadow-[0px_3px_0px_var(--color-blue-300)]"
-                : "border bg-black/4 border-black/3 text-black/90",
+                ? "text-accent-foreground"
+                : "text-fg-1 hover:text-foreground hover:bg-bg-a1",
             )}
           >
-            <span className="text-[14px] font-rubik font-medium">
-              {item.label}
-            </span>
+            <HugeiconsIcon
+              className="size-6"
+              strokeWidth={0.5}
+              icon={item.icon}
+            />
+            {/* {item.label} */}
           </Link>
+          // </TooltipTrigger>
+          //<TooltipContent side="bottom" sideOffset={4}>
+          //  {item.label}
+          //</TooltipContent>
+          //</Tooltip> */}
         );
       })}
     </>
   );
 };
 
-const DesktopNavbar = ({
+// ─── User Dropdown ────────────────────────────────────────────────────────────
+
+const UserDropdown = ({
+  user,
+  planId,
+  signOut,
+  variant,
+  billingButton,
+}: {
+  user: User;
+  planId: string;
+  signOut: () => void;
+  variant: NavbarVariant;
+  billingButton?: React.ReactNode;
+}) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger className="cursor-pointer rounded-md flex items-center gap-2 p-1 transition-all duration-200 hover:bg-bg-a1">
+      <Avatar className="size-8">
+        <AvatarImage src={user?.imageUrl} />
+        <AvatarFallback />
+      </Avatar>
+      {/* <Small className="text-foreground leading-4">{user?.fullName}</Small> */}
+    </DropdownMenuTrigger>
+
+    <DropdownMenuContent sideOffset={4} align="end" className="min-w-68 p-0">
+      {/* User info */}
+      <DropdownMenuGroup className="w-full gap-2 p-0 m-0">
+        <div className="bg-bg-1 flex flex-col gap-5 p-3 min-h-28">
+          <Badge
+            size={"xs"}
+            variant={"mono"}
+            className="w-fit uppercase rounded-full"
+          >
+            {planId}
+          </Badge>
+          <div className="flex items-center gap-4">
+            <Avatar className="size-9">
+              <AvatarImage src={user?.imageUrl} />
+              <AvatarFallback />
+            </Avatar>
+            <div className="flex flex-col min-w-0">
+              <Small className="text-foreground leading-4 truncate">
+                {user?.fullName}
+              </Small>
+              <Small className="text-[12px] text-fg-2 truncate">
+                {user?.primaryEmailAddress?.emailAddress}
+              </Small>
+            </div>
+          </div>
+          {billingButton}
+        </div>
+      </DropdownMenuGroup>
+
+      {/* Dashboard-only items */}
+      {variant === "dashboard" && (
+        <>
+          <DropdownMenuGroup className="px-2 pt-2">
+            <DropdownMenuItem asChild>
+              <Link
+                href="/settings"
+                className="flex items-center justify-between w-full"
+              >
+                Settings{" "}
+                <HugeiconsIcon
+                  className="size-4 text-fg-2"
+                  strokeWidth={2}
+                  icon={SettingsIcon}
+                />
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="https://snappin.lemonsqueezy.com/affiliates"
+                target="_blank"
+                className="flex items-center justify-between w-full"
+              >
+                Affiliate{" "}
+                <HugeiconsIcon
+                  className="size-4 text-fg-2"
+                  strokeWidth={2}
+                  icon={MoneyBag02Icon}
+                />
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="https://snappinapp.userjot.com/"
+                target="_blank"
+                className="flex items-center justify-between w-full"
+              >
+                Feedback{" "}
+                <HugeiconsIcon
+                  className="size-4 text-fg-2"
+                  strokeWidth={2}
+                  icon={Comment02Icon}
+                />
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="/"
+                className="flex items-center justify-between w-full"
+              >
+                Home{" "}
+                <HugeiconsIcon
+                  className="size-4 text-fg-2"
+                  strokeWidth={2}
+                  icon={HomeIcon}
+                />
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </>
+      )}
+
+      <DropdownMenuGroup className="px-2 pb-2">
+        <DropdownMenuItem
+          onSelect={signOut}
+          className="flex items-center justify-between w-full hover:bg-destructive/5! hover:text-destructive!"
+        >
+          Sign Out{" "}
+          <HugeiconsIcon
+            className="size-4"
+            strokeWidth={2}
+            icon={Logout01Icon}
+          />
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
+// ─── Navbar ───────────────────────────────────────────────────────────────────
+
+const LOGO_REDIRECT: Record<NavbarVariant, string> = {
+  dashboard: "/dashboard",
+  admin: "/",
+};
+
+export const Navbar = ({
   user,
   signOut,
+  variant = "dashboard",
   showNavItems = true,
+  planId,
+  billingButton,
+  organization
 }: {
   user: User;
   signOut: () => void;
+  variant?: NavbarVariant;
   showNavItems?: boolean;
-}) => {
-  return (
-    <div>
-      <div className="bg-background">
-        <div
-          className={cn(
-            "flex items-center justify-between py-2 px-4 min-h-12 xl:px-2 max-w-5xl mx-auto",
-            !showNavItems && "border-b-0",
-          )}
-        >
-          {/* Logo */}
-          <Logo onClickRedirectLink="/home" />
-
-          {/* User dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="hover:bg-gray-4 cursor-pointer rounded-md flex items-center gap-2 transition-all duration-300 p-1">
-              <Avatar className="size-5">
-                <AvatarImage src={user?.imageUrl} />
-                <AvatarFallback></AvatarFallback>
-              </Avatar>
-
-              <div className="text-sm">{user?.fullName}</div>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent align="end">
-              <div className="flex items-center gap-2 p-1">
-                <div>
-                  <Avatar className="size-7">
-                    <AvatarImage src={user?.imageUrl} />
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>
-                </div>
-                <div className="flex flex-col gap-0">
-                  <Small className="text-foreground leading-4">
-                    {user?.fullName}
-                  </Small>
-                  <Small className="md:text-[13px]">
-                    {user?.primaryEmailAddress?.emailAddress}
-                  </Small>
-                </div>
-              </div>
-
-              <DropdownMenuSeparator />
-
-              <DropdownMenuItem asChild>
-                <Link href="/account">General</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/account/billing">Billing</Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator />
-
-              <DropdownMenuItem asChild>
-                <Link href="/account/billing">Feedback</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/account/billing">Affiliate</Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-
-              <DropdownMenuItem
-                onSelect={signOut}
-                className="text-destructive hover:bg-destructive/5! hover:text-destructive!"
-              >
-                Sign Out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+  planId?: string;
+  billingButton?: React.ReactNode;
+  organization?: React.ReactNode;
+}) => (
+  <div>
+    {/* Top bar */}
+    <div className="flex items-center justify-between h-18 px-4 xl:px-8 border-b border-b-bg-3">
+      <div className="flex items-center gap-8">
+        <Logo onClickRedirectLink={LOGO_REDIRECT[variant]} />
       </div>
-      {/* Center nav */}
+      {/* Secondary nav */}
       {showNavItems && (
-        <div className="border-b-0 border-border/60 pb-5">
-          <div className="flex flex-wrap md:flex-nowrap px-4 xl:px-2 mt-6 justify-start max-w-5xl mx-auto items-center gap-3">
-            <NavItems />
+        <div className="border-b-0 max-w-fit mx-auto">
+          <div className="flex items-center gap-8">
+            <NavItems variant={variant} />
           </div>
         </div>
       )}
+      <div className="flex gap-2">
+        <div>{organization}</div>
+        <UserDropdown
+          billingButton={billingButton}
+          planId={planId ?? "basic"}
+          user={user}
+          signOut={signOut}
+          variant={variant}
+        />
+      </div>
     </div>
-  );
-};
+  </div>
+);
 
-export const DashboardNavbar = ({
-  user,
-  signOut,
-  showNavItems = true,
-}: {
-  user: User;
-  signOut: () => void;
-  showNavItems?: boolean;
-}) => {
-  return (
-    <DesktopNavbar showNavItems={showNavItems} user={user} signOut={signOut} />
-  );
-};
+// ─── Named aliases (backwards compat) ────────────────────────────────────────
+
+export const DashboardNavbar = (
+  props: Omit<React.ComponentProps<typeof Navbar>, "variant">,
+) => <Navbar {...props} variant="dashboard" />;
+
+export const AdminNavbar = (
+  props: Omit<React.ComponentProps<typeof Navbar>, "variant">,
+) => <Navbar {...props} variant="admin" />;

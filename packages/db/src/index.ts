@@ -8,6 +8,8 @@ import { ScanChunk } from "./model/scanChunk.model";
 import { User } from "./model/user.model";
 import { Organization } from "./model/organization.model";
 import { ScanMessage } from "./model/scanMessage.model";
+import { Plan } from "./model/plan.model";
+import { Subscription } from "./model/subscription.model";
 
 export const db = {
     oauthSession: OAuthSession,
@@ -19,5 +21,7 @@ export const db = {
     scanMessage: ScanMessage,
     vendor: Vendor,
     user: User,
-    organization: Organization
+    organization: Organization,
+    plan: Plan,
+    subscription: Subscription,
 }

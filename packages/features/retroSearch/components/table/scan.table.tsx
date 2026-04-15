@@ -77,7 +77,7 @@ export const ScanListTable = () => {
   });
 
   return (
-    <div>
+    <div className="px-2">
       <SimpleTable
         table={scanTable}
         // toolbar={toolbar}

@@ -22,18 +22,26 @@ export const env = {
     url: process.env.DB_URL!,
   },
 
+  polar: {
+    accessToken: process.env.POLAR_ACCESS_TOKEN!,
+    webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+  },
+
+  ls: {
+    apiKey: process.env.LEMONSQUEEZY_API_KEY!,
+    webhookSecret: process.env.LEMONESQUEEZY_WEBHOOK_SECRET!,
+    storeId: process.env.LEMONESQUEEZY_STORE_ID!
+  },
+
   env: process.env.NEXT_PUBLIC_ENV!,
   app_url: process.env.NEXT_PUBLIC_APP_URL!,
 
   app: {
     frontend_url: process.env.NEXT_PUBLIC_APP_URL!,
+    admin_url: process.env.NEXT_PUBLIC_ADMIN_URL!,
     api_url: process.env.NEXT_PUBLIC_API_URL!,
     worker_port: process.env.NEXT_PUBLIC_PORT!,
     worker_url: process.env.NEXT_PUBLIC_WORKER_URL!,
-  },
-
-  openai: {
-    apiKey: process.env.OPEN_API_KEY!,
   },
 
   xero: {

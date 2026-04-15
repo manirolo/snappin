@@ -54,7 +54,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
 
         <InputWrapper
           className={cn(
-            'min-h-11 w-full focus-visible:outline-0 border-border-input text-sm has-focus-visible:border-blue-300 has-focus-visible:ring has-focus-visible:ring-blue-300',
+            'min-h-11 w-full focus-visible:outline-0 border-bg-4',
             inputWrapperClassName
           )}
           

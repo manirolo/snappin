@@ -22,7 +22,7 @@ import { INVOICE_TYPE_OPTIONS } from "@snappin/shared/invoice/constant";
 import { isDeepDirty } from "@snappin/lib/dirty-check";
 import currencyMap from "currency-symbol-map";
 import { InvoiceResource } from "@snappin/shared/invoice/invoice.schema";
-import { RouterOutputs } from "@snappin/features/trpc/_root";
+import type { RouterOutputs } from "@snappin/features/trpc/_root";
 import toast from "react-hot-toast";
 import { H5 } from "@snappin/ui/components/typography";
 

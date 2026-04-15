@@ -36,6 +36,7 @@ export const SelectInput = React.forwardRef<HTMLDivElement, SelectInputProps>(
     {
       label,
       options,
+      value,
       defaultValue,
       onValueChange,
       onOpenChange,
@@ -51,6 +52,7 @@ export const SelectInput = React.forwardRef<HTMLDivElement, SelectInputProps>(
 
         <div className="relative">
           <Select
+            value={value}
             defaultValue={defaultValue}
             onValueChange={onValueChange}
             onOpenChange={onOpenChange}
@@ -59,7 +61,7 @@ export const SelectInput = React.forwardRef<HTMLDivElement, SelectInputProps>(
             {/* Trigger */}
             <SelectTrigger
               className={cn(
-                "w-full min-w-40 bg-transparent shadow-none has-focus-visible:border-blue-300 border-2 border-border-input transition-all rounded-md min-h-11 duration-150",
+                "w-full min-w-40 bg-transparent shadow-none has-focus-visible:border-blue-300 border-2 border-bg-4 transition-all rounded-md min-h-11 duration-150",
                 // Hide the default shadcn chevron when we render our own indicator
                 // state !== 'idle' && '[&>svg]:hidden'
               )}

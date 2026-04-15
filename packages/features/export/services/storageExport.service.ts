@@ -52,11 +52,11 @@ export class StorageExportService {
             throw new Error("Selected integration is not a storage provider");
         }
 
-        if (!integration.config?.storageFolderId) {
+        if (!integration.metadata?.storageFolderId) {
             throw new Error("Storage folder is not configured. Please update your integration settings");
         }
 
-        if (!integration.config?.organization?.strategy) {
+        if (!integration.metadata?.organization?.strategy) {
             throw new Error("Storage organization strategy is not configured. Please update your integration settings");
         }
 
@@ -80,12 +80,12 @@ export class StorageExportService {
         try {
             const result = await provider.createFile({
                 accessToken,
-                rootFolderId: integration.config.storageFolderId,
+                rootFolderId: integration.metadata.storageFolderId,
                 integrationId: integration?._id,
                 fileName: resolvedFileName,
                 mimeType,
                 content: buffer,
-                strategy: integration.config.organization.strategy,
+                strategy: integration.metadata.organization.strategy,
                 year: String(year),
                 vendor: vendor ?? undefined,
                 date: invoiceDate,

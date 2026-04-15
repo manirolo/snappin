@@ -34,7 +34,7 @@ export async function resolveMessageIds({ integration, historyId }: ResolveMessa
 
             const historyResponse = await gmail.users.history.list({
                 userId: "me",
-                startHistoryId: String(integration.config.historyId),
+                startHistoryId: String(integration.metadata.historyId),
                 historyTypes: ["messageAdded"],
                 pageToken
             })

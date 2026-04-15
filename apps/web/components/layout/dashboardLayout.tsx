@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { H4, Small } from "@snappin/ui/components/typography";
+import { Small } from "@snappin/ui/components/typography";
 import { cn } from "@snappin/ui/lib/utils";
 
 export const Dashboard = ({
@@ -14,7 +14,7 @@ export const Dashboard = ({
   sidePanel?: React.ReactNode;
   sidePanelClassName?: string;
 }) => (
-  <div className={cn("relative flex h-full w-full overflow-hidden", className)} {...props}>
+  <div className={cn("relative flex h-full w-full", className)} {...props}>
     <div className={cn("flex min-w-0 flex-1 flex-col overflow-y-auto")}>
       {children}
     </div>
@@ -38,7 +38,7 @@ export const DashboardHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-wrap items-center pb-6 justify-start gap-4 px-4 xl:px-2",
+      "flex flex-wrap items-center pb-6 justify-center gap-4 pt-4 px-4 xl:px-2",
       className,
     )}
     {...props}
@@ -52,7 +52,7 @@ export const DashboardHeaderMain = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col gap-1.5", className)} {...props}>
+  <div className={cn("flex flex-col items-start gap-1.5", className)} {...props}>
     {children}
   </div>
 );
@@ -63,7 +63,7 @@ export const DashboardTitle = ({
 }: {
   children: React.ReactNode;
   className?: string;
-}) => <H4 className={cn("text-start font-semibold", className)}>{children}</H4>;
+}) => <h6 className={cn("text-xl text-start font-medium", className)}>{children}</h6>;
 
 export const DashboardDescription = ({
   children,
@@ -72,7 +72,7 @@ export const DashboardDescription = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <Small className={cn("max-w-2xl text-start font-medium text-muted-foreground", className)}>
+  <Small className={cn("max-w-2xl text-center font-normal text-muted-foreground", className)}>
     {children}
   </Small>
 );
@@ -96,7 +96,7 @@ export const DashboardContent = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={cn("mt-4 w-full px-4 pb-4 max-w-screen sm:w-full xl:px-2", className)}>{children}</div>
+  <div className={cn("mt-4 w-full px-4 pb-4 max-w-screen sm:w-full xl:px-0", className)}>{children}</div>
 );
 
 export const DashboardDetailPanel = ({

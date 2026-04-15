@@ -11,7 +11,7 @@ type RedirectParams = {
     appSlug: AppSlug
     appCategory?: AppCategory
     appType?: AppType
-    appRole?: AppRole[]
+    appRoles?: AppRole[]
     redirectAfterPath?: string
     reAuthenticate?: {
         integrationId: string
@@ -28,7 +28,7 @@ export function useOAuthRedirect() {
             appSlug: app.slug,
             appCategory: app.category,
             appType: app.type,
-            appRole: app.role,
+            appRoles: app.role,
             isComing: app.isComingSoon ?? false
         }
     }
@@ -37,9 +37,9 @@ export function useOAuthRedirect() {
         onSuccess(data) {
             window.location.href = data.redirectUrl
         },
-        onError() {
+        onError(err) {
             setLoading(null)
-            toast.error("Failed to create secure auth session")
+            toast.error(err.message ?? "Failed to create secure auth session")
         },
     })
 

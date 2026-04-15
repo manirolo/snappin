@@ -9,10 +9,9 @@ export async function buildIntegrationData({ accessToken, refreshToken, accessTo
         accessToken,
         accessTokenExpiresAt,
         refreshToken,
-        config: {
-            mailMonitored: true,
+        metadata: {
             historyId: Number(historyId),
-            watchExpiresAt: expiresAt,
+            watchExpiresAt: Number(expiresAt),
         }
     }
 }

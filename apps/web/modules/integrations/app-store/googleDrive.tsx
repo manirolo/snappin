@@ -2,26 +2,12 @@ import { appMetadata } from "@snappin/apps/app.metadata";
 import { Integration } from "@snappin/features/integration/components/integrationCard";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
 import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
-import {
-  DEFAULT_ORGANIZATION_STRATEGY,
-  ORGANIZATION_STRATEGY_OPTIONS,
-} from "@snappin/lib/storage/resolveStoragePaths";
 import { useRouter } from "next/navigation";
 import { AppSlug } from "@snappin/shared/apps/app.schema";
-import { EditViewProps, EditViewRef } from "./integration.edit.registry";
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useState,
-  useEffect,
-  useRef,
-} from "react";
-import { StorageOrganizationStrategy } from "@snappin/shared/integration/storage.schema";
+import { IntegrationResource } from "@snappin/shared/integration/integration.schema";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { trpc } from "@snappin/features/trpc/react/client";
 import toast from "react-hot-toast";
-import { IntegrationNoResult } from "../integration.no_result";
-import { RadioGroup, RadioGroupItem } from "@snappin/ui/components/radio-group";
-import { Label } from "@snappin/ui/components/label";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
 
 export const GoogleDrive = () => {
@@ -106,108 +92,24 @@ export const GoogleDrive = () => {
   );
 };
 
-export const EditGoogleDrive = forwardRef<EditViewRef, EditViewProps>(
-  ({ integration, onDirtyChange, onSavingChange }, ref) => {
-    const config =
-      integration.appSlug === AppSlug.GOOGLE_DRIVE ? integration.config : null;
-    const savedStrategyRef = useRef<StorageOrganizationStrategy>(
-      config?.organization?.strategy,
-    );
+type GoogleDriveEditProps = {
+  integration: IntegrationResource;
+  onDirtyChange: (dirty: boolean) => void;
+  onSavingChange: (saving: boolean) => void;
+};
 
-    const [selected, setSelected] = useState<StorageOrganizationStrategy>(
-      config?.organization?.strategy ?? DEFAULT_ORGANIZATION_STRATEGY,
-    );
-    const utils = trpc.useUtils();
-
-    useEffect(() => {
-      if (config?.organization?.strategy) {
-        savedStrategyRef.current = config.organization.strategy;
-        setSelected(config.organization.strategy);
-        onDirtyChange(false);
-      }
-    }, [config?.organization?.strategy, onDirtyChange]);
-
-    useImperativeHandle(ref, () => ({
-      save: async () => {
-        if (integration.appSlug !== AppSlug.GOOGLE_DRIVE || !integration._id)
-          return;
-
-        updateIntegration.mutate({
-          integrationId: integration._id,
-          data: {
-            ...integration,
-            config: {
-              ...integration.config,
-              organization: {
-                ...integration.config.organization,
-                strategy: selected,
-              },
-            },
-          },
-        });
-      },
-    }));
-
-    if (!integration || !integration?.appSlug || !integration?._id)
-      return <IntegrationNoResult />;
-
-    const handleChange = (value: StorageOrganizationStrategy) => {
-      setSelected(value);
-      onDirtyChange(value !== savedStrategyRef.current);
-    };
-
-    const updateIntegration = trpc.integration.updateIntegration.useMutation({
-      onMutate: () => {
-        onSavingChange(true);
-      },
-      onSuccess: () => {
-        savedStrategyRef.current = selected;
-        if (!integration.appSlug || !integration?._id) return;
-        utils.integration.getIntegration.invalidate({
-          integrationId: integration._id,
-        });
-        toast.success("Integration updated");
-        onSavingChange(false);
-        onDirtyChange(false);
-      },
-      onError: () => {
-        toast.error("Failed to update");
-        onSavingChange(false);
-      },
-    });
-
-    return (
-      <div className="flex flex-col gap-3">
-        <RadioGroup
-          value={selected}
-          onValueChange={handleChange}
-          disabled={updateIntegration.isPending}
-        >
-          {ORGANIZATION_STRATEGY_OPTIONS.map((option) => (
-            <label
-              key={option.value}
-              className={`flex items-center gap-4 cursor-pointer shadow border border-border/40 max-w-lg min-h-18 p-2.5 rounded-2xl transition-colors ${
-                selected === option.value ? "bg-gray-4" : "bg-card"
-              }`}
-            >
-              <RadioGroupItem value={option.value} id={option.value} />
-              <div className="flex flex-col gap-1">
-                <Label
-                  htmlFor={option.value}
-                  className="font-medium text-foreground cursor-pointer"
-                >
-                  {option.label}
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  {option.description}
-                </p>
-              </div>
-            </label>
-          ))}
-        </RadioGroup>
-      </div>
-    );
-  },
-);
-
-EditGoogleDrive.displayName = "EditGoogleDrive";
+/** Integration detail / save UI: Google Drive has no editable workspace fields yet. */
+export const EditGoogleDrive = forwardRef<
+  { save: () => void | Promise<void>; isPending?: boolean },
+  GoogleDriveEditProps
+>(function EditGoogleDrive(_props, ref) {
+  useImperativeHandle(ref, () => ({
+    save: () => {},
+    isPending: false,
+  }));
+  return (
+    <p className="text-sm text-muted-foreground">
+      There are no additional settings for this connection.
+    </p>
+  );
+});

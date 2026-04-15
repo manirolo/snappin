@@ -14,6 +14,7 @@ export type SnappinErrorCode =
     | "no_attachment_with_request"
 
     | "webhook_unhandled_event"
+    | "webhook_invalid_signature"
 
 export class SnappinError extends Error {
     public readonly code: SnappinErrorCode;

@@ -55,12 +55,14 @@ export type StopWatchingProps = {
 
 export type RenewWatchingProps = {
     accessToken: string
+    subscriptionId?: string
 }
 
 export type RenewWatchingResponse = {
     subscriptionId?: string | null
     historyId?: string | null,
-    expiresAt?: string | null
+    watchExpiresAt?: string | null
+    subscriptionExpiresAt?: string | null
 }
 
 export type StartWatchingResponse = {
@@ -134,12 +136,13 @@ export type BuildEmailIntegrationDataResponse<TSlug extends EmailAppSlug> = {
     refreshToken?: string | null;
     refreshTokenExpiresAt?: string | null;
     identifierEmail?: string | null;
-    config: EmailProviderMap[TSlug]["config"]
+    metadata: EmailProviderMap[TSlug]["metadata"]
 }
 
 export type BuildStorageIntegrationData = {
-    code?: string | null;
-    codeVerifier?: string | null;
+    accessToken?: string | null
+    accessTokenExpiresAt?: string | null
+    refreshToken?: string | null
 }
 
 export type BuildStorageIntegrationDataResponse<TSlug extends StorageAppSlug> = {
@@ -147,7 +150,7 @@ export type BuildStorageIntegrationDataResponse<TSlug extends StorageAppSlug> = 
     accessTokenExpiresAt?: string | null
     refreshToken?: string | null
     identifierEmail?: string | null
-    config: StorageProviderMap[TSlug]["config"]
+    metadata: StorageProviderMap[TSlug]["metadata"]
 }
 
 export type NormalizedEmailNotification = {
@@ -231,7 +234,7 @@ export type BuildAccountingIntegrationDataResponse = {
     accessTokenExpiresAt?: string | null;
     refreshToken?: string | null;
     identifierEmail?: string | null;
-    config?: {
+    metadata?: {
         tenantId?: string | null;
         orgName?: string | null;
     }

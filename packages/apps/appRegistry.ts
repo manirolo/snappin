@@ -20,7 +20,7 @@ export const StorageAppsStore: {
 }
 
 export const AccountingAppsStore: {
-  [K in AccountingAppSlug]: AccountingApps<K>
+  [K in AccountingAppSlug]: AccountingApps
 } = {
   [AppSlug.XERO]: XeroAppServices
 }

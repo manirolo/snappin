@@ -22,7 +22,7 @@ export async function getIntegration({ ctx, input }: GetIntegration): Promise<Ge
         filter._id = { $in: input.integrationId }
     }
 
-    const integration = await ctx.db.integration.findOne(filter).select("appType appSlug appType appRole config identifierEmail status reAuthenticationRequired")
+    const integration = await ctx.db.integration.findOne(filter).select("appType appSlug appType appRole metadata identifierEmail status reAuthenticationRequired")
 
     await assertResourceAccess({ userId: ctx.userId, orgId: ctx.orgId, resourceOwnerId: integration?.userId })
 

@@ -6,5 +6,5 @@ export type GetScans = {
 };
 
 export async function getScans({ ctx }: GetScans): Promise<TGetScans[]> {
-    return ctx.db.scan.find({ userId: ctx.userId, orgId: ctx.orgId }).select("userId orgId _integration.identifierEmail startDate endDate estimatedDuration invoiceFound status").sort({ createdAt: -1 })
+    return ctx.db.scan.find({ userId: ctx.userId, orgId: ctx.orgId }).select("userId orgId _integration.identifier errorReason startDate endDate estimatedDuration invoiceFound status").sort({ createdAt: -1 })
 }

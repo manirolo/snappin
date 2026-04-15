@@ -2,10 +2,11 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 const isOnboardingRoute = createRouteMatcher(['/onboarding'])
-const isPublicRoute = createRouteMatcher(['/api/v1/webhook/gmail', '/api/v1/integration/callback', '/login', '/login/sso-callback', '/signup'])
+const isPublicRoute = createRouteMatcher(['/api/v1/webhook/gmail', '/api/v1/integration/callback', '/login', '/login/sso-callback', '/signup', '/pricing'])
+const isConnectRoute = createRouteMatcher(['/connect', '/connection-failed', "/already-account-connected"])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
-  const { isAuthenticated, redirectToSignIn } = await auth()
+  const { isAuthenticated, redirectToSignIn, orgRole } = await auth()
 
   // For users visiting /onboarding, don't try to redirect
   if (isAuthenticated && isOnboardingRoute(req)) {
@@ -21,6 +22,13 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   //   const onboardingUrl = new URL('/onboarding', req.url)
   //   return NextResponse.redirect(onboardingUrl)
   // }
+
+  if (isAuthenticated && orgRole === 'org:guest' && !isPublicRoute(req)) {
+    if (!isConnectRoute(req)) {
+      return NextResponse.redirect(new URL('/connect', req.url))
+    }
+    return NextResponse.next()
+  }
 
   // If the user is logged in and the route is protected, let them view.
   if (isAuthenticated && !isPublicRoute(req)) return NextResponse.next()

@@ -5,7 +5,7 @@ import { IntegrationResource } from "@snappin/shared/integration/integration.sch
 type CompareAndSaveIfNewTokenProps = {
     integration: Partial<IntegrationResource>,
     accessTokenFromFn: string,
-    accessTokenExpiresAtFromFn?: Date | null
+    accessTokenExpiresAtFromFn?: string | null
 }
 
 export const compareAndSaveIfNewToken = async ({ integration, accessTokenFromFn, accessTokenExpiresAtFromFn, }: CompareAndSaveIfNewTokenProps): Promise<void> => {

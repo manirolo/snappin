@@ -47,7 +47,7 @@ export const CompactIntegrationCard = ({
           <TooltipTrigger>
             <div
               className={cn(
-                "group shrink-0 rounded-xl shadow-none p-6 cursor-pointer transition-all duration-300 hover:bg-gray-3",
+                "group shrink-0 rounded-2xl shadow-none p-6 cursor-pointer transition-all duration-300 hover:bg-gray-3",
                 loading && "pointer-events-none cursor-not-allowed opacity-70",
                 className,
               )}
@@ -63,7 +63,7 @@ export const CompactIntegrationCard = ({
       ) : (
         <div
           className={cn(
-            "group shrink-0 rounded-xl shadow-none border border-border/20 bg-card p-6 cursor-pointer transition-all duration-300 hover:bg-gray-3",
+            "group shrink-0 rounded-2xl shadow-none border border-border/20 bg-card p-6 cursor-pointer transition-all duration-300 hover:bg-gray-3",
             loading && "pointer-events-none cursor-not-allowed opacity-70",
             className,
           )}
@@ -95,5 +95,5 @@ export const CompactIntegrationName = ({
     return <DotSpinner className="size-6 text-gray-7!" />;
   }
 
-  return <Small className="text-foreground font-onest">{children}</Small>;
+  return <Small className="text-foreground font-rubik">{children}</Small>;
 };

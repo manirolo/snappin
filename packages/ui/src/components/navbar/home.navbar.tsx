@@ -1,14 +1,21 @@
-import { Logo } from '../logo'
-import { DashboardOrLogin, DashboardOrLoginResource, NavigationLinks } from './navbar.client'
+import { LogoSymbol } from "../logo";
+import {
+  DashboardOrLogin,
+  NavigationLinks,
+} from "./navbar.client";
 
-export const HomeNavbar = ({ isUserLoggedIn }: DashboardOrLoginResource) => {
-    return (
-        <div className='sticky top-0 border-b border-base-content bg-base-300 px-4 xl:px-0'>
-            <div className='h-14 flex items-center justify-between max-w-7xl mx-auto'>
-                <Logo />
-                <NavigationLinks />
-                <DashboardOrLogin isUserLoggedIn={isUserLoggedIn} />
-            </div>
+export const HomeNavbar = () => {
+  return (
+    <div className="min-h-20">
+      <div className="fixed left-0 right-0 top-0 z-99 xl:px-0">
+        <div className="flex items-center bg-sidebar text-white rounded-3xl gap-1 mt-8 p-2 px-3 justify-between max-w-106.5 mx-auto">
+          <div>
+            <LogoSymbol>Snappin</LogoSymbol>
+          </div>
+          <NavigationLinks />
+          <DashboardOrLogin />
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};

@@ -1,10 +1,11 @@
 {
   "extends": "@snappin/typescript-config/nextjs.json",
   "compilerOptions": {
+    "target": "ES2017",
     "rootDir": ".",
+    "ignoreDeprecations": "5.0",
     "outDir": "dist",
     "resolveJsonModule": true,
-    "baseUrl": ".",
     "paths": {
       "@snappin/features/*": ["./*"]
     },

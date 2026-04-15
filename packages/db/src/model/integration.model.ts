@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 import { timestampPlugin } from "../plugin/timestamps.plugin"
 import { IntegrationStatus } from "@snappin/shared/integration/status.enum"
 import { AppCategory, AppRole, AppSlug, AppType, Provider } from "@snappin/shared/apps/app.schema"
-import { IntegrationResource } from "@snappin/shared/integration/integration.schema"
+import { IntegrationResource, StatusReason } from "@snappin/shared/integration/integration.schema"
 import { fieldEncryption } from "mongoose-field-encryption"
 import { env } from "@snappin/env"
 
@@ -23,19 +23,21 @@ const IntegrationSchema = new mongoose.Schema<IntegrationResource>({
     provider: { type: String, enum: Provider, default: null },
     appSlug: { type: String, enum: AppSlug, required: true },
     appCategory: { type: String, enum: AppCategory, required: true },
-    appRole: { type: [String], enum: AppRole, required: true },
+    appRoles: { type: [String], enum: AppRole, required: true },
     appType: { type: String, enum: AppType, default: null },
 
     identifierEmail: { type: String, default: null },
 
-    config: { type: mongoose.Schema.Types.Mixed, required: true },
+    metadata: { type: mongoose.Schema.Types.Mixed, required: true },
 
     locked: { type: Boolean, default: false },
     lockedAt: { type: Number, default: null },
 
     status: { type: String, enum: IntegrationStatus, default: IntegrationStatus.CONNECTED },
+    statusReason: { type: String, enum: StatusReason, default: null },
 
     lastActivityAt: { type: Number, default: null },
+
     createdAt: Number,
     updatedAt: Number
 })
@@ -53,14 +55,9 @@ IntegrationSchema.plugin(fieldEncryption, {
     saltGenerator: (secret: string) => secret.slice(0, 16), // deterministic salt
 });
 
-IntegrationSchema.index({ orgId: 1, appSlug: 1 }, { unique: true })
 IntegrationSchema.index({ identifierEmail: 1 })
 IntegrationSchema.index({ status: 1 })
 IntegrationSchema.index({ accessTokenExpiresAt: 1 })
-IntegrationSchema.index(
-    { orgId: 1, identifierEmail: 1, appSlug: 1 },
-    { unique: true, sparse: true }
-)
 
 
 IntegrationSchema.set("toJSON", { virtuals: true })

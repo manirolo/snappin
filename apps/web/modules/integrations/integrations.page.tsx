@@ -15,8 +15,8 @@ export const IntegrationsPage = () => {
   return (
     <Dashboard>
       <DashboardHeader>
-        <DashboardHeaderMain>
-          <DashboardTitle>Apps</DashboardTitle>
+        <DashboardHeaderMain className="items-center">
+          <DashboardTitle>Integrations</DashboardTitle>
           <DashboardDescription>
             Connect other apps and service with Snappin
           </DashboardDescription>

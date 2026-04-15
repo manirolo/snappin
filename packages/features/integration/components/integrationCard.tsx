@@ -17,6 +17,7 @@ import {
   statusLabel,
 } from "@snappin/shared/integration/status.enum";
 import { Badge } from "@snappin/ui/components/badge";
+import { Skeleton } from "@snappin/ui/components/skeleton";
 
 export const IntegrationCard = ({
   children,
@@ -47,7 +48,7 @@ export const IntegrationCardHeader = ({
 
 export const IntegrationCardIcon = ({ icon }: { icon: string }) => {
   return (
-    <Icon icon={icon} className="size-8 flex items-center justify-center" />
+    <Icon icon={icon} className="size-7 flex items-center justify-center" />
   );
 };
 
@@ -57,7 +58,7 @@ export const IntegrationCardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Lead className="text-sm font-medium text-foreground">{children}</Lead>
+    <Lead className="text-sm! font-medium text-fg-4">{children}</Lead>
   );
 };
 
@@ -66,7 +67,7 @@ export const IntegrationCardContent = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <Small className="text-[0.75rem]">{children}</Small>;
+  return <Small className="md:text-[0.85rem] text-fg-2 font-normal">{children}</Small>;
 };
 
 export const IntegrationCardFooter = ({
@@ -117,23 +118,25 @@ export const Integration = ({
   const status = integration?.status as IntegrationStatus;
   const config = status ? statusLabel[status] : null;
   return (
-    <Card className="gap-0 shadow border border-border/50 p-2">
-      <CardHeader className="border-b-0">
+    <Card className="gap-0 shadow-xs rounded-2xl border border-bg-2 w-full p-0.5">
+      <CardHeader className="border-b-0 px-4 py-2">
         <IntegrationCardHeader>
           <IntegrationCardIcon icon={icon} />
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col justify-center gap-0.5 mt-1">
             <IntegrationCardTitle>{name}</IntegrationCardTitle>
-            <Badge
-              size="sm"
-              variant={config?.variant}
-              appearance={config?.label ? "outline" : "ghost"}
-              className={cn(
-                "text-start bg-transparent border-transparent px-0 text-xs justify-start",
-                !config?.label && "text-muted-foreground",
-              )}
-            >
-              {config?.label ?? "Not Connected"}
-            </Badge>
+            {status && status == "reauth_required" && (
+              <Badge
+                size="sm"
+                variant={config?.variant}
+                appearance={config?.label ? "outline" : "ghost"}
+                className={cn(
+                  "text-start bg-transparent border-transparent px-0 text-xs justify-start",
+                  !config?.label && "text-muted-foreground",
+                )}
+              >
+                {config?.label ?? "Not Connected"}
+              </Badge>
+            )}
             {hint && (
               <span className="text-muted-foreground text-xs">{hint}</span>
             )}
@@ -141,19 +144,19 @@ export const Integration = ({
         </IntegrationCardHeader>
       </CardHeader>
 
-      <CardContent className="pt-0 p-0 pb-2 px-5">
+      <CardContent className="py-2 pt-1 px-3">
         <IntegrationCardContent>{description}</IntegrationCardContent>
       </CardContent>
 
-      <CardFooter className="flex flex-col gap-2 pb-2 mt-4">
+      <CardFooter className="flex flex-col min-h-fit items-end ml-auto gap-2 py-2 pb-3 px-3">
         {isLoading ? (
-          <div className="w-full h-9 rounded-md bg-gray-5 animate-pulse" />
+          <Skeleton />
         ) : isConnected ? (
           reAuthorizationNeeded ? (
-            <div className="flex gap-2 w-full">
+            <div className="w-full flex gap-2">
               <Button
                 variant="dim"
-                className="flex-1 bg-yellow-500/10 disabled:text-yellow-800 text-yellow-800 hover:text-yellow-800"
+                className="w-fit flex-1 bg-yellow-500/10 disabled:text-yellow-800 text-yellow-800 hover:text-yellow-800"
                 onClick={onReAuthorization}
                 disabled={isProgress}
               >
@@ -162,28 +165,26 @@ export const Integration = ({
               </Button>
             </div>
           ) : (
-            <div className="flex gap-2 w-full">
+            <div className="w-fit mr-auto flex gap-2">
               <Button
                 variant="dim"
-                className="flex-1 bg-destructive/10 disabled:text-destructive text-destructive hover:text-destructive"
+                className="min-w-fit flex-1 bg-destructive/10 disabled:text-destructive text-destructive hover:text-destructive"
                 onClick={onDisconnectClick}
                 disabled={isProgress}
               >
-                {isProgress && (
-                  <Spinner className="text-destructive" />
-                )}
+                {isProgress && <Spinner className="text-destructive" />}
                 Disconnect
               </Button>
             </div>
           )
         ) : (
           <Button
-            variant="dim"
-            className="w-full"
+            variant="outline"
+            className="w-fit mr-auto"
             onClick={onConnectClick}
             disabled={connectLoading != null}
           >
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               {connectLoading === appSlug && <Spinner />}
               {isComingSoon ? "I want this" : "Connect"}
             </div>

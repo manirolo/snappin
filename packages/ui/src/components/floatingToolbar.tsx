@@ -149,7 +149,7 @@ export function FloatingTableToolbar({
                   align="center"
                   side="top"
                   sideOffset={8}
-                  className="min-w-44 rounded-xl"
+                  className="min-w-44 rounded-2xl"
                 >
                   {action.submenu.map((sub) => (
                     <DropdownMenuItem
@@ -208,7 +208,7 @@ export function FloatingTableToolbar({
             <DropdownMenuTrigger asChild>
               <button
                 className={cn(
-                  "inline-flex items-center justify-center size-8 rounded-xl",
+                  "inline-flex items-center justify-center size-8 rounded-2xl",
                   "text-foreground/70 hover:bg-accent hover:text-foreground",
                   "transition-colors duration-100",
                 )}
@@ -219,7 +219,7 @@ export function FloatingTableToolbar({
             <DropdownMenuContent
               align="start"
               sideOffset={8}
-              className="min-w-44 rounded-xl"
+              className="min-w-44 rounded-2xl"
             >
               {overflowActions.map((action) => {
                 const isDisabled = action.disabled || action.loading;
@@ -268,7 +268,7 @@ export function FloatingTableToolbar({
           onClick={onClear}
           disabled={anyLoading}
           className={cn(
-            "inline-flex items-center justify-center size-8 rounded-xl",
+            "inline-flex items-center justify-center size-8 rounded-2xl",
             "text-foreground/50 hover:bg-accent hover:text-foreground",
             "transition-colors duration-100",
             anyLoading && "opacity-30 cursor-not-allowed",

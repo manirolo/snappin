@@ -41,8 +41,6 @@ export async function createBill({
         ...(dueDate ? { dueDate } : {}),
     };
 
-    console.log(bill)
-
     const response = await xero.accountingApi.createInvoices(
         tenantId,
         { invoices: [bill] } as Invoices,
@@ -67,8 +65,6 @@ export async function createBill({
         const buf = Buffer.isBuffer(attachment.buffer)
             ? attachment.buffer
             : Buffer.from(attachment.buffer)
-
-            console.log(fileName, created, buf)
 
         await xero.accountingApi.createInvoiceAttachmentByFileName(
             tenantId,

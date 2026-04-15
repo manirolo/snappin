@@ -183,7 +183,7 @@ function TableSkeleton({
           )}
         >
           {Array.from({ length: columns }).map((_, colIdx) => (
-            <TableCell key={colIdx} className="py-4">
+            <TableCell key={colIdx} className="py-3">
               <Skeleton className="h-6 w-full rounded-md" />
             </TableCell>
           ))}
@@ -288,14 +288,14 @@ export function PaginatedTable<T>({
       {!loading &&
       table.getRowModel().rows.length <= 0 &&
       emptyStateComponent ? (
-        emptyStateComponent
+        <div className="bg-table border border-bg-2 h-full rounded-xl">{emptyStateComponent}</div>
       ) : (
-        <div className="w-full bg-table shadow mb-2 border border-border/50 px-2 rounded-xl pt-0">
-          {toolbar && <div className="pb-4">{toolbar}</div>}
+        <div className="w-full bg-table mb-2 border border-bg-2 px-2 rounded-xl pt-0">
+          {toolbar && <div className="p-2 px-0">{toolbar}</div>}
           <div className="w-full">
             <div className="w-full overflow-hidden">
               <Table>
-                <TableHeader className="p-0 h-12 border-b! border-border/40">
+                <TableHeader className="p-0 h-12 border-b-0! border-border/40">
                   {table.getHeaderGroups().map((group) => (
                     <TableRow key={group.id} className="hover:bg-transparent">
                       {group.headers.map((header) => (
@@ -340,11 +340,11 @@ export function PaginatedTable<T>({
                         onClick={() => onRowClick?.(row)}
                         className={cn(
                           "group transition-colors border-b-0 hover:bg-accent/20 cursor-pointer border-border/80", // ← add `group`
-                          "transition-colors border-b hover:bg-accent/30 cursor-pointer border-border/50",
+                          "transition-colors border-b-0 hover:bg-accent/30 cursor-pointer border-border/50",
                           row
                             .getAllCells()
                             .some(
-                              (c) => c.column.columnDef.meta?.disableHover,
+                              (c) => (c.column.columnDef.meta as { disableHover?: boolean })?.disableHover,
                             ) && "hover:bg-transparent cursor-default",
                           rowIndex === 0 &&
                             "[&>td:first-child]:rounded-tl-lg [&>td:last-child]:rounded-tr-lg",
@@ -450,6 +450,7 @@ export type SimpleTableProps<T> = {
   processingStateText?: string | null;
   onRowClick?: (row: Row<T>) => void;
   selectedRowIndex?: number | null;
+  className?: string;
 };
 
 export function SimpleTable<T>({
@@ -460,6 +461,7 @@ export function SimpleTable<T>({
   processingStateText,
   onRowClick,
   selectedRowIndex,
+  className
 }: SimpleTableProps<T>) {
   const colSpan = table.getAllLeafColumns().length;
 
@@ -468,19 +470,19 @@ export function SimpleTable<T>({
   }
 
   return (
-    <div className="w-full bg-table shadow pb-2 mb-2 border border-border/50 px-2 rounded-xl pt-0">
-      {toolbar && <div className="pb-4">{toolbar}</div>}
+    <div className={cn("w-full bg-table shadow-xs pb-2 mb-2 border border-border/50 px-2 rounded-2xl pt-0", className)}>
+      {toolbar && <div className="p-3 px-2">{toolbar}</div>}
       <div className="pt-0">
         <div className="w-full">
           <Table className="px-0">
-            <TableHeader className="h-12 border-b! border-border/40">
+            <TableHeader className="h-8 border-b-0! border-border/40">
               {table.getHeaderGroups().map((group) => (
                 <TableRow key={group.id} className="hover:bg-transparent">
                   {group.headers.map((header) => (
                     <TableHead
                       key={header.id}
                       style={{ width: header.getSize() }}
-                      className="text-xs font-medium tracking-wide text-gray-400"
+                      className="text-xs font-medium text-muted-foreground tracking-wide"
                     >
                       {header.isPlaceholder
                         ? null
@@ -515,10 +517,10 @@ export function SimpleTable<T>({
                     key={row.id}
                     onClick={() => onRowClick?.(row)}
                     className={cn(
-                      "transition-colors border-b hover:bg-accent/20 cursor-pointer border-border/80",
+                      "transition-colors border-b hover:bg-accent/20 cursor-pointer border-bg-2",
                       row
                         .getAllCells()
-                        .some((c) => c.column.columnDef.meta?.disableHover) &&
+                        .some((c) => (c.column.columnDef.meta as { disableHover?: boolean })?.disableHover) &&
                         "hover:bg-transparent cursor-default",
                       rowIndex === 0 &&
                         "[&>td:first-child]:rounded-tl-lg [&>td:last-child]:rounded-tr-lg",
@@ -531,6 +533,92 @@ export function SimpleTable<T>({
                         key={cell.id}
                         style={{ width: cell.column.getSize() }}
                         className="py-3 text-gray-700 first:rounded-l-md last:rounded-r-md"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export type CompactTableProps<T> = {
+  table: ReactTableType<T>;
+  loading?: boolean;
+  toolbar?: React.ReactNode;
+  emptyStateComponent?: React.ReactNode;
+  processingStateText?: string | null;
+  onRowClick?: (row: Row<T>) => void;
+  selectedRowIndex?: number | null;
+};
+
+export function CompactTable<T>({
+  table,
+  loading = false,
+  toolbar,
+  emptyStateComponent,
+  processingStateText,
+  onRowClick,
+  selectedRowIndex,
+}: SimpleTableProps<T>) {
+  const colSpan = table.getAllLeafColumns().length;
+
+  if (!loading && table.getRowModel().rows.length <= 0 && emptyStateComponent) {
+    return <>{emptyStateComponent}</>;
+  }
+
+  return (
+    <div className="w-full bg-table shadow-xs pb-2 mb-2 border border-border/50 px-0 rounded-2xl pt-0">
+      {toolbar && <div className="pb-4">{toolbar}</div>}
+      <div className="pt-2 px-2">
+        <div className="w-full">
+          <Table className="px-0">
+            {loading ? (
+              <TableBody>
+                <TableSkeleton columns={colSpan} rows={2} />
+              </TableBody>
+            ) : (
+              <TableBody className="bg-table">
+                {processingStateText && (
+                  <TableRow>
+                    <TableCell colSpan={colSpan}>
+                      <div className="flex items-center text-gray-500 gap-2">
+                        <Spinner className="size-4" />
+                        {processingStateText}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                )}
+                {table.getRowModel().rows.map((row, rowIndex) => (
+                  <TableRow
+                    key={row.id}
+                    onClick={() => onRowClick?.(row)}
+                    className={cn(
+                      "transition-colors border-b hover:bg-accent/20 cursor-pointer border-bg-2",
+                      row
+                        .getAllCells()
+                        .some((c) => (c.column.columnDef.meta as { disableHover?: boolean })?.disableHover) &&
+                        "hover:bg-transparent cursor-default",
+                      rowIndex === 0 &&
+                        "[&>td:first-child]:rounded-tl-lg [&>td:last-child]:rounded-tr-lg",
+                      rowIndex === selectedRowIndex &&
+                        "bg-accent hover:bg-accent/90", // ← highlight selected
+                    )}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        style={{ width: cell.column.getSize() }}
+                        className="py-2 text-gray-700 first:rounded-l-md last:rounded-r-md"
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

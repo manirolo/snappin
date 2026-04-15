@@ -5,6 +5,8 @@ import { AppRole, EmailAppSlug } from "@snappin/shared/apps/app.schema";
 import { EmailAppsStore } from "@snappin/apps/appRegistry"
 import { TRPCError } from "@trpc/server"
 import { assertResourceAccess } from "../../../lib/assertResourceAccess";
+import { UsageLimitError, UsageService } from "@snappin/features/billing/service/usage.service";
+import { IntegrationStatus } from "@snappin/shared/integration/status.enum";
 
 export type UpdateMonitoringIntegration = {
     ctx: ContextProps
@@ -12,7 +14,7 @@ export type UpdateMonitoringIntegration = {
 }
 
 export async function updateMonitoringIntegration({ ctx, input }: UpdateMonitoringIntegration): Promise<IntegrationResource | null> {
-    const integration = await ctx.db.integration.findOne({ _id: input.integrationId, orgId: ctx?.orgId, appRole: AppRole.EMAIL_SOURCE })
+    const integration = await ctx.db.integration.findOne({ _id: input.integrationId, orgId: ctx?.orgId, appRoles: [AppRole.EMAIL_SOURCE] })
 
     if (!integration) throw new TRPCError({ code: "NOT_FOUND", message: "Integration not found" })
 
@@ -22,27 +24,53 @@ export async function updateMonitoringIntegration({ ctx, input }: UpdateMonitori
 
     if (!provider) throw new TRPCError({ code: "BAD_REQUEST", message: "Unsupported app provider" })
 
-    let watchConfig: Record<string, unknown> = {
-        "mailMonitored": input.mailMonitored,
-    }
+    let status: IntegrationStatus = IntegrationStatus.CONNECTED
+
     try {
-        if (input.mailMonitored) {
-            const watch = await provider.startWatching({ integration })
+        if (!input.disable) {
+            try {
+                const usageService = new UsageService()
+                await usageService.assertEmailAccountAllowed(integration.orgId)
+                await provider.startWatching({ integration })
+                status = IntegrationStatus.CONNECTED
+            } catch (error) {
+                if (error instanceof UsageLimitError) {
+                    // Plan limit hit — mark as paused, don't start watching
+                    status = IntegrationStatus.PAUSED
+                    console.warn(`[updateMonitoring] Usage limit reached for org ${integration.orgId}:`, error.displayMessage);
+                    throw new TRPCError({
+                        code: "FORBIDDEN",
+                        message: error.displayMessage,
+                    })
+                } else {
+                    // Provider watch failed — still connected but monitoring off
+                    status = IntegrationStatus.ERROR
+                    console.warn(`[updateMonitoring] startWatching failed for ${integration.appSlug}:`, error)
 
-            watchConfig = watch
-            watchConfig["mailMonitored"] = input.mailMonitored
+                }
+            }
         } else {
-            await provider.stopWatching({ integration })
-            watchConfig["mailMonitored"] = input.mailMonitored
-        }
-    } catch (error) {
-        // Graph subscription may not exist yet — safe to ignore, just update the DB flag
-        console.warn(`[updateMonitoring] watch operation failed for ${integration.appSlug}:`, error)
+            try {
+                await provider.stopWatching({ integration })
+                status = IntegrationStatus.PAUSED
+            } catch (error) {
+                status = IntegrationStatus.PAUSED  // still mark as paused even if stopWatching fails
+                console.warn(`[updateMonitoring] stopWatching failed for ${integration.appSlug}:`, error)
+            }
     }
 
-    return await ctx.db.integration.findOneAndUpdate(
-        { _id: input.integrationId, orgId: ctx.orgId, appRole: AppRole.EMAIL_SOURCE },
-        { config: watchConfig },
-        { returnDocument: "after" }
-    )
+    } catch (error) {
+    if (error instanceof TRPCError) throw error  // preserve original message
+    console.warn(`[updateMonitoring] watch operation failed for ${integration.appSlug}:`, error)
+    throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something went wrong",
+    })
+}
+
+return await ctx.db.integration.findOneAndUpdate(
+    { _id: input.integrationId, orgId: ctx.orgId, appRoles: [AppRole.EMAIL_SOURCE] },
+    { status },
+    { returnDocument: "after" }
+).select("status")
 }

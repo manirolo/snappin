@@ -5,6 +5,7 @@ type ConfirmState = {
     open: boolean;
     title?: string;
     description?: string;
+    content?: React.ReactNode;
     confirmLabel?: string;
     cancelLabel?: string;
     destructive?: boolean;

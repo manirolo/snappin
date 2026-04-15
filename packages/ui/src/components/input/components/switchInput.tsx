@@ -37,14 +37,14 @@ const CustomSwitch = ({ checked, onCheckedChange, disabled, size = "md", classNa
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         "disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer",
         s.track,
-        checked ? "bg-primary" : "bg-gray-5",
+        checked ? "bg-primary" : "bg-gray-4",
         className,
       )}
     >
       <span
         className={cn(
           // thumb
-          "inline-block rounded-full bg-white shadow-sm",
+          "inline-block rounded-full bg-white shadow-xs",
           "transition-transform duration-200 ease-in-out",
           s.thumb,
           checked ? s.translate : "translate-x-0",

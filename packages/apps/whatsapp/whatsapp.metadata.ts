@@ -16,5 +16,5 @@ export const whatsappMetadata: AppMetadata = {
     category: AppCategory.COMMUNICATION,
     type: AppType.SOURCE,
     enableOnOnboarding: false,
-    isComingSoon: true
+    isComingSoon: false
 }

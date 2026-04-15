@@ -20,6 +20,7 @@ export const GlobalConfirmDialog = () => {
     title,
     description,
     icon,
+    content,
     confirmLabel = "Confirm",
     cancelLabel = "Cancel",
     destructive,
@@ -44,22 +45,23 @@ export const GlobalConfirmDialog = () => {
             </AlertDialogMedia>
           )}
           <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
         </AlertDialogHeader>
 
+        {content && <div>{content}</div>}
+
         <AlertDialogFooter>
-         
           <AlertDialogCancel
-            size={"lg"}
+            size={"md"}
             className="group-data-[size=sm]:min-w-full border-2"
             onClick={close}
           >
             {cancelLabel}
           </AlertDialogCancel>
-           <AlertDialogAction
+          <AlertDialogAction
             // className={cn("group-data-[size=sm]:min-w-full")}
             variant={destructive ? "destructive" : "primary"}
-            size={"lg"}
+            size={"md"}
             onClick={() => {
               onConfirm?.();
               close();
@@ -67,7 +69,6 @@ export const GlobalConfirmDialog = () => {
           >
             {confirmLabel}
           </AlertDialogAction>
-
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

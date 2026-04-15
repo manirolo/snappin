@@ -1,4 +1,14 @@
-export type WebhookOperation = "create" | "update" | "delete" | "cancel";
+export type WebhookOperation =
+  | "create"
+  | "update"
+  | "cancel"
+  | "uncancel"
+  | "renewed"
+  | "pastDue"
+  | "resume"
+  | "expire" 
+  | "pause" 
+  | "unpause"
 
 export interface GenericWebhookEvent<TPayload = unknown> {
   provider: string;

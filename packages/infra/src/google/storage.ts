@@ -171,6 +171,21 @@ export class StorageService {
             })
         )
     }
+
+    async deleteUserFiles(orgId: string, userId: string): Promise<void> {
+        await invoiceBucket.deleteFiles({
+            prefix: `orgs/${orgId}/users/${userId}/documents/`,
+            force: true,
+        })
+    }
+
+    // Delete all docs for entire org (admin delete)
+    async deleteOrgFiles(orgId: string): Promise<void> {
+        await invoiceBucket.deleteFiles({
+            prefix: `orgs/${orgId}/`,
+            force: true,
+        })
+    }
 }
 
 export const storageService = new StorageService()

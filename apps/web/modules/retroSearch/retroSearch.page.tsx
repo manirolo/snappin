@@ -12,7 +12,6 @@ import {
 } from "../../components/layout/dashboardLayout";
 import { NewScanDialog } from "@snappin/features/retroSearch/components/newScanDialog";
 import { ScanListTable } from "@snappin/features/retroSearch/components/table/scan.table";
-import { Small } from "@snappin/ui/components/typography";
 import { Button } from "@snappin/ui/components/button";
 import { HiOutlineRefresh } from "react-icons/hi";
 import { trpc } from "@snappin/features/trpc/react/client";
@@ -36,15 +35,15 @@ export const RetroSearchPage = () => {
     <Dashboard>
       <DashboardHeader>
         <DashboardHeaderMain>
-          <DashboardTitle>Retroactive extractions</DashboardTitle>
+          <DashboardTitle>Retroactive</DashboardTitle>
           <DashboardDescription>
-            Scan your past emails to automatically find and extract invoices you
+            Scan your past emails to find and extract invoices you
             may have missed.
           </DashboardDescription>
         </DashboardHeaderMain>
         <DashboardActions>
           <Button
-            variant="dim"
+            variant="outline"
             size={"sm"}
             onClick={handleRefresh}
             disabled={isRefreshing}
@@ -56,7 +55,6 @@ export const RetroSearchPage = () => {
         </DashboardActions>
       </DashboardHeader>
       <DashboardContent>
-        <Small className="text-xs md:text-xs mb-2 ml-auto w-fit">Note: Displaying last 10 scans</Small>
         <ScanListTable />
       </DashboardContent>
     </Dashboard>

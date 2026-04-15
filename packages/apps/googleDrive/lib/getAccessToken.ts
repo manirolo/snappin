@@ -28,7 +28,7 @@ export async function getAccessToken({ integration }: RetrieveAccessToken): Prom
         const tokens = await google.refreshAccessToken(integration.refreshToken);
 
         const newAccessToken = tokens.accessToken();
-        const newAccessTokenExpiresAt = tokens.accessTokenExpiresAt();
+        const newAccessTokenExpiresAt = String(tokens.accessTokenExpiresAt());
 
         /**
          * ⚠️ IMPORTANT (recommended):

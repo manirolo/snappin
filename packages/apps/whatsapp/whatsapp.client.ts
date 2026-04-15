@@ -23,11 +23,29 @@ interface WhatsAppMessage {
     image?: WhatsAppMedia
 }
 
+interface WhatsAppStatusError {
+    code: number
+    title?: string
+    message?: string
+    error_data?: {
+        details?: string
+    }
+}
+
+interface WhatsAppStatus {
+    id: string
+    recipient_id: string
+    status: "sent" | "delivered" | "read" | "failed"
+    timestamp: string
+    errors?: WhatsAppStatusError[]
+}
+
 interface WhatsAppNotificationPayload {
     entry?: Array<{
         changes?: Array<{
             value?: {
                 messages?: WhatsAppMessage[]
+                statuses?: WhatsAppStatus[]  // 👈 this is what the error block needs
             }
         }>
     }>
@@ -41,7 +59,7 @@ export class WhatsAppClient {
     }
 
     async normalizeNotification(payload: WhatsAppNotificationPayload): Promise<NormalizedMessageEvent[]> {
-       
+
         const value = payload.entry?.[0]?.changes?.[0]?.value
         if (value?.statuses?.length) {
             for (const status of value.statuses) {

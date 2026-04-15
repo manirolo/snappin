@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 export const Logo = ({
   className,
   onClickRedirectLink,
-  darkLogo
+  darkLogo,
 }: {
   className?: string;
   darkLogo?: boolean;
@@ -27,7 +27,9 @@ export const Logo = ({
   if (!mounted) {
     return (
       <div className="">
-        <div className={cn("relative inline-block shrink-0 w-28 h-8", className)} />
+        <div
+          className={cn("relative inline-block shrink-0 w-28 h-8", className)}
+        />
       </div>
     );
   }
@@ -55,19 +57,27 @@ export const Logo = ({
 export const LogoSymbol = ({
   className,
   onClickRedirectLink,
+  children,
 }: {
   className?: string;
   onClickRedirectLink?: string;
+  children?: React.ReactNode;
 }) => (
   <Link
     href={onClickRedirectLink || "/"}
-    className={cn("relative inline-block shrink-0 w-7 h-7", className)}
+    className={cn(
+      "flex items-center gap-1.5 text-lg font-medium tracking-tight cursor-pointer",
+      className,
+    )}
   >
-    <Image
-      src={"/images/favicon.png"}
-      fill
-      className="object-contain"
-      alt="Snappin"
-    />
+    <div className="relative shrink-0 size-7 inline-block">
+      <Image
+        src={"/images/icon.png"}
+        fill
+        className="object-contain"
+        alt="Snappin"
+      />
+    </div>
+    {children && <span>{children}</span>}
   </Link>
 );

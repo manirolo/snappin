@@ -22,12 +22,12 @@ export function SupplierCell({
 }: SupplierCellProps) {
   return (
     <div className="flex items-center rounded-md gap-3 py-1 text-left">
-      {getLogoByDomain(senderAddress ?? "snappin", "size-8.5 rounded-md!")}
+      {getLogoByDomain(senderAddress ?? "snappin", "size-6 rounded-md!")}
       <div className="flex flex-col gap-0.5">
         <Paragraph className="text-sm text-foreground">
           {truncateEnd(vendorName ?? "Unknown", 25)}
         </Paragraph>
-        <div className="flex items-center gap-2.5">
+        <div className="items-center hidden gap-2.5">
           {description && <Small className="text-xs! md:text-xs!">{truncateEnd(description, 25)}</Small>}
         </div>
       </div>

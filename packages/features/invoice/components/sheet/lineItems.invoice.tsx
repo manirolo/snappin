@@ -1,6 +1,6 @@
 import React, { useEffect, useState, forwardRef, useImperativeHandle, useCallback } from "react";
 import { trpc } from "@snappin/features/trpc/react/client";
-import { RouterOutputs } from "@snappin/features/trpc/_root";
+import type { RouterOutputs } from "@snappin/features/trpc/_root";
 import { ScrollArea } from "@snappin/ui/components/scroll-area";
 import { InlineField } from "@snappin/ui/components/input/waste/inlineField";
 import { InlineAmountField } from "@snappin/ui/components/input/waste/inlineAmountField";
