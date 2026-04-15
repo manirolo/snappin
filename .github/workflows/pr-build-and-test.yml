@@ -75,6 +75,8 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.changes.outputs.admin == 'true'
     continue-on-error: true
+    env:
+      NODE_OPTIONS: --max_old_space_size=4096
     outputs:
       result: ${{ steps.build.conclusion }}
     steps:
@@ -83,4 +85,4 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           app_name: Admin website
-          app_path: "@snappin/admin" 
+          app_path: "@snappin/admin"
