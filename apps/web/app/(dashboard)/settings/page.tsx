@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { SettingsView } from '../../../modules/settings/settings.view'
 
 export default function Page() {
   return (
-    <SettingsView />
+    <Suspense fallback={null}>
+      <SettingsView />
+    </Suspense>
   )
 }
