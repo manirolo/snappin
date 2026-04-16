@@ -1,14 +1,12 @@
-import React from 'react'
-import { HomPage } from '../../modules/home/home.page'
+import React from "react";
+import { HomPage } from "../../modules/home/home.page";
 
 export default function Page() {
-  return (
-    <HomPage />
-  )
+  return <HomPage />;
 }
-
 
 export const metadata = {
-    title: 'AI invoice and receipt management | Snappin',
-    description: 'Sign in to your Snappin account to extract your invoices from mails',
-}
+  title: "Snappin | AI Invoice and Receipt Management Software",
+  description:
+    "Turn hours of manual invoice work into seconds. Extract invoices from emails and send receipts via WhatsApp—instantly organized and ready to use.",
+};

@@ -3,10 +3,11 @@ import * as React from "react";
 
 export const Section = ({
   children,
+  className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("max-w-5xl mx-auto py-14", props.className)} {...props}>
+    <div className={cn("max-w-5xl mx-auto py-24", className)} {...props}>
       {children}
     </div>
   );
@@ -32,7 +33,7 @@ export const SectionLabel = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <span
-      className="text-sm bg-gray-1 p-px mb-5 px-1.5 rounded-lg text-fg-1 tracking-tight font-normal"
+      className="text-sm mb-6 text-fg-1 tracking-normal font-normal"
       {...props}
     >
       {children}
@@ -57,11 +58,12 @@ export const SectionTitle = ({
 
 export const SectionDescription = ({
   children,
+  className,
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) => {
   return (
     <p
-      className={cn("w-full max-w-sm text-center leading-relaxed mt-4 text-fg-2 tracking-tight font-medium", props.className)}
+      className={cn("w-full max-w-sm text-center leading-relaxed mt-5 text-fg-2 tracking-tight font-medium", className)}
       {...props}
     >
       {children}

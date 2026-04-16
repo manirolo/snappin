@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       web: ${{ steps.filter.outputs.web }}
-      api: ${{ steps.filter.outputs.api }}
+      admin: ${{ steps.filter.outputs.admin }}
 
     steps:
       - uses: actions/checkout@v4
@@ -34,23 +34,24 @@ jobs:
         uses: dorny/paths-filter@v3
         with:
           filters: |
-            api:
-              - 'apps/api/**'
-              - 'packages/trpc/**'
-              - 'packages/env/**'
-              - 'packages/lib/**'
-              - 'packages/shared/**'
-              - 'packages/apps/**'
-              - 'packages/features/**'
-
             web:
               - 'apps/web/**'
-              - 'packages/trpc/**'
+              - 'packages/db/**'
               - 'packages/env/**'
+              - 'packages/features/**'
+              - 'packages/infra/**'
               - 'packages/lib/**'
               - 'packages/shared/**'
-              - 'packages/apps/**'
+              - 'packages/ui/**'
+
+            admin:
+              - 'apps/admin/**'
+              - 'packages/db/**'
+              - 'packages/env/**'
               - 'packages/features/**'
+              - 'packages/infra/**'
+              - 'packages/lib/**'
+              - 'packages/shared/**'
               - 'packages/ui/**'
 
   build-web:
@@ -67,13 +68,15 @@ jobs:
       - id: build
         uses: ./.github/actions/build-app
         with:
-          app_name: Landing website
+          app_name: Snappin website
           app_path: "@snappin/web"
-  build-api:
+  build-admin:
     needs: [changes]
     runs-on: ubuntu-latest
-    if: needs.changes.outputs.api == 'true'
+    if: needs.changes.outputs.admin == 'true'
     continue-on-error: true
+    env:
+      NODE_OPTIONS: --max_old_space_size=4096
     outputs:
       result: ${{ steps.build.conclusion }}
     steps:
@@ -81,5 +84,5 @@ jobs:
       - id: build
         uses: ./.github/actions/build-app
         with:
-          app_name: Landing website
-          app_path: "@snappin/api"
+          app_name: Admin website
+          app_path: "@snappin/admin"

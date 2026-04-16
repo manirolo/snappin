@@ -14,10 +14,10 @@ import Link from "next/link";
 
 export const ContactSection = () => {
   return (
-    <Section className="pt-4">
+    <Section>
       <SectionHeader>
         <SectionTitle>Contact</SectionTitle>
-        <SectionDescription className="text-sm max-w-sm mt-4 leading-relaxed text-fg-2">
+        <SectionDescription className="text-sm max-w-sm mt-4 font-normal leading-relaxed text-fg-2">
           Questions about setup, billing, privacy, or anything else? We&#39;re
           happy to help.
         </SectionDescription>
