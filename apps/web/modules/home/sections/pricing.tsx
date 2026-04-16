@@ -26,7 +26,7 @@ import {
   SectionContent,
   SectionTitle,
   SectionLabel,
-} from "../../components/layout/sectionLayout";
+} from "../../../components/layout/sectionLayout";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { PlanInterval } from "@snappin/shared/billing/plan.schema";
@@ -35,7 +35,7 @@ import { motion } from "framer-motion";
 import { Badge } from "@snappin/ui/components/badge";
 import { cn } from "@snappin/ui/lib/utils";
 
-export const BillingView = () => {
+export const PricingSection = () => {
   const [billingCycle, setBillingCycle] =
     React.useState<BillingCycle>("monthly");
   const [checkoutPlanId, setCheckoutPlanId] = React.useState<PlanId | null>(
@@ -130,8 +130,8 @@ export const BillingView = () => {
                     transform: "translateY(-50%)",
                   }}
                 >
-                  <CurlyArrow className="text-gray-4 animate-pulse -rotate-40 mt-4" />2
-                  months free
+                  <CurlyArrow className="text-gray-4 animate-pulse -rotate-40 mt-4" />
+                  2 months free
                 </span>
               </div>
             </Tabs>
@@ -152,7 +152,11 @@ export const BillingView = () => {
                     >
                       <CardHeader className="text-center relative pb-0">
                         {plan.id === "scale" && (
-                          <Badge appearance="outline" size="sm" className="absolute bg-transparent top-5 right-5  uppercase">
+                          <Badge
+                            appearance="outline"
+                            size="sm"
+                            className="absolute bg-transparent top-5 right-5  uppercase"
+                          >
                             Best value
                           </Badge>
                         )}
@@ -187,7 +191,11 @@ export const BillingView = () => {
                           onClick={() => handleCheckout(plan.id)}
                         >
                           {isLoading ? (
-                            <Spinner className={cn(plan.id == "scale" ? "text-white" : "")} />
+                            <Spinner
+                              className={cn(
+                                plan.id == "scale" ? "text-white" : "",
+                              )}
+                            />
                           ) : (
                             `Get Started`
                           )}

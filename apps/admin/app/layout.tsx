@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   title: "Snappin",
   description:
     "Connect your email and get your invoices extracted automatically with Snappin.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 const inter = Inter({
