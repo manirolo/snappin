@@ -1,4 +1,7 @@
 import { defineConfig } from "@trigger.dev/sdk/v3";
+import { syncEnvVars } from "@trigger.dev/build/extensions/core";
+import dotenvx from "@dotenvx/dotenvx";
+import { readFileSync } from "fs";
 
 export default defineConfig({
   project: "proj_zwtnczkjxkhnfysisekz",
@@ -20,5 +23,12 @@ export default defineConfig({
       randomize: true,
     },
   },
+  extensions: [
+    syncEnvVars(async () => {
+      const envContent = readFileSync(".env.production", "utf-8");
+      const parsed = dotenvx.parse(envContent);
+      return parsed ?? {};
+    }),
+  ],
   dirs: ["./invoice/trigger", "./accounts/trigger", "./mobileScanners/trigger"],
 });
