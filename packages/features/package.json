@@ -62,7 +62,6 @@
   "dependencies": {
     "@clerk/backend": "catalog:",
     "@clerk/nextjs": "catalog:",
-    "@dotenvx/dotenvx": "^1.61.0",
     "@hono/clerk-auth": "^3.1.0",
     "@hugeicons-pro/core-bulk-rounded": "^3.1.0",
     "@hugeicons-pro/core-solid-rounded": "^3.1.0",
