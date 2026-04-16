@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 const isOnboardingRoute = createRouteMatcher(['/onboarding'])
-const isPublicRoute = createRouteMatcher(['/', '/terms', '/privacy', '/contact', '/api/v1/webhook/clerk', '/api/v1/webhook/ls', '/api/v1/webhook/mail', '/api/v1/webhook/messaging', '/api/v1/integration/callback', '/login', '/login/sso-callback', '/signup', '/pricing'])
+const isPublicRoute = createRouteMatcher(['/', '/blog', '/docs', '/terms', '/privacy', '/contact', '/api/v1/webhook/clerk', '/api/v1/webhook/ls', '/api/v1/webhook/mail', '/api/v1/webhook/messaging', '/api/v1/integration/callback', '/login', '/login/sso-callback', '/signup', '/pricing'])
 const isConnectRoute = createRouteMatcher(['/connect', '/connection-failed', "/already-account-connected"])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
