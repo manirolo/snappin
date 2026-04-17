@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
+import { getBlogPosts } from "../utils/blog";
 
 const BASE_URL = "https://snappinapp.com";
 
 type SitemapEntry = {
     path: string;
     lastModified: string;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+    changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"];
     priority: number;
 };
 
@@ -13,7 +14,6 @@ const routes: SitemapEntry[] = [
     {
         path: "/",
         lastModified: "2025-04-01",
-        changeFrequency: "daily",
         priority: 1.0,
     },
     {
@@ -22,7 +22,7 @@ const routes: SitemapEntry[] = [
         changeFrequency: "daily",
         priority: 0.3,
     },
-        {
+    {
         path: "/docs",
         lastModified: "2025-01-01",
         changeFrequency: "monthly",
@@ -32,7 +32,7 @@ const routes: SitemapEntry[] = [
         path: "/pricing",
         lastModified: "2025-04-01",
         changeFrequency: "monthly",
-        priority: 0.9,
+        priority: 1,
     },
     {
         path: "/login",
@@ -67,7 +67,24 @@ const routes: SitemapEntry[] = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    return routes.map((route) => ({
+
+	const blogPosts = getBlogPosts();
+	const blogRoutes: SitemapEntry[] = blogPosts.map((post) => {
+		const publishedAt =
+			"publishedAt" in post.metadata
+				? post.metadata.publishedAt
+				: new Date().toISOString();
+		const publishDate = new Date(publishedAt);
+		publishDate.setHours(9, 0, 0, 0); // Set time to 9:00 AM
+		return {
+			path: `/blog/${post.slug}`,
+			lastModified: publishDate.toISOString(),
+            changeFrequency: "monthly",
+            priority: 0.8
+		};
+	});
+
+    return [...routes, ...blogRoutes].map((route) => ({
         url: `${BASE_URL}${route.path}`,
         lastModified: new Date(route.lastModified),
         changeFrequency: route.changeFrequency,
