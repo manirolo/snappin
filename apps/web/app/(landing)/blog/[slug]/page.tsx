@@ -85,7 +85,7 @@ export default async function PostPage(props: PostProps) {
             <span className="text-fg-3">·</span>
           </div>
           <header>
-            <h1 className="my-4 tracking-tight max-w-lg mx-auto text-4xl">{post.metadata.title}</h1>
+            <h1 className="my-4 tracking-tight leading-normal max-w-lg mx-auto text-4xl">{post.metadata.title}</h1>
             <p className="leading-relaxed max-w-sm mx-auto text-fg-2">
               <span>
                 {post.metadata.description}
@@ -100,7 +100,7 @@ export default async function PostPage(props: PostProps) {
         {post.metadata.image && (
           <div className="relative mb-6 w-full rounded-lg overflow-hidden">
             <Image
-              className="object-contain m-0 h-[50vh] w-full sm:object-cover"
+              className="object-contain m-0 xl:h-[50vh] w-full sm:object-cover"
               src={post.metadata.image}
               alt={post.metadata.title}
             />

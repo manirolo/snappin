@@ -91,10 +91,10 @@ export const PricingSection = () => {
             >
               <div className="relative my-18 mt-16 flex items-center justify-center">
                 {/* Custom animated tab switcher — replaces default TabsList highlight */}
-                <TabsList className="bg-bg-3 border-0 rounded-full w-fit flex relative p-1">
+                <TabsList className="bg-bg-3 border-0 rounded-[22px] w-fit flex relative p-1">
                   {/* Sliding background pill */}
                   <motion.div
-                    className="absolute top-1 bottom-1 rounded-full bg-card shadow-sm"
+                    className="absolute top-1 bottom-1 rounded-[22px] bg-card shadow-sm"
                     animate={{
                       left: billingCycle === "monthly" ? "4px" : "calc(50%)",
                     }}
@@ -104,7 +104,7 @@ export const PricingSection = () => {
 
                   <TabsTrigger
                     value="monthly"
-                    className="relative z-10 rounded-full py-2.5 md:min-w-20 
+                    className="relative z-10 rounded-[22px] py-2.5 md:min-w-20 
     data-[state=active]:bg-transparent data-[state=active]:shadow-none 
     data-[state=active]:text-fg-4 transition-colors duration-200"
                   >
@@ -112,7 +112,7 @@ export const PricingSection = () => {
                   </TabsTrigger>
                   <TabsTrigger
                     value="yearly"
-                    className="relative z-10 rounded-full py-2.5 md:min-w-20 
+                    className="relative z-10 rounded-[22px] py-2.5 md:min-w-20 
     data-[state=active]:bg-transparent data-[state=active]:shadow-none
     data-[state=active]:text-fg-4 transition-colors duration-200"
                   >
@@ -181,9 +181,8 @@ export const PricingSection = () => {
                         </CardDescription>
 
                         <Button
-                          className="w-full capitalize shadow-none my-4"
+                          className="w-full capitalize rounded-[22px] shadow-none my-4"
                           size="xl"
-                          radius="full"
                           variant={plan.id == "scale" ? "warning" : "outline"}
                           disabled={createCheckout.isPending}
                           onClick={() => handleCheckout(plan.id)}

@@ -6,3 +6,9 @@ export default function Page() {
     <RetroSearchPage />
   )
 }
+
+export const metadata = {
+  title: "Retroactive | Snappin",
+  description:
+    "",
+};

@@ -5,7 +5,7 @@ import React from "react";
 export const HomeFooter = () => {
   return (
     <div className="">
-      <footer className="max-w-5xl mx-auto flex justify-between pt-24 pb-32">
+      <footer className="max-w-5xl mx-auto flex flex-wrap gap-14 px-4 xl:px-0 justify-between pt-24 pb-32">
         <div className="flex flex-col gap-4">
           <Small className="max-w-sm">
             Built over hundreds of late nights, Snappin saves you from invoice
@@ -13,7 +13,7 @@ export const HomeFooter = () => {
           </Small>
           <Small>© 2026</Small>
         </div>
-        <div className="flex gap-18">
+        <div className="flex gap-18 flex-wrap">
           <div className="flex flex-col gap-2">
             <Small className="text-fg-4">Product</Small>
             <div className="flex flex-col gap-1">
