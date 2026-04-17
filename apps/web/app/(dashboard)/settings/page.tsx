@@ -8,3 +8,9 @@ export default function Page() {
     </Suspense>
   )
 }
+
+export const metadata = {
+  title: "Settings | Snappin",
+  description:
+    "",
+};

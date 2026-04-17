@@ -7,7 +7,7 @@ export const Section = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("max-w-5xl mx-auto py-24", className)} {...props}>
+    <div className={cn("max-w-5xl mx-auto py-14 md:py-24", className)} {...props}>
       {children}
     </div>
   );

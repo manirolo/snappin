@@ -5,7 +5,7 @@ const headingStyle = 'font-rubik!'
 
 export function H1({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h1 className={cn(headingStyle, "scroll-m-20 text-[2.4rem] leading-tight sm:text-4xl font-bold tracking-tight md:text-[3.5rem]", className)}>
+    <h1 className={cn(headingStyle, "scroll-m-20 leading-14! text-5xl font-semibold tracking-tight md:text-[3.5rem]", className)}>
       {children}
     </h1>
   )

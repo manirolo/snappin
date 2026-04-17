@@ -6,3 +6,10 @@ export default function Page() {
     <HomeBlog />
   )
 }
+
+export const metadata = {
+  title: "Blog",
+  description:
+    "Latest updates and news from snappin",
+  keywords: ["snappin blog", "invoice extraction blog", "snappin"],
+};
