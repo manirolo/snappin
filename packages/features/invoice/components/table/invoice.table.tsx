@@ -42,6 +42,8 @@ import { ExportAll } from "@snappin/features/export/components/exportAll";
 import { Input, InputWrapper } from "@snappin/ui/components/input";
 import { Icon } from "@iconify/react";
 import { ManualInvoiceUploadDialog } from "../manualInvoiceUpload.dialog";
+import { UsageStats } from "@snappin/features/billing/components/usageStats";
+import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 
 type EmptyInvoiceStateProps = { processingStatus: boolean };
 
@@ -108,6 +110,7 @@ export const InvoiceListTable = ({
   const utils = trpc.useUtils();
   const { invoices, isLoading, error, setLimit, setPage, page, limit } =
     useInvoices();
+  const { usage } = useUsage();
 
   useEffect(() => {
     if (error) toast.error("Something went wrong!");
@@ -253,6 +256,15 @@ export const InvoiceListTable = ({
               <ExportAll />
             </div>
             <div className="flex items-center gap-2">
+              {invoiceTable.getRowModel().rows.length > 0 && (
+                <UsageStats
+                  id="invoice"
+                  label="Used"
+                  usage={usage?.usage?.invoices ?? 0}
+                  limit={usage?.limits?.invoices ?? 0}
+                  enableWarnRunOutOfCredits
+                />
+              )}
               <ManualInvoiceUploadDialog />
             </div>
           </div>
