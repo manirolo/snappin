@@ -22,7 +22,6 @@ export const useInvoices = () => {
       },
     },
     {
-      refetchOnWindowFocus: false,
       refetchIntervalInBackground: false,
       retry: 1,
     },
