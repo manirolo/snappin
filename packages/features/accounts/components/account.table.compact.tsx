@@ -26,6 +26,7 @@ import { ExtraSmall } from "@snappin/ui/components/typography";
 import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 import { UpgradeButton } from "@snappin/features/billing/components/upgradeButton";
 import { InviteDialog } from "./invite/invite.dialog";
+import { UsageStats } from "@snappin/features/billing/components/usageStats";
 
 const EmptyConnectedAccountsStateComponent = () => {
   return (
@@ -149,6 +150,15 @@ export const AccountsCompactListTable = ({
         loading={isLoading}
         emptyStateComponent={<EmptyConnectedAccountsStateComponent />}
       />
+      <div>
+        {integrationTable.getRowModel().rows.length > 0 && (
+          <UsageStats
+            id="account"
+            usage={usage?.usage?.emailAccounts ?? 0}
+            limit={usage?.limits?.emailAccounts ?? 0}
+          />
+        )}
+      </div>
 
       <SelectProvider
         open={open}
