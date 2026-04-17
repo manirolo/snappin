@@ -25,6 +25,7 @@ import { Button } from "@snappin/ui/components/button";
 import { NewMobileScannerDialog } from "./newMobileScanner.dialog";
 import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 import { UpgradeButton } from "@snappin/features/billing/components/upgradeButton";
+import { UsageStats } from "@snappin/features/billing/components/usageStats";
 
 const EmptyConnectedAccountsStateComponent = () => {
   return (
@@ -39,7 +40,8 @@ const EmptyConnectedAccountsStateComponent = () => {
         </EmptyMedia>
         <EmptyTitle>No Sources</EmptyTitle>
         <EmptyDescription>
-          Connect your whatsapp number and start sending receipts directly from your mobile
+          Connect your whatsapp number and start sending receipts directly from
+          your mobile
         </EmptyDescription>
       </EmptyHeader>
     </Empty>
@@ -148,6 +150,13 @@ export const MobileScannersCompactListTable = ({
         loading={isLoading}
         emptyStateComponent={<EmptyConnectedAccountsStateComponent />}
       />
+      {integrationTable.getRowModel().rows.length > 0 && (
+        <UsageStats
+          id="mobile-scanner"
+          usage={usage?.usage?.mobileScanners ?? 0}
+          limit={usage?.limits?.mobileScanners ?? 0}
+        />
+      )}
       <NewMobileScannerDialog open={open} setOpen={setOpen} />
     </div>
   );
