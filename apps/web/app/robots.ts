@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: [
             {
                 userAgent: "*",
-                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/docs"],
+                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/blog/", "/docs"],
                 disallow: [
                     "/dashboard",
                     "/login",
@@ -28,12 +28,13 @@ export default function robots(): MetadataRoute.Robots {
                     "/already-account-connected",
                     "/connection-failed",
                     "/connect",
-                    "/api"
+                    "/api",
+                    "/api/"
                 ],
             },
             {
                 userAgent: "Googlebot,Bingbot,Slurp,DuckDuckBot,Baiduspider,Yandex,Sogou,Exabot,facebot,facebookexternalhit,Twitterbot,Applebot,AhrefsBot,SemrushBot,MJ12bot",
-                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/docs"],
+                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/blog/", "/docs"],
                 disallow: [
                     "/dashboard",
                     "/login",
@@ -44,7 +45,8 @@ export default function robots(): MetadataRoute.Robots {
                     "/already-account-connected",
                     "/connection-failed",
                     "/connect",
-                    "/api"
+                    "/api",
+                    "/api/"
                 ],
             },
         ],
