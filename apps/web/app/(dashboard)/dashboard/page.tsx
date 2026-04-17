@@ -6,3 +6,9 @@ export default function Page() {
     <Home />
   )
 }
+
+export const metadata = {
+  title: "Dashboard | Snappin",
+  description:
+    "",
+};

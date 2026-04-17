@@ -49,7 +49,7 @@ function CustomLink({ href, ...rest }: CustomLinkProps) {
     return <a {...rest} />;
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...rest} />;
+  return <a target="_blank" href={href} rel="noopener noreferrer" {...rest} />;
 }
 
 interface RoundedImageProps {
@@ -170,7 +170,7 @@ function Paragraph({ children }: ParagraphProps) {
 
 function UnorderedList({ children }: { children: ReactNode }) {
   return (
-    <ul className="list-disc list-inside text-fg-3 mb-4 space-y-1">
+    <ul className="list-disc list-inside text-fg-3 font-normal mb-4 space-y-1">
       {children}
     </ul>
   );
@@ -179,7 +179,7 @@ UnorderedList.displayName = "UnorderedList";
 
 function ListItem({ children }: { children: ReactNode }) {
   return (
-    <li className="leading-7 text-neutral-800 dark:text-neutral-200">
+    <li className="leading-relaxed text-fg-3 font-normal dark:text-neutral-200">
       {children}
     </li>
   );

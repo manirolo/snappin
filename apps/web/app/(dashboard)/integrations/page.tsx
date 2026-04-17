@@ -6,3 +6,10 @@ export default function Page() {
     <IntegrationsPage />
   )
 }
+
+export const metadata = {
+  title: "Integrations | Snappin",
+  description:
+    "",
+};
+
