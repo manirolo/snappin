@@ -36,3 +36,11 @@ export const NavigationLinks = () => {
     </div>
   );
 };
+
+export const MobileNavigation = () => {
+  return(
+    <div>
+      
+    </div>
+  )
+}

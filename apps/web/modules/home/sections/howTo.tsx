@@ -66,7 +66,7 @@ export const HowTo = () => {
                 <h6 className="leading-relaxed text-md">
                   AI extracts.{" "}
                   <span className="text-fg-3">
-                    Vendor, line items are extracted using power ai model
+                    Vendor, line items are extracted using powerful ai model
                   </span>
                 </h6>
               </div>

@@ -13,7 +13,6 @@ const PRIVACY_SECTIONS: PolicySection[] = [
         <br /><br />
         Contact: <a href="mailto:hello@snappinapp.com" className="text-link underline">hello@snappinapp.com</a>
         <br />
-        Registered office: Snappin, Melakottangal, Pappapatti, Musiri, Trichy, TN, India – 621208
       </p>
     ),
   },

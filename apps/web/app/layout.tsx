@@ -43,7 +43,7 @@ const openrunde = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Snappin | AI Invoice and Receipt Management Software",
+  title: "AI Invoice and Receipt Organizer",
   description:
     "Turn hours of manual invoice work into seconds. Extract invoices from emails and send receipts via WhatsApp—instantly organized and ready to use.",
 
