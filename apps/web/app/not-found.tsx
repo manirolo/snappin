@@ -1,11 +1,18 @@
-import { H4 } from "@snappin/ui/components/typography";
+import { H1, Small } from "@snappin/ui/components/typography";
+import { LandingLayout } from "../components/navbar/dashboard.navbar";
 
 export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-        <H4>This page does not exist 😅</H4>
-    </div>
-  )
+    <LandingLayout>
+      <div className="flex flex-col max-w-md mx-auto items-center justify-center gap-2 mt-6 text-center min-h-[50vh]">
+        <H1>404</H1>
+        <Small>
+          We&#39;ve searched the entire globe, but we couldn&#39;t find what you were
+          looking for. Maybe it existed once, but now it&#39;s gone.
+        </Small>
+      </div>
+    </LandingLayout>
+  );
 }
 
 export const metadata = {
