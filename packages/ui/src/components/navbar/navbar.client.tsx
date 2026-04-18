@@ -33,14 +33,13 @@ export const NavigationLinks = () => {
       <Link href={"/blog"}>
         <Small className="text-white/70 hover:text-fg-1">Blog</Small>
       </Link>
+      <Link href={"/docs"}>
+        <Small className="text-white/70 hover:text-fg-1">Docs</Small>
+      </Link>
     </div>
   );
 };
 
 export const MobileNavigation = () => {
-  return(
-    <div>
-      
-    </div>
-  )
-}
+  return <div></div>;
+};

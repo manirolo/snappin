@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: "Affiliate", href: "/https://snappin.lemonsqueezy.com/affiliates" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
+  { label: "Docs", href: "/docs" },
 ];
 
 // ─── HomeNavbar ───────────────────────────────────────────────────────────────
@@ -22,9 +23,9 @@ export const HomeNavbar = () => {
   return (
     <div className="min-h-20">
       <div className="fixed left-0 right-0 top-0 z-50 px-4 xl:px-0">
-        <div className="relative max-w-lg w-full mx-auto mt-8">
+        <div className="relative max-w-xl w-full mx-auto mt-8">
           {/* ── Navbar pill ── */}
-          <div className="flex z-40! items-center min-h-12 sm:min-h-13 bg-sidebar text-white rounded-3xl gap-1 p-2 pl-3 pr-5 xl:px-3 justify-between">
+          <div className="flex z-40! items-center min-h-12 sm:min-h-13 bg-navbar text-white rounded-3xl gap-1 p-2 pl-3 pr-5 xl:px-3 justify-between">
             <LogoSymbol>Snappin</LogoSymbol>
             <NavigationLinks />
 
@@ -70,7 +71,7 @@ export const HomeNavbar = () => {
                 transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                 className="
                   absolute top-0 w-full pt-12 -z-10
-                  bg-sidebar border border-white/8
+                  bg-navbar border border-white/8
                   rounded-3xl overflow-hidden shadow-2xl
                   flex flex-col xl:hidden
                 "

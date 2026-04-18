@@ -53,7 +53,8 @@
         "HYPERTUNE_TOKEN",
         "LEMONESQUEEZY_WEBHOOK_SECRET",
         "LEMONSQUEEZY_API_KEY",
-        "LEMONESQUEEZY_STORE_ID"
+        "LEMONESQUEEZY_STORE_ID",
+        "NEXT_PUBLIC_CRISP_ID"
       ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },

@@ -10,6 +10,10 @@ export const env = {
     webhookSecretKey: process.env.CLERK_WEBHOOK_SIGNING_SECRET!,
   },
 
+  crisp: {
+    websiteId: process.env.NEXT_PUBLIC_CRISP_ID!,
+  },
+
   encryption: {
     secret: process.env.ENCRYPTION_SECRET!,
   },
