@@ -69,7 +69,7 @@ export class WhatsAppClient {
                     for (const error of status.errors) {
                         const message = getWhatsAppErrorMessage(error.code)
                         // notify the user with a friendly message
-                        await this.sendRawMessage(status.recipient_id, message).catch(() => { })
+                        this.sendRawMessage(status.recipient_id, message).catch(() => { })
                     }
                 } else {
                     console.log("[whatsapp] status update:", status.status, status.id)
