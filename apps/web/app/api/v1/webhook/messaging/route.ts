@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { env } from "@snappin/env";
 import { whatsappClient } from "@snappin/apps/whatsapp/whatsapp.client";
-import { processEvent } from "@snappin/features/mobileScanners/trigger/message.received.task";
+import { messageReceived } from "@snappin/features/mobileScanners/trigger/message.received.task";
 import { createHmac, timingSafeEqual } from "crypto";
 
 function verifySignature(body: string, signature: string | null): boolean {
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         const payload = JSON.parse(rawBody);
         const events = await whatsappClient.normalizeNotification(payload);
 
-        await Promise.all(events.map((event) => processEvent(event))).catch((err) => {
+        Promise.all(events.map((event) => messageReceived.trigger(event))).catch((err) => {
             console.error("[POST /webhook/messaging] processEvent error:", err);
         });
 
