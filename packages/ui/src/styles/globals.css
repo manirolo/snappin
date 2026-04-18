@@ -211,18 +211,19 @@
   --chart-6: #d6409f;
 
   /* === Sidebar === */
-  --sidebar: #181925;
-  --sidebar-foreground: #e0e0e0;
+  --sidebar: #F5F5F5;
+  --sidebar-foreground: var(--color-fg-3);
   --sidebar-primary: #918df6;
   --sidebar-primary-foreground: #fff;
-  --sidebar-accent: #0000001f;
-  --sidebar-accent-foreground: #fff;
-  --sidebar-border: #0000001f;
+  --sidebar-accent: var(--color-sidebar);
+  --sidebar-accent-foreground: var(--color-fg-4);
+  --sidebar-border: var(--color-sidebar);
   --sidebar-ring: #918df6;
 
   /* === Misc === */
   --shadow: #0000000d;
   --table: #fdfdfb;
+  --navbar: #181925;
   --overlay: #00000033;
   --color-primary-btn: #918df6;
   --color-secondary-btn: #f0f0f0;
@@ -534,6 +535,7 @@
   --color-secondary-btn: var(--color-secondary-btn);
   --color-card-1: var(--color-card-1);
   --color-card-2: var(--color-card-2);
+  --color-navbar: var(--navbar);
 }
 
 @layer utilities {

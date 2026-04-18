@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   applicationName: "Snappin",
   creator: "Snappin",
   publisher: "Snappin",
-  generator: "Snappin"
+  generator: "Snappin",
 };
 
 export const viewport: Viewport = {

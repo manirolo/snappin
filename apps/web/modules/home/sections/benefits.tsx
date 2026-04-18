@@ -1,10 +1,9 @@
 import React from "react";
-import { Paragraph } from "@snappin/ui/components/typography";
 import {
   Mail01Icon,
   ShieldKeyIcon,
   Invoice03Icon,
-//   LightningIcon,
+  //   LightningIcon,
 } from "@hugeicons-pro/core-stroke-rounded";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import { Section } from "../../../components/layout/sectionLayout";
@@ -26,7 +25,7 @@ const benefits = [
     icon: Invoice03Icon,
     title: "Auto-extracted invoices",
     description:
-      "Our AI reads receipts, bills and invoices so you never have to enter data manually.",
+      "Our AI reads receipts, and invoices so you never have to enter data manually.",
   },
 ];
 
@@ -42,12 +41,16 @@ const BenefitCard = ({
   return (
     <div className="flex flex-col items-center text-center gap-3 px-4">
       <div className="size-10 rounded-full bg-green-a1 flex items-center justify-center">
-        <HugeiconsIcon icon={Icon} className="w-5 h-5 text-green-3" strokeWidth={2} />
+        <HugeiconsIcon
+          icon={Icon}
+          className="w-5 h-5 text-green-3"
+          strokeWidth={2}
+        />
       </div>
-      <h6 className="text-fg-4">{title}</h6>
-      <Paragraph className="text-fg-2 text-sm leading-relaxed max-w-50">
-        {description}
-      </Paragraph>
+      <div className="flex flex-col gap-3">
+        <h3 className="text-base/6 font-medium text-center text-fg-4">{title}</h3>
+        <span className="text-fg-2 text-sm/5.5">{description}</span>
+      </div>
     </div>
   );
 };
@@ -55,7 +58,7 @@ const BenefitCard = ({
 export const Benefits = () => {
   return (
     <Section>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-5xl mx-auto">
         {benefits.map((b) => (
           <BenefitCard
             key={b.title}

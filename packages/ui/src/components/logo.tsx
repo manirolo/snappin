@@ -72,7 +72,7 @@ export const LogoSymbol = ({
   >
     <div className="relative shrink-0 size-7 inline-block">
       <Image
-        src={"/images/icon.png"}
+        src={"/images/favicon.png"}
         fill
         className="object-contain"
         alt="Snappin"

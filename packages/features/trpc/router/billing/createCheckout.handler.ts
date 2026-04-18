@@ -37,7 +37,7 @@ export async function createCheckout({
     ) {
       throw new TRPCError({
         code: "BAD_REQUEST",
-        message: "Active subscription already exists.",
+        message: "You already have an active subscription. Cancel your current plan, then try again.",
       });
     }
 

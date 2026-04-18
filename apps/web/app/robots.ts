@@ -17,11 +17,9 @@ export default function robots(): MetadataRoute.Robots {
         rules: [
             {
                 userAgent: "*",
-                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/blog/", "/docs"],
+                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/blog/", "/docs", "/docs/"],
                 disallow: [
                     "/dashboard",
-                    "/login",
-                    "/signup",
                     "/retroSearch",
                     "/settings",
                     "/integrations",
@@ -34,11 +32,9 @@ export default function robots(): MetadataRoute.Robots {
             },
             {
                 userAgent: "Googlebot,Bingbot,Slurp,DuckDuckBot,Baiduspider,Yandex,Sogou,Exabot,facebot,facebookexternalhit,Twitterbot,Applebot,AhrefsBot,SemrushBot,MJ12bot",
-                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/blog/", "/docs"],
+                allow: ["/", "/pricing", "/terms", "/policy", "/contact", "/blog", "/blog/", "/docs", "/docs/"],
                 disallow: [
                     "/dashboard",
-                    "/login",
-                    "/signup",
                     "/retroSearch",
                     "/settings",
                     "/integrations",
