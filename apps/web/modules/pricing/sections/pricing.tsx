@@ -40,11 +40,11 @@ export const PricingSection = () => {
   const [checkoutPlanId, setCheckoutPlanId] = React.useState<PlanId | null>(
     null,
   );
+  const [error, setError] = React.useState<string | null>(null)
 
   const createCheckout = trpc.billing.createCheckout.useMutation({
     onError: (err) => {
-      toast.error(err.message ?? "Failed to create checkout session");
-      setCheckoutPlanId(null);
+      setError(err.message ?? "Failed to create checkout session");
     },
   });
 
@@ -75,7 +75,7 @@ export const PricingSection = () => {
     <div>
       <Section>
         <SectionHeader>
-          <SectionTitle>Simplified Pricing</SectionTitle>
+          <SectionTitle>Simple, flexible pricing</SectionTitle>
           <SectionDescription>
             Start for free. No credit card required. Upgrade when you&#39;re
             ready
@@ -197,6 +197,8 @@ export const PricingSection = () => {
                             `Get Started`
                           )}
                         </Button>
+
+                        {error && <span className="text-sm font-normal leading-relaxed text-destructive">{error}</span>}
                       </CardHeader>
 
                       <CardContent className="flex-1 mt-1 space-y-4 text-sm">

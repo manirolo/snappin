@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "../logo";
+import { Logo, LogoSymbol } from "../logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,6 +27,7 @@ import {
   MoneyBag02Icon,
   Settings01Icon as SettingsIcon,
   Home01Icon as HomeIcon,
+  Book04Icon,
 } from "@hugeicons-pro/core-stroke-rounded";
 // import { Tooltip, TooltipContent, TooltipTrigger } from "../tooltip";
 import { Badge } from "../badge";
@@ -226,6 +227,19 @@ const UserDropdown = ({
                 />
               </Link>
             </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link
+                href="/docs"
+                className="flex items-center justify-between w-full"
+              >
+                Documentations{" "}
+                <HugeiconsIcon
+                  className="size-4 text-fg-2"
+                  strokeWidth={2}
+                  icon={Book04Icon}
+                />
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuGroup>
         </>
       )}
@@ -261,7 +275,7 @@ export const Navbar = ({
   showNavItems = true,
   planId,
   billingButton,
-  organization
+  organization,
 }: {
   user: User;
   signOut: () => void;
@@ -275,7 +289,12 @@ export const Navbar = ({
     {/* Top bar */}
     <div className="flex items-center justify-between h-18 px-4 xl:px-8 border-b border-b-bg-3">
       <div className="flex items-center gap-8">
-        <Logo onClickRedirectLink={LOGO_REDIRECT[variant]} />
+        <div className="hidden lg:flex">
+          <Logo onClickRedirectLink={LOGO_REDIRECT[variant]} />
+        </div>
+        <div className="flex lg:hidden">
+          <LogoSymbol onClickRedirectLink={LOGO_REDIRECT[variant]} />
+        </div>
       </div>
       {/* Secondary nav */}
       {showNavItems && (

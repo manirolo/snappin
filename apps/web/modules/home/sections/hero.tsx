@@ -14,15 +14,13 @@ export const HeroSection = () => {
           <AnnouncementBanner badgeLabel="NEW" href="https://producthunt.com/products/snappin-app" setTarget_Bank>We live on Product Hunt</AnnouncementBanner>
           <H1 className="mt-6 text-center">
             AI that organizes
-          </H1>
-          <H1 className="text-fg-4 text-center">
+            <span className="block"></span>
             your invoices.
           </H1>
         </div>
         <div>
-          <Lead className="text-center leading-relaxed max-w-md mx-auto">
-            Connect your email accounts start extracting invoices, receipts and
-            bills automatically. No manual work.
+          <Lead className="text-center text-fg-3 leading-relaxed max-w-md mx-auto">
+            Connect your email accounts to start extracting invoices, and receipts automatically.
           </Lead>
         </div>
         <div className="flex flex-col items-center gap-4 mt-2">
@@ -30,20 +28,21 @@ export const HeroSection = () => {
             <Button radius={"full"} className="w-full rounded-[22px]" size={"lg"} asChild>
               <Link href={"/signup"}>Get Started for Free</Link>
             </Button>
-            {/* <Button
+            <Button
               variant={"dim"}
               className="w-full font-semibold rounded-[22px] text-fg-3"
               size={"lg"}
               asChild
             >
-              <Link href={"/signup"}>Watch demo</Link>
-            </Button> */}
+              <Link href={"/#"}>Watch demo</Link>
+            </Button>
           </div>
+          <span className="text-fg-2 text-sm font-normal">Free plan. No credit card required</span>
         </div>
 
-        <div className="relative mx-auto max-w-4xl flex flex-col items-center gap-8 mt-12">
+        <div className="relative mx-auto max-w-5xl flex flex-col items-center gap-8 mt-12">
           <Image
-            className="max-w-4xl rounded-sm md:rounded-4xl border border-bg-3 h-fit flex items-start"
+            className="max-w-5xl rounded-sm md:rounded-4xl border-8 border-bg-3 h-fit flex items-start"
             imageClassName="rounded-sm md:rounded-4xl object-contain"
             src="/images/landing/snappin_app_screenshot.png"
             alt=""

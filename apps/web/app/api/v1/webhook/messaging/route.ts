@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         const payload = JSON.parse(rawBody);
         const events = await whatsappClient.normalizeNotification(payload);
 
-        Promise.all(events.map((event) => processEvent(event))).catch((err) => {
+        await Promise.all(events.map((event) => processEvent(event))).catch((err) => {
             console.error("[POST /webhook/messaging] processEvent error:", err);
         });
 
