@@ -34,8 +34,10 @@ export const messageReceived = schemaTask({
         const { messageId, media, type } = payload
         const from = payload.from.startsWith("+") ? payload.from : `+${payload.from}`
 
-        await whatsappClient.sendTyping(from, messageId)
-        connectDB()
+        await Promise.all([
+            connectDB(),
+            whatsappClient.sendTyping(from, messageId).catch(() => { }),
+        ])
 
         const integration = await db.integration.findOne({ status: IntegrationStatus.CONNECTED, "metadata.phone": from })
 
