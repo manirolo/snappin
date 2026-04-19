@@ -4,6 +4,15 @@ RUN apk add --no-cache bash curl libc6-compat
 FROM base AS builder
 WORKDIR /app
 RUN npm install -g turbo pnpm
+
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+COPY turbo.json ./
+
+COPY apps/api/package.json ./apps/api/package.json
+COPY packages/ ./packages/
+
 COPY . .
 RUN turbo prune @snappin/api --docker
 
@@ -13,6 +22,7 @@ RUN npm install -g pnpm turbo
 
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 RUN pnpm install --frozen-lockfile --ignore-scripts
 COPY --from=builder /app/out/full/ .

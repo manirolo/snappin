@@ -1,2 +1,7 @@
-node_modules
-.turbo
+# ✅ Correct .dockerignore for turborepo + pnpm
+**/node_modules
+**/.turbo
+**/dist
+**/.next
+.env
+.env.*
