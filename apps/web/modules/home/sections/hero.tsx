@@ -24,7 +24,7 @@ export const HeroSection = () => {
           </Lead>
         </div>
         <div className="flex flex-col items-center gap-4 mt-2">
-          <div className="flex flex-col sm:flex-row gap-2 items-center">
+          <div className="flex flex-col sm:flex-row max-w-sm w-full md:w-fit gap-2 items-center">
             <Button radius={"full"} className="w-full rounded-[22px]" size={"lg"} asChild>
               <Link href={"/signup"}>Get Started for Free</Link>
             </Button>
