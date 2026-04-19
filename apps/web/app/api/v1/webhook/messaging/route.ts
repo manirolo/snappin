@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { env } from "@snappin/env";
-import { whatsappClient } from "@snappin/apps/whatsapp/whatsapp.client";
-import { messageReceived } from "@snappin/features/mobileScanners/trigger/message.received.task";
 import { createHmac, timingSafeEqual } from "crypto";
 
 function verifySignature(body: string, signature: string | null): boolean {
@@ -41,6 +39,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const rawBody = await request.text();
+        console.time("[webhook] total")
+
         const signature = request.headers.get("x-hub-signature-256");
         const isValid = verifySignature(rawBody, signature);
 
@@ -48,13 +48,24 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
         }
 
+        const [
+            { whatsappClient },
+            { messageReceived },
+        ] = await Promise.all([
+            import("@snappin/apps/whatsapp/whatsapp.client"),
+            import("@snappin/features/mobileScanners/trigger/message.received.task"),
+        ])
+
+        console.time("[webhook] normalizeNotification")
         const payload = JSON.parse(rawBody);
         const events = await whatsappClient.normalizeNotification(payload);
+        console.timeEnd("[webhook] normalizeNotification") // ← check this
 
-        Promise.all(events.map((event) => messageReceived.trigger(event))).catch((err) => {
-            console.error("[POST /webhook/messaging] processEvent error:", err);
-        });
+        console.time("[webhook] trigger")
+        events.map((event) => messageReceived.trigger(event));
+        console.timeEnd("[webhook] trigger") // ← check this
 
+        console.timeEnd("[webhook] total")
         return NextResponse.json({ ok: true });
     } catch (err) {
         console.error("[POST /webhook/messaging] webhook error:", err);
