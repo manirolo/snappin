@@ -59,38 +59,52 @@ export class WhatsAppClient {
     }
 
     async normalizeNotification(payload: WhatsAppNotificationPayload): Promise<NormalizedMessageEvent[]> {
-
         const value = payload.entry?.[0]?.changes?.[0]?.value
+
+        // ✅ Early return — status updates are delivery receipts for YOUR outgoing messages
+        // sent/delivered/read = ignore completely, no processing needed
         if (value?.statuses?.length) {
             for (const status of value.statuses) {
                 if (status.errors?.length) {
+                    // Only log errors — still don't block
                     console.error("[whatsapp] status error:", JSON.stringify(status))
-
                     for (const error of status.errors) {
                         const message = getWhatsAppErrorMessage(error.code)
-                        // notify the user with a friendly message
-                        await this.sendRawMessage(status.recipient_id, message).catch(() => { })
+                        this.sendRawMessage(status.recipient_id, message).catch(() => { })
                     }
-                } else {
-                    console.log("[whatsapp] status update:", status.status, status.id)
                 }
+                // sent/delivered/read → completely ignore, no log needed
             }
+            return [] // ✅ Exit immediately — nothing to trigger
         }
+
         const messages = value?.messages ?? []
-        return messages.map((msg) => ({
-            provider: AppSlug.WHATSAPP,
-            from: msg.from,
-            messageId: msg.id,
-            type: msg.type,
-            text: msg.text?.body,
-            media: msg.document || msg.image
-                ? {
-                    ref: (msg.document ?? msg.image)!.id,
-                    mimeType: (msg.document ?? msg.image)!.mime_type,
-                    filename: msg.document?.filename
-                }
-                : undefined
-        }))
+        const normalized: NormalizedMessageEvent[] = []
+
+        for (const msg of messages) {
+            if (!["text", "document", "image"].includes(msg.type)) {
+                console.log("[whatsapp] unsupported type:", msg.type, "from:", msg.from)
+                this.sendMessage(msg.from, MessageReplyReason.UNSUPPORTED_DOCUMENT).catch(() => { })
+                continue
+            }
+
+            normalized.push({
+                provider: AppSlug.WHATSAPP,
+                from: msg.from,
+                messageId: msg.id,
+                type: msg.type,
+                text: msg.text?.body,
+                media: msg.document || msg.image
+                    ? {
+                        ref: (msg.document ?? msg.image)!.id,
+                        mimeType: (msg.document ?? msg.image)!.mime_type,
+                        filename: msg.document?.filename,
+                    }
+                    : undefined,
+            })
+        }
+
+        return normalized
     }
 
     // ✅ only one sendTyping

@@ -132,7 +132,7 @@ export const ManualInvoiceUploadDialog = () => {
 
       {/* Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="w-full sm:max-w-xl flex md:flex-col">
+        <DialogContent className="w-full sm:max-w-lg flex md:flex-col">
           <DialogHeader>
             <DialogLabel>Upload</DialogLabel>
             <DialogTitle>Upload document</DialogTitle>

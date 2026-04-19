@@ -37,27 +37,47 @@ export const HomeFooter = () => {
               <Link href={"/blog"} className="text-fg-3 text-sm">
                 Blog
               </Link>
-              <Link href={"/contact"} className="text-fg-3 text-sm">
-                Contact
-              </Link>
               <Link href={"/privacy"} className="text-fg-3 text-sm">
                 Privacy
               </Link>
               <Link href={"/terms"} className="text-fg-3 text-sm">
                 Terms
               </Link>
-              <Link href={"https://snappin.lemonsqueezy.com/affiliates"} target="_blank" className="text-fg-3 text-sm">
+              <Link
+                href={"https://snappin.lemonsqueezy.com/affiliates"}
+                target="_blank"
+                className="text-fg-3 text-sm"
+              >
                 Affiliate (20%)
+              </Link>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Small className="text-fg-4">Support</Small>
+            <div className="flex flex-col gap-1">
+              <Link href={"/contact"} className="text-fg-3 text-sm">
+                Contact
+              </Link>
+              <Link href={"/docs"} className="text-fg-3 text-sm">
+                Docs
               </Link>
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <Small className="text-fg-4">Developer</Small>
             <div className="flex flex-col gap-1">
-              <Link href={"http://snappinapp.userjot.com/"} target="_blank" className="text-fg-3 text-sm">
+              <Link
+                href={"http://snappinapp.userjot.com/"}
+                target="_blank"
+                className="text-fg-3 text-sm"
+              >
                 Feedback
               </Link>
-              <Link href={"https://status.snappinapp.com/"} target="_blank" className="text-fg-3 text-sm">
+              <Link
+                href={"https://status.snappinapp.com/"}
+                target="_blank"
+                className="text-fg-3 text-sm"
+              >
                 Platform Status
               </Link>
             </div>

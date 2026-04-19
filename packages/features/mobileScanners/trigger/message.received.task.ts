@@ -1,25 +1,39 @@
 import { MessageReplyReason, PROCESSING_REACTIONS, buildExtractionSummary } from '@snappin/shared/apps/messaging/messaging.schema'
 import { IntegrationStatus } from '@snappin/shared/integration/status.enum'
 import { NormalizedMessageEvent } from "./message.received.schema"
-import { db } from '@snappin/db/index'
-import { connectDB } from '@snappin/db/connect'
-import { whatsappClient } from '@snappin/apps/whatsapp/whatsapp.client'
-import { invoiceExtractionRequestService } from "@snappin/features/invoice/services/invoiceExtractionRequest.service"
-import { documentService } from "@snappin/features/invoice/services/invoiceDocument.service"
-import { invoiceExtractService } from "@snappin/features/invoice/services/invoiceExtract.service"
-import { invoiceSaveService } from "@snappin/features/invoice/services/invoiceSave.service"
-import { SourceKind } from "@snappin/shared/apps/app.schema"
-import { resolveIntegrationSnapshot } from "@snappin/features/integration/lib/resolveIntegrationSnapshot"
-import { formatDate } from "@snappin/lib/date/formateDate";
+import { SourceKind } from '@snappin/shared/apps/app.schema';
 
 const SUPPORTED_MIME_TYPES = ["application/pdf", "image/jpeg", "image/png", "image/jpg"]
 
-export async function processEvent(event: NormalizedMessageEvent) {
-    const { messageId, media, type } = event
-    const from = event.from.startsWith("+") ? event.from : `+${event.from}`
+export const messageReceived = async (payload: NormalizedMessageEvent) => {
+    const [
+        { db },
+        { connectDB },
+        { whatsappClient },
+        { invoiceExtractionRequestService },
+        { documentService },
+        { invoiceExtractService },
+        { invoiceSaveService },
+        { resolveIntegrationSnapshot },
+        { formatDate },
+    ] = await Promise.all([
+        import('@snappin/db/index'),
+        import('@snappin/db/connect'),
+        import('@snappin/apps/whatsapp/whatsapp.client'),
+        import('@snappin/features/invoice/services/invoiceExtractionRequest.service'),
+        import('@snappin/features/invoice/services/invoiceDocument.service'),
+        import('@snappin/features/invoice/services/invoiceExtract.service'),
+        import('@snappin/features/invoice/services/invoiceSave.service'),
+        import('@snappin/features/integration/lib/resolveIntegrationSnapshot'),
+        import('@snappin/lib/date/formateDate'),
+    ])
+    const { messageId, media, type } = payload
+    const from = payload.from.startsWith("+") ? payload.from : `+${payload.from}`
 
-    await whatsappClient.sendTyping(from, messageId)
-    connectDB()
+    await Promise.all([
+        connectDB(),
+        whatsappClient.sendTyping(from, messageId).catch(() => { }),
+    ])
 
     const integration = await db.integration.findOne({ status: IntegrationStatus.CONNECTED, "metadata.phone": from })
 
@@ -99,7 +113,7 @@ export async function processEvent(event: NormalizedMessageEvent) {
             whatsappClient.reactToMessage(from, messageId, PROCESSING_REACTIONS.DONE),
             whatsappClient.sendRawMessage(from, summary),   // send summary text directly
         ])
-    } catch(err) {
+    } catch (err) {
         console.error("[processEvent] extraction failed:", err)
         await Promise.all([
             whatsappClient.reactToMessage(from, messageId, PROCESSING_REACTIONS.FAILED),

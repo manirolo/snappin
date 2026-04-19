@@ -111,3 +111,8 @@ export function getBlogPosts(): BlogPost[] {
 
     return [...mdxPosts];
 }
+
+
+export function getDocs() {
+    return getMDXData(path.join(process.cwd(), "content/docs"));
+}

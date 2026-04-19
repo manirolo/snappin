@@ -19,7 +19,7 @@ export async function cancelSubscription({ ctx }: CancelSubscription) {
 
     if (subscription?.subscriptionId) {
         await cancel(subscription.subscriptionId).catch((err) => {
-            console.warn("[deleteUser] Failed to cancel LS subscription:", err?.message)
+            console.warn("[subscription] Failed to cancel LS subscription:", err?.message)
         })
     }
 }

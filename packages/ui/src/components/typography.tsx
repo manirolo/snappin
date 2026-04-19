@@ -5,7 +5,7 @@ const headingStyle = 'font-rubik!'
 
 export function H1({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h1 className={cn(headingStyle, "scroll-m-20 leading-14! text-5xl font-semibold tracking-tight md:text-[3.5rem]", className)}>
+    <h1 className={cn(headingStyle, "scroll-m-20 md:text-balance font-semibold tracking-tighter text-fg-4 text-6xl/17", className)}>
       {children}
     </h1>
   )
@@ -67,7 +67,7 @@ export const ExtraSmall = ({children, className}: {children?: React.ReactNode, c
 
 export function Lead({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-muted-foreground text-[0.98rem] md:text-[1rem]", className)}>
+    <p className={cn("text-muted-foreground text-lg/7", className)}>
       {children}
     </p>
   )
