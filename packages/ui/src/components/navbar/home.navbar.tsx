@@ -23,7 +23,7 @@ export const HomeNavbar = () => {
   return (
     <div className="min-h-20">
       <div className="fixed left-0 right-0 top-0 z-50 px-4 xl:px-0">
-        <div className="relative max-w-xl w-full mx-auto mt-8">
+        <div className="relative max-w-xl w-full mx-auto mt-4 xl:mt-8">
           {/* ── Navbar pill ── */}
           <div className="flex z-40! items-center min-h-12 sm:min-h-13 bg-navbar text-white rounded-3xl gap-1 p-2 pl-3 pr-5 xl:px-3 justify-between">
             <LogoSymbol>Snappin</LogoSymbol>
