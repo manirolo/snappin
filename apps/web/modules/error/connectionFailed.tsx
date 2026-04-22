@@ -1,30 +1,26 @@
-import { Alert01Icon } from "@hugeicons-pro/core-bulk-rounded";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { Button } from "@snappin/ui/components/button";
-import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle, EmptyContent } from "@snappin/ui/components/empty";
+import { H2, Small } from "@snappin/ui/components/typography";
 import Link from "next/link";
 import React from "react";
 
 export const ConnectionFailed = () => {
   return (
-    <div className="min-h-[50vh] flex items-center justify-center">
-      <Empty>
-        <EmptyHeader>
-          <EmptyMedia>
-            <HugeiconsIcon
-              className="size-10 text-yellow-500"
-              icon={Alert01Icon}
-            />
-          </EmptyMedia>
-          <EmptyTitle>Connection failed</EmptyTitle>
-          <EmptyDescription>An unexpected error occurred while we performing the action. Our engineers working hard to fix it.</EmptyDescription>
-        </EmptyHeader>
-        <EmptyContent className="flex flex-row justify-center">
+    <div className="flex items-center justify-center">
+      <div>
+        <div className="flex flex-col max-w-xl mx-auto items-center justify-center gap-4 mt-6 text-center min-h-[50vh]">
+          <H2 className="font-bold">Something went wrong :(</H2>
+          <Small>
+            An unexpected error occurred while we performing the action. Our
+            engineers working hard to fix it.
+          </Small>
+
+          <div className="flex mt-8 flex-row justify-center">
             <Button variant="outline" asChild>
-                <Link href="/dashboard">Home</Link>
+              <Link href="/dashboard">Home</Link>
             </Button>
-        </EmptyContent>
-      </Empty>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

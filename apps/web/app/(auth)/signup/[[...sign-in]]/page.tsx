@@ -11,12 +11,21 @@ import { Client as SignInClient } from "./client";
 
 export default function Page() {
   return (
-    <div className="flex justify-center flex-col xl:items-center xl:flex-row min-h-screen ">
+    <div className="flex justify-between flex-col xl:items-center xl:flex-row min-h-screen ">
       <Layout>
         <SignInClient />
       </Layout>
-      <div className="hidden bg-gray-6 xl:flex xl:w-1/2">
+      <div className="relative hidden bg-gray-6 xl:flex h-screen xl:w-280">
+        <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-zinc-900/3"></div>
         {/* Product demo tour or customer reviews can go here */}
+        <video
+          src="/videos/snappin_demo_on_auth_page.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
       </div>
     </div>
   );

@@ -4,8 +4,8 @@ import React from "react";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="max-h-screen">
-      <div className="flex min-h-[80vh] max-w-md mx-auto flex-col items-center justify-center p-2">
+    <div className="max-h-screen w-auto mx-auto flex justify-center">
+      <div className="flex min-h-[95vh] max-w-md mx-auto flex-col items-center justify-center p-2">
         {children}
 
         <footer className="max-w-md text-center mt-8">

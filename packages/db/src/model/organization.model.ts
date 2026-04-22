@@ -40,7 +40,7 @@ const OrganizationPreferenceSchema = new mongoose.Schema<OrganizationPreferenceR
 
 const OrganizationSchema = new mongoose.Schema<OrganizationResource>({
     clerkOrgId: { type: String, default: null, unique: true, index: true },
-    name: { type: String, default: null, unique: true, index: true },
+    name: { type: String, default: null, unique: true },
     slug: { type: String, default: null },
     createdBy: { type: String, default: null },
     logoUrl: { type: String, default: null },

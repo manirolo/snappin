@@ -1,11 +1,10 @@
 "use client";
 
 import { SignIn } from "@clerk/nextjs";
-import { appearance } from "../../_components/appearance";
 
 export const Client = () => {
   return (
-    <SignIn appearance={appearance} />
+    <SignIn />
     // <SignIn.Root>
     //   <SignIn.Step name="start" className="sm:w-fit">
     //     <div>

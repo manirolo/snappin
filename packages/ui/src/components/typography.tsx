@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cn } from "@snappin/ui/lib/utils"
 
-const headingStyle = 'font-rubik!'
+const headingStyle = 'font-inter'
 
 export function H1({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
@@ -13,7 +13,7 @@ export function H1({children, className}: {children?: React.ReactNode, className
 
 export function H2({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h2 className={cn(headingStyle, "text-4xl text-center font-medium tracking-tight text-fg-4 leading-11 text-balance", className)}>
+    <h2 className={cn(headingStyle, "text-4xl text-center font-medium tracking-tighter text-fg-4 leading-11 text-balance", className)}>
       {children}
     </h2>
   )
@@ -67,7 +67,7 @@ export const ExtraSmall = ({children, className}: {children?: React.ReactNode, c
 
 export function Lead({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-muted-foreground text-lg/7", className)}>
+    <p className={cn("text-muted-foreground tracking-tight font-medium text-lg/7", className)}>
       {children}
     </p>
   )

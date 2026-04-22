@@ -98,6 +98,7 @@ const enforceUserHasOrg = t.middleware(async (opts) => {
             ...ctx,
             userId: ctx.userId,
             orgId: ctx.orgId,
+            orgRole: ctx.orgRole
         }
     });
 });
@@ -105,6 +106,8 @@ const enforceUserHasOrg = t.middleware(async (opts) => {
 // Checks user is in an org AND is an admin
 const enforceOrgAdmin = t.middleware(async (opts) => {
     const { ctx } = opts;
+    
+        console.log(ctx)
     if (!ctx.userId) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }

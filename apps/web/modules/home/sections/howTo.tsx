@@ -74,23 +74,23 @@ export const HowTo = () => {
           </Card>
           <Card className="w-full max-w-xs">
             <CardHeader className="flex border-b border-bg-3 h-76">
-              <div className="flex justify-center translate-x-8 gap-4 w-full items-center">
+              <div className="flex justify-center gap-4 w-full items-center">
                 <Image
                   src="/images/vendors/logos/xero.png"
-                  alt="xero logo"
-                  className="size-14"
-                  imageClassName="object-contain"
-                />
-                <Image
-                  src="/images/vendors/logos/quickbooks.png"
                   alt="xero logo"
                   className="size-10"
                   imageClassName="object-contain"
                 />
                 <Image
+                  src="/images/vendors/logos/quickbooks.png"
+                  alt="xero logo"
+                  className="size-11"
+                  imageClassName="object-contain"
+                />
+                <Image
                   src="/images/vendors/logos/google_drive.png"
                   alt="xero logo"
-                  className="size-6"
+                  className="size-10"
                   imageClassName="object-contain"
                 />
               </div>
