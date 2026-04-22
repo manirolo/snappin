@@ -1,14 +1,30 @@
 import { appMetadata } from "@snappin/apps/app.metadata";
-import { Integration } from "@snappin/features/integration/components/integrationCard";
+import {
+  // Integration,
+  IntegrationCard,
+  IntegrationCardContent,
+  IntegrationCardFooter,
+  IntegrationCardHeader,
+  IntegrationCardHeaderMain,
+  IntegrationCardIcon,
+  IntegrationCardTitle,
+} from "@snappin/features/integration/components/integrationCard";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
 import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
 import { useRouter } from "next/navigation";
 import { AppSlug } from "@snappin/shared/apps/app.schema";
-import { IntegrationResource } from "@snappin/shared/integration/integration.schema";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, { useState } from "react";
 import { trpc } from "@snappin/features/trpc/react/client";
 import toast from "react-hot-toast";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
+import { Badge } from "@snappin/ui/components/badge";
+import { cn } from "@snappin/ui/lib/utils";
+import {
+  IntegrationStatus,
+  statusLabel,
+} from "@snappin/shared/integration/status.enum";
+import { Button } from "@snappin/ui/components/button";
+import { Spinner } from "@snappin/ui/assets/svg/spinner";
 
 export const GoogleDrive = () => {
   const router = useRouter();
@@ -65,51 +81,106 @@ export const GoogleDrive = () => {
     });
   };
 
+  const status = integration?.status as IntegrationStatus;
+  const config = status ? statusLabel[status] : null;
+  const isConnected = !!connected;
+
   return (
-    <Integration
-      name={appMetadata.google_drive.name}
-      description={appMetadata.google_drive.description}
-      icon={appMetadata.google_drive.iconifyIcon}
-      appSlug={appMetadata.google_drive.slug}
-      isComingSoon={appMetadata.google_drive.isComingSoon}
-      note={appMetadata.google_drive.disclaimer}
-      isLoading={integration.isLoading}
-      isConnected={!!connected}
-      hint={connected?.identifierEmail ?? ""}
-      connectLoading={loading}
-      isProgress={isLoading}
-      reAuthorizationNeeded={needReAuthorization ?? false}
-      onReAuthorization={handleReAuthorization}
-      integration={integration?.data}
-      onConnectClick={() =>
-        redirectToOAuthConsentScreen({
-          appSlug: appMetadata.google_drive.slug,
-          redirectAfterPath: "/integrations",
-        })
-      }
-      onDisconnectClick={() => removeIntegration()}
-    />
+    <IntegrationCard>
+      <IntegrationCardHeader>
+        <IntegrationCardIcon icon={appMetadata.google_drive.iconifyIcon} />
+        <IntegrationCardHeaderMain>
+          <IntegrationCardTitle>
+            {appMetadata.google_drive.name}
+          </IntegrationCardTitle>
+          {status && status == "reauth_required" && (
+            <Badge
+              size="sm"
+              variant={config?.variant}
+              appearance={config?.label ? "outline" : "ghost"}
+              className={cn(
+                "text-start bg-transparent border-transparent px-0 text-xs justify-start",
+                !config?.label && "text-muted-foreground",
+              )}
+            >
+              {config?.label ?? "Not Connected"}
+            </Badge>
+          )}
+          {connected?.identifierEmail && (
+            <span className="text-muted-foreground text-xs">
+              {connected?.identifierEmail}
+            </span>
+          )}
+        </IntegrationCardHeaderMain>
+      </IntegrationCardHeader>
+      <IntegrationCardContent>
+        {appMetadata?.google_drive?.description}
+      </IntegrationCardContent>
+      <IntegrationCardFooter>
+        <div className={cn("w-full flex gap-2")}>
+          <Button
+            variant={
+              needReAuthorization
+                ? "warning"
+                : isConnected
+                  ? "destructive_light"
+                  : "outline"
+            }
+            onClick={
+              needReAuthorization
+                ? handleReAuthorization
+                : isConnected
+                  ? removeIntegration
+                  : () =>
+                      redirectToOAuthConsentScreen({
+                        appSlug: appMetadata.google_drive.slug,
+                        redirectAfterPath: "/integrations",
+                      })
+            }
+            disabled={isLoading || loading == AppSlug.GOOGLE_DRIVE}
+          >
+            {(isLoading || loading) && (
+              <Spinner
+                className={cn(
+                  needReAuthorization
+                    ? "text-yellow-800"
+                    : isConnected
+                      ? "text-destructive"
+                      : "",
+                )}
+              />
+            )}
+            {needReAuthorization
+              ? "Reauthorize"
+              : isConnected
+                ? "Disconnect"
+                : "Connect"}
+          </Button>
+        </div>
+      </IntegrationCardFooter>
+    </IntegrationCard>
+    // <Integration
+    //   name={appMetadata.google_drive.name}
+    //   description={appMetadata.google_drive.description}
+    //   icon={appMetadata.google_drive.iconifyIcon}
+    //   appSlug={appMetadata.google_drive.slug}
+    //   isComingSoon={appMetadata.google_drive.isComingSoon}
+    //   note={appMetadata.google_drive.disclaimer}
+    //   isLoading={integration.isLoading}
+    //   isConnected={!!connected}
+    //   hint={connected?.identifierEmail ?? ""}
+    //   connectLoading={loading}
+    //   isProgress={isLoading}
+    //   reAuthorizationNeeded={needReAuthorization ?? false}
+    //   onReAuthorization={handleReAuthorization}
+    //   integration={integration?.data}
+    //   onConnectClick={() =>
+    //     redirectToOAuthConsentScreen({
+    //       appSlug: appMetadata.google_drive.slug,
+    //       redirectAfterPath: "/integrations",
+    //     })
+    //   }
+    //   onDisconnectClick={() => removeIntegration()}
+    // />
   );
 };
-
-type GoogleDriveEditProps = {
-  integration: IntegrationResource;
-  onDirtyChange: (dirty: boolean) => void;
-  onSavingChange: (saving: boolean) => void;
-};
-
-/** Integration detail / save UI: Google Drive has no editable workspace fields yet. */
-export const EditGoogleDrive = forwardRef<
-  { save: () => void | Promise<void>; isPending?: boolean },
-  GoogleDriveEditProps
->(function EditGoogleDrive(_props, ref) {
-  useImperativeHandle(ref, () => ({
-    save: () => {},
-    isPending: false,
-  }));
-  return (
-    <p className="text-sm text-muted-foreground">
-      There are no additional settings for this connection.
-    </p>
-  );
-});

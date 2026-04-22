@@ -45,7 +45,7 @@ const FAQ_ITEMS = [
     id: "faq-5",
     question: "Is my payment information secure?",
     answer:
-      "Absolutely. All payments are processed securely via Polar.sh. We never store your card details on our servers. You can cancel your subscription at any time from your billing settings.",
+      "Absolutely. All payments are processed securely via LemonSqueezy. We never store your card details on our servers. You can cancel your subscription at any time from your billing settings.",
   },
 ];
 
@@ -73,10 +73,10 @@ export const Faq = () => {
                 value={item.id}
                 className="bg-popover shadow-none border-0 px-4 rounded-lg"
               >
-                <AccordionTrigger className="text-sm h-10 flex items-center font-medium text-left hover:no-underline">
+                <AccordionTrigger className="text-base h-10 flex items-center tracking-tight font-medium text-left hover:no-underline">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed text-fg-3">
+                <AccordionContent className="text-base font-normal tracking-tight leading-relaxed text-fg-3">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

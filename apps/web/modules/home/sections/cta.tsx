@@ -15,7 +15,7 @@ export const Cta = () => {
         <Card className="rounded-3xl h-110">
           <CardContent className="flex justify-center items-center">
             <div className="flex flex-col items-center gap-4 justify-center text-center">
-              <H2 className="font-medium leading-tight">
+              <H2>
                Ready to get started?
               </H2>
               <Paragraph className="max-w-md text-fg-3 leading-relaxed">

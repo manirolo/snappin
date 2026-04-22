@@ -12,7 +12,6 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@snappin/ui/components/tabs";
 import { trpc } from "@snappin/features/trpc/react/client";
 import { Spinner } from "@snappin/ui/assets/svg/spinner";
-import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
 import {
   PRICING_CONFIG,
@@ -32,7 +31,6 @@ import { useRouter } from "next/navigation";
 import { PlanInterval } from "@snappin/shared/billing/plan.schema";
 import { CurlyArrow } from "@snappin/ui/assets/svg/arrow";
 import { motion } from "framer-motion";
-import { Badge } from "@snappin/ui/components/badge";
 import { cn } from "@snappin/ui/lib/utils";
 
 export const PricingSection = () => {
@@ -41,11 +39,11 @@ export const PricingSection = () => {
   const [checkoutPlanId, setCheckoutPlanId] = React.useState<PlanId | null>(
     null,
   );
+  const [error, setError] = React.useState<string | null>(null);
 
   const createCheckout = trpc.billing.createCheckout.useMutation({
     onError: (err) => {
-      toast.error(err.message ?? "Failed to create checkout session");
-      setCheckoutPlanId(null);
+      setError(err.message ?? "Failed to create checkout session");
     },
   });
 
@@ -77,7 +75,7 @@ export const PricingSection = () => {
       <Section>
         <SectionHeader>
           <SectionLabel>Pricing</SectionLabel>
-          <SectionTitle>Simplified Pricing</SectionTitle>
+          <SectionTitle>Choose a plan that suits you</SectionTitle>
           <SectionDescription>
             Start for free. No credit card required. Upgrade when you&#39;re
             ready
@@ -85,13 +83,13 @@ export const PricingSection = () => {
         </SectionHeader>
 
         <SectionContent>
-          <div className="max-w-7xl mx-auto mb-16 space-y-8">
+          <div className="max-w-7xl mx-auto mb-12 space-y-8">
             <Tabs
               value={billingCycle}
               onValueChange={(v) => setBillingCycle(v as BillingCycle)}
               className="w-full"
             >
-              <div className="relative my-18 mt-16 flex items-center justify-center">
+              <div className="relative my-18 mt-8 flex items-center justify-center">
                 {/* Custom animated tab switcher — replaces default TabsList highlight */}
                 <TabsList className="bg-bg-3 border-0 rounded-[22px] w-fit flex relative p-1">
                   {/* Sliding background pill */}
@@ -123,20 +121,20 @@ export const PricingSection = () => {
                 </TabsList>
 
                 <span
-                  className="absolute flex animate-pulse items-center gap-2 font-fuzzy-bubbles! text-[14.5px] text-gray-4 font-normal"
+                  className="absolute flex items-center gap-2 font-fuzzy-bubbles! text-sm text-zinc-900 font-normal"
                   style={{
                     left: "calc(50% + 70px)",
                     top: "-40%",
                     transform: "translateY(-50%)",
                   }}
                 >
-                  <CurlyArrow className="text-gray-4 animate-pulse -rotate-40 mt-4" />
+                  <CurlyArrow className="text-zinc-900 -rotate-40 mt-4" />
                   2 months free
                 </span>
               </div>
             </Tabs>
 
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 border border-bg-3 rounded-xl max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 max-w-5xl mx-auto">
               {PRICING_CONFIG.plans
                 .filter((p) => p.displayOnSite === true)
                 .map((plan) => {
@@ -148,18 +146,9 @@ export const PricingSection = () => {
                   return (
                     <Card
                       key={plan.id}
-                      className={`first:rounded-tl-xl rounded-none last:rounded-tr-xl border-0 flex flex-col border-r last:border-r-0 border-bg-3 shadow-none bg-transparent ${plan.id == "scale" && "bg-card"} bg-card`}
+                      className={`rounded-2xl flex flex-col border border-bg-2 shadow-none bg-transparent ${plan.id == "scale" && "bg-zinc-900! text-white"} bg-card`}
                     >
                       <CardHeader className="text-center relative pb-0">
-                        {plan.id === "scale" && (
-                          <Badge
-                            appearance="outline"
-                            size="sm"
-                            className="absolute bg-transparent top-5 right-5  uppercase"
-                          >
-                            Best value
-                          </Badge>
-                        )}
                         <CardTitle className="font-medium">
                           {plan.label}
                         </CardTitle>
@@ -168,8 +157,8 @@ export const PricingSection = () => {
                           <span className="text-4xl font-bold leading-none">
                             ${displayPrice}
                           </span>
-                          <div className="flex flex-col text-fg-2 text-sm leading-tight mb-0.5">
-                            <span>per</span>
+                          <div className="flex text-fg-2 gap-1 text-sm leading-tight mb-0.5">
+                            <span>per</span>{" "}
                             <span>
                               {billingCycle === "yearly" ? "year" : "month"}
                             </span>
@@ -183,23 +172,28 @@ export const PricingSection = () => {
                         </CardDescription>
 
                         <Button
-                          className="w-full capitalize rounded-[22px] shadow-none my-4"
+                          className="w-full capitalize rounded-[22px] shadow-none my-4 text-fg-4"
                           size="xl"
-                          radius="full"
-                          variant={plan.id == "scale" ? "warning" : "outline"}
+                          variant={plan.id == "scale" ? "primary" : "outline"}
                           disabled={createCheckout.isPending}
                           onClick={() => handleCheckout(plan.id)}
                         >
                           {isLoading ? (
                             <Spinner
                               className={cn(
-                                plan.id == "scale" ? "text-white" : "",
+                                plan.id == "scale" ? "text-fg-4" : "",
                               )}
                             />
                           ) : (
                             `Get Started`
                           )}
                         </Button>
+
+                        {error && (
+                          <span className="text-sm font-normal leading-relaxed text-destructive">
+                            {error}
+                          </span>
+                        )}
                       </CardHeader>
 
                       <CardContent className="flex-1 mt-1 space-y-4 text-sm">
@@ -208,7 +202,10 @@ export const PricingSection = () => {
                           {plan.features[billingCycle]?.map((feat, i) => (
                             <li
                               key={i}
-                              className="flex gap-2 text-fg-4 text-sm items-center leading-relaxed"
+                              className={cn(
+                                "flex gap-2 text-fg-4 text-sm items-center leading-relaxed",
+                                plan.id == "scale" && "text-white/70",
+                              )}
                             >
                               <Icon
                                 icon="mdi:check-circle"
@@ -223,7 +220,10 @@ export const PricingSection = () => {
                           {plan.integrations.map((integration, i) => (
                             <li
                               key={i}
-                              className="flex gap-2 text-fg-4 text-sm items-start"
+                              className={cn(
+                                "flex gap-2 text-fg-4 text-sm items-start",
+                                plan.id == "scale" && "text-white/70",
+                              )}
                             >
                               <Icon
                                 icon="mdi:check-circle"

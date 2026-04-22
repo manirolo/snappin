@@ -6,7 +6,7 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Snappin | AI Invoice Organizer",
+  title: "Snappin | AI Receipt Organizer",
   description:
     "Turn hours of manual invoice work into seconds. Extract invoices from emails and send receipts via WhatsApp—instantly organized and ready to use.",
 };

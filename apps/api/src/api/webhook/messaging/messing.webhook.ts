@@ -2,7 +2,7 @@ import { Context } from "hono";
 import { env } from "@snappin/env"
 import { createHmac } from "crypto"
 
-class MessagingWebhook {
+export class MessagingWebhook {
     async verify(c: Context) {
         const mode = c.req.query("hub.mode");
         const token = c.req.query("hub.verify_token");

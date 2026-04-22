@@ -7,7 +7,6 @@ import {SignUp} from '@clerk/nextjs'
 // import { Icon } from '@iconify/react'
 // import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { appearance } from '../../_components/appearance';
 
 // enum AuthProviders {
 //     GOOGLE = "google"
@@ -19,7 +18,7 @@ export const Client = () => {
     const redirectUrl = searchParams.get('redirect_url') ?? '/dashboard';
 
     return (
-        <SignUp appearance={appearance} forceRedirectUrl={redirectUrl}/>
+        <SignUp forceRedirectUrl={redirectUrl}/>
         // <SignUp.Root afterSignUpUrl={redirectUrl}>
         //     <SignUp.Step name='start' className='sm:w-fit'>
         //         <div>

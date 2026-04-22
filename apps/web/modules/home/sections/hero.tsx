@@ -11,11 +11,11 @@ export const HeroSection = () => {
     <div className="mt-20 px-4 xl:px-0">
       <div className="relative flex flex-col gap-6">
         <div className="flex flex-col items-center">
-          <AnnouncementBanner badgeLabel="NEW" href="https://producthunt.com/products/snappin-app" setTarget_Bank>We live on Product Hunt</AnnouncementBanner>
+          <AnnouncementBanner badgeLabel="NEW" href="/blog/snappin-public-beta-release" setTarget_Bank>We Launched Public Beta</AnnouncementBanner>
           <H1 className="mt-6 text-center">
             AI that organizes
             <span className="block"></span>
-            your invoices.
+            your receipts.
           </H1>
         </div>
         <div>

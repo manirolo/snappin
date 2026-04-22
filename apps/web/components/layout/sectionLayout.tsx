@@ -7,7 +7,7 @@ export const Section = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("py-16 max-w-5xl mx-auto flex flex-col gap-12 relative overflow-hidden", className)} {...props}>
+    <div className={cn("py-12 md:py-18 max-w-5xl mx-auto flex flex-col gap-12 relative overflow-hidden", className)} {...props}>
       {children}
     </div>
   );
@@ -19,7 +19,7 @@ export const SectionHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
-      className="w-full max-w-3xl mx-auto px-4 xl:px-0 flex flex-col items-center text-center gap-5"
+      className="w-full max-w-3xl mx-auto px-4 xl:px-0 flex flex-col items-center text-center gap-4"
       {...props}
     >
       {children}
@@ -48,7 +48,7 @@ export const SectionTitle = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <h2
-      className={cn("text-4xl tracking-tighter text-fg-4 leading-11 font-medium text-balance max-w-lg", className)}
+      className={cn("text-4xl tracking-tighter text-fg-4 leading-tight font-semibold text-balance max-w-2xl", className)}
       {...props}
     >
       {children}
@@ -63,7 +63,7 @@ export const SectionDescription = ({
 }: React.HTMLAttributes<HTMLParagraphElement>) => {
   return (
     <p
-      className={cn("w-full max-w-md font-medium text-fg-2 text-base/7", className)}
+      className={cn("w-full max-w-md font-medium text-fg-1! text-base/7", className)}
       {...props}
     >
       {children}
