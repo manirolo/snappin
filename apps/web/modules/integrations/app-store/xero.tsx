@@ -1,14 +1,30 @@
 import { appMetadata } from "@snappin/apps/app.metadata";
-import { Integration } from "@snappin/features/integration/components/integrationCard";
+import {
+  // Integration,
+  IntegrationCard,
+  IntegrationCardContent,
+  IntegrationCardFooter,
+  IntegrationCardHeader,
+  IntegrationCardHeaderMain,
+  IntegrationCardIcon,
+  IntegrationCardTitle,
+} from "@snappin/features/integration/components/integrationCard";
 import { useOAuthRedirect } from "@snappin/features/auth/redirectToOAuthScreen";
 import { useIntegration } from "@snappin/features/integration/hooks/useIntegration";
-import { AppSlug } from "@snappin/shared/apps/app.schema";
 import { useRouter } from "next/navigation";
+import { AppSlug } from "@snappin/shared/apps/app.schema";
+import React, { useState } from "react";
 import { trpc } from "@snappin/features/trpc/react/client";
 import toast from "react-hot-toast";
-import { useState } from "react";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
-import { XeroIntegration } from "@snappin/shared/integration/integration.schema";
+import { Badge } from "@snappin/ui/components/badge";
+import { cn } from "@snappin/ui/lib/utils";
+import {
+  IntegrationStatus,
+  statusLabel,
+} from "@snappin/shared/integration/status.enum";
+import { Button } from "@snappin/ui/components/button";
+import { Spinner } from "@snappin/ui/assets/svg/spinner";
 
 export const Xero = () => {
   const router = useRouter();
@@ -20,7 +36,7 @@ export const Xero = () => {
     integration: { enabled: true, appSlug: AppSlug.XERO },
   });
 
-  const connected = integration?.data as XeroIntegration;
+  const connected = integration?.data;
 
   const needReAuthorization = connected?.reAuthenticationRequired;
 
@@ -65,29 +81,83 @@ export const Xero = () => {
     });
   };
 
+  const status = integration?.status as IntegrationStatus;
+  const config = status ? statusLabel[status] : null;
+  const isConnected = !!connected;
+
   return (
-    <Integration
-      name={appMetadata.xero.name}
-      description={appMetadata.xero.description}
-      icon={appMetadata.xero.iconifyIcon}
-      appSlug={appMetadata.xero.slug}
-      isComingSoon={appMetadata.xero.isComingSoon}
-      note={appMetadata.xero.disclaimer}
-      isLoading={integration.isLoading}
-      isConnected={!!connected}
-      hint={connected?.metadata?.orgName ?? ""}
-      connectLoading={loading}
-      isProgress={isLoading}
-      reAuthorizationNeeded={needReAuthorization ?? false}
-      onReAuthorization={handleReAuthorization}
-      integration={integration?.data}
-      onConnectClick={() =>
-        redirectToOAuthConsentScreen({
-          appSlug: appMetadata.xero.slug,
-          redirectAfterPath: "/integrations",
-        })
-      }
-      onDisconnectClick={() => removeIntegration()}
-    />
+    <IntegrationCard>
+      <IntegrationCardHeader>
+        <IntegrationCardIcon icon={appMetadata.xero.iconifyIcon} />
+        <IntegrationCardHeaderMain>
+          <IntegrationCardTitle>
+            {appMetadata.xero.name}
+          </IntegrationCardTitle>
+          {status && status == "reauth_required" && (
+            <Badge
+              size="sm"
+              variant={config?.variant}
+              appearance={config?.label ? "outline" : "ghost"}
+              className={cn(
+                "text-start bg-transparent border-transparent px-0 text-xs justify-start",
+                !config?.label && "text-muted-foreground",
+              )}
+            >
+              {config?.label ?? "Not Connected"}
+            </Badge>
+          )}
+          {connected?.identifierEmail && (
+            <span className="text-muted-foreground text-xs">
+              {connected?.identifierEmail}
+            </span>
+          )}
+        </IntegrationCardHeaderMain>
+      </IntegrationCardHeader>
+      <IntegrationCardContent>
+        {appMetadata?.xero?.description}
+      </IntegrationCardContent>
+      <IntegrationCardFooter>
+        <div className={cn("w-full flex gap-2")}>
+          <Button
+            variant={
+              needReAuthorization
+                ? "warning"
+                : isConnected
+                  ? "destructive_light"
+                  : "outline"
+            }
+            onClick={
+              needReAuthorization
+                ? handleReAuthorization
+                : isConnected
+                  ? removeIntegration
+                  : () =>
+                      redirectToOAuthConsentScreen({
+                        appSlug: appMetadata.xero.slug,
+                        redirectAfterPath: "/integrations",
+                      })
+            }
+            disabled={isLoading || loading == AppSlug.XERO}
+          >
+            {(isLoading || loading) && (
+              <Spinner
+                className={cn(
+                  needReAuthorization
+                    ? "text-yellow-800"
+                    : isConnected
+                      ? "text-destructive"
+                      : "",
+                )}
+              />
+            )}
+            {needReAuthorization
+              ? "Reauthorize"
+              : isConnected
+                ? "Disconnect"
+                : "Connect"}
+          </Button>
+        </div>
+      </IntegrationCardFooter>
+    </IntegrationCard>
   );
 };

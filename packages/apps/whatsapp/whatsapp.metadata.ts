@@ -7,7 +7,7 @@ export const whatsappMetadata: AppMetadata = {
         name: "Snappin",
         email: "support@snappinapp.com"
     },
-    description: "Send invoices via whatsapp",
+    description: "Send receipts via whatsapp",
     iconifyIcon: "logos:whatsapp-icon",
     logoUrl: "/images/vendors/logos/whatsapp.png",
     disclaimer: null,

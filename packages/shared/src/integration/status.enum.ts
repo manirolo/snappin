@@ -16,6 +16,6 @@ export const statusLabel: Record<IntegrationStatus, { label: string; variant: "p
     [IntegrationStatus.IDLE]: { label: "Idle", variant: "secondary" },
     [IntegrationStatus.CONNECTED]: { label: "Connected", variant: "primary" },
     [IntegrationStatus.REAUTH_REQUIRED]: { label: "Need Authorization", variant: "warning" },
-    [IntegrationStatus.PAUSED]: { label: "Paused", variant: "secondary" },
+    [IntegrationStatus.PAUSED]: { label: "Paused", variant: "warning" },
     [IntegrationStatus.ERROR]: { label: "Error", variant: "destructive" },
 }

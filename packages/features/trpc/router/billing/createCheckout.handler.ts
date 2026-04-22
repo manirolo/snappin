@@ -18,7 +18,7 @@ export async function createCheckout({
   input,
 }: CreateCheckout): Promise<{ url: string }> {
   if (!ctx.userId || !ctx.orgId) {
-    throw new TRPCError({ code: "UNAUTHORIZED", message: "Unauthorized" });
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Please login before subscribing" });
   }
 
   try {
@@ -74,6 +74,7 @@ export async function createCheckout({
     );
 
     if (error || !data?.data.attributes.url) {
+      console.log(data)
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: error?.message ?? "Failed to create checkout",

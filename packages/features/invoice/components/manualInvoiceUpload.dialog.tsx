@@ -9,7 +9,13 @@ import {
   DialogDescription,
   DialogLabel,
 } from "@snappin/ui/components/dialog";
-import React, { useRef, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { trpc } from "@snappin/features/trpc/react/client";
 import toast from "react-hot-toast";
 import { useInvoiceProcessingStore } from "./invoiceProcessing.store";
@@ -19,8 +25,15 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { UpgradeButton } from "@snappin/features/billing/components/upgradeButton";
 import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 
-export const ManualInvoiceUploadDialog = () => {
-  const [open, setOpen] = useState(false);
+export const ManualInvoiceUploadDialog = ({
+  open,
+  setOpen,
+  children,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  children?: React.ReactNode;
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { setProcessingStatus, reset } = useInvoiceProcessingStore();
@@ -117,17 +130,21 @@ export const ManualInvoiceUploadDialog = () => {
         description={`You've reached the limit of ${usage?.limits?.invoices} invoices. To extract more, upgrade to a higher plan.`}
         onClick={() => setOpen(true)}
       >
-        <Button
-          variant="dim"
-          disabled={isPending}
-          // className="pr-3.5"
-          asChild
-        >
-          <div className="flex items-center">
-            {isPending && <Spinner className="size-4" />}
-            Upload
-          </div>
-        </Button>
+        {children ? (
+          <div>{children}</div>
+        ) : (
+          <Button
+            variant="dim"
+            disabled={isPending}
+            // className="pr-3.5"
+            asChild
+          >
+            <div className="flex items-center">
+              {isPending && <Spinner className="size-4" />}
+              Upload
+            </div>
+          </Button>
+        )}
       </UpgradeButton>
 
       {/* Dialog */}

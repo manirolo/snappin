@@ -49,31 +49,38 @@ type EmptyInvoiceStateProps = { processingStatus: boolean };
 
 const EmptyInvoiceStateComponent = ({
   processingStatus,
-}: EmptyInvoiceStateProps) => (
-  <Empty>
-    <EmptyHeader>
-      <EmptyMedia>
-        <HugeiconsIcon icon={Happy01Icon} className="size-9" />
-      </EmptyMedia>
-      <EmptyTitle>No invoices</EmptyTitle>
-      <EmptyDescription>
-        Connect email accounts for automatic invoice extraction or upload a
-        document
-      </EmptyDescription>
-      <EmptyContent>
-        <div>
-          {processingStatus && (
-            <div className="flex items-center gap-2 mb-6 text-muted-foreground">
-              <Spinner className="size-4" />
-              Processing uploaded documents. Just a moment
-            </div>
-          )}
-          <ManualInvoiceUploadDialog />
-        </div>
-      </EmptyContent>
-    </EmptyHeader>
-  </Empty>
-);
+}: EmptyInvoiceStateProps) => {
+  const [openInvoiceUpload, setOpenInvoiceUpload] = useState<boolean>(false);
+
+  return (
+    <Empty>
+      <EmptyHeader>
+        <EmptyMedia>
+          <HugeiconsIcon icon={Happy01Icon} className="size-9" />
+        </EmptyMedia>
+        <EmptyTitle>No invoices</EmptyTitle>
+        <EmptyDescription>
+          Connect email accounts for automatic invoice extraction or upload a
+          document
+        </EmptyDescription>
+        <EmptyContent>
+          <div>
+            {processingStatus && (
+              <div className="flex items-center gap-2 mb-6 text-muted-foreground">
+                <Spinner className="size-4" />
+                Processing uploaded documents. Just a moment
+              </div>
+            )}
+            <ManualInvoiceUploadDialog
+              open={openInvoiceUpload}
+              setOpen={setOpenInvoiceUpload}
+            />
+          </div>
+        </EmptyContent>
+      </EmptyHeader>
+    </Empty>
+  );
+};
 
 export const InvoiceListTable = ({
   onRowClick,
@@ -106,6 +113,7 @@ export const InvoiceListTable = ({
 
   const processingStatus = useInvoiceProcessingStore((s) => s.processingStatus);
   const openConfirm = useConfirmStore((s) => s.openConfirm);
+  const [openInvoiceUpload, setOpenInvoiceUpload] = useState<boolean>(false);
 
   const utils = trpc.useUtils();
   const { invoices, isLoading, error, setLimit, setPage, page, limit } =
@@ -265,7 +273,10 @@ export const InvoiceListTable = ({
                   enableWarnRunOutOfCredits
                 />
               )}
-              <ManualInvoiceUploadDialog />
+              <ManualInvoiceUploadDialog
+                open={openInvoiceUpload}
+                setOpen={setOpenInvoiceUpload}
+              />
             </div>
           </div>
         }

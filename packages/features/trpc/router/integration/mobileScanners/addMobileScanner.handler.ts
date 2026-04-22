@@ -19,7 +19,7 @@ export async function addMobileScanner({ ctx, input }: AddMobileScanner) {
     const existMobileScanner = await ctx.db.integration.findOne({ "metadata.phone": input.phone })
 
     if (existMobileScanner) {
-        throw new TRPCError({ code: "CONFLICT", message: "Mobil scanner already exist" })
+        throw new TRPCError({ code: "CONFLICT", message: "Mobile scanner already exist" })
     }
     const usageService = new UsageService()
 
