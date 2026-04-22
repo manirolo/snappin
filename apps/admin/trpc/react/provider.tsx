@@ -2,7 +2,6 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { trpc } from "@snappin/features/trpc/react/client"
-import { env } from "@snappin/env"
 import { useState } from "react"
 import { httpBatchLink } from "@trpc/client"
 
@@ -14,7 +13,7 @@ export function TRPCProviders({ children }: { children: React.ReactNode }) {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${env.app.admin_url}/api/v1/trpc`,
+          url: `/api/v1/trpc`,
         }),
       ],
     })
