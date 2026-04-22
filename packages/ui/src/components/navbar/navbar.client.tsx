@@ -24,7 +24,7 @@ export const DashboardOrLogin = () => {
 export const NavigationLinks = () => {
   return (
     <div className="hidden xl:flex gap-6">
-      <Link href={"https://snappin.lemonsqueezy.com/affiliates"}>
+      <Link href={"https://snappin.lemonsqueezy.com/affiliates"} target="_blank">
         <Small className="text-white/70 hover:text-fg-1">Affiliate</Small>
       </Link>
       <Link href={"/pricing"}>
