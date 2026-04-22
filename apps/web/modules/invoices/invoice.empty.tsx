@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AddInvoiceIcon } from "@hugeicons-pro/core-bulk-rounded";
 import { ManualInvoiceUploadDialog } from "@snappin/features/invoices/components/manualInvoiceUpload.dialog";
@@ -17,6 +17,7 @@ import { useInvoiceProcessingStore } from "@snappin/features/invoices/components
 
 export const InvoiceEmpty = () => {
   const processingStatus = useInvoiceProcessingStore((s) => s.processingStatus);
+  const [openInvoiceUpload, setOpenInvoiceUpload] = useState<boolean>(false);
 
   return (
     <Empty>
@@ -41,7 +42,11 @@ export const InvoiceEmpty = () => {
               Processing uploaded documents. Just a moment
             </div>
           )}
-          <ManualInvoiceUploadDialog />
+
+          <ManualInvoiceUploadDialog
+            open={openInvoiceUpload}
+            setOpen={setOpenInvoiceUpload}
+          />
         </div>
       </EmptyContent>
     </Empty>
