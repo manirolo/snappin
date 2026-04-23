@@ -4,15 +4,6 @@ import { createContext } from "@snappin/features/trpc/_trpc";
 import { env } from "@snappin/env";
 
 export async function GET(request: NextRequest) {
-
-    const validationToken = request.nextUrl.searchParams.get("validationToken");
-    if (validationToken) {
-        return new NextResponse(validationToken, {
-            status: 200,
-            headers: { "Content-Type": "text/plain" },
-        });
-    }
-    
     const code = request.nextUrl.searchParams.get("code");
     const state = request.nextUrl.searchParams.get("state");
 
