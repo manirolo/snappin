@@ -8,6 +8,19 @@ import {
 import { appMetadata } from "@snappin/apps/app.metadata";
 import { MailNotificationSchema } from "@snappin/features/accounts/trigger/mail/mail.received.schema";
 
+export async function GET(request: NextRequest) {
+    const validationToken = request.nextUrl.searchParams.get("validationToken");
+
+    if (validationToken) {
+        return new NextResponse(validationToken, {
+            status: 200,
+            headers: { "Content-Type": "text/plain" },
+        });
+    }
+
+    return new NextResponse("Not Found", { status: 404 });
+}
+
 export async function POST(request: NextRequest) {
     try {
         const appSlug = request.nextUrl.searchParams.get("appSlug") as AppSlug | null;
