@@ -12,7 +12,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   if (isAuthenticated && isOnboardingRoute(req)) {
     return NextResponse.next()
   }
-
+  
   // If the user isn't signed in and the route is private, redirect to sign-in
   if (!isAuthenticated && !isPublicRoute(req)) return redirectToSignIn({ returnBackUrl: req.url })
 
@@ -23,6 +23,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   //   return NextResponse.redirect(onboardingUrl)
   // }
 
+  
   if (isAuthenticated && orgRole === 'org:guest' && !isPublicRoute(req)) {
     if (!isConnectRoute(req)) {
       return NextResponse.redirect(new URL('/connect', req.url))
