@@ -11,7 +11,7 @@ export const HeroSection = () => {
     <div className="mt-20 px-4 xl:px-0">
       <div className="relative flex flex-col gap-6">
         <div className="flex flex-col items-center">
-          <AnnouncementBanner badgeLabel="NEW" href="/blog/snappin-public-beta-release" setTarget_Bank>We Launched Public Beta</AnnouncementBanner>
+          <AnnouncementBanner badgeLabel="NEW" href="/blog/snappin-public-beta-launch" setTarget_Bank>We Launched Public Beta</AnnouncementBanner>
           <H1 className="mt-6 text-center">
             AI that organizes
             <span className="block"></span>
