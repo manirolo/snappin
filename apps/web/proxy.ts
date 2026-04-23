@@ -23,6 +23,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   //   return NextResponse.redirect(onboardingUrl)
   // }
 
+  
   if (isAuthenticated && orgRole === 'org:guest' && !isPublicRoute(req)) {
     if (!isConnectRoute(req)) {
       return NextResponse.redirect(new URL('/connect', req.url))
