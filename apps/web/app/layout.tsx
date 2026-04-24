@@ -5,6 +5,7 @@ import { env } from "@snappin/env";
 import { Fuzzy_Bubbles, Inter } from "next/font/google";
 import { Providers } from "./provider";
 import localFont from "next/font/local";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,17 +44,17 @@ const openrunde = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AI Invoice and Receipt Organizer",
+  title: "Snappin – AI Receipt Organizer",
   description:
-    "Turn hours of manual invoice work into seconds. Extract invoices from emails and send receipts via WhatsApp—instantly organized and ready to use.",
+    "Turn hours of manual receipt collection and organizing work into seconds. Extract receipts from emails and send receipts via WhatsApp—instantly organized and ready to use.",
 
-  metadataBase: new URL("https://snappinapp.com"),
+  metadataBase: new URL("https://www.snappinapp.com"),
 
   openGraph: {
-    title: "Snappin",
+    title: "Snappin – AI Receipt Organizer",
     description:
-      "AI-powered invoice & receipt automation. Extract from emails & WhatsApp.",
-    url: "https://snappinapp.com",
+      "AI-powered receipt collection automation. Extract from emails & WhatsApp.",
+    url: "https://www.snappinapp.com",
     siteName: "Snappin",
     images: [
       {
@@ -68,23 +69,27 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Snappin",
+    title: "Snappin – AI Receipt Organizer",
     description:
-      "AI-powered invoice & receipt automation from emails & WhatsApp.",
+      "AI-powered receipt collection automation from emails & WhatsApp.",
     images: ["/images/og.png"],
     creator: "@snappin_ai",
   },
 
   alternates: {
-    canonical: "https://snappinapp.com",
+    canonical: "https://www.snappinapp.com",
   },
 
-  keywords: ["ai", "bookkeeping", "snappin app", "invoice extraction"],
+  keywords: ["ai", "bookkeeping", "snappin app", "receipt extraction"],
 
   applicationName: "Snappin",
   creator: "Snappin",
   publisher: "Snappin",
   generator: "Snappin",
+  robots: {
+    index: env.env == "production" ? true : false,
+    follow:  env.env == "production" ? true : false,
+  },
 };
 
 export const viewport: Viewport = {
@@ -113,29 +118,18 @@ export default function RootLayout({
             rel="stylesheet"
             href="https://unpkg.com/lenis@1.3.21/dist/lenis.css"
           ></link>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.lemonSqueezyAffiliateConfig = { store: "snappin" };`,
-            }}
+          <Script id="lemon-squeezy-config" strategy="beforeInteractive">
+            {`window.lemonSqueezyAffiliateConfig = { store: "snappin" };`}
+          </Script>
+          <Script
+            src="https://lmsqueezy.com/affiliate.js"
+            strategy="afterInteractive"
           />
-          <script src="https://lmsqueezy.com/affiliate.js" defer />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                name: "Snappin",
-                url: "https://snappinapp.com",
-              }),
-            }}
-          />
-
-          {env.env == "production" && (
-            <script
-              defer
+          {env.env === "production" && (
+            <Script
               src="https://cloud.umami.is/script.js"
               data-website-id="94baed4a-1510-4b34-8f86-30d1bfda676a"
+              strategy="afterInteractive"
             />
           )}
         </head>
@@ -143,7 +137,114 @@ export default function RootLayout({
           className={`${openrunde.variable} ${fuzzyBubbles.variable} ${inter.variable}`}
           suppressHydrationWarning
         >
+          <Script
+            id="schema-org"
+            type="application/ld+json"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Snappin",
+                alternateName: ["Snappin AI", "Snappin App"],
+                url: "https://www.snappinapp.com",
+              }),
+            }}
+          />
+          <Script
+            id="schema-software"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                name: "Snappin",
+                operatingSystem: "Web",
+                applicationCategory: "BusinessApplication",
+                description: "AI-powered receipt collection and organizing automation from emails & WhatsApp.",
+                url: "https://www.snappinapp.com",
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+              }),
+            }}
+          />
+          <Script
+            id="schema-breadcrumb"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://www.snappinapp.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Pricing",
+                    item: "https://www.snappinapp.com/pricing",
+                  },
+                ],
+              }),
+            }}
+          />
+          <Script
+            id="schema-organization"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Snappin",
+                url: "https://www.snappinapp.com",
+                email: "hello@snappinapp.com",
+                logo: "https://www.snappinapp.com/images/snappin_dark_light.png",
+              }),
+            }}
+          />
           <Providers>{children}</Providers>
+
+          <Script
+            id="schema-product"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: "Snappin – AI Receipt Organizer",
+                description:
+                  "AI-powered receipt collection and organizing automation from emails & WhatsApp.",
+                image: "https://www.snappinapp.com/images/og.png",
+                brand: {
+                  "@type": "Brand",
+                  name: "Snappin",
+                },
+                url: "https://www.snappinapp.com",
+                offers: {
+                  "@type": "AggregateOffer",
+                  lowPrice: 19,
+                  highPrice: 199, // your highest plan price
+                  priceCurrency: "USD",
+                  offerCount: 3, // number of plans
+                  url: "https://www.snappinapp.com/pricing",
+                  availability: "https://schema.org/InStock",
+                },
+                // Add this only if you have real reviews
+                // aggregateRating: {
+                //   "@type": "AggregateRating",
+                //   ratingValue: 4.8,
+                //   ratingCount: 24,
+                // },
+              }),
+            }}
+          />
         </body>
       </html>
     </ClerkProvider>

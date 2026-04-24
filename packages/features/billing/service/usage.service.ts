@@ -101,6 +101,13 @@ export class UsageService {
         )
     }
 
+    async incrementBy(orgId: string, key: CountUsageKey, amount: number): Promise<void> {
+        await this.db.organization.findOneAndUpdate(
+            { clerkOrgId: orgId },
+            { $inc: { [`usage.${key}`]: amount } }
+        )
+    }
+
     async decrement(orgId: string, key: CountUsageKey): Promise<void> {
         await this.db.organization.findOneAndUpdate(
             { clerkOrgId: orgId, [`usage.${key}`]: { $gt: 0 } },

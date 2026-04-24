@@ -8,11 +8,15 @@ const isConnectRoute = createRouteMatcher(['/connect', '/connection-failed', "/a
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { isAuthenticated, redirectToSignIn, orgRole } = await auth()
 
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
+  }
+
   // For users visiting /onboarding, don't try to redirect
   if (isAuthenticated && isOnboardingRoute(req)) {
     return NextResponse.next()
   }
-  
+
   // If the user isn't signed in and the route is private, redirect to sign-in
   if (!isAuthenticated && !isPublicRoute(req)) return redirectToSignIn({ returnBackUrl: req.url })
 
@@ -23,7 +27,6 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   //   return NextResponse.redirect(onboardingUrl)
   // }
 
-  
   if (isAuthenticated && orgRole === 'org:guest' && !isPublicRoute(req)) {
     if (!isConnectRoute(req)) {
       return NextResponse.redirect(new URL('/connect', req.url))
