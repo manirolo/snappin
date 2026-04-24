@@ -140,7 +140,7 @@ export const invoiceColumns = (): ColumnDef<InvoiceRow>[] => [
           row.original?.extraction?.source?.kind === SourceKind.INTEGRATION &&
           row.original?.extraction?.source?.metadata?.from
             ? getDomainFromEmail(row.original.extraction.source.metadata.from)
-            : row.original?.vendor?.name
+            : row.original?.vendor?.website ?? row.original?.vendor?.name
         }
       />
     ),

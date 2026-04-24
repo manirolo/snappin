@@ -55,7 +55,7 @@ export const EditInvoice = ({ invoiceId }: { invoiceId: string }) => {
       </DialogTrigger>
       <DialogContent className="md:min-w-5xl xl:p-0 overflow-hidden">
         <DialogHeader className="flex flex-row gap-2">
-          {getLogoByDomain(senderAddress ?? "unknown", "size-12", "text-lg")}
+          {getLogoByDomain(senderAddress ?? "unknown", "size-12")}
           <div className="flex flex-col gap-1">
             <DialogTitle>{invoice?.vendor?.name}</DialogTitle>
             <DialogDescription>

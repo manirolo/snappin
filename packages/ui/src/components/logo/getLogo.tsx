@@ -1,4 +1,3 @@
-import { env } from "@snappin/env";
 import {
   Avatar,
   AvatarFallback,
@@ -35,47 +34,45 @@ function getHashedColor(value: string): string | undefined {
   return AVATAR_COLORS[index];
 }
 
-export const getLogoByDomain = (
-  domain: string,
-  className?: string,
-  fallbackClassName?: string
-) => {
+export const getLogoByDomain = (domain: string, className?: string) => {
+  if (!domain || domain.includes(" ") || !domain.includes(".")) {
+    return getLogoByName(domain, className);
+  }
+
   const bgColor = getHashedColor(domain);
+  const initial = domain?.slice(0, 1).toUpperCase() ?? "?";
 
   return (
-    <Avatar className={cn("size-7 ", className)}>
+    <Avatar className={cn("size-7", className)}>
       <AvatarImage
-        src={`https://img.logo.dev/${domain}?token=${env.logoDev.publicKey}`}
+        src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
         alt={domain}
-        className="rounded-md"
+        className="rounded-md object-contain"
+        onError={(e) => {
+          (e.target as HTMLImageElement).style.display = "none";
+        }}
       />
       <AvatarFallback
         style={{ backgroundColor: bgColor }}
-        className={cn(
-          "text-white rounded-md font-semibold uppercase",
-          fallbackClassName
-        )}
+        className="text-white rounded-md font-semibold uppercase"
       >
-        {domain?.slice(0, 1) ?? "?"}
+        {initial}
       </AvatarFallback>
     </Avatar>
   );
 };
 
-export const getLogoByName = (companyName: string) => {
+export const getLogoByName = (companyName: string, className?: string) => {
   const bgColor = getHashedColor(companyName);
 
   return (
-    <Avatar className="size-8 border border-slate-100">
-      <AvatarImage
-        src={`https://img.logo.dev/name/${companyName}?token=${env.logoDev.publicKey}`}
-        alt={companyName}
-      />
+    <Avatar className={cn("size-7", className)}>
+      {/* ✅ No AvatarImage — logo.dev /name/ is unreliable, just use colored initial */}
       <AvatarFallback
         style={{ backgroundColor: bgColor }}
-        className="text-white font-semibold uppercase"
+        className="text-white rounded-md font-semibold uppercase"
       >
-        {companyName?.slice(0, 1) ?? "?"}
+        {companyName?.trim().slice(0, 1).toUpperCase() ?? "?"}
       </AvatarFallback>
     </Avatar>
   );
