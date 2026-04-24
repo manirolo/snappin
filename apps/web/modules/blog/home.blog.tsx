@@ -8,7 +8,7 @@ import {
   SectionTitle,
 } from "../../components/layout/sectionLayout";
 import Link from "next/link";
-import { Image } from "@snappin/ui/components/Image";
+import { CDNImage } from "@snappin/ui/components/imagekit/image";
 import { Small } from "@snappin/ui/components/typography";
 import { getAuthor } from "../../utils/author";
 import { formatDate } from "@snappin/lib/date/formateDate";
@@ -32,7 +32,7 @@ export const HomeBlog = () => {
                   <div className="flex items-center justify-between">
                     <Small>News</Small>
                     <div className="flex items-center gap-2">
-                      <Image
+                      <CDNImage
                         src={
                           getAuthor((post.metadata as PostMetadata).author)
                             ?.image ?? ""
@@ -47,7 +47,7 @@ export const HomeBlog = () => {
                       <Small className="font-normal text-[13px]">{formatDate("MMM_DD_YYYY", (post.metadata as PostMetadata).publishedAt)}</Small>
                     </div>
                   </div>
-                  <Image
+                  <CDNImage
                     src={post.metadata.image ?? ""}
                     alt={post.metadata.title}
                     className="w-full"

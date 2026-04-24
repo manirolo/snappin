@@ -9,7 +9,7 @@ export const AUTHORS: Record<string, Author> = {
     "Manikandan P": {
         name: "Manikandan P",
         handle: "maniikandan_p",
-        image: "/images/blog/author/manikandan-p.jpg",
+        image: "/static/images/blog/author/manikandan-p.jpg",
         role: "Founder"
     },
 };
