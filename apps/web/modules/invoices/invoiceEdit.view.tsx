@@ -169,8 +169,7 @@ export const InvoiceEditView = () => {
                 <div className="flex gap-2 items-center">
                   {getLogoByDomain(
                     senderAddress ?? "unknown",
-                    "size-9",
-                    "text-lg",
+                    "size-9"
                   )}
                   <div>
                     <h6>{invoice?.vendor?.name}</h6>
