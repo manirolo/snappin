@@ -1,4 +1,4 @@
-import { Image } from "@snappin/ui/components/Image";
+import { CDNImage } from "@snappin/ui/components/imagekit/image";
 import React from "react";
 import { parseAuthors } from "../../../utils/author";
 
@@ -18,7 +18,7 @@ export const Author = ({ authors }: AuthorBylineProps) => {
       <div className="flex flex-wrap gap-1 sm:gap-6">
         {authorList.map((author) => (
           <div key={author.name} className="flex flex-col items-center gap-3">
-            <Image
+            <CDNImage
               src={author.image}
               alt={author.name}
               className="w-10 h-10 rounded-full object-cover"
