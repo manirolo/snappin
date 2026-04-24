@@ -8,7 +8,7 @@ import {
   SectionTitle,
 } from "../../../components/layout/sectionLayout";
 import { Card, CardContent, CardHeader } from "@snappin/ui/components/card";
-import { Image } from "@snappin/ui/components/Image";
+import { CDNImage } from "@snappin/ui/components/imagekit/image";
 
 export const HowTo = () => {
   return (
@@ -26,9 +26,9 @@ export const HowTo = () => {
           <Card className="w-full max-w-xs">
             <CardHeader className="flex border-b border-bg-3 h-76">
               <div className="flex justify-between w-full  items-center">
-                <Image
-                  src="/images/landing/connect_source.png"
-                  alt="google logo"
+                <CDNImage
+                  src="/static/images/landing/connect_source.png"
+                  alt="Snappin email monitoring setup"
                   imageClassName="object-contain"
                 />
               </div>
@@ -50,9 +50,9 @@ export const HowTo = () => {
           <Card className="w-full max-w-xs">
             <CardHeader className="relative flex border-b border-bg-3 h-76">
               <div className="absolute translate-x-4 flex justify-between w-full items-center">
-                <Image
-                  src="/images/landing/invoice_data_extracted.png"
-                  alt="google logo"
+                <CDNImage
+                  src="/static/images/landing/invoice_data_extracted.png"
+                  alt="Snappin receipt data extracted result table"
                   className="min-w-lg border border-bg-3 p-2 rounded-md pb-0 h-46"
                   imageClassName="object-fill"
                 />
@@ -75,21 +75,21 @@ export const HowTo = () => {
           <Card className="w-full max-w-xs">
             <CardHeader className="flex border-b border-bg-3 h-76">
               <div className="flex justify-center gap-4 w-full items-center">
-                <Image
-                  src="/images/vendors/logos/xero.png"
+                <CDNImage
+                  src="/static/images/landing/xero.png"
                   alt="xero logo"
                   className="size-10"
                   imageClassName="object-contain"
                 />
-                <Image
-                  src="/images/vendors/logos/quickbooks.png"
-                  alt="xero logo"
+                <CDNImage
+                  src="/static/images/landing/quickbooks.png"
+                  alt="quickbook logo"
                   className="size-11"
                   imageClassName="object-contain"
                 />
-                <Image
-                  src="/images/vendors/logos/google_drive.png"
-                  alt="xero logo"
+                <CDNImage
+                  src="/static/images/landing/google_drive.png"
+                  alt="google drive logo"
                   className="size-10"
                   imageClassName="object-contain"
                 />

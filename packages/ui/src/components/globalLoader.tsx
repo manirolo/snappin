@@ -3,7 +3,7 @@
 import { Spinner } from "@snappin/ui/assets/svg/spinner";
 import { motion, AnimatePresence } from "motion/react";
 import { useFullScreenLoading } from "@snappin/ui/hooks/useGlobalLoader";
-import { CDNImage } from "./imgekit/image";
+import { CDNImage } from "./imagekit/image";
 
 export function FullScreenLoader() {
     const { loading, data } = useFullScreenLoading();
