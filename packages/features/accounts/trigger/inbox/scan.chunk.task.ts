@@ -22,7 +22,6 @@ export const inboxScanChunk = schemaTask({
         const { SnappinError } = await import("@snappin/lib/error/snappin.error");
         const { estimateScanDuration } = await import("../../lib/scan.timeEstimate");
         const { resolveIntegrationSnapshot } = await import("@snappin/features/integration/lib/resolveIntegrationSnapshot");
-
         const { UsageLimitError, usageService } = await import("@snappin/features/billing/service/usage.service");
         const pLimit = (await import("p-limit")).default;
 
@@ -34,16 +33,15 @@ export const inboxScanChunk = schemaTask({
         const chunkId = chunk._id.toString();
         const scanId = chunk.scanId.toString();
 
-
+        // ✅ Fix #5: resolve integration snapshot once, outside all loops
+        const _integration = await resolveIntegrationSnapshot(chunk?.integrationId?.toString()) ?? null;
 
         try {
             const messageIds = await processChunk(chunkId);
 
             // processChunk returned undefined = chunk was paused due to long throttle
-            // Exit cleanly without marking as failed
             if (!messageIds) return;
 
-            // Upsert ScanMessage records — skip already-succeeded ones
             const existingMessages = await db.scanMessage.find({
                 scanId,
                 providerMessageId: { $in: messageIds },
@@ -87,34 +85,39 @@ export const inboxScanChunk = schemaTask({
                 totalMessages: filteredIds.length,
             });
 
+            // ✅ Fix #6: pass filteredIds instead of messageIds
             const payloads = await mailService.processMails({
                 integration: chunk.integration,
-                messageIds,
+                messageIds: filteredIds,
                 scanId,
             });
 
             const limit = pLimit(3);
+            let limitReached = false;
 
             await Promise.all(
                 payloads.map((mailPayload) =>
                     limit(async () => {
+                        // ✅ Fix #1: skip all remaining mails once limit is reached
+                        if (limitReached) return;
+
                         try {
                             if (mailPayload.source.kind !== SourceKind.INTEGRATION) return;
+
                             const existingMessage = await db.scanMessage.findOne({
                                 integrationId: chunk.integrationId,
-                                providerMessageId: mailPayload.source.externalId, // need this on mailPayload
+                                providerMessageId: mailPayload.source.externalId,
                                 status: ScanMessageStatus.SUCCESS,
                             });
 
-                            if (existingMessage) {
-                                // Already processed — skip entirely, don't re-upload
-                                return;
-                            }
+                            if (existingMessage) return;
 
                             try {
                                 await usageService.assertWithinLimit(mailPayload.orgId ?? "", "invoices");
                             } catch (err) {
                                 if (err instanceof UsageLimitError) {
+                                    // ✅ Fix #1: set flag to stop all other concurrent tasks
+                                    limitReached = true;
                                     await db.scanMessage.findOneAndUpdate(
                                         { scanId, providerMessageId: mailPayload.source.externalId },
                                         {
@@ -122,16 +125,14 @@ export const inboxScanChunk = schemaTask({
                                             errorReason: "invoice_limit_reached",
                                         }
                                     );
-
                                     await db.scan.findByIdAndUpdate(scanId, {
                                         status: ScanStatus.FAILED,
                                         errorReason: "invoice_limit_reached",
                                         completedAt: Date.now(),
                                     });
-
-                                    return; // ✅ stop processing this mail cleanly, don't rethrow
+                                    return;
                                 }
-                                throw err; // rethrow anything unexpected
+                                throw err;
                             }
 
                             const { category } = await classifyThisMail({
@@ -145,16 +146,33 @@ export const inboxScanChunk = schemaTask({
                             if (category === "OTHER") {
                                 await db.scanMessage.findOneAndUpdate(
                                     { scanId, providerMessageId: mailPayload.source.externalId },
-                                    { status: ScanMessageStatus.SUCCESS } // cleanly closed — not an invoice, not a failure
+                                    { status: ScanMessageStatus.SUCCESS }
                                 );
                                 return;
                             }
 
-                            // Only reach here if it IS an invoice
+
+                            const integrationSource = mailPayload.source;
+
                             await db.scanMessage.findOneAndUpdate(
                                 { scanId, providerMessageId: mailPayload.source.externalId },
                                 { status: ScanMessageStatus.CLASSIFIED }
                             );
+
+                            // ✅ Fix #3: handle empty attachments — mark as SUCCESS and exit
+                            if (!mailPayload.attachments.length) {
+                                console.warn(`Invoice classified but no extractable attachments for message: ${integrationSource.externalId}`);
+                                await db.scanMessage.findOneAndUpdate(
+                                    { scanId, providerMessageId: mailPayload.source.externalId },
+                                    { status: ScanMessageStatus.SUCCESS }
+                                );
+                                await db.scanChunk.findByIdAndUpdate(chunkId, {
+                                    $inc: { processedMessages: 1 },
+                                });
+                                return;
+                            }
+
+                            let invoiceSavedCount = 0;
 
                             await Promise.all(
                                 mailPayload.attachments.map(async (attachment: InvoiceAttachment) => {
@@ -163,28 +181,25 @@ export const inboxScanChunk = schemaTask({
                                         userId: mailPayload.userId,
                                     });
 
-
-                                    if (mailPayload.source.kind !== SourceKind.INTEGRATION) return;
-                                    const _integration = await resolveIntegrationSnapshot(chunk?.integrationId?.toString())
-                                        ?? null;
+                                    // ✅ Fix #5: _integration already resolved above, reuse it
                                     const request = await invoiceExtractionRequestService.createRequest({
                                         userId: mailPayload.userId,
                                         orgId: mailPayload.orgId,
                                         jobId: crypto.randomUUID(),
                                         source: {
                                             kind: SourceKind.INTEGRATION,
-                                            externalId: mailPayload.source.externalId,
+                                            externalId: integrationSource.externalId,          // ✅
                                             retroactiveScanId: scanId,
                                             integrationId: chunk?.integrationId?.toString() ?? "null",
                                             isRetroactiveScan: true,
                                             metadata: {
-                                                subject: mailPayload.source.metadata?.subject,
-                                                from: mailPayload.source.metadata?.from,
-                                                to: mailPayload.source.metadata?.to,
-                                                senderName: mailPayload.source.metadata?.senderName,
-                                                receiverName: mailPayload.source.metadata?.receiverName,
-                                                snippet: mailPayload.source.metadata?.snippet,
-                                                body: mailPayload.source.metadata?.body,
+                                                subject: integrationSource.metadata?.subject,   // ✅
+                                                from: integrationSource.metadata?.from,         // ✅
+                                                to: integrationSource.metadata?.to,             // ✅
+                                                senderName: integrationSource.metadata?.senderName,   // ✅
+                                                receiverName: integrationSource.metadata?.receiverName, // ✅
+                                                snippet: integrationSource.metadata?.snippet,   // ✅
+                                                body: integrationSource.metadata?.body,         // ✅
                                             },
                                         },
                                         _integration,
@@ -201,25 +216,33 @@ export const inboxScanChunk = schemaTask({
                                     }
 
                                     const savedInvoice = await invoiceSaveService.save(extractInvoice);
-                                    if (savedInvoice?._id) {
-                                        await usageService.decrement(mailPayload.orgId ?? "", "invoices");
-                                        await db.scan.findByIdAndUpdate({ _id: scanId }, {
-                                            $push: { invoiceFound: savedInvoice._id.toString() },
-                                        });
+                                    if (!savedInvoice?._id) {
+                                        throw new SnappinError("Invoice save failed", "storage_upload_failed"); // ✅ goes to catch
                                     }
+
+                                    // ✅ Fix #4: track count, decrement once per mail below
+                                    invoiceSavedCount++;
+                                    await db.scan.findByIdAndUpdate({ _id: scanId }, {
+                                        $push: { invoiceFound: savedInvoice._id.toString() },
+                                    });
+
                                 })
                             );
+
+                            // ✅ Fix #4: decrement usage once per mail, not per attachment
+                            if (invoiceSavedCount > 0) {
+                                await usageService.incrementBy(mailPayload.orgId ?? "", "invoices", invoiceSavedCount);
+                            }
+
+                            // ✅ Fix #2: processedMessages incremented here, after attachments succeed
                             await db.scanChunk.findByIdAndUpdate(chunkId, {
                                 $inc: { processedMessages: 1 },
                             });
 
-                            await db.scanMessage.findOneAndUpdate({
-                                scanId,
-                                providerMessageId: mailPayload.source.externalId,
-                            }, {
-                                status: ScanMessageStatus.SUCCESS,
-                            });
-
+                            await db.scanMessage.findOneAndUpdate(
+                                { scanId, providerMessageId: mailPayload.source.externalId },
+                                { status: ScanMessageStatus.SUCCESS }
+                            );
 
                         } catch (err) {
                             if (mailPayload.source.kind === SourceKind.INTEGRATION) {
@@ -236,6 +259,7 @@ export const inboxScanChunk = schemaTask({
                                 );
                             }
 
+                            // ✅ Fix #2: only failedMessages incremented in catch, never processedMessages
                             await db.scanChunk.findByIdAndUpdate(chunkId, {
                                 $inc: { failedMessages: 1 },
                             });
@@ -248,8 +272,6 @@ export const inboxScanChunk = schemaTask({
             await updateScanProgress(scanId);
 
         } catch (err) {
-            // LongThrottleError is handled inside processChunk — should never reach here
-            // but guard just in case it bubbles up from mail processing
             if (err instanceof LongThrottleError) return;
 
             await db.scanChunk.findByIdAndUpdate(chunkId, {
@@ -276,7 +298,6 @@ async function updateScanProgress(scanId: string) {
     if (!allSettled) return;
     if (paused > 0) return;
 
-    // ✅ Aggregate message-level counters from all chunks into the scan
     const messageAgg = await db.scanChunk.aggregate([
         { $match: { scanId: new mongoose.Types.ObjectId(scanId) } },
         {
@@ -312,7 +333,6 @@ async function updateScanProgress(scanId: string) {
             status: failed > 0 ? ScanStatus.FAILED : ScanStatus.SUCCESS,
             completedAt: now,
             completedChunks: completed,
-            // ✅ Now correctly written to scan
             totalMessages: msgCounts.totalMessages,
             processedMessages: msgCounts.processedMessages,
             failedMessages: msgCounts.failedMessages,
