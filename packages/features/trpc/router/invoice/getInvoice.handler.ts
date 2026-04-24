@@ -25,7 +25,7 @@ export async function getAllInvoices({ ctx, input }: GetInvoice): Promise<Pagina
         populate: [
             {
                 path: "vendor",
-                select: "name"
+                select: "name website"
             },
             {
                 path: "extraction",
