@@ -1,4 +1,3 @@
-import { env } from "@snappin/env";
 import {
   Avatar,
   AvatarFallback,
