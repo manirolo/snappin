@@ -171,30 +171,6 @@ export default function RootLayout({
             }}
           />
           <Script
-            id="schema-breadcrumb"
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.snappinapp.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Pricing",
-                    item: "https://www.snappinapp.com/pricing",
-                  },
-                ],
-              }),
-            }}
-          />
-          <Script
             id="schema-organization"
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -209,41 +185,6 @@ export default function RootLayout({
             }}
           />
           <Providers>{children}</Providers>
-
-          <Script
-            id="schema-product"
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Product",
-                name: "Snappin – AI Receipt Organizer",
-                description:
-                  "AI-powered receipt collection and organizing automation from emails & WhatsApp.",
-                image: "https://www.snappinapp.com/images/og.png",
-                brand: {
-                  "@type": "Brand",
-                  name: "Snappin",
-                },
-                url: "https://www.snappinapp.com",
-                offers: {
-                  "@type": "AggregateOffer",
-                  lowPrice: 19,
-                  highPrice: 199, // your highest plan price
-                  priceCurrency: "USD",
-                  offerCount: 3, // number of plans
-                  url: "https://www.snappinapp.com/pricing",
-                  availability: "https://schema.org/InStock",
-                },
-                // Add this only if you have real reviews
-                // aggregateRating: {
-                //   "@type": "AggregateRating",
-                //   ratingValue: 4.8,
-                //   ratingCount: 24,
-                // },
-              }),
-            }}
-          />
         </body>
       </html>
     </ClerkProvider>
