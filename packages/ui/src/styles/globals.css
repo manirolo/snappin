@@ -223,7 +223,7 @@
   /* === Misc === */
   --shadow: #0000000d;
   --table: #fdfdfb;
-  --navbar: #181925;
+  --navbar: #222;
   --overlay: #00000033;
   --color-primary-btn: #918df6;
   --color-secondary-btn: #f0f0f0;
@@ -570,9 +570,9 @@
 }
 
 body {
-  font-family: "OpenRunde", Arial, Helvetica, sans-serif;
-  letter-spacing: -0.015em;
-  font-weight: 500;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  letter-spacing: 0em;
+  font-weight: 400;
   line-height: 1.4em;
 }
 
@@ -597,5 +597,5 @@ a {
 p,
 span,
 * {
-  font-family: "OpenRunde", Arial, Helvetica, sans-serif !important;
+  font-family: "Inter", Arial, Helvetica, sans-serif !important;
 }

@@ -38,9 +38,9 @@ export const HowTo = () => {
                 <div className="bg-white border border-bg-2 size-9 mx-auto text-green-3 flex items-center justify-center rounded-full p-2">
                   01
                 </div>
-                <h6 className="leading-relaxed text-md">
+                <h6 className="leading-relaxed font-medium text-md">
                   Connect Source.{" "}
-                  <span className="text-fg-3">
+                  <span className="text-fg-3 font-normal">
                     Invoices from your emails automatically extracted
                   </span>
                 </h6>
@@ -63,9 +63,9 @@ export const HowTo = () => {
                 <div className="bg-white border border-bg-2 size-9 mx-auto text-green-3 flex items-center justify-center rounded-full p-2">
                   02
                 </div>
-                <h6 className="leading-relaxed text-md">
+                <h6 className="leading-relaxed font-medium text-md">
                   AI extracts.{" "}
-                  <span className="text-fg-3">
+                  <span className="text-fg-3 font-normal">
                     Vendor, line items are extracted using powerful ai model
                   </span>
                 </h6>
@@ -100,9 +100,9 @@ export const HowTo = () => {
                 <div className="bg-white border border-bg-2 size-9 mx-auto text-green-3 flex items-center justify-center rounded-full p-2">
                   03
                 </div>
-                <h6 className="leading-relaxed text-md">
+                <h6 className="leading-relaxed font-medium text-md">
                   Export to other apps.{" "}
-                  <span className="text-fg-3">
+                  <span className="text-fg-3 font-normal">
                     Push invoices to Xero, or your tools in seconds.
                   </span>
                 </h6>

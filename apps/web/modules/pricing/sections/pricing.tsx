@@ -144,7 +144,7 @@ export const PricingSection = () => {
                   return (
                     <Card
                       key={plan.id}
-                      className={`rounded-2xl flex flex-col border border-bg-2 shadow-none bg-transparent ${plan.id == "scale" && "bg-zinc-900! text-white"} bg-card`}
+                      className={`rounded-2xl flex flex-col border border-bg-2 shadow-none bg-transparent ${plan.id == "scale" && "bg-navbar! text-white"} bg-card`}
                     >
                       <CardHeader className="text-center relative pb-0">
                         <CardTitle className="font-medium">

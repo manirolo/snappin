@@ -93,15 +93,15 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Pricing | Snappin",
+  title: "Pricing | Snappin App",
   description:
     "Start for free. No credit card required. Upgrade when you're ready",
-  keywords: ["snappin pricing", "invoice extraction pricing", "snappin"],
+  keywords: ["snappin app pricing", "invoice extraction pricing", "snappin app"],
   alternates: {
     canonical: "https://www.snappinapp.com/pricing",
   },
   openGraph: {
-    title: "Pricing | Snappin",
+    title: "Pricing | Snappin App",
     description:
       "Start for free. No credit card required. Upgrade when you're ready",
     url: "https://www.snappinapp.com/pricing",
@@ -118,7 +118,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing | Snappin",
+    title: "Pricing | Snappin App",
     description:
       "Start for free. No credit card required. Upgrade when you're ready",
     images: ["https://www.snappinapp.com/images/og.png"],

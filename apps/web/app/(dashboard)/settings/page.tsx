@@ -10,7 +10,7 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Settings | Snappin",
+  title: "Settings | Snappin App",
   description:
     "",
 };
