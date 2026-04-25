@@ -9,7 +9,7 @@ import { AnnouncementBanner } from "@snappin/ui/components/announcement/banner";
 export const HeroSection = () => {
   return (
     <div className="mt-12 px-4 xl:px-0">
-      <div className="relative flex flex-col gap-6">
+      <div className="relative flex flex-col gap-8">
         <div className="flex flex-col items-center">
           <AnnouncementBanner
             badgeLabel="NEW"
@@ -18,7 +18,7 @@ export const HeroSection = () => {
           >
             We launched public beta
           </AnnouncementBanner>
-          <H1 className="mt-6 text-center">
+          <H1 className="mt-8 text-center">
             AI that organizes
             <span className="block">{" "}</span>
             your receipts.
@@ -30,7 +30,7 @@ export const HeroSection = () => {
             receipts automatically.
           </Lead>
         </div>
-        <div className="flex flex-col items-center gap-4 mt-2">
+        <div className="flex flex-col items-center gap-4">
           <div className="flex flex-col sm:flex-row max-w-sm w-full md:w-fit gap-2 items-center">
             <Button
               radius={"full"}
