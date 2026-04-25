@@ -20,7 +20,7 @@ export const HeroSection = () => {
           </AnnouncementBanner>
           <H1 className="mt-6 text-center">
             AI that organizes
-            <span className="block"></span>
+            <span className="block">{" "}</span>
             your receipts.
           </H1>
         </div>

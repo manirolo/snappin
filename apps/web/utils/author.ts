@@ -3,6 +3,7 @@ export interface Author {
     handle: string;
     image: string;
     role: string;
+    twitter: string
 }
 
 export const AUTHORS: Record<string, Author> = {
@@ -10,7 +11,8 @@ export const AUTHORS: Record<string, Author> = {
         name: "Manikandan P",
         handle: "maniikandan_p",
         image: "/static/images/blog/author/manikandan-p.jpg",
-        role: "Founder"
+        role: "Founder",
+        twitter: "https://www.x.com/maniikandan_p"
     },
 };
 

@@ -1,15 +1,84 @@
-import React from 'react'
-import { HomeBlog } from '../../../modules/blog/home.blog'
+import React from "react";
+import { HomeBlog } from "../../../modules/blog/home.blog";
+import Script from "next/script";
 
 export default function Page() {
   return (
-    <HomeBlog />
-  )
+    <>
+      <HomeBlog />
+      <Script
+        id="schema-blog"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            name: "Snappin Blog",
+            description: "Latest updates and news from Snappin",
+            url: "https://www.snappinapp.com/blog",
+            publisher: {
+              "@type": "Organization",
+              name: "Snappin",
+              url: "https://www.snappinapp.com",
+            },
+          }),
+        }}
+      />
+      <Script
+        id="schema-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://www.snappinapp.com",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Blog",
+                item: "https://www.snappinapp.com/blog",
+              },
+            ],
+          }),
+        }}
+      />
+    </>
+  );
 }
 
 export const metadata = {
-  title: "Blog",
-  description:
-    "Latest updates and news from snappin",
+  title: "Blog | Snappin",
+  description: "Latest updates and news from Snappin",
   keywords: ["snappin blog", "invoice extraction blog", "snappin"],
+  alternates: {
+    canonical: "https://www.snappinapp.com/blog",
+  },
+  openGraph: {
+    title: "Blog | Snappin",
+    description: "Latest updates and news from Snappin",
+    url: "https://www.snappinapp.com/blog",
+    siteName: "Snappin",
+    images: [
+      {
+        url: "https://www.snappinapp.com/images/og.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog | Snappin",
+    description: "Latest updates and news from Snappin",
+    images: ["https://www.snappinapp.com/images/og.png"],
+    creator: "@snappin_ai",
+  },
 };
