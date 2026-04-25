@@ -70,7 +70,7 @@ export const LogoSymbol = ({
       className,
     )}
   >
-    <div className="relative shrink-0 size-7 inline-block">
+    <div className="relative shrink-0 size-6.5 inline-block">
       <Image
         src={"/images/favicon.png"}
         fill
@@ -78,6 +78,6 @@ export const LogoSymbol = ({
         alt="Snappin"
       />
     </div>
-    {children && <span>{children}</span>}
+    {children && <span className="font-bold text-base tracking-tight">{children}</span>}
   </Link>
 );

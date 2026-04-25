@@ -9,7 +9,7 @@ export const DashboardOrLogin = () => {
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-2">
         <Button variant={"inverse"} radius={"full"} asChild>
-          <Link href={"/login"} className="rounded-[22px] text-white/70">
+          <Link href={"/login"} className="rounded-[22px] text-fg-3 hover:underline">
             Login
           </Link>
         </Button>
@@ -23,18 +23,18 @@ export const DashboardOrLogin = () => {
 
 export const NavigationLinks = () => {
   return (
-    <div className="hidden xl:flex gap-6">
+    <div className="hidden xl:flex gap-12">
       <Link href={"https://snappin.lemonsqueezy.com/affiliates"} target="_blank">
-        <Small className="text-white/70 hover:text-fg-1">Affiliate</Small>
+        <Small className="text-fg-3 hover:underline">Affiliate</Small>
       </Link>
       <Link href={"/pricing"}>
-        <Small className="text-white/70 hover:text-fg-1">Pricing</Small>
+        <Small className="text-fg-3 hover:underline">Pricing</Small>
       </Link>
       <Link href={"/blog"}>
-        <Small className="text-white/70 hover:text-fg-1">Blog</Small>
+        <Small className="text-fg-3 hover:underline">Blog</Small>
       </Link>
       <Link href={"/docs"}>
-        <Small className="text-white/70 hover:text-fg-1">Docs</Small>
+        <Small className="text-fg-3 hover:underline">Docs</Small>
       </Link>
     </div>
   );

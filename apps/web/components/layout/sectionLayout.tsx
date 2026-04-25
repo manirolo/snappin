@@ -7,7 +7,7 @@ export const Section = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("py-12 md:py-18 max-w-5xl mx-auto flex flex-col gap-12 relative overflow-hidden", className)} {...props}>
+    <div className={cn("py-12 md:py-18 max-w-5xl mx-auto flex flex-col gap-16 relative overflow-hidden", className)} {...props}>
       {children}
     </div>
   );
@@ -33,7 +33,7 @@ export const SectionLabel = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <span
-      className="text-sm text-fg-1 tracking-normal font-normal"
+      className="text-xs text-primary uppercase tracking-normal font-normal"
       {...props}
     >
       {children}
@@ -48,7 +48,7 @@ export const SectionTitle = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <h2
-      className={cn("text-4xl tracking-tighter text-fg-4 leading-tight font-semibold text-balance max-w-2xl", className)}
+      className={cn("text-3xl tracking-tighter text-fg-4 leading-tight font-semibold text-balance max-w-2xl", className)}
       {...props}
     >
       {children}

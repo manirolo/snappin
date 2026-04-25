@@ -54,19 +54,19 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Contact | Snappin",
+  title: "Contact | Snappin App",
   description:
     "Questions about setup, billing, privacy, or anything else? We're happy to help.",
-  keywords: ["snappin contact", "invoice extraction contact", "snappin"],
+  keywords: ["snappin app contact", "invoice extraction contact", "snappin app"],
   alternates: {
     canonical: "https://www.snappinapp.com/contact",
   },
   openGraph: {
-    title: "Contact | Snappin",
+    title: "Contact | Snappin App",
     description:
       "Questions about setup, billing, privacy, or anything else? We're happy to help.",
     url: "https://www.snappinapp.com/contact",
-    siteName: "Snappin",
+    siteName: "Snappin App",
     images: [
       {
         url: "https://www.snappinapp.com/images/og.png",
@@ -79,7 +79,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact | Snappin",
+    title: "Contact | Snappin App",
     description:
       "Questions about setup, billing, privacy, or anything else? We're happy to help.",
     images: ["https://www.snappinapp.com/images/og.png"],

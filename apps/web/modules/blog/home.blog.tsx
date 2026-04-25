@@ -54,7 +54,7 @@ export const HomeBlog = () => {
                     imageClassName="rounded-md border border-bg-3"
                   />
                   <div className="space-y-2">
-                    <h3>{post.metadata.title}</h3>
+                    <h3 className="font-medium">{post.metadata.title}</h3>
                     <p className="text-fg-2 leading-relaxed text-sm font-normal">
                       {post.metadata.description}
                     </p>

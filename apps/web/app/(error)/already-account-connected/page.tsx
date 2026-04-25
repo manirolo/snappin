@@ -6,7 +6,7 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Account Already Connected | Snappin",
+  title: "Account Already Connected | Snappin App",
   description:
     "Connection failed due to various factors",
 };

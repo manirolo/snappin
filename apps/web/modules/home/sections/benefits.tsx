@@ -19,11 +19,11 @@ const benefits = [
     icon: Mail01Icon,
     title: "Connect your email",
     description:
-      "Link Gmail or Outlook and we automatically pull invoices straight from your inbox.",
+      "Link Gmail or Outlook and we automatically pull receipts straight from your inbox.",
   },
   {
     icon: Invoice03Icon,
-    title: "Auto-extracted invoices",
+    title: "Auto-extracted receipts",
     description:
       "Our AI reads receipts, and invoices so you never have to enter data manually.",
   },
@@ -40,14 +40,14 @@ const BenefitCard = ({
 }) => {
   return (
     <div className="flex flex-col items-center text-center gap-3 px-4">
-      <div className="size-10 rounded-full bg-green-a1 flex items-center justify-center">
+      <div className="rounded-full flex items-center justify-center">
         <HugeiconsIcon
           icon={Icon}
-          className="w-5 h-5 text-green-3"
+          className="size-6 text-fg-2"
           strokeWidth={2}
         />
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <h3 className="text-base/6 font-medium text-center text-fg-4">{title}</h3>
         <span className="text-fg-2 text-sm/5.5">{description}</span>
       </div>

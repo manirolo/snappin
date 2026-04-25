@@ -36,13 +36,13 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Sign up to Snappin",
+            name: "Sign up to Snappin App",
             description:
-              "Sign up to your Snappin account to extract your invoices from mails",
+              "Sign up to your Snappin App account to extract your invoices from mails",
             url: "https://www.snappinapp.com/signup",
             publisher: {
               "@type": "Organization",
-              name: "Snappin",
+              name: "Snappin App",
               url: "https://www.snappinapp.com",
             },
           }),

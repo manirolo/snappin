@@ -23,10 +23,10 @@ export async function generateMetadata(
   const ogImage = image ? `${env.app.frontend_url}${image}` : undefined;
 
   return {
-    title: `${title == "Welcome to Snappin" ? "Documentation" : {title}} - Snappin Docs`,
+    title: `${title == "Welcome to Snappin App" ? "Documentation" : {title}} - Snappin App Docs`,
     description: description || title,
     openGraph: {
-      title: `${title} - Snappin Docs`,
+      title: `${title} - Snappin App Docs`,
       description: description || title,
       type: "article",
       url: `${env.app.frontend_url}/docs/${slug}`,
@@ -84,7 +84,7 @@ export default async function DocPage(props: DocPageProps) {
             url: `${env.app.frontend_url}/docs/${slug}`,
             publisher: {
               "@type": "Organization",
-              name: "Snappin",
+              name: "Snappin App",
               url: "https://www.snappinapp.com",
               logo: {
                 "@type": "ImageObject",

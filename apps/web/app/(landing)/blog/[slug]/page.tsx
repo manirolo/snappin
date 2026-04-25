@@ -89,7 +89,7 @@ export default async function PostPage(props: PostProps) {
             <span className="text-fg-3">·</span>
           </div>
           <header>
-            <h1 className="my-4 tracking-tight leading-normal max-w-lg mx-auto text-4xl">
+            <h1 className="my-4 tracking-tight font-semibold leading-normal max-w-lg mx-auto text-4xl">
               {post.metadata.title}
             </h1>
             <p className="leading-relaxed max-w-sm mx-auto text-fg-2">
@@ -175,7 +175,7 @@ export default async function PostPage(props: PostProps) {
             })),
             publisher: {
               "@type": "Organization",
-              name: "Snappin",
+              name: "Snappin App",
               logo: {
                 "@type": "ImageObject",
                 url: "https://www.snappinapp.com/images/snappin_dark_light.png",

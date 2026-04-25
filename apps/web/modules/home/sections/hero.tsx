@@ -8,7 +8,7 @@ import { AnnouncementBanner } from "@snappin/ui/components/announcement/banner";
 
 export const HeroSection = () => {
   return (
-    <div className="mt-20 px-4 xl:px-0">
+    <div className="mt-12 px-4 xl:px-0">
       <div className="relative flex flex-col gap-6">
         <div className="flex flex-col items-center">
           <AnnouncementBanner
@@ -16,7 +16,7 @@ export const HeroSection = () => {
             href="/blog/snappin-public-beta-launch"
             setTarget_Bank
           >
-            We Launched Public Beta
+            We launched public beta
           </AnnouncementBanner>
           <H1 className="mt-6 text-center">
             AI that organizes
@@ -25,7 +25,7 @@ export const HeroSection = () => {
           </H1>
         </div>
         <div>
-          <Lead className="text-center text-fg-3 leading-relaxed max-w-md mx-auto">
+          <Lead className="text-center text-fg-2 leading-relaxed max-w-sm mx-auto">
             Connect your email accounts to start extracting invoices, and
             receipts automatically.
           </Lead>
@@ -42,7 +42,7 @@ export const HeroSection = () => {
             </Button>
             <Button
               variant={"dim"}
-              className="w-full font-semibold rounded-[22px] text-fg-3"
+              className="w-full rounded-[22px] text-fg-3"
               size={"lg"}
               asChild
             >
