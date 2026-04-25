@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   generator: "Snappin",
   robots: {
     index: env.env == "production" ? true : false,
-    follow:  env.env == "production" ? true : false,
+    follow: env.env == "production" ? true : false,
   },
 };
 
@@ -160,7 +160,8 @@ export default function RootLayout({
                 name: "Snappin",
                 operatingSystem: "Web",
                 applicationCategory: "BusinessApplication",
-                description: "AI-powered receipt collection and organizing automation from emails & WhatsApp.",
+                description:
+                  "AI-powered receipt collection and organizing automation from emails & WhatsApp.",
                 url: "https://www.snappinapp.com",
                 offers: {
                   "@type": "Offer",
@@ -181,6 +182,11 @@ export default function RootLayout({
                 url: "https://www.snappinapp.com",
                 email: "hello@snappinapp.com",
                 logo: "https://www.snappinapp.com/images/snappin_dark_light.png",
+                foundingDate: "2025",
+                sameAs: [
+                  "https://twitter.com/maniikandan_p",
+                  "https://linkedin.com/company/snappinapp",
+                ],
               }),
             }}
           />

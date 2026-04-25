@@ -8,26 +8,47 @@
 
 import { Layout } from "../../_components/layout";
 import { Client as SignInClient } from "./client";
+import Script from "next/script";
 
 export default function Page() {
   return (
-    <div className="flex justify-between flex-col xl:items-center xl:flex-row min-h-screen ">
-      <Layout>
-        <SignInClient />
-      </Layout>
-      <div className="relative hidden bg-gray-6 xl:flex h-screen xl:w-280">
-        <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-zinc-900/3"></div>
-        {/* Product demo tour or customer reviews can go here */}
-        <video
-          src="/videos/snappin_demo_on_auth_page.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        />
+    <>
+      <div className="flex justify-between flex-col xl:items-center xl:flex-row min-h-screen">
+        <Layout>
+          <SignInClient />
+        </Layout>
+        <div className="relative hidden bg-gray-6 xl:flex h-screen xl:w-280">
+          <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-zinc-900/3"></div>
+          <video
+            src="/videos/snappin_demo_on_auth_page.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
-    </div>
+      <Script
+        id="schema-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Sign up to Snappin",
+            description:
+              "Sign up to your Snappin account to extract your invoices from mails",
+            url: "https://www.snappinapp.com/signup",
+            publisher: {
+              "@type": "Organization",
+              name: "Snappin",
+              url: "https://www.snappinapp.com",
+            },
+          }),
+        }}
+      />
+    </>
   );
 }
 
