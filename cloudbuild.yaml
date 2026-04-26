@@ -1,27 +1,31 @@
+# cloudbuild.yaml (at repo root)
 steps:
-  - name: "gcr.io/cloud-builders/docker"
+  - name: 'gcr.io/cloud-builders/docker'
     args:
-      - "build"
-      - "-t"
-      - "gcr.io/snappin-ai/api:$COMMIT_SHA"
-      - "-f"
-      - "apps/api/Dockerfile"
-      - "--build-arg"
-      - "SECRET_PLATFORM_TOKEN=$_SECRET_PLATFORM_TOKEN"
-      - "--build-arg"
-      - "SECRET_PLATFORM_ENVIRONMENT=$_SECRET_PLATFORM_ENVIRONMENT"
-      - "--build-arg"
-      - "HUGEICONS_LICENSE_KEY=$_HUGEICONS_LICENSE_KEY"
-      - "--build-arg"
-      - "GITHUB_TOKEN=$_GITHUB_TOKEN"
-      - "."
+      - 'build'
+      - '-t'
+      - 'gcr.io/snappin-ai/api:$COMMIT_SHA'
+      - '-f'
+      - 'apps/api/Dockerfile'
+      - '--build-arg'
+      - 'SECRET_PLATFORM_TOKEN=$_SECRET_PLATFORM_TOKEN'
+      - '--build-arg'
+      - 'SECRET_PLATFORM_ENVIRONMENT=$_SECRET_PLATFORM_ENVIRONMENT'
+      - '--build-arg'
+      - 'HUGEICONS_LICENSE_KEY=$_HUGEICONS_LICENSE_KEY'
+      - '--build-arg'
+      - 'GITHUB_TOKEN=$_GITHUB_TOKEN'
+      - '.'
 
-  - name: "gcr.io/cloud-builders/docker"
+  - name: 'gcr.io/cloud-builders/docker'
     args:
-      - "push"
-      - "gcr.io/snappin-ai/api:$COMMIT_SHA"
+      - 'push'
+      - 'gcr.io/snappin-ai/api:$COMMIT_SHA'
 
 images:
-  - "gcr.io/snappin-ai/api:$COMMIT_SHA"
+  - 'gcr.io/snappin-ai/api:$COMMIT_SHA'
 
-timeout: "1800s"
+timeout: '1800s'
+
+options:
+  logging: CLOUD_LOGGING_ONLY    # ← fixes the error
