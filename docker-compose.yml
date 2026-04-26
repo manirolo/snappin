@@ -9,6 +9,8 @@ services:
       args:                                          
         SECRET_PLATFORM_TOKEN: ${SECRET_PLATFORM_TOKEN}
         SECRET_PLATFORM_ENVIRONMENT: ${SECRET_PLATFORM_ENVIRONMENT:-dev}
+        HUGEICONS_LICENSE_KEY: ${HUGEICONS_LICENSE_KEY}
+        GITHUB_TOKEN: ${GITHUB_TOKEN} 
     restart: always
     ports:
       - 3001:3001

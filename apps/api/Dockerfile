@@ -20,12 +20,18 @@ ARG SECRET_PLATFORM_ENVIRONMENT
 ENV INFISICAL_TOKEN=${SECRET_PLATFORM_TOKEN}
 ENV INFISICAL_ENVIRONMENT=${SECRET_PLATFORM_ENVIRONMENT:-dev}
 
+ARG HUGEICONS_LICENSE_KEY
+ARG GITHUB_TOKEN
+ENV HUGEICONS_LICENSE_KEY=${HUGEICONS_LICENSE_KEY}
+ENV _GITHUB_TOKEN=${GITHUB_TOKEN}
+
 RUN pnpm config set fetch-timeout 60000 && \
     pnpm config set fetch-retry-mintimeout 10000 && \
     pnpm config set fetch-retry-maxtimeout 60000
 
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY .npmrc . 
 
 # Install dependencies using Infisical
 RUN infisical run -- pnpm install --frozen-lockfile --ignore-scripts
