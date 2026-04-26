@@ -1,3 +1,4 @@
+# cloudbuild.yaml (at repo root)
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
@@ -7,17 +8,15 @@ steps:
       - '-f'
       - 'apps/api/Dockerfile'
       - '--build-arg'
-      - 'INFISICAL_CLIENT_ID=$_INFISICAL_CLIENT_ID'
-      - '--build-arg'
-      - 'INFISICAL_CLIENT_SECRET=$_INFISICAL_CLIENT_SECRET'
-      - '--build-arg'
-      - 'INFISICAL_PROJECT_ID=$_INFISICAL_PROJECT_ID'
+      - 'SECRET_PLATFORM_TOKEN=$_SECRET_PLATFORM_TOKEN'
       - '--build-arg'
       - 'SECRET_PLATFORM_ENVIRONMENT=$_SECRET_PLATFORM_ENVIRONMENT'
       - '--build-arg'
       - 'HUGEICONS_LICENSE_KEY=$_HUGEICONS_LICENSE_KEY'
       - '--build-arg'
       - 'GITHUB_TOKEN=$_GITHUB_TOKEN'
+      - '--build-arg'
+      - 'INFISICAL_PROJECT_ID=$_INFISICAL_PROJECT_ID'
       - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -31,4 +30,4 @@ images:
 timeout: '1800s'
 
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: CLOUD_LOGGING_ONLY    # ← fixes the error
