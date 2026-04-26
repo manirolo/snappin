@@ -23,7 +23,7 @@ export async function generateMetadata(
   const ogImage = image ? `${env.app.frontend_url}${image}` : undefined;
 
   return {
-    title: `${title == "Welcome to Snappin App" ? "Documentation" : {title}} - Snappin App Docs`,
+    title: `${title == "Welcome to Snappin App" ? "Documentation" : title} - Snappin App Docs`,
     description: description || title,
     openGraph: {
       title: `${title} - Snappin App Docs`,

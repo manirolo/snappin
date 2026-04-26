@@ -14,6 +14,7 @@ export const docsConfig = {
             title: "Getting Started",
             items: [
                 { title: "Introduction", slug: "" },
+                { title: "Quickstart", slug: "quickstart" },
             ],
         },
     ] satisfies SidebarGroup[],

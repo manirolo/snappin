@@ -78,6 +78,6 @@ export const LogoSymbol = ({
         alt="Snappin"
       />
     </div>
-    {children && <span className="font-bold text-base tracking-tight">{children}</span>}
+    {children && <span className="text-base">{children}</span>}
   </Link>
 );

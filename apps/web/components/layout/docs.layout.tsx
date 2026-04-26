@@ -27,7 +27,7 @@ export const DocsLayout = ({ children }: { children: React.ReactNode }) => {
             <SidebarTrigger />
           </div>
         </div>
-        <div className="xl:rounded-tl-2xl xl:mt-2 bg-bg-1 border border-bg-4 max-w-full min-h-screen">
+        <div className="bg-bg-1 border border-bg-4 max-w-full min-h-screen">
           {children}
         </div>
       </DocsSidebar>

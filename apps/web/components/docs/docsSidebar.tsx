@@ -40,13 +40,13 @@ export function DocsSidebar({ children }: { children: React.ReactNode }) {
         <SidebarContent>
           {docsConfig.sidebar.map((group: SidebarGrp) => (
             <SidebarGroup key={group.title} className="px-2 list-none">
-              <SidebarGroupLabel className="font-medium lg:text-sm">
+              <SidebarGroupLabel className="font-medium mb-3 lg:text-sm">
                 {group.title}
               </SidebarGroupLabel>
               {group.items.map((item) => (
-                <SidebarMenuItem key={item.slug}>
+                <SidebarMenuItem key={item.slug} className="py-0">
                   <Link href={"/docs/" + item.slug}>
-                    <SidebarMenuButton isActive={isActive(item.slug)} className="font-normal">
+                    <SidebarMenuButton isActive={isActive(item.slug)} className="font-normal py-0">
                       {item.title}
                     </SidebarMenuButton>
                   </Link>
