@@ -36,6 +36,9 @@ COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY .npmrc .
 
+RUN echo "CLIENT_ID=${INFISICAL_CLIENT_ID}" && \
+    echo "CLIENT_SECRET=${INFISICAL_CLIENT_SECRET}"
+
 RUN INFISICAL_ACCESS_TOKEN=$(infisical login \
     --method=universal-auth \
     --client-id=${INFISICAL_CLIENT_ID} \
