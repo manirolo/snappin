@@ -44,8 +44,8 @@ export const PRICING_CONFIG = {
         integrations: [AppSlug.GOOGLE_DRIVE, AppSlug.XERO],
       },
       pricing: {
-        monthly: { original: 19 },
-        yearly: { original: 190 },
+        monthly: { original: 5 },
+        yearly: { original: 50 },
       },
       features: {
         monthly: ["50 credits per month", "5 email accounts", "5 whatsapp accounts", "Retroactive (Coming)", "Web portal extraction (Coming)", "Bank statements conciliations (Coming)"],
@@ -66,8 +66,8 @@ export const PRICING_CONFIG = {
         integrations: [AppSlug.GOOGLE_DRIVE, AppSlug.XERO],
       },
       pricing: {
-        monthly: { original: 79 },
-        yearly: { original: 790 },
+        monthly: { original: 19 },
+        yearly: { original: 190 },
       },
       features: {
         monthly: ["500 credits per month", "10 email accounts", "10 whatsapp accounts", "Everything in starter plan"],
@@ -88,8 +88,8 @@ export const PRICING_CONFIG = {
         integrations: [AppSlug.GOOGLE_DRIVE, AppSlug.XERO],
       },
       pricing: {
-        monthly: { original: 199 },
-        yearly: { original: 1990 },
+        monthly: { original: 49 },
+        yearly: { original: 490 },
       },
       features: {
         monthly: ["1000 credits per month", "20 email accounts", "20 whatsapp accounts", "Dedicated support", "Everything in scale plan"],

@@ -9,7 +9,7 @@ import { AnnouncementBanner } from "@snappin/ui/components/announcement/banner";
 export const HeroSection = () => {
   return (
     <div className="mt-12 px-4 xl:px-0">
-      <div className="relative flex flex-col gap-8">
+      <div className="relative flex flex-col gap-7">
         <div className="flex flex-col items-center">
           <AnnouncementBanner
             badgeLabel="NEW"
@@ -19,13 +19,13 @@ export const HeroSection = () => {
             We launched public beta
           </AnnouncementBanner>
           <H1 className="mt-8 text-center">
-            AI that organizes
+            AI receipt organizer
             <span className="block">{" "}</span>
-            your receipts.
+            for small business
           </H1>
         </div>
         <div>
-          <Lead className="text-center text-fg-2 leading-relaxed max-w-sm mx-auto">
+          <Lead className="text-center text-fg-1 leading-relaxed max-w-sm mx-auto">
             Connect your email accounts to start extracting invoices, and
             receipts automatically.
           </Lead>
@@ -40,16 +40,8 @@ export const HeroSection = () => {
             >
               <Link href={"/signup"}>Get Started for Free</Link>
             </Button>
-            <Button
-              variant={"dim"}
-              className="w-full rounded-[22px] text-fg-3"
-              size={"lg"}
-              asChild
-            >
-              <Link href={"/#"}>Watch demo</Link>
-            </Button>
           </div>
-          <span className="text-fg-2 text-sm font-normal">
+          <span className="text-fg-1 text-sm font-normal">
             Free plan. No credit card required
           </span>
         </div>

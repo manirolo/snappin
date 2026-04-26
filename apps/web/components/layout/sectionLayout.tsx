@@ -19,7 +19,7 @@ export const SectionHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
-      className="w-full max-w-3xl mx-auto px-4 xl:px-0 flex flex-col items-center text-center gap-4"
+      className="w-full max-w-3xl mx-auto px-4 xl:px-0 flex flex-col items-center text-center gap-3"
       {...props}
     >
       {children}
@@ -48,7 +48,7 @@ export const SectionTitle = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <h2
-      className={cn("text-3xl tracking-tighter text-fg-4 leading-tight font-semibold text-balance max-w-2xl", className)}
+      className={cn("text-4xl tracking-tighter text-fg-4 leading-tight font-semibold text-balance max-w-2xl", className)}
       {...props}
     >
       {children}
