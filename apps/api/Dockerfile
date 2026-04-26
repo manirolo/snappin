@@ -36,18 +36,26 @@ COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY .npmrc .
 
-RUN infisical run \
+RUN INFISICAL_ACCESS_TOKEN=$(infisical login \
+    --method=universal-auth \
+    --client-id=${INFISICAL_CLIENT_ID} \
+    --client-secret=${INFISICAL_CLIENT_SECRET} \
+    --plain --silent) && \
+    infisical run \
+    --token=${INFISICAL_ACCESS_TOKEN} \
     --projectId=e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc \
-    --machine-identity-client-id=${INFISICAL_CLIENT_ID} \
-    --machine-identity-client-secret=${INFISICAL_CLIENT_SECRET} \
     -- pnpm install --frozen-lockfile --ignore-scripts
 
 COPY --from=builder /app/out/full/ .
 
-RUN infisical run \
+RUN INFISICAL_ACCESS_TOKEN=$(infisical login \
+    --method=universal-auth \
+    --client-id=${INFISICAL_CLIENT_ID} \
+    --client-secret=${INFISICAL_CLIENT_SECRET} \
+    --plain --silent) && \
+    infisical run \
+    --token=${INFISICAL_ACCESS_TOKEN} \
     --projectId=e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc \
-    --machine-identity-client-id=${INFISICAL_CLIENT_ID} \
-    --machine-identity-client-secret=${INFISICAL_CLIENT_SECRET} \
     -- pnpm turbo run build --filter=@snappin/api
 
 RUN ls -R apps/api | grep dist || echo "No dist found"
@@ -76,6 +84,12 @@ WORKDIR /app/apps/api
 ENV PORT=8080
 EXPOSE 8080
 
-CMD infisical run \
+CMD INFISICAL_ACCESS_TOKEN=$(infisical login \
+    --method=universal-auth \
+    --client-id=${INFISICAL_CLIENT_ID} \
+    --client-secret=${INFISICAL_CLIENT_SECRET} \
+    --plain --silent) && \
+    infisical run \
+    --token=${INFISICAL_ACCESS_TOKEN} \
     --projectId=e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc \
     -- pnpm start
