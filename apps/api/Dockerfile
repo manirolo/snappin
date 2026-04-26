@@ -14,14 +14,15 @@ RUN apk update && apk add --no-cache libc6-compat
 RUN npm install -g pnpm turbo
 WORKDIR /app
 
-# Abstraction layer
 ARG SECRET_PLATFORM_TOKEN
 ARG SECRET_PLATFORM_ENVIRONMENT
-ENV INFISICAL_TOKEN=${SECRET_PLATFORM_TOKEN}
-ENV INFISICAL_ENVIRONMENT=${SECRET_PLATFORM_ENVIRONMENT:-dev}
-
+ARG INFISICAL_PROJECT_ID
 ARG HUGEICONS_LICENSE_KEY
 ARG GITHUB_TOKEN
+
+ENV INFISICAL_TOKEN=${SECRET_PLATFORM_TOKEN}
+ENV INFISICAL_ENVIRONMENT=${SECRET_PLATFORM_ENVIRONMENT:-dev}
+ENV INFISICAL_PROJECT_ID=${INFISICAL_PROJECT_ID}
 ENV HUGEICONS_LICENSE_KEY=${HUGEICONS_LICENSE_KEY}
 ENV _GITHUB_TOKEN=${GITHUB_TOKEN}
 
@@ -31,13 +32,12 @@ RUN pnpm config set fetch-timeout 60000 && \
 
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY .npmrc . 
+COPY .npmrc .
 
-# Install dependencies using Infisical
-RUN infisical run -- pnpm install --frozen-lockfile --ignore-scripts
+# ✅ install first, then copy full source, then build
+RUN infisical run --projectId=${INFISICAL_PROJECT_ID} -- pnpm install --frozen-lockfile --ignore-scripts
 COPY --from=builder /app/out/full/ .
-
-RUN infisical run -- pnpm turbo run build --filter=@snappin/api
+RUN infisical run --projectId=${INFISICAL_PROJECT_ID} -- pnpm turbo run build --filter=@snappin/api
 
 RUN ls -R apps/api | grep dist || echo "No dist found"
 
@@ -46,8 +46,10 @@ WORKDIR /app
 
 ARG SECRET_PLATFORM_TOKEN
 ARG SECRET_PLATFORM_ENVIRONMENT
+ARG INFISICAL_PROJECT_ID
 ENV INFISICAL_TOKEN=${SECRET_PLATFORM_TOKEN}
 ENV INFISICAL_ENVIRONMENT=${SECRET_PLATFORM_ENVIRONMENT:-dev}
+ENV INFISICAL_PROJECT_ID=${INFISICAL_PROJECT_ID}
 
 RUN npm install -g pnpm
 RUN addgroup --system --gid 1001 expressjs && adduser --system --uid 1001 expressjs
@@ -60,4 +62,4 @@ WORKDIR /app/apps/api
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["infisical", "run", "--", "pnpm", "start"]
+CMD ["infisical", "run", "--projectId", "e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc", "--", "pnpm", "start"]

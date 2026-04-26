@@ -15,6 +15,8 @@ steps:
       - 'HUGEICONS_LICENSE_KEY=$_HUGEICONS_LICENSE_KEY'
       - '--build-arg'
       - 'GITHUB_TOKEN=$_GITHUB_TOKEN'
+      - '--build-arg'
+      - 'INFISICAL_PROJECT_ID=$_INFISICAL_PROJECT_ID'
       - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
