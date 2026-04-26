@@ -25,7 +25,7 @@ export const HomeBlog = () => {
       </SectionHeader>
       <SectionContent>
         <div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             {allUpdates.map((post) => (
               <article key={post.slug}>
                 <Link href={`/blog/${post.slug}`} className="space-y-3">

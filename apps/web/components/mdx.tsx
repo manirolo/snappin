@@ -39,17 +39,25 @@ interface CustomLinkProps {
 function CustomLink({ href, ...rest }: CustomLinkProps) {
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...rest}>
+      <Link href={href} className="text-link" {...rest}>
         {rest.children as ReactNode}
       </Link>
     );
   }
 
   if (href.startsWith("#")) {
-    return <a {...rest} />;
+    return <Link href={href} className="text-link" {...rest} />;
   }
 
-  return <a target="_blank" href={href} rel="noopener noreferrer" {...rest} />;
+  return (
+    <Link
+      className="text-link"
+      target="_blank"
+      href={href}
+      rel="noopener noreferrer"
+      {...rest}
+    />
+  );
 }
 
 interface RoundedImageProps {
@@ -177,6 +185,15 @@ function UnorderedList({ children }: { children: ReactNode }) {
 }
 UnorderedList.displayName = "UnorderedList";
 
+function OrderedList({ children }: { children: ReactNode }) {
+  return (
+    <ol className="list-decimal list-inside text-fg-3 font-normal mb-4 space-y-1">
+      {children}
+    </ol>
+  );
+}
+OrderedList.displayName = "OrderedList";
+
 function ListItem({ children }: { children: ReactNode }) {
   return (
     <li className="leading-relaxed text-fg-3 font-normal dark:text-neutral-200">
@@ -200,6 +217,7 @@ const components: MDXRemoteProps["components"] = {
   Warning,
   CapEmbed,
   Table,
+  ol: OrderedList,
   ul: UnorderedList,
   li: ListItem,
 };

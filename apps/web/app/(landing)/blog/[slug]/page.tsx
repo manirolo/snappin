@@ -39,7 +39,7 @@ export async function generateMetadata(
   const ogImage = `https://ik.imagekit.io/kk3yk561o/v1${image}`;
 
   return {
-    title,
+    title: `${title} - Snappin App Blog`,
     description,
     openGraph: {
       title,
@@ -102,9 +102,10 @@ export default async function PostPage(props: PostProps) {
           </div>
         </div>
         {post.metadata.image && (
-          <div className="relative mb-6 w-full rounded-lg overflow-hidden">
+          <div className="relative mb-6 w-fit mx-auto rounded-lg overflow-hidden">
             <CDNImage
-              className="object-contain m-0 xl:h-[50vh] w-full sm:object-cover"
+              className="object-contain m-0 w-full mx-auto sm:object-cover"
+              imageClassName="xl:h-[40vh] w-full max-w-3xl"
               src={post.metadata.image}
               alt={post.metadata.title}
             />

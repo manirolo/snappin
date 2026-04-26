@@ -8,7 +8,7 @@ export const HomeFooter = () => {
       <footer className="max-w-5xl mx-auto flex flex-wrap gap-14 px-4 xl:px-0 justify-between pt-24 pb-32">
         <div className="flex flex-col gap-4">
           <Small className="max-w-sm">
-            Built over hundreds of late nights, Snappin saves you from invoice
+            Built over hundreds of late nights, Snappin App saves you from invoice
             chaos and manual entry.
           </Small>
           <Small>© 2026</Small>

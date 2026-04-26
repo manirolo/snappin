@@ -39,17 +39,17 @@ interface CustomLinkProps {
 function CustomLink({ href, ...rest }: CustomLinkProps) {
   if (href.startsWith("/")) {
     return (
-      <Link href={href} className="text-link" {...rest}>
+      <Link href={href} className="underline" {...rest}>
         {rest.children as ReactNode}
       </Link>
     );
   }
 
   if (href.startsWith("#")) {
-    return <Link href={href} className="text-link" {...rest} />;
+    return <Link href={href} className="underline" {...rest} />;
   }
 
-  return <Link className="text-link" target="_blank" href={href} rel="noopener noreferrer" {...rest} />;
+  return <Link className="underline" target="_blank" href={href} rel="noopener noreferrer" {...rest} />;
 }
 
 interface RoundedImageProps {

@@ -5,17 +5,21 @@ services:
     container_name: api
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./apps/api/Dockerfile
+      args:                                          
+        SECRET_PLATFORM_TOKEN: ${SECRET_PLATFORM_TOKEN}
+        SECRET_PLATFORM_ENVIRONMENT: ${SECRET_PLATFORM_ENVIRONMENT:-dev}
     restart: always
     ports:
       - 3001:3001
     networks:
       - app_network
+    image: api:latest
     environment:
-      - INFISICAL_TOKEN=${INFISICAL_TOKEN}
+      SECRET_PLATFORM_TOKEN: ${SECRET_PLATFORM_TOKEN}
+      SECRET_PLATFORM_ENVIRONMENT: ${SECRET_PLATFORM_ENVIRONMENT:-dev}
+    command: infisical run -- pnpm start:docker
 
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
 networks:
   app_network:
     external: true
