@@ -4,11 +4,12 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "strict": true,
+    "verbatimModuleSyntax": true,
     "skipLibCheck": true,
     "types": ["node"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-    "outDir": "dist",
+    "outDir": "./dist",
     "rootDir": "src"
   },
   "include": ["src", "src/index.ts"],
