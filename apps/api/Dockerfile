@@ -35,9 +35,10 @@ COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY .npmrc .
 
 # ✅ install first, then copy full source, then build
-RUN infisical run --projectId=${INFISICAL_PROJECT_ID} -- pnpm install --frozen-lockfile --ignore-scripts
+# Replace both infisical run lines with hardcoded project ID
+RUN infisical run --projectId=e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc -- pnpm install --frozen-lockfile --ignore-scripts
 COPY --from=builder /app/out/full/ .
-RUN infisical run --projectId=${INFISICAL_PROJECT_ID} -- pnpm turbo run build --filter=@snappin/api
+RUN infisical run --projectId=e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc -- pnpm turbo run build --filter=@snappin/api
 
 RUN ls -R apps/api | grep dist || echo "No dist found"
 
