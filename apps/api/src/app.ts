@@ -17,7 +17,7 @@ app.route(`/${API_VERSION}`, router)
 
 serve({
   fetch: app.fetch,
-  port: parseInt(process.env.PORT || '8080')
+  port: 8080
 }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`)
 })
