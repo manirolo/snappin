@@ -2,7 +2,7 @@
   "extends": "@snappin/typescript-config/base.json",
   "compilerOptions": {
     "module": "CommonJS",
-    "moduleResolution": "bundler",
+     "moduleResolution": "node",  
     "strict": true,
     "skipLibCheck": true,
     "types": ["node"],
