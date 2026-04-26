@@ -9,10 +9,8 @@ const nextConfig = {
     "@hugeicons-pro/core-solid-rounded": {
       transform: "@hugeicons-pro/core-solid-rounded/{{member}}"
     },
-    "@hugeicons-pro/core-duotone-rounded": {
-      transform: "@hugeicons-pro/core-duotone-rounded/{{member}}"
-    }
   },
+
   images: {
     remotePatterns: [
       {

@@ -18,5 +18,6 @@ export const gmailMetadata: AppMetadata = {
     category: AppCategory.EMAIL,
     type: AppType.SOURCE,
     // services: GmailAppServices,
-    enableOnOnboarding: true
+    enableOnOnboarding: false,
+    isComingSoon: true,
 }
