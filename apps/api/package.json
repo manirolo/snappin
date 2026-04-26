@@ -2,10 +2,10 @@
   "name": "@snappin/api",
   "type": "module",
   "scripts": {
-    "dev": "infisical run -- tsx watch src/app.ts",
+    "dev": "infisical run -- tsx watch src/index.ts",
     "build": "tsc",
     "lint": "eslint . --max-warnings 0",
-    "start": "node dist/app.js",
+    "start": "node dist/index.js",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
