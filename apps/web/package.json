@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "infisical run -- next dev --port 3000",
+    "dev": "infisical run -- next dev --port 3000 --turbopack",
     "openapi:gen": "node scripts/openapi.ts > openapi.json",
     "sdk:gen": "openapi-typescript openapi.json -o src/sdk/types.ts",
     "build": "next build",

@@ -20,6 +20,7 @@ export const messageReceived = schemaTask({
             { invoiceSaveService },
             { resolveIntegrationSnapshot },
             { formatDate },
+            { usageService }
         ] = await Promise.all([
             import('@snappin/db/index'),
             import('@snappin/db/connect'),
@@ -30,6 +31,7 @@ export const messageReceived = schemaTask({
             import('@snappin/features/invoice/services/invoiceSave.service'),
             import('@snappin/features/integration/lib/resolveIntegrationSnapshot'),
             import('@snappin/lib/date/formateDate'),
+            import('@snappin/features/billing/service/usage.service')
         ])
         const { messageId, media, type } = payload
         const from = payload.from.startsWith("+") ? payload.from : `+${payload.from}`
@@ -39,7 +41,7 @@ export const messageReceived = schemaTask({
 
         const integration = await db.integration.findOne({ status: IntegrationStatus.CONNECTED, "metadata.phone": from })
 
-        if (!integration) {
+        if (!integration || !integration.orgId) {
             await whatsappClient.sendMessage(from, MessageReplyReason.ACCOUNT_NOT_CONNECTED)
             return
         }
@@ -54,6 +56,14 @@ export const messageReceived = schemaTask({
             return
         }
 
+        const isAllowedToExtract = await usageService.isWithinLimit(integration?.orgId, "invoices")
+
+        if (!isAllowedToExtract) {
+            whatsappClient.sendMessage(from, MessageReplyReason.LIMIT_REACHED);
+            console.error("Invoice limit reached for org: ", integration?.orgId)
+            return
+        }
+
         await whatsappClient.reactToMessage(from, messageId, PROCESSING_REACTIONS.RECEIVED)
 
         const [buffer] = await Promise.all([
@@ -62,7 +72,6 @@ export const messageReceived = schemaTask({
         ])
 
         try {
-            // ✅ Fix 1: use media.filename and media.mimeType — not buffer properties
             const { fileId, fileName } = await documentService.uploadToTemp({
                 attachment: {
                     kind: "buffer",

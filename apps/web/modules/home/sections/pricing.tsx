@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@snappin/ui/components/card";
@@ -75,7 +76,7 @@ export const PricingSection = () => {
       <Section>
         <SectionHeader>
           <SectionLabel>Pricing</SectionLabel>
-          <SectionTitle>Choose a plan that suits you</SectionTitle>
+          <SectionTitle>Plan that grows with you</SectionTitle>
           <SectionDescription>
             Start for free. No credit card required. Upgrade when you&#39;re
             ready
@@ -89,7 +90,7 @@ export const PricingSection = () => {
               onValueChange={(v) => setBillingCycle(v as BillingCycle)}
               className="w-full"
             >
-              <div className="relative my-18 mt-8 flex items-center justify-center">
+              <div className="relative my-18 mt-0 flex items-center justify-center">
                 {/* Custom animated tab switcher — replaces default TabsList highlight */}
                 <TabsList className="bg-bg-3 border-0 rounded-[22px] w-fit flex relative p-1">
                   {/* Sliding background pill */}
@@ -121,15 +122,15 @@ export const PricingSection = () => {
                 </TabsList>
 
                 <span
-                  className="absolute flex items-center gap-2 font-fuzzy-bubbles! text-sm text-zinc-900 font-normal"
+                  className="absolute flex items-center gap-2 font-fuzzy-bubbles! text-sm text-zinc-500 font-normal"
                   style={{
                     left: "calc(50% + 70px)",
                     top: "-40%",
                     transform: "translateY(-50%)",
                   }}
                 >
-                  <CurlyArrow className="text-zinc-900 -rotate-40 mt-4" />
-                  2 months free
+                  <CurlyArrow className="text-zinc-500 -rotate-40 mt-4" />2
+                  months free
                 </span>
               </div>
             </Tabs>
@@ -146,12 +147,18 @@ export const PricingSection = () => {
                   return (
                     <Card
                       key={plan.id}
-                      className={`rounded-2xl flex flex-col border border-bg-2 shadow-none bg-transparent ${plan.id == "scale" && "bg-zinc-900! text-white"} bg-card`}
+                      className={`rounded-2xl flex flex-col border border-bg-2 shadow-none bg-transparent ${plan.id == "scale" && "bg-linear-to-b from-green-a2 ring-2 ring-green-a2 border-green-a2 to-green-1"} bg-card`}
                     >
                       <CardHeader className="text-center relative pb-0">
                         <CardTitle className="font-medium">
                           {plan.label}
                         </CardTitle>
+
+                        <CardDescription className="text-fg-2 my-2 text-balance">
+                          Upto {plan.docsLabel[billingCycle]}{" "}
+                          {billingCycle === "yearly" ? "annual" : "monthly"}{" "}
+                          receipts extracted
+                        </CardDescription>
 
                         <div className="text-start flex items-end gap-2 py-4">
                           <span className="text-4xl font-bold leading-none">
@@ -165,75 +172,55 @@ export const PricingSection = () => {
                           </div>
                         </div>
 
-                        <CardDescription className="text-fg-2 mb-2 text-balance">
-                          Upto {plan.docsLabel[billingCycle]}{" "}
-                          {billingCycle === "yearly" ? "annual" : "monthly"}{" "}
-                          invoices extracted
-                        </CardDescription>
+                        <div className="w-full text-center">
+                          <Button
+                            className="w-full capitalize shadow-none my-2 text-fg-4"
+                            size="xl"
+                            radius="full"
+                            variant={plan.id == "scale" ? "primary" : "outline"}
+                            disabled={createCheckout.isPending}
+                            onClick={() => handleCheckout(plan.id)}
+                          >
+                            {isLoading ? (
+                              <Spinner
+                                className={cn(
+                                  plan.id == "scale" ? "text-white" : "",
+                                )}
+                              />
+                            ) : (
+                              `Get Started`
+                            )}
+                          </Button>
 
-                        <Button
-                          className="w-full capitalize rounded-[22px] shadow-none my-4 text-fg-4"
-                          size="xl"
-                          variant={plan.id == "scale" ? "primary" : "outline"}
-                          disabled={createCheckout.isPending}
-                          onClick={() => handleCheckout(plan.id)}
-                        >
-                          {isLoading ? (
-                            <Spinner
-                              className={cn(
-                                plan.id == "scale" ? "text-fg-4" : "",
-                              )}
-                            />
-                          ) : (
-                            `Get Started`
+                          {error && (
+                            <span className="text-sm font-normal leading-relaxed text-destructive">
+                              {error}
+                            </span>
                           )}
-                        </Button>
-
-                        {error && (
-                          <span className="text-sm font-normal leading-relaxed text-destructive">
-                            {error}
-                          </span>
-                        )}
+                        </div>
                       </CardHeader>
 
-                      <CardContent className="flex-1 mt-1 space-y-4 text-sm">
-                        <div className="text-fg-3 mb-4">This includes: </div>
+                      <CardContent className="flex-1 space-y-4 text-sm">
+                        <div className="text-fg-2 mb-4">This includes: </div>
                         <ul className="space-y-4">
                           {plan.features[billingCycle]?.map((feat, i) => (
                             <li
                               key={i}
                               className={cn(
-                                "flex gap-2 text-fg-4 text-sm items-center leading-relaxed",
-                                plan.id == "scale" && "text-white/70",
+                                "flex gap-2 text-fg-3 text-sm items-center leading-relaxed",
+                                // plan.id == "scale" && "text-white/70",
                               )}
                             >
                               <Icon
                                 icon="mdi:check-circle"
-                                className="size-4 text-fg-1 shrink-0 mt-0.5"
+                                className="size-4 text-fg-a1 shrink-0 mt-0.5"
                               />
                               {feat}
                             </li>
                           ))}
                         </ul>
-                        <div className="text-fg-3 mb-4">Integrations: </div>
-                        <ul className="space-y-4">
-                          {plan.integrations.map((integration, i) => (
-                            <li
-                              key={i}
-                              className={cn(
-                                "flex gap-2 text-fg-4 text-sm items-start",
-                                plan.id == "scale" && "text-white/70",
-                              )}
-                            >
-                              <Icon
-                                icon="mdi:check-circle"
-                                className="size-4 text-fg-1 shrink-0 mt-0.5"
-                              />
-                              {integration}
-                            </li>
-                          ))}
-                        </ul>
                       </CardContent>
+                      <CardFooter></CardFooter>
                     </Card>
                   );
                 })}

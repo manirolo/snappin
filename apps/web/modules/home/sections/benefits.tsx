@@ -7,23 +7,27 @@ import {
 } from "@hugeicons-pro/core-stroke-rounded";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import { Section } from "../../../components/layout/sectionLayout";
+import { cn } from "@snappin/ui/lib/utils";
 
 const benefits = [
   {
     icon: ShieldKeyIcon,
     title: "GDPR compliant",
+    color: "text-purple-400",
     description:
       "We pseudonymize data by default, ensuring total privacy and compliance with GDPR.",
   },
   {
     icon: Mail01Icon,
     title: "Connect your email",
+    color: "text-blue-400",
     description:
       "Link Gmail or Outlook and we automatically pull receipts straight from your inbox.",
   },
   {
     icon: Invoice03Icon,
     title: "Auto-extracted receipts",
+    color: "text-purple-400",
     description:
       "Our AI reads receipts, and invoices so you never have to enter data manually.",
   },
@@ -33,22 +37,26 @@ const BenefitCard = ({
   title,
   description,
   icon: Icon,
+  color,
 }: {
   title: string;
   description: string;
   icon: IconSvgElement;
+  color: string;
 }) => {
   return (
     <div className="flex flex-col items-center text-center gap-3 px-4">
       <div className="rounded-full flex items-center justify-center">
         <HugeiconsIcon
           icon={Icon}
-          className="size-6 text-fg-2"
+          className={cn("size-5 text-fg-2", color)}
           strokeWidth={2}
         />
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="text-base/6 font-medium text-center text-fg-4">{title}</h3>
+        <h3 className="text-base/6 font-medium text-center text-fg-4">
+          {title}
+        </h3>
         <span className="text-fg-2 text-sm/5.5">{description}</span>
       </div>
     </div>
@@ -65,6 +73,7 @@ export const Benefits = () => {
             title={b.title}
             description={b.description}
             icon={b.icon}
+            color={b.color}
           />
         ))}
       </div>

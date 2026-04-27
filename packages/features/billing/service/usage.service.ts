@@ -94,6 +94,22 @@ export class UsageService {
         }
     }
 
+    async isWithinLimit(orgId: string, key: CountUsageKey): Promise<boolean> {
+        const [subscription, usage] = await Promise.all([
+            this.getActiveSubscription(orgId),
+            this.getOrgUsage(orgId),
+        ])
+
+        const limits = this.getStoredLimits(subscription)
+        const current = usage[key] ?? 0
+        const limit = limits[key] as number
+
+        if (limit !== -1 && current >= limit) {
+            return false
+        }
+        return true
+    }
+
     async increment(orgId: string, key: CountUsageKey): Promise<void> {
         await this.db.organization.findOneAndUpdate(
             { clerkOrgId: orgId },

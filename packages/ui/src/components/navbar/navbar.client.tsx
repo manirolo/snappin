@@ -9,11 +9,11 @@ export const DashboardOrLogin = () => {
     <div className="flex items-center gap-4">
       <div className="flex items-center gap-2">
         <Button variant={"inverse"} radius={"full"} asChild>
-          <Link href={"/login"} className="rounded-[22px] text-fg-3 hover:underline">
+          <Link href={"/login"} className="text-fg-3 hover:underline">
             Login
           </Link>
         </Button>
-        <Button radius={"full"} className="rounded-2xl" asChild>
+        <Button radius={"full"} asChild>
           <Link href={"/signup"}>Register</Link>
         </Button>
       </div>

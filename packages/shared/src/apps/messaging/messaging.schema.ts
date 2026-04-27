@@ -17,7 +17,7 @@ export const REPLY_TEMPLATES: Record<MessageReplyReason, string> = {
     [MessageReplyReason.LIMIT_REACHED]:         "You've reached your plan limit. Please upgrade to continue.",
     [MessageReplyReason.DOCUMENT_RECEIVED]:     "Got your document! Processing now...",
     [MessageReplyReason.PROCESSING_COMPLETE]:   "Your document has been processed and saved successfully.",
-    [MessageReplyReason.WELCOME]:               "Welcome! 👋 You're connected to Snappin.\n\nSend a *PDF or image* of any document and we'll extract and save the data for you automatically.",
+    [MessageReplyReason.WELCOME]:               "Welcome! 👋\n\nSend your *receipt or invoice* and I will process it and add it to your Snappin .",
 }
 
 export const PROCESSING_REACTIONS = {
