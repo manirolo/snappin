@@ -1,0 +1,28 @@
+app = "snappin"
+primary_region = "ams"
+
+[build]
+  dockerfile = "apps/api/Dockerfile"
+
+[build.args]
+  SECRET_PLATFORM_ENVIRONMENT = "staging"
+  INFISICAL_PROJECT_ID        = "e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc"
+  SECRET_PLATFORM_TOKEN       = ""   # injected from Fly secrets at build time
+  HUGEICONS_LICENSE_KEY        = ""   # injected from Fly secrets at build time
+  GITHUB_TOKEN                 = ""   # injected from Fly secrets at build time
+
+[env]
+  PORT                  = "8080"
+  INFISICAL_ENVIRONMENT = "staging"
+  INFISICAL_PROJECT_ID  = "e9ed0d77-e8bb-40fb-8e05-4e5a5c3116cc"
+[http_service]
+  internal_port       = 8080
+  force_https         = true
+  auto_stop_machines  = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory   = "2gb"
+  cpu_kind = "shared"
+  cpus     = 1
