@@ -3,19 +3,19 @@
   "type": "module",
   "scripts": {
     "dev": "infisical run -- tsx watch src/app.ts",
-    "build": "tsc",
+    "build": "tsup src/app.ts --format esm --out-dir dist",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.14",
-    "hono": "^4.12.14",
     "@snappin/apps": "workspace:*",
     "@snappin/env": "workspace:*",
     "@snappin/features": "workspace:*",
     "@snappin/lib": "workspace:*",
     "@snappin/shared": "workspace:*",
     "@trpc/server": "^11.8.1",
+    "hono": "^4.12.14",
     "zod": "^4.3.5"
   },
   "packageManager": "pnpm@9.15.0",
@@ -23,6 +23,7 @@
     "@snappin/eslint-config": "workspace:*",
     "@snappin/typescript-config": "workspace:*",
     "@types/node": "^20.11.17",
+    "tsup": "^8.5.1",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
   }
