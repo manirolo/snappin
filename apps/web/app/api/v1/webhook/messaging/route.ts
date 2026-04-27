@@ -47,7 +47,12 @@ export async function POST(request: NextRequest) {
         if (!isValid) {
             return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
         }
-
+        const payload = JSON.parse(rawBody);
+        const value = payload?.entry?.[0]?.changes?.[0]?.value;
+        if (!value?.messages?.length) {
+            return NextResponse.json({ ok: true }); // nothing to process
+        }
+        
         const [
             { whatsappClient },
             { messageReceived },
@@ -57,7 +62,6 @@ export async function POST(request: NextRequest) {
         ])
 
         console.time("[webhook] normalizeNotification")
-        const payload = JSON.parse(rawBody);
         const events = await whatsappClient.normalizeNotification(payload);
         console.timeEnd("[webhook] normalizeNotification") // ← check this
 
