@@ -26,10 +26,6 @@ ENV INFISICAL_PROJECT_ID=${INFISICAL_PROJECT_ID}
 ENV HUGEICONS_LICENSE_KEY=${HUGEICONS_LICENSE_KEY}
 ENV _GITHUB_TOKEN=${GITHUB_TOKEN}
 
-RUN pnpm config set fetch-timeout 60000 && \
-    pnpm config set fetch-retry-mintimeout 10000 && \
-    pnpm config set fetch-retry-maxtimeout 60000
-
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY .npmrc .
