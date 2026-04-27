@@ -13,7 +13,7 @@ export enum MessageReplyReason {
 export const REPLY_TEMPLATES: Record<MessageReplyReason, string> = {
     [MessageReplyReason.UNSUPPORTED_DOCUMENT]:  "We only support PDF and image files. Please resend in one of these formats.",
     [MessageReplyReason.EXTRACTION_FAILED]:     "We couldn't extract data from your document. Please ensure it's clear and readable.",
-    [MessageReplyReason.ACCOUNT_NOT_CONNECTED]: "Your number isn't connected to Snappin. Visit app.snappin.io to connect.",
+    [MessageReplyReason.ACCOUNT_NOT_CONNECTED]: "Your number isn't connected to Snappin. Visit snappinapp.com/integrations to connect.",
     [MessageReplyReason.LIMIT_REACHED]:         "You've reached your plan limit. Please upgrade to continue.",
     [MessageReplyReason.DOCUMENT_RECEIVED]:     "Got your document! Processing now...",
     [MessageReplyReason.PROCESSING_COMPLETE]:   "Your document has been processed and saved successfully.",
