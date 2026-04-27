@@ -4,6 +4,23 @@ import { createHmac, timingSafeEqual } from "crypto";
 import { waitUntil } from "@vercel/functions"; 
 import { WhatsAppNotificationPayload } from "@snappin/apps/whatsapp/whatsapp.client";
 
+export async function GET(request: NextRequest) {
+    const mode = request.nextUrl.searchParams.get("hub.mode");
+    const token = request.nextUrl.searchParams.get("hub.verify_token");
+    const challenge = request.nextUrl.searchParams.get("hub.challenge");
+
+    if (mode === "subscribe" && token === env.whatsapp.verifyToken) {
+        return new NextResponse(challenge ?? "", {
+            status: 200,
+            headers: {
+                "Content-Type": "text/plain",
+            },
+        });
+    }
+
+    return new NextResponse("Forbidden", { status: 403 });
+}
+
 function verifySignature(body: string, signature: string | null): boolean {
     if (!signature || !env.whatsapp.appSecret) return false;
     const expected =
