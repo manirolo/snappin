@@ -40,7 +40,7 @@ interface WhatsAppStatus {
     errors?: WhatsAppStatusError[]
 }
 
-interface WhatsAppNotificationPayload {
+export interface WhatsAppNotificationPayload {
     entry?: Array<{
         changes?: Array<{
             value?: {
