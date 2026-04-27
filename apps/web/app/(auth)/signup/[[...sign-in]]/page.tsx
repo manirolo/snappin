@@ -17,7 +17,7 @@ export default function Page() {
         <Layout>
           <SignInClient />
         </Layout>
-        <div className="relative hidden bg-gray-6 xl:flex h-screen xl:w-280">
+        <div className="relative hidden bg-gray-6 xl:flex h-screen lg:w-200 2xl:w-260">
           <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-zinc-900/3"></div>
           <video
             src="/videos/snappin_demo_on_auth_page.mp4"

@@ -7,7 +7,13 @@ export const Section = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("py-12 md:py-18 max-w-5xl mx-auto flex flex-col gap-16 relative overflow-hidden", className)} {...props}>
+    <div
+      className={cn(
+        "py-12 md:py-20 max-w-5xl mx-auto flex flex-col gap-16 relative overflow-hidden",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -15,11 +21,17 @@ export const Section = ({
 
 export const SectionHeader = ({
   children,
+  className,
+  align = "center",
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
+}: React.HTMLAttributes<HTMLDivElement> & { align?: "start" | "center" }) => {
   return (
     <div
-      className="w-full max-w-3xl mx-auto px-4 xl:px-0 flex flex-col items-center text-center gap-3"
+      className={cn(
+        "w-full max-w-3xl mx-auto px-4 xl:px-0 flex flex-col items-center text-center gap-3",
+        align == "start" && "md:text-start md:items-start w-full max-w-5xl",
+        className,
+      )}
       {...props}
     >
       {children}
@@ -33,7 +45,7 @@ export const SectionLabel = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <span
-      className="text-xs text-primary uppercase tracking-normal font-normal"
+      className="text-xs text-orange-3 uppercase font-normal"
       {...props}
     >
       {children}
@@ -48,7 +60,10 @@ export const SectionTitle = ({
 }: React.HTMLAttributes<HTMLHeadingElement>) => {
   return (
     <h2
-      className={cn("text-4xl tracking-tighter text-fg-4 leading-tight font-semibold text-balance max-w-2xl", className)}
+      className={cn(
+        "text-4xl tracking-[-1.7px] text-fg-4 leading-tight font-semibold text-balance max-w-2xl",
+        className,
+      )}
       {...props}
     >
       {children}
@@ -63,7 +78,10 @@ export const SectionDescription = ({
 }: React.HTMLAttributes<HTMLParagraphElement>) => {
   return (
     <p
-      className={cn("w-full max-w-md font-medium text-fg-1! text-base/7", className)}
+      className={cn(
+        "w-full max-w-md font-normal text-fg-1! text-base/7",
+        className,
+      )}
       {...props}
     >
       {children}
@@ -77,7 +95,7 @@ export const SectionContent = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("px-4 xl:px-0", className)} {...props}>
+    <div className={cn("px-4 md:px-0", className)} {...props}>
       {children}
     </div>
   );

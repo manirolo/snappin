@@ -5,7 +5,7 @@ const headingStyle = 'font-inter'
 
 export function H1({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <h1 className={cn(headingStyle, "scroll-m-20 md:text-balance font-semibold tracking-tighter text-fg-4 text-6xl/17", className)}>
+    <h1 className={cn(headingStyle, "scroll-m-20 text-balance font-semibold tracking-[-1.76px] text-fg-4 text-5xl/14", className)}>
       {children}
     </h1>
   )
@@ -67,7 +67,7 @@ export const ExtraSmall = ({children, className}: {children?: React.ReactNode, c
 
 export function Lead({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-muted-foreground tracking-tight font-medium text-lg/7", className)}>
+    <p className={cn("text-muted-foreground tracking-tight font-normal text-base/7", className)}>
       {children}
     </p>
   )

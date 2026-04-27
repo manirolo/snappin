@@ -7,8 +7,8 @@ import { googleDriveMetadata } from "./googleDrive/googleDrive.metadata";
 import { xeroMetadata } from "./xero/xero.metadata";
 
 export const appMetadata  = {
-    [AppSlug.GMAIL]: gmailMetadata,
     [AppSlug.OUTLOOK]: outlookMetadata,
+    [AppSlug.GMAIL]: gmailMetadata,
     [AppSlug.IMAP]: imapMetadata,
     [AppSlug.WHATSAPP]: whatsappMetadata,
     [AppSlug.GOOGLE_DRIVE]: googleDriveMetadata,

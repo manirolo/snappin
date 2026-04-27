@@ -39,8 +39,8 @@ export const PRICING_CONFIG = {
       limits: {
         monthlyDocs: 50,
         yearlyDocs: 600,
-        emailAccounts: 5,
-        mobileScanners: 5,
+        emailAccounts: 3,
+        mobileScanners: 3,
         integrations: [AppSlug.GOOGLE_DRIVE, AppSlug.XERO],
       },
       pricing: {
@@ -48,8 +48,8 @@ export const PRICING_CONFIG = {
         yearly: { original: 50 },
       },
       features: {
-        monthly: ["50 credits per month", "5 email accounts", "5 whatsapp accounts", "Retroactive (Coming)", "Web portal extraction (Coming)", "Bank statements conciliations (Coming)"],
-        yearly: ["600 credits per year", "5 email accounts", "5 whatsapp accounts", "Retroactive (Coming)", "Web portal extraction (Coming)", "Bank statements conciliations (Coming)"],
+        monthly: ["50 credits per month", "3 email accounts", "3 whatsapp accounts", "All integrations", "Web portal extraction (Coming)", "Bank statements conciliations (Coming)"],
+        yearly: ["600 credits per year", "3 email accounts", "3 whatsapp accounts", "All integrations", "Web portal extraction (Coming)", "Bank statements conciliations (Coming)"],
       },
       integrations: ["Google Drive", "Xero", "Quickbooks (Coming)"],
     },
@@ -61,8 +61,8 @@ export const PRICING_CONFIG = {
       limits: {
         monthlyDocs: 500,
         yearlyDocs: 6000,
-        emailAccounts: 10,
-        mobileScanners: 10,
+        emailAccounts: 5,
+        mobileScanners: 5,
         integrations: [AppSlug.GOOGLE_DRIVE, AppSlug.XERO],
       },
       pricing: {
@@ -70,8 +70,8 @@ export const PRICING_CONFIG = {
         yearly: { original: 190 },
       },
       features: {
-        monthly: ["500 credits per month", "10 email accounts", "10 whatsapp accounts", "Everything in starter plan"],
-        yearly: ["6,000 credits per year", "10 email accounts", "10 whatsapp accounts", "Everything in starter plan"],
+        monthly: ["500 credits per month", "5 email accounts", "5 whatsapp accounts", "Everything in starter plan"],
+        yearly: ["6,000 credits per year", "5 email accounts", "5 whatsapp accounts", "Everything in starter plan"],
       },
       integrations: ["Google Drive", "Xero", "Quickbooks (Coming)"],
     },
@@ -83,8 +83,8 @@ export const PRICING_CONFIG = {
       limits: {
         monthlyDocs: 1000,
         yearlyDocs: 12000,
-        emailAccounts: 20,
-        mobileScanners: 20,
+        emailAccounts: 10,
+        mobileScanners: 10,
         integrations: [AppSlug.GOOGLE_DRIVE, AppSlug.XERO],
       },
       pricing: {
@@ -92,8 +92,8 @@ export const PRICING_CONFIG = {
         yearly: { original: 490 },
       },
       features: {
-        monthly: ["1000 credits per month", "20 email accounts", "20 whatsapp accounts", "Dedicated support", "Everything in scale plan"],
-        yearly: ["12,000 credits per year", "20 email accounts", "20 whatsapp accounts", "Dedicated support", "Everything in scale plan"],
+        monthly: ["1000 credits per month", "10 email accounts", "10 whatsapp accounts", "Dedicated support", "Everything in scale plan"],
+        yearly: ["12,000 credits per year", "10 email accounts", "10 whatsapp accounts", "Dedicated support", "Everything in scale plan"],
       },
       integrations: ["Google Drive", "Xero", "Quickbooks (Coming)"],
     },
