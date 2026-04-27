@@ -48,7 +48,7 @@ export const HomeFooter = () => {
                 target="_blank"
                 className="text-fg-3 text-sm"
               >
-                Affiliate (20%)
+                Affiliate (10%)
               </Link>
             </div>
           </div>
