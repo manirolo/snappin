@@ -9,6 +9,7 @@ const nextConfig = {
       transform: "@hugeicons-pro/core-solid-rounded/{{member}}"
     },
   },
+  turbopack: {},
   webpack: (config, { dev }) => {
     if (dev) {
       config.cache = {
