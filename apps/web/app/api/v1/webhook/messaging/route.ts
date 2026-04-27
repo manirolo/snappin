@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { env } from "@snappin/env";
 import { createHmac, timingSafeEqual } from "crypto";
 import { waitUntil } from "@vercel/functions"; 
+import { WhatsAppNotificationPayload } from "@snappin/apps/whatsapp/whatsapp.client";
 
 function verifySignature(body: string, signature: string | null): boolean {
     if (!signature || !env.whatsapp.appSecret) return false;
@@ -14,7 +15,7 @@ function verifySignature(body: string, signature: string | null): boolean {
     return timingSafeEqual(sigBuf, expectedBuf);
 }
 
-async function processWebhook(payload: unknown) {
+async function processWebhook(payload: WhatsAppNotificationPayload) {
     const [{ whatsappClient }, { messageReceived }] = await Promise.all([
         import("@snappin/apps/whatsapp/whatsapp.client"),
         import("@snappin/features/mobileScanners/trigger/message.received.task"),
