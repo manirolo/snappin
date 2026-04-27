@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
         console.timeEnd("[webhook] normalizeNotification") // ← check this
 
         console.time("[webhook] trigger")
-        events.map((event) => messageReceived(event));
+        events.map((event) => messageReceived.trigger(event));
         console.timeEnd("[webhook] trigger") // ← check this
 
         console.timeEnd("[webhook] total")
