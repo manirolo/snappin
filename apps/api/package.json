@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "infisical run -- tsx watch src/app.ts",
-    "build": "tsup src/app.ts --format esm --out-dir dist",
+    "build": "tsup",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
