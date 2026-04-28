@@ -1,6 +1,8 @@
 import { clerk } from "@snappin/features/trpc/config/clerk";
 import { UserResource } from "@snappin/shared/user/user.schema";
 import { userRepository } from "../repository/user.repository";
+import { resend } from "../../config/resend";
+import { IS_PRODUCTION } from "@snappin/env";
 
 export class UserService {
     protected readonly _userRepo = userRepository
@@ -18,6 +20,35 @@ export class UserService {
             // Check if user already exists
             const existingUser = await this._userRepo.get(data.clerkUserId);
             if (existingUser) throw new Error("User already exist")
+
+
+            if (data.email && data.firstName && data.lastName && IS_PRODUCTION) {
+                const resendAudience = "prod-users"
+                const { error: createError } = await resend.contacts.create({
+                    audienceId: resendAudience,
+                    email: data.email,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    unsubscribed: false,
+                });
+
+                if (createError) {
+                    console.error("Error creating contact:", createError);
+                }
+
+                const { error: sendError } = await resend.emails.send({
+                    to: data.email,
+                    template: {
+                        id: "welcome-email",
+                        variables: {}
+                    }
+                })
+
+                if (sendError) {
+                    console.error("Error sending welcome email:", sendError);
+                }
+            }
+
 
             // create user
             await this._userRepo.create(data)
