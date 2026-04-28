@@ -23,7 +23,7 @@ export class UserService {
 
 
             if (data.email && data.firstName && data.lastName && IS_PRODUCTION) {
-                const resendAudience = "prod-users"
+                const resendAudience = "712194f6-db61-4691-8c32-905493573cdb"
                 const { error: createError } = await resend.contacts.create({
                     audienceId: resendAudience,
                     email: data.email,
