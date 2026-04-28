@@ -139,7 +139,7 @@ export const SettingsView = () => {
   };
 
   const deleteUser = trpc.user.deleteUser.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Account deleted successfully");
       await signOut();
       router.push("/signup");
