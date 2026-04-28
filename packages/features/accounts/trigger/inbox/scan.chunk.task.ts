@@ -172,8 +172,6 @@ export const inboxScanChunk = schemaTask({
                                 return;
                             }
 
-                            let invoiceSavedCount = 0;
-
                             await Promise.all(
                                 mailPayload.attachments.map(async (attachment: InvoiceAttachment) => {
                                     const { fileId, fileName } = await documentService.uploadToTemp({
@@ -220,19 +218,12 @@ export const inboxScanChunk = schemaTask({
                                         throw new SnappinError("Invoice save failed", "storage_upload_failed"); // ✅ goes to catch
                                     }
 
-                                    // ✅ Fix #4: track count, decrement once per mail below
-                                    invoiceSavedCount++;
                                     await db.scan.findByIdAndUpdate({ _id: scanId }, {
                                         $push: { invoiceFound: savedInvoice._id.toString() },
                                     });
 
                                 })
                             );
-
-                            // ✅ Fix #4: decrement usage once per mail, not per attachment
-                            if (invoiceSavedCount > 0) {
-                                await usageService.incrementBy(mailPayload.orgId ?? "", "invoices", invoiceSavedCount);
-                            }
 
                             // ✅ Fix #2: processedMessages incremented here, after attachments succeed
                             await db.scanChunk.findByIdAndUpdate(chunkId, {
