@@ -15,10 +15,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@snappin/ui/components/dropdown-menu";
-import { HiCheck, HiPlus, HiSelector } from "react-icons/hi";
+import { HiCheck, HiSelector } from "react-icons/hi";
 import toast from "react-hot-toast";
 import React from "react";
 import { cn } from "@snappin/ui/lib/utils";
+import { truncate } from "@snappin/lib/string/truncate";
 
 // Adjust this to your actual subscription field on org metadata/publicMetadata
 function getPlan(org: { publicMetadata?: Record<string, unknown> }): string {
@@ -29,9 +30,12 @@ export const WorkspaceSwitcher = () => {
   const { show, clear } = useFullScreenLoading();
   const { organization } = useOrganization();
   const { userMemberships, setActive } = useOrganizationList({
-    userMemberships: true,
+    userMemberships: {
+      infinite: true,
+    },
   });
 
+  console.log(userMemberships);
   const switchOrganization = async (id: string) => {
     if (!setActive) {
       toast.error("Unable to switch organization");
@@ -55,7 +59,7 @@ export const WorkspaceSwitcher = () => {
     <div className="w-full px-2">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button className="w-full flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-white/10 transition-colors outline-none group">
+          <button className="w-full flex items-center gap-2.5 px-2 py-2 rounded-lg transition-colors outline-none group">
             {/* Logo */}
             <Avatar className="size-8 rounded-md shrink-0">
               <AvatarImage
@@ -69,16 +73,16 @@ export const WorkspaceSwitcher = () => {
 
             {/* Name + plan */}
             <div className="flex-1 min-w-0 text-left">
-              <p className="text-sm font-medium text-white leading-tight truncate">
-                {organization?.name ?? "Select workspace"}
+              <p className="text-sm font-medium leading-tight truncate">
+                {truncate(organization?.name ?? "Select workspace")}
               </p>
-              <p className="text-xs text-white/50 leading-tight truncate">
+              <p className="text-xs leading-tight text-fg-2 truncate">
                 {getPlan(organization ?? {})}
               </p>
             </div>
 
             {/* Chevron */}
-            <HiSelector className="size-4 text-white/50 shrink-0 group-hover:text-white/80 transition-colors" />
+            <HiSelector className="size-4  shrink-0 transition-colors" />
           </button>
         </DropdownMenuTrigger>
 
@@ -104,11 +108,14 @@ export const WorkspaceSwitcher = () => {
                 }}
                 className={cn(
                   "flex items-center gap-2 px-2 py-1 cursor-pointer",
-                  isActive && "pointer-events-none"
+                  isActive && "pointer-events-none",
                 )}
               >
                 <Avatar className="size-6 rounded-md shrink-0">
-                  <AvatarImage src={org.imageUrl} className="rounded-md object-cover" />
+                  <AvatarImage
+                    src={org.imageUrl}
+                    className="rounded-md object-cover"
+                  />
                   <AvatarFallback className="rounded-md text-[10px] font-semibold">
                     {org.name[0]?.toUpperCase()}
                   </AvatarFallback>
@@ -123,7 +130,7 @@ export const WorkspaceSwitcher = () => {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem
+          {/* <DropdownMenuItem
             className="flex items-center gap-2 px-2 py-1 cursor-pointer text-primary hover:text-primary"
             onSelect={() => {
               // navigate to create workspace page or open modal
@@ -134,7 +141,7 @@ export const WorkspaceSwitcher = () => {
               <HiPlus className="size-3 text-primary" />
             </div>
             <span className="text-sm">Add Workspace</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
