@@ -16,7 +16,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconSvgElement } from "@hugeicons/react";
 import { Card, CardContent } from "@snappin/ui/components/card";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
 import { Button } from "@snappin/ui/components/button";
 import { Small } from "@snappin/ui/components/typography";
 import { useConfirmStore } from "@snappin/ui/components/alert/fn/store";
@@ -77,6 +77,7 @@ export const SettingsView = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useUser();
+  const { signOut } = useClerk();
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isRemovingMember, setIsRemovingMember] = useState<boolean>(false);
 
@@ -140,6 +141,7 @@ export const SettingsView = () => {
   const deleteUser = trpc.user.deleteUser.useMutation({
     onSuccess: () => {
       toast.success("Account deleted successfully");
+      await signOut();
       router.push("/signup");
     },
     onError: () => {
@@ -335,7 +337,9 @@ export const SettingsView = () => {
                                 <div className="flex gap-2 items-center">
                                   <Avatar className="size-8">
                                     <AvatarFallback className="bg-green-4">
-                                      {inv.emailAddress?.slice(0, 1).toUpperCase()}
+                                      {inv.emailAddress
+                                        ?.slice(0, 1)
+                                        .toUpperCase()}
                                     </AvatarFallback>
                                   </Avatar>
                                   <div className="flex flex-col">
