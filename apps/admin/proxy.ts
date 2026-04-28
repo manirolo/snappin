@@ -13,7 +13,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     const metadata = (claims?.metadata ?? claims?.publicMetadata ?? {}) as Record<string, unknown>;
     const isAdminFromMetadata = Boolean(metadata.isAdmin) || metadata.role === "admin";
     if (!isAdminFromMetadata) {
-      // return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(new URL("/login", req.url));
     }
 
     return NextResponse.next()
