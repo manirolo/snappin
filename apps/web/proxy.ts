@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const isOnboardingRoute = createRouteMatcher(['/onboarding'])
 const isPublicRoute = createRouteMatcher(['/', '/blog', '/docs', '/docs/(.*)', '/blog/(.*)', "/sitemap.xml", "/robots.txt", "/videos/(.*)", '/terms', '/privacy', '/contact', '/api/v1/webhook/clerk', '/api/v1/webhook/ls', '/api/v1/webhook/mail', '/api/v1/webhook/messaging', '/api/v1/integration/callback', '/login', '/login/sso-callback', '/signup', '/pricing'])
-const isConnectRoute = createRouteMatcher(['/connect', '/connection-failed', "/already-account-connected"])
+const isConnectRoute = createRouteMatcher(['/connect', '/connection-failed', "/already-account-connected", "/api/(.*)"])
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const { isAuthenticated, redirectToSignIn, orgRole } = await auth()
