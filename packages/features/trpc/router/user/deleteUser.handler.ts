@@ -6,6 +6,8 @@ import { storageService } from "@snappin/infra/google/storage"
 import { IntegrationService } from "@snappin/features/integration/services/integration.service"
 import { cancelSubscription } from "@lemonsqueezy/lemonsqueezy.js"
 import { getLemonSqueezy } from "../../config/ls"
+import { resend } from "@snappin/features/config/resend"
+import { IS_PRODUCTION } from "@snappin/env"
 
 export type DeleteUser = {
     ctx: ContextProps
@@ -32,6 +34,11 @@ export async function deleteUser({ ctx, input }: DeleteUser) {
 
     const isAdmin = memberships.some((membership) => membership.role === "org:admin")
     const integrationService = new IntegrationService()
+
+    const userFromDB = await ctx.db.user.findOne({ clerkUserId: input.userId })
+    if (userFromDB && userFromDB.email && IS_PRODUCTION) {
+        await resend.contacts.remove({ email: userFromDB?.email })
+    }
 
     if (isAdmin) {
         // 1. Cancel active LemonSqueezy subscription + delete customer

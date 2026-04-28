@@ -18,6 +18,10 @@ export const env = {
     secret: process.env.ENCRYPTION_SECRET!,
   },
 
+  resend: {
+    apiKey: process.env.RESEND_API_KEY!,
+  },
+
   sentry: {
     dns: process.env.SENTRY_DNS!,
   },

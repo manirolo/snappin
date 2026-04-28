@@ -3,6 +3,8 @@ import { ContextProps } from "../../_trpc"
 import { TRPCError } from "@trpc/server"
 import { z } from "zod"
 import { IntegrationService } from "@snappin/features/integration/services/integration.service"
+import { resend } from "@snappin/features/config/resend"
+import { IS_PRODUCTION } from "@snappin/env"
 
 export const ZRemoveMemberInput = z.object({
     userId: z.string(),
@@ -24,7 +26,13 @@ export async function removeMember({ ctx, input }: RemoveMember) {
     const integrationService = new IntegrationService()
 
     // 1. Revoke + delete all integrations for this user in this org
-    await integrationService.removeAllForUser(ctx.orgId, input.userId)
+    await integrationService.removeAllForUser(ctx.orgId, input.userId);
+
+    const user = await ctx.db.user.findOne({ clerkUserId: input.userId })
+
+    if (user && user.email && IS_PRODUCTION) {
+        await resend.contacts.remove({ email: user?.email })
+    }
 
     // 2. Remove membership from clerk
     await clerk.organizations.deleteOrganizationMembership({

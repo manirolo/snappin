@@ -54,7 +54,8 @@
         "LEMONESQUEEZY_WEBHOOK_SECRET",
         "LEMONSQUEEZY_API_KEY",
         "LEMONESQUEEZY_STORE_ID",
-        "NEXT_PUBLIC_CRISP_ID"
+        "NEXT_PUBLIC_CRISP_ID",
+        "RESEND_API_KEY"
       ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },

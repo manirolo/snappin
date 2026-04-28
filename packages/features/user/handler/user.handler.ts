@@ -2,7 +2,7 @@ import { GenericWebhookEvent } from "../../webhook/types";
 import { UserJSON } from "@clerk/backend";
 import { userService } from "../service/user.service";
 import { UserResource } from "@snappin/shared/user/user.schema";
-import { planService } from "@snappin/features/billing/service/plan.service";
+// import { planService } from "@snappin/features/billing/service/plan.service";
 // import { polar } from "@snappin/features/trpc/config/polar";
 
 export class UserHandler {
