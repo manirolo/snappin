@@ -14,7 +14,7 @@
 
 :root {
   /* === Base === #FBFAF9*/
-  --background: #F9F9FA;
+  --background: #FBFBF8;
   --background-subtle: #fafafa;
   --foreground: #181925;
   --secondary-background: #f5f5f5;
@@ -26,7 +26,7 @@
   --bg-4: #e8e8e8;
 
   /* === Foreground Scale === */
-  --fg-1: #b3b3b3;
+  --fg-1: #A9A9A9;
   --fg-2: #999;
   --fg-3: #666;
   --fg-4: #181925;
@@ -527,7 +527,9 @@
   --radius-6: var(--radius-6);
 
   /* === Font Families === */
-  --font-inter: var(--font-inter), system-ui, sans-serif;
+  --font-stacks: var(--font-stacks), system-ui, sans-serif;
+  --font-barlow: var(--font-barlow), system-ui, sans-serif;
+  --font-source: var(--font-source), system-ui, sans-serif;
   --font-fuzzy-bubbles: var(--font-fuzzy-bubbles), system-ui, sans-serif;
 
   /* === Misc === */
@@ -570,8 +572,8 @@
 }
 
 body {
-  font-family: "OpenRunde", Arial, Helvetica, sans-serif;
-  letter-spacing: -0.01em;
+  font-family: "Stack Sans Text", Arial, Helvetica, sans-serif;
+  letter-spacing: -0.019em;
   font-weight: 400;
   line-height: 1.3em;
 }
@@ -597,5 +599,5 @@ a {
 p,
 span,
 * {
-  font-family: "OpenRunde", Arial, Helvetica, sans-serif !important;
+  font-family: "Stack Sans Text", Arial, Helvetica, sans-serif !important;
 }

@@ -12,11 +12,11 @@ export const Cta = () => {
   return (
     <Section>
       <SectionContent>
-        <Card className="rounded-3xl h-110">
+        <Card className="rounded-3xl bg-transparent shadow-none border-0 h-50">
           <CardContent className="flex justify-center items-center">
             <div className="flex flex-col items-center gap-4 justify-center text-center">
               <H2>
-               Ready to get started?
+               Ready to <span className="font-source! text-5xl font-semibold tracking-tight italic">get started?</span>
               </H2>
               <Paragraph className="max-w-md text-fg-3 leading-relaxed">
                 Start extracting invoices in seconds
@@ -24,7 +24,7 @@ export const Cta = () => {
               <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">
                 <Button
                   radius={"full"}
-                  className="w-full sm:w-auto rounded-[22px]"
+                  className="w-full sm:w-auto"
                   size={"lg"}
                   asChild
                 >

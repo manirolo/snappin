@@ -13,20 +13,12 @@ import Script from "next/script";
 export default function Page() {
   return (
     <>
-      <div className="flex justify-between flex-col xl:items-center xl:flex-row min-h-screen">
+      <div className="flex justify-between flex-col xl:items-center xl:flex-row overflow-auto min-h-screen py-10 xl:py-0">
         <Layout>
           <SignInClient />
         </Layout>
-        <div className="relative hidden bg-gray-6 xl:flex h-screen lg:w-200 2xl:w-260">
+        <div className="relative hidden bg-gray-6 xl:flex h-screen lg:w-180 2xl:w-210">
           <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-zinc-900/3"></div>
-          <video
-            src="/videos/snappin_demo_on_auth_page.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          />
         </div>
       </div>
       <Script
