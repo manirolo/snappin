@@ -2,45 +2,30 @@ import type { Metadata, Viewport } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import { Fuzzy_Bubbles, Inter } from "next/font/google";
+import { Fuzzy_Bubbles, Stack_Sans_Text, Arapey, Barlow_Condensed } from "next/font/google";
 import { Providers } from "./provider";
-import localFont from "next/font/local";
 import Script from "next/script";
 
-const inter = Inter({
+const inter = Stack_Sans_Text({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-stacks",
+});
+
+const phudu = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-barlow",
+});
+
+const source = Arapey({
+  subsets: ["latin"],
+  weight: ['400'],
+  variable: "--font-source",
 });
 
 const fuzzyBubbles = Fuzzy_Bubbles({
   weight: ["400", "700"],
   variable: "--font-fuzzy-bubbles",
-});
-
-const openrunde = localFont({
-  src: [
-    {
-      path: "../public/fonts/OpenRunde-Regular.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/OpenRunde-Medium.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/OpenRunde-Semibold.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/OpenRunde-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-openrunde",
 });
 
 export const metadata: Metadata = {
@@ -134,7 +119,7 @@ export default function RootLayout({
           )}
         </head>
         <body
-          className={`${openrunde.variable} ${fuzzyBubbles.variable} ${inter.variable}`}
+          className={`${phudu.variable} ${source.variable} ${fuzzyBubbles.variable} ${inter.variable}`}
           suppressHydrationWarning
         >
           <Script

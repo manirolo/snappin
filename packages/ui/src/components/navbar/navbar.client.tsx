@@ -23,18 +23,18 @@ export const DashboardOrLogin = () => {
 
 export const NavigationLinks = () => {
   return (
-    <div className="hidden xl:flex gap-12">
+    <div className="hidden xl:flex gap-8">
       <Link href={"https://snappin.lemonsqueezy.com/affiliates"} target="_blank">
-        <Small className="text-fg-3 hover:underline">Affiliate</Small>
+        <Small className="text-fg-3">Affiliate</Small>
       </Link>
       <Link href={"/pricing"}>
-        <Small className="text-fg-3 hover:underline">Pricing</Small>
+        <Small className="text-fg-3">Pricing</Small>
       </Link>
       <Link href={"/blog"}>
-        <Small className="text-fg-3 hover:underline">Blog</Small>
+        <Small className="text-fg-3">Blog</Small>
       </Link>
       <Link href={"/docs"}>
-        <Small className="text-fg-3 hover:underline">Docs</Small>
+        <Small className="text-fg-3">Docs</Small>
       </Link>
     </div>
   );
