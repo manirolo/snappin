@@ -2,13 +2,20 @@ import type { Metadata, Viewport } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import { Fuzzy_Bubbles, Stack_Sans_Text, Arapey, Barlow_Condensed } from "next/font/google";
+import {
+  Fuzzy_Bubbles,
+  Stack_Sans_Text,
+  Arapey,
+  Barlow_Condensed,
+} from "next/font/google";
 import { Providers } from "./provider";
 import Script from "next/script";
 
 const inter = Stack_Sans_Text({
   subsets: ["latin"],
   variable: "--font-stacks",
+  adjustFontFallback: false, // ← silences the warning
+  fallback: ["system-ui", "Arial", "sans-serif"],
 });
 
 const phudu = Barlow_Condensed({
@@ -19,7 +26,7 @@ const phudu = Barlow_Condensed({
 
 const source = Arapey({
   subsets: ["latin"],
-  weight: ['400'],
+  weight: ["400"],
   variable: "--font-source",
 });
 
