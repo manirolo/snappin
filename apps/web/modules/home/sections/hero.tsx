@@ -16,7 +16,6 @@ export const HeroSection = () => {
           <AnnouncementBanner
             badgeLabel="NEW"
             href="/blog/snappin-public-beta-launch"
-            setTarget_Bank
           >
             We launched public beta
           </AnnouncementBanner>
