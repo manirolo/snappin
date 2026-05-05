@@ -14,10 +14,10 @@
 
 :root {
   /* === Base === #FBFAF9*/
-  --background: #FBFBF8;
+  --background: #FCFBF9;
   --background-subtle: #fafafa;
-  --foreground: #181925;
-  --secondary-background: #f5f5f5;
+  --foreground: #211C28;
+  --secondary-background: #FAF9FA;
 
   /* === Background Scale === */
   --bg-1: #fff;
@@ -26,10 +26,10 @@
   --bg-4: #e8e8e8;
 
   /* === Foreground Scale === */
-  --fg-1: #A9A9A9;
+  --fg-1: #a9a9a9;
   --fg-2: #999;
   --fg-3: #666;
-  --fg-4: #181925;
+  --fg-4: #211C28;
 
   /* === Alpha Backgrounds === */
   --bg-a1: #00000008;
@@ -211,7 +211,7 @@
   --chart-6: #d6409f;
 
   /* === Sidebar === */
-  --sidebar: #F5F5F5;
+  --sidebar: #f5f5f5;
   --sidebar-foreground: var(--color-fg-3);
   --sidebar-primary: #918df6;
   --sidebar-primary-foreground: #fff;
@@ -528,6 +528,7 @@
 
   /* === Font Families === */
   --font-stacks: var(--font-stacks), system-ui, sans-serif;
+  --font-open: var(--font-open), system-ui, sans-serif;
   --font-barlow: var(--font-barlow), system-ui, sans-serif;
   --font-source: var(--font-source), system-ui, sans-serif;
   --font-fuzzy-bubbles: var(--font-fuzzy-bubbles), system-ui, sans-serif;
@@ -550,10 +551,13 @@
   --animate-shiny-text: shiny-text 8s infinite;
 
   @keyframes shiny-text {
-    0%, 90%, 100% {
+    0%,
+    90%,
+    100% {
       background-position: calc(-100% - var(--shiny-width)) 0;
     }
-    30%, 60% {
+    30%,
+    60% {
       background-position: calc(100% + var(--shiny-width)) 0;
     }
   }
@@ -572,8 +576,8 @@
 }
 
 body {
-  font-family: "Stack Sans Text", Arial, Helvetica, sans-serif;
-  letter-spacing: -0.019em;
+  font-family: "OpenRunde", Arial, Helvetica, sans-serif;
+  letter-spacing: -0.03em;
   font-weight: 400;
   line-height: 1.3em;
 }
@@ -600,4 +604,12 @@ p,
 span,
 * {
   font-family: "Stack Sans Text", Arial, Helvetica, sans-serif !important;
+}
+
+.font-serif {
+  font-family:
+    Times New Roman,
+    Times,
+    ui-serif,
+    serif;
 }

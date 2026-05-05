@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-primary hover:bg-primary border border-transparent text-white rounded-full 0",
+          "bg-primary hover:bg-primary border-0 text-white tracking-tight-tighter rounded-full",
         mono: "bg-gradient-to-b from-zinc-800 to-zinc-950 text-white dark:bg-zinc-300 dark:text-black active:scale-95 hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 data-[state=open]:bg-destructive/90",
@@ -149,7 +149,6 @@ const buttonVariants = cva(
         variant: "primary",
         mode: "default",
         appearance: "default",
-        className: "shadow-xs shadow-black/5",
       },
       {
         variant: "mono",

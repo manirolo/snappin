@@ -171,7 +171,7 @@ export const PricingSection = () => {
 
                         <div className="w-full text-center">
                           <Button
-                            className="w-full capitalize shadow-none my-2 text-fg-4"
+                            className="w-full capitalize my-2 text-fg-4"
                             size="xl"
                             radius="full"
                             variant={plan.id == "scale" ? "primary" : "outline"}

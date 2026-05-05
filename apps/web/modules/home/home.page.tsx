@@ -1,8 +1,9 @@
 import React from "react";
 import { HeroSection } from "./sections/hero";
 // import { Benefits } from "./sections/benefits";
-// import { HowTo } from "./sections/howTo";
+import { HowTo } from "./sections/howTo";
 import { Cta } from "./sections/cta";
+import { WhyUs } from "./sections/whyus";
 // import { Faq } from "./sections/faq";
 // import { PricingSection } from "./sections/pricing";
 // import { AutomationBenefits } from "./sections/automationBenefits";
@@ -12,7 +13,8 @@ export const HomPage = () => {
     <div>
       <HeroSection />
       {/* <Benefits /> */}
-      {/* <HowTo /> */}
+      <WhyUs />
+      <HowTo />
       {/* <AutomationBenefits /> */}
       {/* <PricingSection /> */}
       {/* <Faq /> */}
