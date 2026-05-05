@@ -16,7 +16,7 @@ export const Cta = () => {
           <CardContent className="flex justify-center items-center">
             <div className="flex flex-col items-center gap-4 justify-center text-center">
               <H2>
-               Ready to <span className="font-source! text-5xl font-semibold tracking-tight italic">get started?</span>
+               Ready to get started?
               </H2>
               <Paragraph className="max-w-md text-fg-3 leading-relaxed">
                 Start extracting invoices in seconds

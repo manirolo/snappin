@@ -65,7 +65,7 @@ export function LandingLayout({ children }: { children?: React.ReactNode }) {
   //   return () => lenis.destroy();
   // }, []);
   return (
-    <div className="h-full min-h-screen">
+    <div className="h-full py-14 min-h-screen">
       <LandingNavbar />
       <main>{children}</main>
       <HomeFooter />

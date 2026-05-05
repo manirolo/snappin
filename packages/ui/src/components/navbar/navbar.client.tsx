@@ -7,14 +7,12 @@ import { Small } from "../typography";
 export const DashboardOrLogin = () => {
   return (
     <div className="flex items-center gap-4">
-      <div className="flex items-center gap-2">
-        <Button variant={"inverse"} radius={"full"} asChild>
-          <Link href={"/login"} className="text-fg-3 hover:underline">
-            Login
-          </Link>
-        </Button>
+      <div className="flex items-center gap-4">
+        <Link href={"/login"} className="text-fg-3 text-sm hover:underline">
+          Login
+        </Link>
         <Button radius={"full"} asChild>
-          <Link href={"/signup"}>Register</Link>
+          <Link href={"/signup"}>Sign up</Link>
         </Button>
       </div>
     </div>
@@ -23,18 +21,21 @@ export const DashboardOrLogin = () => {
 
 export const NavigationLinks = () => {
   return (
-    <div className="hidden xl:flex gap-8">
-      <Link href={"https://snappin.lemonsqueezy.com/affiliates"} target="_blank">
-        <Small className="text-fg-3">Affiliate</Small>
+    <div className="hidden xl:flex gap-12">
+      <Link
+        href={"https://snappin.lemonsqueezy.com/affiliates"}
+        target="_blank"
+      >
+        <Small className="text-base text-fg-3">Affiliate</Small>
       </Link>
       <Link href={"/pricing"}>
-        <Small className="text-fg-3">Pricing</Small>
+        <Small className="text-base text-fg-3">Pricing</Small>
       </Link>
       <Link href={"/blog"}>
-        <Small className="text-fg-3">Blog</Small>
+        <Small className="text-base text-fg-3">Blog</Small>
       </Link>
       <Link href={"/docs"}>
-        <Small className="text-fg-3">Docs</Small>
+        <Small className="text-base text-fg-3">Docs</Small>
       </Link>
     </div>
   );

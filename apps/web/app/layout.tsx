@@ -6,22 +6,16 @@ import {
   Fuzzy_Bubbles,
   Stack_Sans_Text,
   Arapey,
-  Barlow_Condensed,
 } from "next/font/google";
 import { Providers } from "./provider";
 import Script from "next/script";
+import localFont from "next/font/local";
 
 const inter = Stack_Sans_Text({
   subsets: ["latin"],
   variable: "--font-stacks",
   adjustFontFallback: false, // ← silences the warning
   fallback: ["system-ui", "Arial", "sans-serif"],
-});
-
-const phudu = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["700"],
-  variable: "--font-barlow",
 });
 
 const source = Arapey({
@@ -33,6 +27,32 @@ const source = Arapey({
 const fuzzyBubbles = Fuzzy_Bubbles({
   weight: ["400", "700"],
   variable: "--font-fuzzy-bubbles",
+});
+
+const openrunde = localFont({
+  src: [
+    {
+      path: "../public/fonts/OpenRunde-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/OpenRunde-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/OpenRunde-Semibold.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/OpenRunde-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-open",
 });
 
 export const metadata: Metadata = {
@@ -126,7 +146,7 @@ export default function RootLayout({
           )}
         </head>
         <body
-          className={`${phudu.variable} ${source.variable} ${fuzzyBubbles.variable} ${inter.variable}`}
+          className={`${openrunde.variable} ${source.variable} ${fuzzyBubbles.variable} ${inter.variable}`}
           suppressHydrationWarning
         >
           <Script

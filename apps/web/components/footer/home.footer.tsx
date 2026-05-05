@@ -2,85 +2,97 @@ import { Small } from "@snappin/ui/components/typography";
 import Link from "next/link";
 import React from "react";
 
+const footerLinks = [
+  {
+    title: "Product",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Login", href: "/login" },
+      { label: "Register", href: "/signup" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "Blog", href: "/blog" },
+      { label: "Privacy", href: "/privacy" },
+      { label: "Terms", href: "/terms" },
+      {
+        label: "Affiliate (10%)",
+        href: "https://snappin.lemonsqueezy.com/affiliates",
+        external: true,
+      },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Contact", href: "/contact" },
+      { label: "Docs", href: "/docs" },
+    ],
+  },
+  {
+    title: "Developer",
+    links: [
+      {
+        label: "Feedback",
+        href: "http://snappinapp.userjot.com/",
+        external: true,
+      },
+      {
+        label: "Platform Status",
+        href: "https://status.snappinapp.com/",
+        external: true,
+      },
+    ],
+  },
+  // {
+  //   title: "Tools",
+  //   links: [
+  //     {
+  //       label: "Receipt to Excel converter",
+  //       href: "/tools/ai-receipt-converter",
+  //     },
+  //   ],
+  // },
+];
+
 export const HomeFooter = () => {
   return (
-    <div className="">
-      <footer className="max-w-5xl mx-auto flex flex-wrap gap-14 px-4 xl:px-0 justify-between pt-24 pb-32">
-        <div className="flex flex-col gap-4">
-          <Small className="max-w-sm">
-            Built over hundreds of late nights, Snappin App saves you from invoice
-            chaos and manual entry.
-          </Small>
-          <Small>© 2026</Small>
-        </div>
-        <div className="flex gap-18 flex-wrap">
-          <div className="flex flex-col gap-2">
-            <Small className="text-fg-4">Product</Small>
-            <div className="flex flex-col gap-1">
-              <Link href={"/"} className="text-fg-3 text-sm">
-                Home
-              </Link>
-              <Link href={"/pricing"} className="text-fg-3 text-sm">
-                Pricing
-              </Link>
-              <Link href={"/login"} className="text-fg-3 text-sm">
-                Login
-              </Link>
-              <Link href={"/signup"} className="text-fg-3 text-sm">
-                Register
-              </Link>
-            </div>
+    <div>
+      <footer className="max-w-4xl mx-auto px-4 xl:px-0 pt-24 pb-32">
+        <div className="flex flex-col lg:flex-row gap-16 justify-between">
+          {/* Brand blurb */}
+          <div className="flex flex-col gap-4 max-w-sm shrink-0">
+            <Small className="max-w-sm">
+              Built over hundreds of late nights, Snappin App saves you from
+              invoice, receipts chaos and manual entry.
+            </Small>
+            <Small>Built with ☕ in INDIA</Small>
+            <Small>© 2026</Small>
           </div>
-          <div className="flex flex-col gap-2">
-            <Small className="text-fg-4">Company</Small>
-            <div className="flex flex-col gap-1">
-              <Link href={"/blog"} className="text-fg-3 text-sm">
-                Blog
-              </Link>
-              <Link href={"/privacy"} className="text-fg-3 text-sm">
-                Privacy
-              </Link>
-              <Link href={"/terms"} className="text-fg-3 text-sm">
-                Terms
-              </Link>
-              <Link
-                href={"https://snappin.lemonsqueezy.com/affiliates"}
-                target="_blank"
-                className="text-fg-3 text-sm"
-              >
-                Affiliate (10%)
-              </Link>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Small className="text-fg-4">Support</Small>
-            <div className="flex flex-col gap-1">
-              <Link href={"/contact"} className="text-fg-3 text-sm">
-                Contact
-              </Link>
-              <Link href={"/docs"} className="text-fg-3 text-sm">
-                Docs
-              </Link>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Small className="text-fg-4">Developer</Small>
-            <div className="flex flex-col gap-1">
-              <Link
-                href={"http://snappinapp.userjot.com/"}
-                target="_blank"
-                className="text-fg-3 text-sm"
-              >
-                Feedback
-              </Link>
-              <Link
-                href={"https://status.snappinapp.com/"}
-                target="_blank"
-                className="text-fg-3 text-sm"
-              >
-                Platform Status
-              </Link>
-            </div>
+
+          {/* Links */}
+          <div className="flex flex-wrap gap-x-12 gap-y-8">
+            {footerLinks.map(({ title, links }) => (
+              <div key={title} className="flex flex-col gap-2 min-w-max">
+                <Small className="text-fg-4">{title}</Small>
+                <div className="flex flex-col gap-1">
+                  {links.map(({ label, href, external }) => (
+                    <Link
+                      key={label}
+                      href={href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className="text-fg-3 text-sm"
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </footer>
