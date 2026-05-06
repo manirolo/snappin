@@ -12,7 +12,7 @@ export const Cta = () => {
   return (
     <Section>
       <SectionContent>
-        <Card className="rounded-3xl bg-transparent shadow-none border-0 h-50">
+        <Card className="rounded-3xl bg-transparent shadow-none border-0 h-fit sm:h-50">
           <CardContent className="flex justify-center items-center">
             <div className="flex flex-col items-center gap-4 justify-center text-center">
               <H2>

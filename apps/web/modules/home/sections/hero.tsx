@@ -8,8 +8,8 @@ import { AnnouncementBanner } from "@snappin/ui/components/announcement/banner";
 
 export const HeroSection = () => {
   return (
-    <div className="relative md:py-28 md:pb-8 px-4 xl:px-0">
-      <div className="relative flex flex-col gap-6">
+    <div className="relative py-18 md:py-28 md:pb-8 px-4 xl:px-0">
+      <div className="relative flex flex-col gap-4">
         <div className="flex flex-col items-center">
           <AnnouncementBanner
             badgeLabel="NEW"
@@ -17,7 +17,7 @@ export const HeroSection = () => {
           >
             We launched public beta
           </AnnouncementBanner>
-          <H1 className="mt-6 text-6xl/19 tracking-tighter font-semibold max-w-2xl text-center">
+          <H1 className="mt-5 text-5xl/13 md:text-5xl/19 tracking-tighter font-semibold max-w-2xl text-center">
            AI Receipt Organizer
             <span className="block">{" "}</span>
           </H1>
