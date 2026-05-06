@@ -11,11 +11,11 @@ export const HomeNavbar = () => {
   // const [open, setOpen] = useState(false);
 
   return (
-    <div className="z-10">
-      <div className="fixed top-0 left-0 right-0 z-50 px-4 xl:px-0">
-        <div className="relative w-full bg-background backdrop-blur-xs  min-h-12 sm:min-h-15 flex items-center">
+    <div>
+      <div className="px-4 xl:px-0">
+        <div className="relative w-full backdrop-blur-xs min-h-12 sm:min-h-15 flex items-center">
           {/* ── Navbar pill ── */}
-          <div className="flex z-40! items-center w-full max-w-4xl mx-auto justify-between">
+          <div className="flex z-40! items-center w-full max-w-5xl mx-auto justify-between">
             <div className="flex gap-12 items-center">
               <LogoSymbol>Snappin App</LogoSymbol>
             </div>

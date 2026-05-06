@@ -71,7 +71,7 @@ export const PricingSection = () => {
 
   return (
     <div>
-      <Section>
+      <Section className="py-16 md:py-18">
         <SectionHeader>
           <SectionTitle>Simple, flexible pricing</SectionTitle>
           <SectionDescription>

@@ -43,7 +43,7 @@ export const WhyUs = () => {
     <Section>
       <SectionHeader>
         <SectionLabel>How does it work?</SectionLabel>
-        <SectionTitle>Goodbye to losing receipts</SectionTitle>
+        <SectionTitle>Goodbye to <span className="bg-yellow-a3 px-2 text-yellow-600">losing receipts</span></SectionTitle>
         <SectionDescription>
           Switching between email and accounting tools leads to mistakes, delays,
           losing receipts and frustration.
@@ -57,9 +57,8 @@ export const WhyUs = () => {
               key={step.number}
               className={`
                 group relative flex flex-col gap-4 rounded-2xl
-                bg-bg-2 p-6 cursor-default
+                bg-bg-2 border border-gray-1 p-6 cursor-default
                 transition-all duration-300 ease-out
-                hover:-rotate-1
                 ${step.span}
               `}
             >
