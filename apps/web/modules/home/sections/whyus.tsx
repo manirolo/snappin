@@ -51,13 +51,13 @@ export const WhyUs = () => {
       </SectionHeader>
 
       <SectionContent>
-        <div className="grid z-10 p-1 grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid z-10 p-1 grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
           {steps.map((step) => (
             <div
               key={step.number}
               className={`
                 group relative flex flex-col gap-4 rounded-2xl
-                bg-bg-2 border border-gray-1 p-6 cursor-default
+                bg-card border border-gray-1 p-6 cursor-default
                 transition-all duration-300 ease-out
                 ${step.span}
               `}
