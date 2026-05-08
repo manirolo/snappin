@@ -8,7 +8,7 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Retroactive | Snappin App",
+  title: "Retroactive | Snappin",
   description:
     "",
 };

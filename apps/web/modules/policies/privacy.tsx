@@ -9,7 +9,7 @@ const PRIVACY_SECTIONS: PolicySection[] = [
     heading: "Overview",
     content: (
       <p>
-        Snappin App (&quot;we&quot;, &quot;our&quot;, &quot;Snappin App&quot;) operates
+        Snappin (&quot;we&quot;, &quot;our&quot;, &quot;Snappin&quot;) operates
         https://snappinapp.com. We respect your privacy and are committed to
         protecting your personal data. This Privacy Policy explains what
         information we collect, why we collect it, how we use it, and your
@@ -80,7 +80,7 @@ const PRIVACY_SECTIONS: PolicySection[] = [
     content: (
       <ul className="list-disc pl-5 flex flex-col gap-2">
         <li>
-          Provide, operate, and maintain Snappin App&apos;s document extraction
+          Provide, operate, and maintain Snappin&apos;s document extraction
           features
         </li>
         <li>
@@ -163,7 +163,7 @@ const PRIVACY_SECTIONS: PolicySection[] = [
     heading: "8. Children's Privacy",
     content: (
       <p>
-        Snappin App is not intended for children under 13. We do not knowingly
+        Snappin is not intended for children under 13. We do not knowingly
         collect personal information from children under 13. Contact us if you
         believe we have collected such information and we will delete it
         promptly.

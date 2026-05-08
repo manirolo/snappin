@@ -60,13 +60,13 @@ const footerLinks = [
 
 export const HomeFooter = () => {
   return (
-    <div>
-      <footer className="max-w-6xl mx-auto px-4 xl:px-0 pt-24 pb-32">
-        <div className="flex flex-col lg:flex-row gap-16 justify-between">
+    <div className="h-[50vh]">
+      <footer className="max-w-6xl h-fit mx-auto flex-col flex px-4 xl:px-0 pt-24 pb-32">
+        <div className="flex flex-col min-w-full lg:flex-row gap-16 justify-between">
           {/* Brand blurb */}
           <div className="flex flex-col gap-4 max-w-sm shrink-0">
             <Small className="max-w-sm">
-              Built over hundreds of late nights, Snappin App saves you from
+              Built over hundreds of late nights, Snappin saves you from
               invoice, receipts chaos and manual entry.
             </Small>
             <Small>Built with ☕ in INDIA</Small>
@@ -96,6 +96,13 @@ export const HomeFooter = () => {
           </div>
         </div>
       </footer>
+      <div className="relative hidden md:inline h-[25vh] max-w-6xl mx-auto w-full overflow-hidden">
+        <div className="text-center lg:-translate-y-5  xl:-translate-y-10 overflow-hidden">
+          <span className="tracking-tighter font-semibold text-8xl mx-auto md:text-[12em] lg:text-[14em] xl:text-[19em] text-center bg-linear-to-b from-foreground/20 to-foreground/0 bg-clip-text text-transparent">
+            Snappin
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

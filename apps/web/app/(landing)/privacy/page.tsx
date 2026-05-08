@@ -54,19 +54,19 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Privacy | Snappin App",
+  title: "Privacy | Snappin",
   description:
     "How we protect your privacy, what data we collect, and your rights over your information. Your data always belongs to you, not us.",
-  keywords: ["snappin app privacy", "invoice extraction privacy", "snappin app"],
+  keywords: ["Snappin privacy", "invoice extraction privacy", "Snappin"],
   alternates: {
     canonical: "https://www.snappinapp.com/privacy",
   },
   openGraph: {
-    title: "Privacy | Snappin App",
+    title: "Privacy | Snappin",
     description:
       "How we protect your privacy, what data we collect, and your rights over your information. Your data always belongs to you, not us.",
     url: "https://www.snappinapp.com/privacy",
-    siteName: "Snappin App",
+    siteName: "Snappin",
     images: [
       {
         url: "https://www.snappinapp.com/images/og.png",
@@ -79,7 +79,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privacy | SnaSnappin Appppin",
+    title: "Privacy | SnaSnappinppin",
     description:
       "How we protect your privacy, what data we collect, and your rights over your information. Your data always belongs to you, not us.",
     images: ["https://www.snappinapp.com/images/og.png"],

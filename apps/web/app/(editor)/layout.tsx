@@ -5,7 +5,7 @@ export  default function Layout({ children }: { children: React.ReactNode }) {
 };
 
 export const metadata = {
-  title: "Snappin App",
+  title: "Snappin",
   description:
     "",
 };

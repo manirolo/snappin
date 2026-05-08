@@ -23,13 +23,13 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Sign in to Snappin App",
+            name: "Sign in to Snappin",
             description:
-              "Sign in to your Snappin App account to extract your invoices from mails",
+              "Sign in to your Snappin account to extract your invoices from mails",
             url: "https://www.snappinapp.com/login",
             publisher: {
               "@type": "Organization",
-              name: "Snappin App",
+              name: "Snappin",
               url: "https://www.snappinapp.com",
             },
           }),
@@ -40,7 +40,7 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Sign in to Snappin App",
+  title: "Sign in to Snappin",
   description:
-    "Sign in to your Snappin App account to extract your invoices from mails",
+    "Sign in to your Snappin account to extract your invoices from mails",
 };

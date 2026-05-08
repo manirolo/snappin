@@ -54,23 +54,23 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Terms and Conditions | Snappin App",
+  title: "Terms and Conditions | Snappin",
   description:
-    "Rules and guidelines governing your use of Snappin App. Please read carefully before using our services.",
+    "Rules and guidelines governing your use of Snappin. Please read carefully before using our services.",
   keywords: [
-     "snappin app terms and conditions",
+     "Snappin terms and conditions",
     "invoice extraction terms and conditions",
-    "snappin app",
+    "Snappin",
   ],
   alternates: {
     canonical: "https://www.snappinapp.com/terms",
   },
   openGraph: {
-    title: "Terms and Conditions | Snappin App",
+    title: "Terms and Conditions | Snappin",
     description:
       "Rules and guidelines governing your use of Snappin A[[]]. Please read carefully before using our services.",
     url: "https://www.snappinapp.com/terms",
-    siteName: "Snappin App",
+    siteName: "Snappin",
     images: [
       {
         url: "https://www.snappinapp.com/images/og.png",
@@ -83,9 +83,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Terms and Conditions | Snappin App",
+    title: "Terms and Conditions | Snappin",
     description:
-      "Rules and guidelines governing your use of Snappin App. Please read carefully before using our services.",
+      "Rules and guidelines governing your use of Snappin. Please read carefully before using our services.",
     images: ["https://www.snappinapp.com/images/og.png"],
     creator: "@snappin_ai",
   },

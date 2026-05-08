@@ -6,7 +6,7 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Something went wrong | Snappin App",
+  title: "Something went wrong | Snappin",
   description:
     "Connection failed due to various factors",
 };

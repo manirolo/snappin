@@ -98,7 +98,7 @@ export const SectionContent = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("px-4 md:px-0", className)} {...props}>
+    <div className={cn("px-4 xl:px-0", className)} {...props}>
       {children}
     </div>
   );

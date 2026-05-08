@@ -56,14 +56,14 @@ const openrunde = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Snappin App – AI Receipt Organizer",
+  title: "Snappin – AI Receipt Organizer",
   description:
     "Turn hours of manual receipt collection and organizing work into seconds. Extract receipts from emails and send receipts via WhatsApp—instantly organized and ready to use.",
 
   metadataBase: new URL("https://www.snappinapp.com"),
 
   openGraph: {
-    title: "Snappin App – AI Receipt Organizer",
+    title: "Snappin – AI Receipt Organizer",
     description:
       "AI-powered receipt collection automation. Extract from emails & WhatsApp.",
     url: "https://www.snappinapp.com",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Snappin App – AI Receipt Organizer",
+    title: "Snappin – AI Receipt Organizer",
     description:
       "AI-powered receipt collection automation from emails & WhatsApp.",
     images: ["/images/og.png"],
@@ -92,12 +92,12 @@ export const metadata: Metadata = {
     canonical: "https://www.snappinapp.com",
   },
 
-  keywords: ["ai", "bookkeeping", "snappin app", "receipt extraction"],
+  keywords: ["ai", "bookkeeping", "Snappin", "receipt extraction"],
 
-  applicationName: "Snappin App",
-  creator: "Snappin App",
-  publisher: "Snappin App",
-  generator: "Snappin App",
+  applicationName: "Snappin",
+  creator: "Snappin",
+  publisher: "Snappin",
+  generator: "Snappin",
   robots: {
     index: env.env == "production" ? true : false,
     follow: env.env == "production" ? true : false,
@@ -156,8 +156,8 @@ export default function RootLayout({
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
-                name: "Snappin App",
-                alternateName: ["Snappin AI", "Snappin App"],
+                name: "Snappin",
+                alternateName: ["Snappin AI", "Snappin"],
                 url: "https://www.snappinapp.com",
               }),
             }}
@@ -169,7 +169,7 @@ export default function RootLayout({
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                name: "Snappin App",
+                name: "Snappin",
                 operatingSystem: "Web",
                 applicationCategory: "BusinessApplication",
                 description:
@@ -190,7 +190,7 @@ export default function RootLayout({
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                name: "Snappin App",
+                name: "Snappin",
                 url: "https://www.snappinapp.com",
                 email: "hello@snappinapp.com",
                 logo: "https://www.snappinapp.com/images/snappin_dark_light.png",

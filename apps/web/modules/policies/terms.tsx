@@ -6,7 +6,7 @@ const TERMS_SECTIONS = [
     heading: "Overview",
     content: (
       <p>
-        Welcome to Snappin App. These Terms &amp; Conditions govern your use of{" "}
+        Welcome to Snappin. These Terms &amp; Conditions govern your use of{" "}
         https://snappinapp.com and any related products, applications, or services. By accessing
         or using our services, you agree to be bound by these Terms. If you do not agree, please
         discontinue using Snappin.
@@ -14,10 +14,10 @@ const TERMS_SECTIONS = [
     ),
   },
   {
-    heading: "1. About Snappin App",
+    heading: "1. About Snappin",
     content: (
       <p>
-        Snappin App is an AI-powered automation platform that helps users extract, organize, and
+        Snappin is an AI-powered automation platform that helps users extract, organize, and
         manage invoices, bills, and receipts from email accounts and uploads. Our goal is to save
         time and improve financial management accuracy for freelancers, small businesses, and
         finance teams.
@@ -28,7 +28,7 @@ const TERMS_SECTIONS = [
     heading: "2. Eligibility",
     content: (
       <p>
-        You must be at least 13 years old to use Snappin App. By using the service, you represent
+        You must be at least 13 years old to use Snappin. By using the service, you represent
         that you have the legal capacity to enter into this agreement and comply with these Terms.
       </p>
     ),
@@ -48,7 +48,7 @@ const TERMS_SECTIONS = [
     heading: "4. Email Access & Document Processing",
     content: (
       <p>
-        When you connect your email (Gmail, Outlook, IMAP), Snappin App reads necessary email content
+        When you connect your email (Gmail, Outlook, IMAP), Snappin reads necessary email content
         and attachments to extract invoice and receipt data using AI. Email bodies are analyzed
         for accuracy but are not permanently stored. Extracted data and uploaded files are stored
         securely in our cloud infrastructure.
@@ -59,7 +59,7 @@ const TERMS_SECTIONS = [
     heading: "5. Acceptable Use",
     content: (
       <ul className="list-disc pl-5 flex flex-col gap-2">
-        <li>You may not use Snappin App for illegal, fraudulent, or harmful purposes.</li>
+        <li>You may not use Snappin for illegal, fraudulent, or harmful purposes.</li>
         <li>You may not attempt to hack, disrupt, or reverse engineer any part of the platform.</li>
         <li>You may not upload or process content that violates intellectual property or data protection laws.</li>
         <li>We reserve the right to investigate and act upon any misuse, including suspension or legal action.</li>
@@ -70,9 +70,9 @@ const TERMS_SECTIONS = [
     heading: "6. Data & Privacy",
     content: (
       <p>
-        Your use of Snappin App is also governed by our{" "}
+        Your use of Snappin is also governed by our{" "}
         <a href="/privacy" className="text-link underline">Privacy Policy</a>, which explains
-        how we collect, use, and protect your data. By using Snappin App, you consent to the data
+        how we collect, use, and protect your data. By using Snappin, you consent to the data
         practices described there.
       </p>
     ),
@@ -81,9 +81,9 @@ const TERMS_SECTIONS = [
     heading: "7. Intellectual Property",
     content: (
       <p>
-        All trademarks, software, logos, design elements, and content within Snappin App are the
-        property of Snappin App or its licensors. You are granted a limited, non-transferable license
-        to use Snappin App for personal or business purposes. This license does not permit copying,
+        All trademarks, software, logos, design elements, and content within Snappin are the
+        property of Snappin or its licensors. You are granted a limited, non-transferable license
+        to use Snappin for personal or business purposes. This license does not permit copying,
         modification, resale, or derivative works of our platform or content.
       </p>
     ),
@@ -92,7 +92,7 @@ const TERMS_SECTIONS = [
     heading: "8. Subscription, Billing & Termination",
     content: (
       <ul className="list-disc pl-5 flex flex-col gap-2">
-        <li>Snappin App may offer free and paid subscription plans. By subscribing, you agree to pay applicable fees as described at checkout.</li>
+        <li>Snappin may offer free and paid subscription plans. By subscribing, you agree to pay applicable fees as described at checkout.</li>
         <li>You can cancel your subscription anytime. Paid features continue until the end of the billing cycle.</li>
         <li>We reserve the right to terminate or suspend access if payment is overdue or in case of policy violations.</li>
       </ul>
@@ -102,9 +102,9 @@ const TERMS_SECTIONS = [
     heading: "9. Disclaimer of Warranties",
     content: (
       <p>
-        Snappin App is provided &quot;as is&quot; and &quot;as available.&quot; While we strive for
+        Snappin is provided &quot;as is&quot; and &quot;as available.&quot; While we strive for
         accuracy, we do not guarantee uninterrupted service, error-free data extraction, or
-        absolute accuracy of results. Your use of Snappin App is at your own risk.
+        absolute accuracy of results. Your use of Snappin is at your own risk.
       </p>
     ),
   },
@@ -112,7 +112,7 @@ const TERMS_SECTIONS = [
     heading: "10. Limitation of Liability",
     content: (
       <p>
-        To the maximum extent permitted by law, Snappin App and its affiliates are not liable for any
+        To the maximum extent permitted by law, Snappin and its affiliates are not liable for any
         indirect, incidental, or consequential damages arising from your use or inability to use
         our services. Our total liability for any claim will not exceed the amount you paid for
         the service during the last 12 months.
@@ -123,7 +123,7 @@ const TERMS_SECTIONS = [
     heading: "11. Indemnification",
     content: (
       <p>
-        You agree to indemnify and hold Snappin App, its officers, and employees harmless from any
+        You agree to indemnify and hold Snappin, its officers, and employees harmless from any
         claims, damages, or losses resulting from your violation of these Terms or misuse of the
         platform.
       </p>
@@ -134,7 +134,7 @@ const TERMS_SECTIONS = [
     content: (
       <p>
         We may update or modify these Terms from time to time. Updated Terms will be posted on
-        this page, and continued use of Snappin App after changes constitutes acceptance of the new
+        this page, and continued use of Snappin after changes constitutes acceptance of the new
         Terms.
       </p>
     ),
@@ -152,14 +152,14 @@ const TERMS_SECTIONS = [
     heading: "14. Contact",
     content: (
       <p>
-        Snappin App, Melakottangal, Pappapatti, Musiri, Trichy, TN, India – 621208
+        Snappin, Melakottangal, Pappapatti, Musiri, Trichy, TN, India – 621208
         <br />
         Email:{" "}
         <a href="mailto:hello@snappinapp.com" className="text-link underline">
           hello@snappinapp.com
         </a>
         <br /><br />
-        By using Snappin App, you agree to these Terms &amp; Conditions.
+        By using Snappin, you agree to these Terms &amp; Conditions.
       </p>
     ),
   },
@@ -170,7 +170,7 @@ const TERMS_SECTIONS = [
 export const TermsAndConditions = () => (
   <PolicyLayout
     title="Terms & Conditions"
-    description="Rules and guidelines governing your use of Snappin App. Please read carefully before using our services."
+    description="Rules and guidelines governing your use of Snappin. Please read carefully before using our services."
     lastUpdated="October 24, 2025"
     sections={TERMS_SECTIONS}
   />

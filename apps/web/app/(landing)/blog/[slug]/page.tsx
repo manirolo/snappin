@@ -39,7 +39,7 @@ export async function generateMetadata(
   const ogImage = `https://ik.imagekit.io/kk3yk561o/v1${image}`;
 
   return {
-    title: `${title} - Snappin App Blog`,
+    title: `${title} - Snappin Blog`,
     description,
     openGraph: {
       title,
@@ -176,7 +176,7 @@ export default async function PostPage(props: PostProps) {
             })),
             publisher: {
               "@type": "Organization",
-              name: "Snappin App",
+              name: "Snappin",
               logo: {
                 "@type": "ImageObject",
                 url: "https://www.snappinapp.com/images/snappin_dark_light.png",

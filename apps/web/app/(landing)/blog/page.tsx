@@ -53,17 +53,17 @@ export default function Page() {
 }
 
 export const metadata = {
-  title: "Blog | Snappin App",
-  description: "Latest updates and news from Snappin App",
-  keywords: ["snappin app blog", "invoice extraction blog", "snappin app"],
+  title: "Blog | Snappin",
+  description: "Latest updates and news from Snappin",
+  keywords: ["Snappin blog", "invoice extraction blog", "Snappin"],
   alternates: {
     canonical: "https://www.snappinapp.com/blog",
   },
   openGraph: {
-    title: "Blog | Snappin App",
-    description: "Latest updates and news from Snappin App",
+    title: "Blog | Snappin",
+    description: "Latest updates and news from Snappin",
     url: "https://www.snappinapp.com/blog",
-    siteName: "Snappin App",
+    siteName: "Snappin",
     images: [
       {
         url: "https://www.snappinapp.com/images/og.png",
@@ -76,8 +76,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | Snappin App",
-    description: "Latest updates and news from Snappin App",
+    title: "Blog | Snappin",
+    description: "Latest updates and news from Snappin",
     images: ["https://www.snappinapp.com/images/og.png"],
     creator: "@snappin_ai",
   },

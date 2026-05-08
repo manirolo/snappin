@@ -82,7 +82,7 @@ export const HeroSection = () => {
         </div>
         <div>
           <Lead className="text-center text-fg-2 leading-relaxed max-w-lg mx-auto">
-            Send your receipts straight from your WhatsApp and Snappin App
+            Send your receipts straight from your WhatsApp and Snappin
             extracts data and sync with your accounting tools.
           </Lead>
         </div>

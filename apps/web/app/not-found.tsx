@@ -16,6 +16,6 @@ export default function NotFound() {
 }
 
 export const metadata = {
-  title: "Page Not Found | Snappin App",
+  title: "Page Not Found | Snappin",
   description: "The page you are looking for does not exist.",
 };
