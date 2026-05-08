@@ -15,7 +15,7 @@ export const HomeNavbar = () => {
       <div className="px-4 xl:px-0">
         <div className="fixed top-0 left-0 right-0 bg-background/90 z-20 border-b border-bg-2 w-full backdrop-blur-xs min-h-12 sm:min-h-15 flex items-center">
           {/* ── Navbar pill ── */}
-          <div className="flex z-40! max-w-7xl mx-auto items-center w-full justify-between">
+          <div className="flex z-40! max-w-6xl mx-auto items-center w-full justify-between">
             <div className="flex gap-12 items-center">
               <LogoSymbol>Snappin App</LogoSymbol>
               <NavigationLinks />

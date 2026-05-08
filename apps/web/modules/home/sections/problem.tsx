@@ -26,15 +26,13 @@ const STEPS = [
 
 export const Problem = () => {
   return (
-    <Section setFullScreen>
+    <Section>
       <SectionHeader>
         <SectionLabel>Problem</SectionLabel>
         <SectionTitle>Business trips create receipt chaos</SectionTitle>
         <SectionDescription>
           After every trip, travelers return with dozens of paper receipts from
-          hotels, taxis, meals, and flights. Some are lost, faded, or forgotten.
-          Finance teams keep asking for missing proofs, and reimbursements get
-          delayed.
+          hotels, taxis, meals, and flights.
         </SectionDescription>
       </SectionHeader>
 

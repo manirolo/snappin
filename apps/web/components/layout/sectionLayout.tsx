@@ -10,7 +10,7 @@ export const Section = ({
   return (
     <div
       className={cn(
-        "py-12 md:py-18 max-w-7xl mx-auto flex flex-col gap-16 relative overflow-hidden",
+        "py-12 md:py-18 max-w-6xl mx-auto flex flex-col gap-16 relative overflow-hidden",
         setFullScreen && "max-w-screen py-18 md:py-32",
         className,
       )}
@@ -64,7 +64,7 @@ export const SectionTitle = ({
   return (
     <h2
       className={cn(
-        "text-4xl/14 tracking-[-1.7px] text-fg-4 font-medium text-balance max-w-3xl",
+        "text-4xl/12 md:text-4xl/14 tracking-[-1.7px] text-fg-4 font-medium text-balance max-w-3xl",
         className,
       )}
       {...props}

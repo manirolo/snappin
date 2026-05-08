@@ -35,7 +35,7 @@ export const EmailMonitoringSetup = () => {
     <Section>
       <SectionHeader>
         <SectionLabel>How it works</SectionLabel>
-        <SectionTitle>Automatically collect receipts from email</SectionTitle>
+        <SectionTitle>Collect receipts from email</SectionTitle>
         <SectionDescription>
           Receipts keep filling inboxes, and important ones often get missed
           during expense tracking.

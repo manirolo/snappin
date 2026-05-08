@@ -5,12 +5,12 @@ import { Button } from "@snappin/ui/components/button";
 import Link from "next/link";
 import { CDNImage } from "@snappin/ui/components/imagekit/image";
 import {
-  HiStar,
+  // HiStar,
   HiMail,
   HiUserGroup,
   HiSparkles,
   HiSwitchHorizontal,
-  HiPlay
+  HiPlay,
 } from "react-icons/hi";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -52,9 +52,9 @@ const LOGOS = [
 
 export const HeroSection = () => {
   return (
-    <div className="relative max-w-5xl mx-auto py-18  md:py-28 md:pb-8 px-4 xl:px-0">
-      <div className="relative flex flex-col items-center gap-5">
-        <div className="flex items-center mb-1 gap-2">
+    <div className="relative xl:px-0">
+      <div className="relative  mt-4 py-14  md:py-18 md:pb-14 px-4 flex flex-col items-center gap-5">
+        {/* <div className="flex items-center mb-1 gap-2">
           <CDNImage
             src="/static/images/landing/left.png"
             imageClassName="w-7"
@@ -73,39 +73,48 @@ export const HeroSection = () => {
             imageClassName="w-7"
             alt="decoration left"
           />
-        </div>
+        </div> */}
         <div className="flex flex-col items-center">
-          <H1 className="mt-5 text-5xl/13 md:text-5xl/15 tracking-tighter font-semibold max-w-2xl text-center">
+          <H1 className="mt-5 text-5xl/16 md:text-6xl/18 tracking-tighter font-semibold max-w-2xl text-center">
             AI Receipt Organizer
-            <span className="block font-source! text-6xl/13 md:text-6xl/15 italic">
-              {" "}
-              for traveling teams
-            </span>
+            <span className="block"> for traveling teams</span>
           </H1>
         </div>
         <div>
-          <Lead className="text-center text-fg-2 mt-2 leading-relaxed max-w-md mx-auto">
-            Connect your email accounts to start extracting invoices, and
-            receipts automatically.
+          <Lead className="text-center text-fg-2 leading-relaxed max-w-lg mx-auto">
+            Send your receipts straight from your WhatsApp and Snappin App
+            extracts data and sync with your accounting tools.
           </Lead>
         </div>
         <div className="flex flex-col items-center gap-4 mt-4">
-          <div className="flex flex-col sm:flex-row max-w-sm w-full md:w-fit gap-2 items-center">
-            <Button className="w-full text-sm/3" size={"lg"} asChild>
+          <div className="flex flex-col sm:flex-row w-full md:w-fit gap-2 items-center">
+            <Button
+              radius={"full"}
+              className="w-full text-sm/3"
+              size={"lg"}
+              asChild
+            >
               <Link href={"/signup"}>Get Started for Free</Link>
             </Button>
-            <Button variant="dim" className="w-full text-sm/3" size={"lg"} asChild>
+            <Button
+              radius={"full"}
+              variant="dim"
+              className="w-full text-sm/3"
+              size={"lg"}
+              asChild
+            >
               <Link href={"#"}>
-              <HiPlay /> Watch demo</Link>
+                <HiPlay /> Watch demo
+              </Link>
             </Button>
           </div>
-          <span className="text-fg-1 text-xs font-normal">
+          {/* <span className="text-fg-1 text-xs font-normal">
             Free plan. No credit card required
-          </span>
+          </span> */}
         </div>
 
         {/* ── Feature pills row ── */}
-        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-4">
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-8">
           {FEATURES.map(({ icon: Icon, label }, i) => (
             <React.Fragment key={label}>
               <span className="flex items-center gap-1.5 text-fg-2 text-sm">
@@ -119,30 +128,30 @@ export const HeroSection = () => {
           ))}
         </div>
 
-        <div className="relative min-h-[20vh] rounded-4xl max-w-4xl mx-auto overflow-hidden border-x mt-8 md:mt-12 md:pb-0 border-t border-bg-3">
+        <div className="relative min-h-[20vh] rounded-4xl max-w-6xl overflow-hidden border-x mt-8 md:mt-12 md:pb-0 border-t border-bg-3">
           <CDNImage
-            className="max-w-fit mx-auto h-fit flex items-start"
-            imageClassName="rounded-4xl object-contain border-8 border-bg-2 shadow"
+            className="max-w-full h-fit flex items-start"
+            imageClassName="rounded-4xl w-full object-contain border-8 border-bg-2 shadow"
             src="/static/images/landing/Snappin%20hero%20background.png"
             alt="snappin hero background image"
           />
         </div>
-        <div className="pb-4 pt-12 flex flex-col max-w-4xl mx-auto text-center items-center gap-10">
-          <div className="w-fit inline">
-            <span className="text-fg-2 text-sm whitespace-nowrap">As seen</span>
-          </div>
-          <div className="relative w-full overflow-hidden mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-            <div className="flex w-max animate-marquee gap-16 hover:paused">
-              {/* Render twice for seamless loop */}
-              {[...LOGOS, ...LOGOS].map(({ src, alt, className }, i) => (
-                <CDNImage
-                  key={i}
-                  src={src}
-                  imageClassName={`${className} opacity-40 hover:opacity-100 transition-all`}
-                  alt={alt}
-                />
-              ))}
-            </div>
+      </div>
+      <div className="pb-8 pt-8 flex flex-col md:flex-row max-w-6xl mx-auto text-center items-center gap-10">
+        <div className="w-fit inline">
+          <span className="text-fg-2 text-sm whitespace-nowrap">As seen</span>
+        </div>
+        <div className="relative w-full overflow-hidden mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+          <div className="flex w-max animate-marquee gap-16 hover:paused">
+            {/* Render twice for seamless loop */}
+            {[...LOGOS, ...LOGOS].map(({ src, alt, className }, i) => (
+              <CDNImage
+                key={i}
+                src={src}
+                imageClassName={`${className} opacity-40 hover:opacity-100 transition-all`}
+                alt={alt}
+              />
+            ))}
           </div>
         </div>
       </div>

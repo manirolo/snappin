@@ -11,11 +11,14 @@ export const DashboardOrLogin = () => {
         <Link href={"/pricing"} className="flex md:hidden">
           <Small className="text-sm text-fg-3">Pricing</Small>
         </Link>
-        <Link href={"/login"} className="text-fg-4 hidden md:flex text-sm hover:underline">
+        <Link
+          href={"/login"}
+          className="text-fg-4 hidden md:flex text-sm hover:underline"
+        >
           Login
         </Link>
-        <Button asChild>
-          <Link href={"/signup"}>Sign up</Link>
+        <Button asChild className="text-[13px]/6">
+          <Link href={"/signup"}>Get started</Link>
         </Button>
       </div>
     </div>
