@@ -61,7 +61,7 @@ const footerLinks = [
 export const HomeFooter = () => {
   return (
     <div>
-      <footer className="max-w-5xl mx-auto px-4 xl:px-0 pt-24 pb-32">
+      <footer className="max-w-7xl mx-auto px-4 xl:px-0 pt-24 pb-32">
         <div className="flex flex-col lg:flex-row gap-16 justify-between">
           {/* Brand blurb */}
           <div className="flex flex-col gap-4 max-w-sm shrink-0">

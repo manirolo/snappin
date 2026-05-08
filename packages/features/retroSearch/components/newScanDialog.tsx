@@ -168,7 +168,6 @@ export const NewScanDialog = () => {
                 <Button
                   key={item.id}
                   type="button"
-                  radius="md"
                   variant={range === item.id ? "dim" : "outline"}
                   onClick={() => setRange(item.id)}
                   className="border"

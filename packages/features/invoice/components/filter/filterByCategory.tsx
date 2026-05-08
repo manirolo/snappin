@@ -254,7 +254,6 @@ export const FilterInvoice = () => {
           <div className="px-5 py-4 border-t border-border flex flex-col gap-2.5">
             <Button
               size="lg"
-              radius="xl"
               className="w-full font-semibold"
               onClick={handleApply}
               variant="mono"
@@ -263,7 +262,6 @@ export const FilterInvoice = () => {
             </Button>
             <Button
               size="lg"
-              radius="xl"
               variant="ghost"
               className="w-full font-medium text-muted-foreground"
               onClick={handleClear}

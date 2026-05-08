@@ -11,10 +11,10 @@ export const DashboardOrLogin = () => {
         <Link href={"/pricing"} className="flex md:hidden">
           <Small className="text-sm text-fg-3">Pricing</Small>
         </Link>
-        <Link href={"/login"} className="text-fg-3 hidden md:flex text-sm hover:underline">
+        <Link href={"/login"} className="text-fg-4 hidden md:flex text-sm hover:underline">
           Login
         </Link>
-        <Button radius={"full"} asChild>
+        <Button asChild>
           <Link href={"/signup"}>Sign up</Link>
         </Button>
       </div>
@@ -24,21 +24,21 @@ export const DashboardOrLogin = () => {
 
 export const NavigationLinks = () => {
   return (
-    <div className="hidden md:flex gap-12">
+    <div className="hidden md:flex gap-14">
       <Link
         href={"https://snappin.lemonsqueezy.com/affiliates"}
         target="_blank"
       >
-        <Small className="text-sm text-fg-3">Affiliate</Small>
+        <Small className="text-sm text-fg-4">Affiliate</Small>
       </Link>
       <Link href={"/pricing"}>
-        <Small className="text-sm text-fg-3">Pricing</Small>
+        <Small className="text-sm text-fg-4">Pricing</Small>
       </Link>
       <Link href={"/blog"}>
-        <Small className="text-sm text-fg-3">Blog</Small>
+        <Small className="text-sm text-fg-4">Blog</Small>
       </Link>
       <Link href={"/docs"}>
-        <Small className="text-sm text-fg-3">Docs</Small>
+        <Small className="text-sm text-fg-4">Docs</Small>
       </Link>
     </div>
   );

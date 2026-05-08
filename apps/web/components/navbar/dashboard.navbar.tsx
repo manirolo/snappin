@@ -67,7 +67,7 @@ export function LandingLayout({ children }: { children?: React.ReactNode }) {
   return (
     <div className="h-full min-h-screen">
       <LandingNavbar />
-      <main className="py-0">{children}</main>
+      <main className="py-10">{children}</main>
       <HomeFooter />
     </div>
   );

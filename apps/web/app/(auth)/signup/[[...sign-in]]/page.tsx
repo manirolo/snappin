@@ -18,7 +18,7 @@ export default function Page() {
           <SignInClient />
         </Layout>
         <div className="relative hidden bg-gray-6 xl:flex h-screen lg:w-180 2xl:w-210">
-          <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-zinc-900/3"></div>
+          <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-green-4"></div>
         </div>
       </div>
       <Script

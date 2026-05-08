@@ -14,10 +14,10 @@
 
 :root {
   /* === Base === #FBFAF9*/
-  --background: #FBFBF7;
+  --background: #fbfbf8;
   --background-subtle: #fafafa;
-  --foreground: #211C28;
-  --secondary-background: #FAF9FA;
+  --foreground: #111827;
+  --secondary-background: #faf9fa;
 
   /* === Background Scale === */
   --bg-1: #fff;
@@ -27,9 +27,9 @@
 
   /* === Foreground Scale === */
   --fg-1: #a9a9a9;
-  --fg-2: #999;
-  --fg-3: #666;
-  --fg-4: #211C28;
+  --fg-2: #6b7280;
+  --fg-3: #4b5563;
+  --fg-4: #111827;
 
   /* === Alpha Backgrounds === */
   --bg-a1: #00000008;
@@ -563,6 +563,19 @@
   }
 }
 
+@theme {
+  --animate-marquee: marquee 20s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -580,6 +593,7 @@ body {
   letter-spacing: -0.03em;
   font-weight: 400;
   line-height: 1.3em;
+  overflow-x: hidden;
 }
 
 #nprogress .bar {

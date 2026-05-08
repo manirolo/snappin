@@ -173,7 +173,6 @@ export const PricingSection = () => {
                           <Button
                             className="w-full capitalize my-2 text-fg-4"
                             size="xl"
-                            radius="full"
                             variant={plan.id == "scale" ? "primary" : "outline"}
                             disabled={createCheckout.isPending}
                             onClick={() => handleCheckout(plan.id)}

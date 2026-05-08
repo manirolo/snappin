@@ -4,12 +4,12 @@ import { Slot as SlotPrimitive } from "radix-ui";
 import { cn } from "@snappin/ui/lib/utils";
 
 const buttonVariants = cva(
-  "cursor-pointer group whitespace-nowrap focus-visible:outline-hidden transition-colors duration-300 font-medium tracking-normal inline-flex items-center justify-center has-data-[arrow=true]:justify-between whitespace-nowrap ring-offset-background transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-60 [&_svg]:shrink-0",
+  "cursor-pointer group whitespace-nowrap focus-visible:outline-hidden transition-colors duration-300 transition-all duration-300 font-medium tracking-normal inline-flex items-center justify-center has-data-[arrow=true]:justify-between whitespace-nowrap ring-offset-background transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-60 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary hover:bg-primary border-0 text-white tracking-tight-tighter rounded-full",
+          "bg-primary hover:bg-green-600 border-0 text-white tracking-tight-tighter transition-all duration-300 rounded-full",
         mono: "bg-gradient-to-b from-zinc-800 to-zinc-950 text-white dark:bg-zinc-300 dark:text-black active:scale-95 hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 data-[state=open]:bg-destructive/90",
@@ -23,7 +23,7 @@ const buttonVariants = cva(
           "text-accent-foreground border-2 border-input border-dashed bg-transparent hover:bg-accent hover:text-accent-foreground data-[state=open]:text-accent-foreground",
         ghost:
           "text-foreground hover:bg-accent hover:text-foreground  transition-all data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-        dim: "text-foreground bg-bg-a2 disabled:text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
+        dim: "text-foreground hover:bg-bg-a3 bg-bg-a2 disabled:text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
         foreground: "",
         inverse: "",
         link: "hover:opacity-100 opacity-70 transition-opacity p-0 duration-300",
@@ -382,7 +382,7 @@ const buttonVariants = cva(
       variant: "primary",
       mode: "default",
       size: "md",
-      radius: "md",
+      radius: "lg",
       appearance: "default",
     },
   },

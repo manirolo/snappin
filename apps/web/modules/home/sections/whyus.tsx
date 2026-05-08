@@ -43,7 +43,7 @@ export const WhyUs = () => {
     <Section>
       <SectionHeader>
         <SectionLabel>How does it work?</SectionLabel>
-        <SectionTitle>Goodbye to <span className="bg-yellow-a3 px-2 text-yellow-600">losing receipts</span></SectionTitle>
+        <SectionTitle>Goodbye to <span className="bg-green-a2 px-2 text-green-4">losing receipts</span></SectionTitle>
         <SectionDescription>
           Switching between email and accounting tools leads to mistakes, delays,
           losing receipts and frustration.

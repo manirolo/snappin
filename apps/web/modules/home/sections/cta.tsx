@@ -23,7 +23,6 @@ export const Cta = () => {
               </Paragraph>
               <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">
                 <Button
-                  radius={"full"}
                   className="w-full sm:w-auto"
                   size={"lg"}
                   asChild

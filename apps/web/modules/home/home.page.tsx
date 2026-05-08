@@ -1,7 +1,8 @@
 import React from "react";
 import { HeroSection } from "./sections/hero";
 // import { Benefits } from "./sections/benefits";
-// import { HowTo } from "./sections/howTo";
+import { EmailMonitoringSetup } from "./sections/emailMonitoringSetup";
+import { Problem } from "./sections/problem";
 import { Cta } from "./sections/cta";
 import { WhyUs } from "./sections/whyus";
 import { MessageUs } from "./sections/messageUs";
@@ -14,9 +15,10 @@ export const HomPage = () => {
     <div>
       <HeroSection />
       {/* <Benefits /> */}
+      <Problem />
       <MessageUs />
       <WhyUs />
-      {/* <HowTo /> */}
+      <EmailMonitoringSetup />
       {/* <AutomationBenefits /> */}
       {/* <PricingSection /> */}
       {/* <Faq /> */}
