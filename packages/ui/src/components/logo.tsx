@@ -57,10 +57,12 @@ export const Logo = ({
 export const LogoSymbol = ({
   className,
   onClickRedirectLink,
+  divClassName,
   children,
 }: {
   className?: string;
   onClickRedirectLink?: string;
+  divClassName?: string;
   children?: React.ReactNode;
 }) => (
   <Link
@@ -70,7 +72,7 @@ export const LogoSymbol = ({
       className,
     )}
   >
-    <div className="relative shrink-0 size-6.5 inline-block">
+    <div className={cn("relative shrink-0 size-6.5 inline-block", divClassName)}>
       <Image
         src={"/images/favicon.png"}
         fill
