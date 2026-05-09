@@ -14,12 +14,14 @@ export default function Page() {
   return (
     <>
       <div className="flex justify-between flex-col xl:items-center xl:flex-row overflow-auto min-h-screen py-10 xl:py-0">
+        <div className="relative hidden xl:flex h-screen lg:w-180 2xl:w-210">
+          <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-green-a4 flex justify-center items-center">
+            
+          </div>
+        </div>
         <Layout>
           <SignInClient />
         </Layout>
-        <div className="relative hidden bg-gray-6 xl:flex h-screen lg:w-180 2xl:w-210">
-          <div className="absolute z-10 top-0 left-0 right-0 bottom-0 bg-green-4"></div>
-        </div>
       </div>
       <Script
         id="schema-webpage"

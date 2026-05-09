@@ -10,6 +10,7 @@ import {
 import { Providers } from "./provider";
 import Script from "next/script";
 import localFont from "next/font/local";
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Stack_Sans_Text({
   subsets: ["latin"],
@@ -130,6 +131,7 @@ export default function RootLayout({
             rel="stylesheet"
             href="https://unpkg.com/lenis@1.3.21/dist/lenis.css"
           ></link>
+          <GoogleTagManager gtmId="G-JY5K7SL9P6" />
           <Script id="lemon-squeezy-config" strategy="beforeInteractive">
             {`window.lemonSqueezyAffiliateConfig = { store: "snappin" };`}
           </Script>
