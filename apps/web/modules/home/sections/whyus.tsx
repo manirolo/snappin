@@ -42,8 +42,8 @@ export const WhyUs = () => {
   return (
     <Section>
       <SectionHeader>
-        <SectionLabel>How does it work?</SectionLabel>
-        <SectionTitle>Goodbye to <span className="bg-green-a2 px-2 text-green-4">losing receipts</span></SectionTitle>
+        <SectionLabel>Why choose us?</SectionLabel>
+        <SectionTitle>Goodbye to losing receipts</SectionTitle>
         <SectionDescription>
           Switching between email and accounting tools leads to mistakes, delays,
           losing receipts and frustration.

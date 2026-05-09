@@ -67,7 +67,7 @@ export const ExtraSmall = ({children, className}: {children?: React.ReactNode, c
 
 export function Lead({children, className}: {children?: React.ReactNode, className?: string}) {
   return (
-    <p className={cn("text-muted-foreground tracking-tight font-normal text-[17px]/8!", className)}>
+    <p className={cn("text-muted-foreground tracking-tight font-normal text-base/8!", className)}>
       {children}
     </p>
   )

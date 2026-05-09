@@ -17,8 +17,8 @@ export const MessageUs = () => {
       <SectionHeader>
         <SectionLabel>Whatsapp</SectionLabel>
         <SectionTitle>
-          No installation. <span className="block"> </span> Send receipt on
-          WhatsApp
+          No installation.{" "}
+          <span className="block text-fg-3"> Send receipt on WhatsApp </span>
         </SectionTitle>
         <SectionDescription>
           Snappin AI fits right into your workflow. Just send receipts on
@@ -29,8 +29,8 @@ export const MessageUs = () => {
 
       <SectionContent>
         {/* https://ik.imagekit.io/kk3yk561o/v1 */}
-        <div className="relative bg-green-a1 pt-9 rounded-xl overflow-hidden">
-          <DotPattern className="p-4 -z-10 [&_circle]:fill-green-a3" />
+        <div className="relative bg-gray-a1 pt-9 rounded-xl overflow-hidden">
+          <DotPattern className="p-4 -z-10 [&_circle]:fill-gray-a2" />
 
           <div className="absolute hidden sm:flex flex-col items-center top-60 left-1/2 -translate-x-62 -rotate-3">
             <span className="text-sm text-fg-1">2.</span>

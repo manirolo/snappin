@@ -13,7 +13,7 @@ export const DashboardOrLogin = () => {
         </Link>
         <Link
           href={"/login"}
-          className="text-fg-4 hidden md:flex text-sm hover:underline"
+          className="text-fg-4 hidden md:flex text-sm"
         >
           Login
         </Link>

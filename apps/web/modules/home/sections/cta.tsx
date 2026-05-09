@@ -19,7 +19,7 @@ export const Cta = () => {
                Ready to get started?
               </H2>
               <Paragraph className="max-w-md text-fg-3 leading-relaxed">
-                Start extracting invoices in seconds
+                Start organizing receipts in seconds
               </Paragraph>
               <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">
                 <Button

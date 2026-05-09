@@ -6,9 +6,9 @@ export const Section = ({
   className,
   setFullScreen = false,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & {setFullScreen?: boolean}) => {
+}: React.HTMLAttributes<HTMLDivElement> & { setFullScreen?: boolean }) => {
   return (
-    <div
+    <section
       className={cn(
         "py-12 md:py-18 max-w-6xl mx-auto flex flex-col gap-16 relative overflow-hidden",
         setFullScreen && "max-w-screen py-18 md:py-32",
@@ -17,7 +17,7 @@ export const Section = ({
       {...props}
     >
       {children}
-    </div>
+    </section>
   );
 };
 
@@ -41,14 +41,31 @@ export const SectionHeader = ({
   );
 };
 
+const gradients = [
+  "from-blue-500 to-cyan-400",
+  "from-orange-500 to-amber-400",
+  "from-violet-500 to-fuchsia-400",
+  "from-emerald-500 to-lime-400",
+];
+
 export const SectionLabel = ({
   children,
   className,
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) => {
+  const text = typeof children === "string" ? children : String(children);
+
+  // Pick gradient based on content
+  const gradient = gradients[text.length % gradients.length];
+
   return (
     <span
-      className={cn("font-semibold border-2 hidden border-fg-4 text-fg-4 p-1 px-2 mb-1 text-sm rounded-full", className)}
+      className={cn(
+        "inline-flex items-center rounded-full border border-white/10 bg-white/5 text-sm font-semibold tracking-tight",
+        "bg-linear-to-b bg-clip-text text-transparent",
+        gradient,
+        className,
+      )}
       {...props}
     >
       {children}

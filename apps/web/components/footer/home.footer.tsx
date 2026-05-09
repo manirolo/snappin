@@ -1,3 +1,4 @@
+import { CDNImage } from "@snappin/ui/components/imagekit/image";
 import { Small } from "@snappin/ui/components/typography";
 import Link from "next/link";
 import React from "react";
@@ -19,7 +20,7 @@ const footerLinks = [
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
       {
-        label: "Affiliate (10%)",
+        label: "Affiliate",
         href: "https://snappin.lemonsqueezy.com/affiliates",
         external: true,
       },
@@ -69,8 +70,23 @@ export const HomeFooter = () => {
               Built over hundreds of late nights, Snappin saves you from
               invoice, receipts chaos and manual entry.
             </Small>
-            <Small>Built with ☕ in INDIA</Small>
-            <Small>© 2026</Small>
+            <Small>Copyright © 2026 - All rights reserved</Small>
+            <div className="flex items-center gap-2">
+              <Small>Built with ☕ and by 🥐 Mani </Small>
+
+              <Link
+                href={"https://www.linkedin.com/in/manikandanp23/"}
+                target="_blank"
+                className="transition-all duration-300 hover:scale-110"
+              >
+                <CDNImage
+                  imageClassName="rounded-full"
+                  src="https://media.licdn.com/dms/image/v2/D5603AQHII_OaopkQow/profile-displayphoto-crop_800_800/B56ZlctQ3zKIAM-/0/1758196995035?e=1779926400&v=beta&t=Ls3OVv0nUQHKJXC1I7Bs5opRi0UJ_yUpwr78RJys0jU"
+                  className="size-5"
+                  alt="Manikandan p snappin founder"
+                />
+              </Link>
+            </div>
           </div>
 
           {/* Links */}
