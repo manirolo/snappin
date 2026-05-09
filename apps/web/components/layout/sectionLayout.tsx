@@ -81,7 +81,7 @@ export const SectionTitle = ({
   return (
     <h2
       className={cn(
-        "text-4xl/12 md:text-4xl/14 tracking-[-1.7px] text-fg-4 font-medium text-balance max-w-3xl",
+        "text-4xl/12 md:text-4xl/14 tracking-tighter text-fg-4/95 font-medium text-balance max-w-3xl",
         className,
       )}
       {...props}
@@ -99,7 +99,7 @@ export const SectionDescription = ({
   return (
     <p
       className={cn(
-        "w-full max-w-md font-normal opacity-80 text-fg-2! text-base/7",
+        "w-full max-w-md font-normal opacity-90 text-fg-2! text-base/7",
         className,
       )}
       {...props}

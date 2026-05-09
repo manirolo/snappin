@@ -18,7 +18,7 @@ export const Cta = () => {
               <H2>
                Ready to get started?
               </H2>
-              <Paragraph className="max-w-md text-fg-3 leading-relaxed">
+              <Paragraph className="max-w-md text-fg-2 leading-relaxed">
                 Start organizing receipts in seconds
               </Paragraph>
               <div className="flex flex-col sm:flex-row items-center gap-2 mt-2">

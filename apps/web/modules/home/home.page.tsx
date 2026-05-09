@@ -6,7 +6,7 @@ import { Problem } from "./sections/problem";
 import { Cta } from "./sections/cta";
 import { WhyUs } from "./sections/whyus";
 import { MessageUs } from "./sections/messageUs";
-// import { Faq } from "./sections/faq";
+import { Faq } from "./sections/faq";
 // import { PricingSection } from "./sections/pricing";
 // import { AutomationBenefits } from "./sections/automationBenefits";
 
@@ -21,7 +21,7 @@ export const HomPage = () => {
       <EmailMonitoringSetup />
       {/* <AutomationBenefits /> */}
       {/* <PricingSection /> */}
-      {/* <Faq /> */}
+      <Faq />
       <Cta />
     </div>
   );

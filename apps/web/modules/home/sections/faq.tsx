@@ -15,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@snappin/ui/components/accordion";
+import Script from "next/script";
 
 const FAQ_ITEMS = [
   {
@@ -47,43 +48,106 @@ const FAQ_ITEMS = [
     answer:
       "Absolutely. All payments are processed securely via LemonSqueezy. We never store your card details on our servers. You can cancel your subscription at any time from your billing settings.",
   },
+  {
+    id: "faq-6",
+    question: "Which platforms does Snappin support?",
+    answer:
+      "Snappin works with Gmail, Outlook, WhatsApp, and supports exports to tools like Xero and Google Drive.",
+  },
+  {
+    id: "faq-7",
+    question: "How accurate is the receipt extraction?",
+    answer:
+      "Snappin uses AI-powered OCR to extract key receipt details like merchant name, total amount, date, and tax with high accuracy.",
+  },
+  {
+    id: "faq-8",
+    question: "Do you support multi-page invoices and PDFs?",
+    answer:
+      "Yes, Snappin supports image receipts, PDFs, and multi-page invoices from emails and uploads.",
+  },
+  {
+    id: "faq-9",
+    question: "Can I organize receipts automatically?",
+    answer:
+      "Yes, receipts are automatically categorized and organized so you can quickly search, export, and manage them later.",
+  },
+  {
+    id: "faq-10",
+    question: "Do I need accounting knowledge to use Snappin?",
+    answer:
+      "No. Snappin is designed for freelancers, travelers, bookkeepers, and businesses with a simple setup process.",
+  },
+  {
+    id: "faq-11",
+    question: "Can I cancel my subscription anytime?",
+    answer:
+      "Yes, you can cancel your subscription anytime from your billing settings. Your plan will remain active until the end of the billing cycle.",
+  },
+  {
+    id: "faq-12",
+    question: "Does Snappin store my receipts securely?",
+    answer:
+      "Yes, all receipts and extracted data are stored securely with encrypted infrastructure and secure authentication.",
+  },
 ];
 
 export const Faq = () => {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
   return (
-    <Section>
-      <SectionHeader>
-        <SectionLabel>FAQ</SectionLabel>
-        <SectionTitle>Frequently asked questions</SectionTitle>
-        <SectionDescription>
-          Quick answers to common questions about pricing, privacy, setup, and
-          more.
-        </SectionDescription>
-      </SectionHeader>
-      <SectionContent>
-        <div className="max-w-xl mx-auto w-full">
-          <Accordion
-            type="single"
-            collapsible
-            className="w-full shadow-none space-y-0.5"
-          >
-            {FAQ_ITEMS.map((item) => (
-              <AccordionItem
-                key={item.id}
-                value={item.id}
-                className="bg-popover shadow-none border-0 px-4 rounded-lg"
-              >
-                <AccordionTrigger className="text-base h-10 flex items-center tracking-tight font-medium text-left hover:no-underline">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base font-normal tracking-tight leading-relaxed text-fg-3">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </SectionContent>
-    </Section>
+    <>
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema),
+        }}
+      />
+      <Section>
+        <SectionHeader>
+          <SectionLabel>FAQ</SectionLabel>
+          <SectionTitle>Frequently asked questions</SectionTitle>
+          <SectionDescription>
+            Quick answers to common questions about pricing, privacy, setup, and
+            more.
+          </SectionDescription>
+        </SectionHeader>
+        <SectionContent>
+          <div className="max-w-xl mx-auto w-full">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full shadow-none space-y-2"
+            >
+              {FAQ_ITEMS.map((item) => (
+                <AccordionItem
+                  key={item.id}
+                  value={item.id}
+                  className="shadow-none border-0 px-4 rounded-lg"
+                >
+                  <AccordionTrigger className="text-base h-10 flex items-center tracking-tight font-medium text-left hover:no-underline">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base font-normal tracking-tight leading-relaxed text-fg-3">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </SectionContent>
+      </Section>
+    </>
   );
 };

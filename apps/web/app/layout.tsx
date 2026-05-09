@@ -2,15 +2,11 @@ import type { Metadata, Viewport } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import {
-  Fuzzy_Bubbles,
-  Stack_Sans_Text,
-  Arapey,
-} from "next/font/google";
+import { Fuzzy_Bubbles, Stack_Sans_Text, Arapey } from "next/font/google";
 import { Providers } from "./provider";
 import Script from "next/script";
 import localFont from "next/font/local";
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Stack_Sans_Text({
   subsets: ["latin"],
@@ -93,7 +89,49 @@ export const metadata: Metadata = {
     canonical: "https://www.snappinapp.com",
   },
 
-  keywords: ["ai", "bookkeeping", "Snappin", "receipt extraction"],
+  keywords: [
+    "invoice extraction",
+    "receipt ai",
+    "receipt organizing ai",
+    "invoice extraction automation n8n",
+    "receipt extraction tool",
+    "invoice extraction tool",
+    "outlook receipt extractor",
+    "receipt management for travelers",
+    "receipt ai alternative",
+    "receiptor ai alternative",
+    "tailride alternative",
+    "wellybox alternative",
+    "sparkreceipt alternative",
+    "get invoice alternative",
+    "low price ocr tool",
+    "ocr api",
+    "snappin",
+    "snappin app",
+    "snappin ai",
+    "snappin ocr",
+    "snappin receipt organizer",
+    "ai receipt scanner",
+    "receipt management software",
+    "receipt organizer app",
+    "receipt tracking software",
+    "expense receipt organizer",
+    "receipt processing automation",
+    "ai bookkeeping automation",
+    "gmail receipt extractor",
+    "whatsapp receipt organizer",
+    "receipt parser",
+    "receipt ocr",
+    "invoice ocr API",
+    "receipt extraction API",
+    "automated expense tracking",
+    "digital receipt organizer",
+    "travel receipt organizer",
+    "small business receipt management",
+    "xero receipt automation",
+    "quickbooks receipt automation",
+    "email receipt extraction",
+  ],
 
   applicationName: "Snappin",
   creator: "Snappin",
