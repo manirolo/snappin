@@ -10,6 +10,16 @@ export const env = {
     webhookSecretKey: process.env.CLERK_WEBHOOK_SIGNING_SECRET!,
   },
 
+  supabase: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    publishableKey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+  },
+
+  betterAuth: {
+    apiKey: process.env.BETTER_AUTH_API_KEY!,
+    secret: process.env.BETTER_AUTH_SECRET!,
+  },
+
   crisp: {
     websiteId: process.env.NEXT_PUBLIC_CRISP_ID!,
   },

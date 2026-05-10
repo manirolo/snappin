@@ -37,7 +37,7 @@ export function Spinner({
             fill="none"
             // if color prop provided, use it; otherwise follow text color
             stroke={color ?? "currentColor"}
-            strokeWidth="4"
+            strokeWidth="3"
             />
         </g>
         </svg>

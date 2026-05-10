@@ -6,6 +6,7 @@ import { invoiceRouter } from "./invoice/_router";
 import { onboardingRouter } from "./onboarding/_router";
 import { organizationRouter } from "./organization/_router";
 import { scanPastInvoiceRouter } from "./retroSearch/_router";
+import { toolRouter } from "./tool/_router";
 import { userRouter } from "./user/_router";
 import { vendorRouter } from "./vendor/_router";
 
@@ -19,4 +20,5 @@ export const router = createTRPCRouter({
     export: exportDocument,
     billing: billingRouter,
     user: userRouter,
+    tool: toolRouter
 })

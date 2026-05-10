@@ -74,8 +74,8 @@ export const HeroSection = () => {
           />
         </div> */}
         <div className="flex flex-col items-center">
-          <H1 className="mt-5 text-5xl/16 md:text-6xl/18 tracking-tighter font-medium max-w-2xl text-center">
-            AI Receipt Organizer
+          <H1 className="mt-5 text-5xl/18 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
+            AI receipt organizer
             <span className="block"> for traveling teams</span>
           </H1>
         </div>

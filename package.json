@@ -28,6 +28,11 @@
   "engines": {
     "node": ">=18"
   },
+  "pnpm": {
+    "overrides": {
+      "mongodb": "7.2.0"
+    }
+  },
   "dependencies": {
     "@lemonsqueezy/lemonsqueezy.js": "catalog:",
     "framer-motion": "^12.31.0"

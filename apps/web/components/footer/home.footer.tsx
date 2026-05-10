@@ -48,15 +48,15 @@ const footerLinks = [
       },
     ],
   },
-  // {
-  //   title: "Tools",
-  //   links: [
-  //     {
-  //       label: "Receipt to Excel converter",
-  //       href: "/tools/ai-receipt-converter",
-  //     },
-  //   ],
-  // },
+  {
+    title: "Tools",
+    links: [
+      {
+        label: "Receipt to Excel converter",
+        href: "/tools/receipt-to-excel-converter",
+      },
+    ],
+  },
 ];
 
 export const HomeFooter = () => {
@@ -72,7 +72,7 @@ export const HomeFooter = () => {
             </Small>
             <Small>Copyright © 2026 - All rights reserved</Small>
             <div className="flex items-center gap-2">
-              <Small>Built with ☕ and by 🥐 Mani </Small>
+              <Small>Built with ☕ and 🥐 by Mani </Small>
 
               <Link
                 href={"https://www.linkedin.com/in/manikandanp23/"}
@@ -90,9 +90,9 @@ export const HomeFooter = () => {
           </div>
 
           {/* Links */}
-          <div className="flex flex-wrap gap-x-12 gap-y-8">
+          <div className="flex max-w-2xl flex-wrap gap-x-12 gap-y-8">
             {footerLinks.map(({ title, links }) => (
-              <div key={title} className="flex flex-col gap-2 min-w-max">
+              <div key={title} className="flex flex-col gap-2 min-w-fit">
                 <Small className="text-fg-4">{title}</Small>
                 <div className="flex flex-col gap-1">
                   {links.map(({ label, href, external }) => (

@@ -11,6 +11,8 @@
 @source "../../../**/*.{ts,tsx}";
 @source "../../../../apps/**/**/*.{ts,tsx}";
 @source "../../../**/**/*.{ts,tsx}";
+@source "../../../../../apps/**/**/*.{ts,tsx}";
+@source "../../../../**/**/*.{ts,tsx}";
 
 :root {
   /* === Base === #FBFAF9*/
@@ -612,6 +614,22 @@
       transform: translateX(-50%);
     }
   }
+
+  @keyframes progress {
+    0% {
+      left: -40%;
+      width: 40%;
+    }
+    60% {
+      left: 100%;
+      width: 40%;
+    }
+    100% {
+      left: 100%;
+      width: 40%;
+    }
+  }
+  --animate-progress: progress 1.4s ease-in-out infinite;
 }
 
 @layer base {

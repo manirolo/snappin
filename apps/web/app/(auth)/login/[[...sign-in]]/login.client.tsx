@@ -1,10 +1,13 @@
 "use client";
 
 import { SignIn } from "@clerk/nextjs";
+import { useSearchParams } from 'next/navigation'
 
 export const Client = () => {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect_url") ?? "/dashboard";
   return (
-    <SignIn />
+    <SignIn forceRedirectUrl={redirectUrl}/>
     // <SignIn.Root>
     //   <SignIn.Step name="start" className="sm:w-fit">
     //     <div>

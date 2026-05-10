@@ -64,6 +64,12 @@ const routes: SitemapEntry[] = [
         changeFrequency: "yearly",
         priority: 0.4,
     },
+    {
+        path: "/tools/receipt-to-excel-converter",
+        lastModified: "2026-05-10",
+        changeFrequency: "yearly",
+        priority: 0.4,
+    },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
