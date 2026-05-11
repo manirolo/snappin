@@ -100,7 +100,7 @@ export const ToolTitle = ({
   return (
     <h1
       className={cn(
-        "text-4xl/12 md:text-4xl/12 tracking-tighter text-fg-4/95 font-medium text-balance max-w-3xl",
+        "text-5xl/18 md:text-5xl/20 tracking-tighter text-fg-4/95 font-medium text-balance max-w-3xl",
         className,
       )}
       {...props}
@@ -118,7 +118,7 @@ export const ToolDescription = ({
   return (
     <p
       className={cn(
-        "w-full max-w-md font-normal opacity-90 text-fg-2! text-base/7",
+        "w-full max-w-md font-normal opacity-90 text-fg-2! text-base/8",
         className,
       )}
       {...props}
@@ -183,7 +183,7 @@ export const ToolAd = ({
   return (
     <div
       className={cn(
-        "relative flex flex-wrap max-w-5xl w-full min-h-[20vh] mx-auto justify-between gap-6 mt-8",
+        "relative flex flex-wrap max-w-4xl w-full min-h-[20vh] mx-auto justify-between gap-6 mt-8",
         "rounded-t-2xl border-2 border-b-0 border-border/60 border-dashed bg-background p-4",
         className,
       )}
@@ -250,7 +250,7 @@ export const ToolInput = ({
   return (
     <div
       className={cn(
-        "w-full max-w-5xl mx-auto flex flex-col gap-6 items-center",
+        "w-full max-w-4xl mx-auto flex flex-col gap-6 items-center",
         className,
       )}
       {...props}
@@ -268,7 +268,7 @@ export const ToolOutput = ({
   return (
     <div
       className={cn(
-        "w-full max-w-5xl mt-4 mx-auto flex flex-col gap-6 items-center",
+        "w-full max-w-4xl mt-4 mx-auto flex flex-col gap-6 items-center",
         className,
       )}
       {...props}
