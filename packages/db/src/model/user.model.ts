@@ -16,8 +16,6 @@ const UserMetadataSchema = new mongoose.Schema<UserMetadataResource>({
 const UserSchema = new mongoose.Schema<UserResource>({
     clerkUserId: { type: String, default: null, index: true },
     email: { type: String, default: null, unique: true, index: true },
-    firstName: { type: String, default: null },
-    lastName: { type: String, default: null },
     fullName: { type: String, default: null },
     profileUrl: { type: String, default: null },
     billingAccount: { type: BillingAccountSchema, default: null },

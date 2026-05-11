@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRef, useState, useCallback } from "react";
 import toast from "react-hot-toast";
@@ -9,10 +9,12 @@ export function useFileDropzone({
   onFiles,
   accept = DEFAULT_ACCEPT,
   disabled = false,
+  onBeforeOpen,
 }: {
   onFiles: (files: File[]) => void;
   accept?: string[];
   disabled?: boolean;
+  onBeforeOpen?: () => boolean | Promise<boolean>;
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,6 +30,12 @@ export function useFileDropzone({
     },
     [onFiles, accept],
   );
+
+  const runGuard = useCallback(async (): Promise<boolean> => {
+    if (!onBeforeOpen) return true;
+    const allowed = await onBeforeOpen();
+    return allowed;
+  }, [onBeforeOpen]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
@@ -45,15 +53,20 @@ export function useFileDropzone({
     setIsDragging(false);
   };
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = async (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
+    const allowed = await runGuard();
+    if (!allowed) return;
     const files = Array.from(e.dataTransfer.files);
     handleFiles(files);
   };
 
-  const openFilePicker = () => {
-    if (!disabled) inputRef.current?.click();
+  const openFilePicker = async () => {
+    if (disabled) return;
+    const allowed = await runGuard(); // ← guard on click
+    if (!allowed) return;
+    inputRef.current?.click();
   };
 
   return {
@@ -70,7 +83,7 @@ export function useFileDropzone({
       ref: inputRef,
       type: "file" as const,
       accept: ".pdf,.png,.jpg,.jpeg",
-      multiple: true,
+      multiple: false,
       className: "sr-only",
       onChange: handleInputChange,
     },

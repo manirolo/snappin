@@ -18,8 +18,8 @@ const CrispChat = () => {
     if (!isLoaded) return;
 
     if (user) {
-      const email = user.primaryEmailAddress?.emailAddress;
-      const name = user.fullName ?? user.firstName ?? email ?? "";
+      const email = user?.emailAddresses[0]?.emailAddress;
+      const name = user?.emailAddresses[0]?.emailAddress.split("@")[0] ?? email ?? "";
 
       if (email) {
         Crisp.user.setEmail(email);

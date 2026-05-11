@@ -16,7 +16,7 @@ export const Navbar = () => {
       <div className="flex items-center gap-2">
         <Avatar className="size-7">
           <AvatarImage src={user?.imageUrl} />
-          <AvatarFallback>{user?.firstName?.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{user.email_addresses[0]?.email_address.split("@")[0]}</AvatarFallback>
         </Avatar>
       </div>
     </div>

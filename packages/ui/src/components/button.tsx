@@ -43,8 +43,8 @@ const buttonVariants = cva(
       },
       size: {
         _3xl: "h-[4.5rem]",
-        _2xl: "min-w-xs sm:min-w-sm mx-auto md:min-w-102 min-h-[4.2rem] flex-1 gap-4 font-bold! text-xl tracking-tight",
-        xl: "h-[3.2rem] text-[0.9rem] gap-2 px-5",
+        _2xl: "min-w-46 sm:min-w-sm mx-auto md:min-w-102 min-h-[3rem] sm:min-h-[4.2rem] flex-1 gap-4 font-bold! text-lg sm:text-xl tracking-tight",
+        xl: "h-[3rem] text-[1rem] gap-2 px-5",
         lg: "h-[2.85rem] text-[0.9rem] px-4 gap-1.5 [&_svg:not([class*=size-])]:size-4",
         md: "h-8.5 px-3 min-w-14.5 gap-1.5 text-[13px] [&_svg:not([class*=size-])]:size-4",
         sm: "h-8 px-2 gap-1.25 text-xs [&_svg:not([class*=size-])]:size-3.5",

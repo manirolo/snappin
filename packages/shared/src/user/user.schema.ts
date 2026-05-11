@@ -15,8 +15,6 @@ export const ZUser = z.object({
     _id:           z.string().optional(),
     clerkUserId:   z.string().optional(),
     email:         z.string().nullable().optional(),
-    firstName:     z.string().nullable().optional(),
-    lastName:      z.string().nullable().optional(),
     fullName:      z.string().nullable().optional(),
     profileUrl:    z.string().nullable().optional(),
     billingAccount: ZBillingAccount.optional().nullable(),

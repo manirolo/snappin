@@ -18,7 +18,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           />
           <div className="absolute top-10 left-10">
             <div>
-              <LogoSymbol divClassName="size-10"></LogoSymbol>
+              <LogoSymbol divClassName="size-8"></LogoSymbol>
             </div>
           </div>
           <div className="max-w-xl bg-green-a1 rounded-sm p-6 gap-4 mx-auto w-full text-start flex flex-col items-start">

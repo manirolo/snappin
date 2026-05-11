@@ -9,11 +9,11 @@ const fmt = (amount: number | null, currency: string | null) => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currency ?? "USD",
-  }).format(amount);
+  }).format(amount / 100);
 };
 
 const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
-  <div className="flex flex-col gap-1">
+  <div className="flex flex-col gap-1.5">
     <span className="text-xs text-muted-foreground">{label}</span>
     <span className="text-sm/6 font-medium text-foreground">{value ?? "—"}</span>
   </div>
@@ -33,7 +33,7 @@ export const ReceiptDetails = ({
   const currency = invoice?.totals?.currency ?? null;
 
   return (
-    <div className="w-full max-w-3xl mx-auto rounded-2xl border bg-background p-6 flex flex-col gap-6">
+    <div className="w-full rounded-2xl border-2 border-dashed bg-background p-6 flex flex-col gap-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Receipt Details</h2>

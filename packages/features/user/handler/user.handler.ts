@@ -34,13 +34,14 @@ export class UserHandler {
         // }
 
         // Create user payload
+
+        const email = user.email_addresses[0]?.email_address ?? "";
+
         const payload: UserResource = {
             clerkUserId: user.id,
             email: user.email_addresses[0]?.email_address ?? "",
-            firstName: user.first_name ?? undefined,
-            lastName: user.last_name ?? undefined,
             profileUrl: user.image_url ?? null,
-            fullName: user.first_name + " " + user.last_name,
+            fullName: email.split("@")[0],
             // billingAccount: {
             //     customerId: billingCustomerId
             // }

@@ -29,7 +29,7 @@ export const User = () => {
                     </Avatar>
                     <div className='flex flex-col justify-center gap-0 max-w-40'>
                         <Small className='text-sidebar-foreground/90 font-medium leading-4 truncate'>{user?.fullName}</Small>
-                        {user?.primaryEmailAddress && <ExtraSmall className='text-sidebar-foreground/40 truncate'>{user?.primaryEmailAddress.emailAddress}</ExtraSmall>}
+                        {user?.emailAddresses[0]?.emailAddress && <ExtraSmall className='text-sidebar-foreground/40 truncate'>{user?.emailAddresses[0]?.emailAddress}</ExtraSmall>}
                     </div>
                 </div>
             </DropdownMenuTrigger>
@@ -39,7 +39,7 @@ export const User = () => {
                         <div className='flex items-center gap-2 text-start'>
                             <div className='flex flex-col justify-center gap-0 max-w-48'>
                                 <Small className='text-gray-12 font-medium leading-4 truncate'>{user?.fullName}</Small>
-                                {user?.primaryEmailAddress && <ExtraSmall className='truncate '>{user?.primaryEmailAddress.emailAddress}</ExtraSmall>}
+                                {user?.emailAddresses[0]?.emailAddress && <ExtraSmall className='truncate '>{user?.emailAddresses[0]?.emailAddress}</ExtraSmall>}
                             </div>
                         </div>
                     </DropdownMenuItem>

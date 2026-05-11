@@ -58,7 +58,7 @@ export async function createCheckout({
       {
         checkoutData: {
           email: user.emailAddresses[0]?.emailAddress,
-          name: `${user.firstName} ${user.lastName}`.trim(),
+          name: `${user.emailAddresses[0]?.emailAddress.split("@")[0]}`.trim(),
           custom: {
             clerk_user_id: user.id,
             clerk_org_id: ctx.orgId

@@ -20,11 +20,9 @@ export function AppNavbar({ showNavItems }: { showNavItems?: boolean }) {
   const { usage, isLoading } = useUsage();
   const router = useRouter();
   const data = {
-    firstName: user?.firstName,
-    lastName: user?.lastName,
     fullName: user?.fullName,
     imageUrl: user?.imageUrl,
-    primaryEmailAddress: user?.primaryEmailAddress,
+    primaryEmailAddress: user?.emailAddresses[0],
   };
 
   const handleSignOut = async () => {

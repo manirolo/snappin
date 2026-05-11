@@ -23,11 +23,7 @@ export const GuestNavbar = ({ children }: { children: React.ReactNode }) => {
   const { user } = useUser();
   const { signOut } = useClerk();
 
-  const initials = [user?.firstName, user?.lastName]
-    .filter(Boolean)
-    .map((n) => n![0])
-    .join("")
-    .toUpperCase();
+  const initial = user?.emailAddresses[0]?.emailAddress.slice(0,1)
 
   return (
     <div className="h-screen max-w-3xl mx-auto">
@@ -43,7 +39,7 @@ export const GuestNavbar = ({ children }: { children: React.ReactNode }) => {
                   src={user?.imageUrl}
                   alt={user?.fullName ?? "User"}
                 />
-                <AvatarFallback>{initials}</AvatarFallback>
+                <AvatarFallback>{initial}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
 

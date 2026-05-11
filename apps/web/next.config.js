@@ -18,16 +18,6 @@ const nextConfig = {
     }
     return config;
   },
-
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "img.logo.dev",
-        pathname: "/**",
-      },
-    ],
-  },
 };
 
 export default nextConfig;

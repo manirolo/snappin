@@ -36,8 +36,6 @@ import React from "react";
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type User = {
-  firstName?: string | null;
-  lastName?: string | null;
   fullName?: string | null;
   imageUrl?: string;
   primaryEmailAddress?: { emailAddress: string | null } | null;
@@ -158,7 +156,7 @@ const UserDropdown = ({
             </Avatar>
             <div className="flex flex-col min-w-0">
               <Small className="text-foreground leading-4 truncate">
-                {user?.fullName}
+                {user?.primaryEmailAddress?.emailAddress?.split("@")[0]}
               </Small>
               <Small className="text-[12px] text-fg-2 truncate">
                 {user?.primaryEmailAddress?.emailAddress}

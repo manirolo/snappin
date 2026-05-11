@@ -98,36 +98,6 @@ export default async function DocPage(props: DocPageProps) {
           }),
         }}
       />
-      <Script
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://www.snappinapp.com",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Docs",
-                item: "https://www.snappinapp.com/docs",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: doc.metadata.title,                      
-                item: `${env.app.frontend_url}/docs/${slug}`,  
-              },
-            ],
-          }),
-        }}
-      />
     </>
   );
 }

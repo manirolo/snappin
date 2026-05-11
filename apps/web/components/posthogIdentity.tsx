@@ -11,7 +11,7 @@ export default function PostHogIdentify() {
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
       posthog.identify(user.id, {
-        email: user.primaryEmailAddress?.emailAddress,
+        email: user?.emailAddresses[0]?.emailAddress,
         name: user.fullName,
       })
     }

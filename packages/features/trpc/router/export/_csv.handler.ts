@@ -42,9 +42,13 @@ export async function csvExport({ ctx, input }: CSVExport) {
 
     const csv = stringify(rows, { header: true });
 
+    const now = new Date();
+    const datetime = now.toISOString().replace(/[-:T]/g, "_").split(".")[0];
+    const id = crypto.randomUUID().split("-")[0];
+
     return {
         data: Buffer.from(csv).toString("base64"),
-        filename: "invoices.csv",
+        filename: `export_${datetime}_snappin_${id}.csv`,
         mimeType: "text/csv",
     };
 }

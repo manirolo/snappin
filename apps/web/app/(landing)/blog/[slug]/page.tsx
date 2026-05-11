@@ -119,37 +119,6 @@ export default async function PostPage(props: PostProps) {
       <Cta />
 
       <Script
-        id="schema-breadcrumb"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://www.snappinapp.com",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Blog",
-                item: "https://www.snappinapp.com/blog",
-              },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: post.metadata.title,
-                item: `${env.app.frontend_url}/blog/${post.slug}`,
-              },
-            ],
-          }),
-        }}
-      />
-
-      <Script
         id="schema-article"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

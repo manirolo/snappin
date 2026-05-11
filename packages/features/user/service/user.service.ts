@@ -22,13 +22,11 @@ export class UserService {
             if (existingUser) throw new Error("User already exist")
 
 
-            if (data.email && data.firstName && data.lastName && IS_PRODUCTION) {
+            if (data.email && IS_PRODUCTION) {
                 const resendAudience = "712194f6-db61-4691-8c32-905493573cdb"
                 const { error: createError } = await resend.contacts.create({
                     audienceId: resendAudience,
                     email: data.email,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
                     unsubscribed: false,
                 });
 

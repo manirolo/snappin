@@ -186,7 +186,7 @@ export const SettingsView = () => {
                   <div className="w-full space-y-1 border-b border-bg-3 py-4">
                     <Label>Account</Label>
                     <Small>
-                      {user?.primaryEmailAddress?.emailAddress ??
+                      {user?.emailAddresses[0]?.emailAddress ??
                         "Account email"}
                     </Small>
                   </div>
@@ -269,13 +269,12 @@ export const SettingsView = () => {
                                     src={m.publicUserData?.imageUrl}
                                   />
                                   <AvatarFallback>
-                                    {m.publicUserData?.firstName?.slice(0, 1)}
+                                    {m.publicUserData?.identifier?.slice(0, 1)}
                                   </AvatarFallback>
                                 </Avatar>
                                 <div className="flex flex-col">
                                   <span className="text-sm font-medium text-fg-4">
-                                    {m.publicUserData?.firstName}{" "}
-                                    {m.publicUserData?.lastName}
+                                    {m.publicUserData?.identifier.split("@")[0]}
                                   </span>
                                   <span className="text-xs text-fg-2">
                                     {m.publicUserData?.identifier}
@@ -294,7 +293,7 @@ export const SettingsView = () => {
                                     onClick={() =>
                                       openConfirm({
                                         title: "Remove member",
-                                        description: `Are you sure you want to remove ${m.publicUserData?.firstName ?? m.publicUserData?.identifier} from the organization?`,
+                                        description: `Are you sure you want to remove ${m.publicUserData?.identifier} from the organization?`,
                                         confirmLabel: "Remove",
                                         destructive: true,
                                         size: "sm",
