@@ -11,7 +11,7 @@ export const Logo = ({
   darkLogo?: boolean;
   onClickRedirectLink?: string;
 }) => {
-  const src = "/images/snappin_dark_light.png";
+  const src = "https://ik.imagekit.io/kk3yk561o/v1/static/images/landing/logos/snappin_dark_light.webp";
 
   return (
     <Link
@@ -53,7 +53,7 @@ export const LogoSymbol = ({
     >
       <Image
         fill
-        src="/images/favicon.png"
+        src="https://ik.imagekit.io/kk3yk561o/v1/static/images/landing/logos/favicon.webp"
         className="object-contain"
         alt=""
         priority
