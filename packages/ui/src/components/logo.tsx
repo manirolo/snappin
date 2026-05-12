@@ -2,6 +2,7 @@ import React from "react";
 import { cn } from "../lib/utils";
 import Link from "next/link";
 import Image from "next/image";
+import { CDNImage } from "./imagekit/image";
 
 export const Logo = ({
   className,
@@ -11,7 +12,7 @@ export const Logo = ({
   darkLogo?: boolean;
   onClickRedirectLink?: string;
 }) => {
-  const src = "https://ik.imagekit.io/kk3yk561o/v1/static/images/landing/logos/snappin_dark_light.webp";
+  const src = "/static/images/landing/logos/snappin_dark_light.webp";
 
   return (
     <Link
@@ -19,10 +20,9 @@ export const Logo = ({
       aria-label="Snappin – Go to homepage"
       className={cn("relative inline-block shrink-0 w-28 h-8", className)}
     >
-      <Image
+      <CDNImage
         src={src}
         alt="Snappin"
-        fill
         className="object-contain"
         priority
         sizes="112px"
@@ -51,9 +51,8 @@ export const LogoSymbol = ({
     <div
       className={cn("relative shrink-0 size-6.5 inline-block", divClassName)}
     >
-      <Image
-        fill
-        src="https://ik.imagekit.io/kk3yk561o/v1/static/images/landing/logos/favicon.webp"
+      <CDNImage
+        src="/static/images/landing/logos/favicon.webp"
         className="object-contain"
         alt=""
         priority
