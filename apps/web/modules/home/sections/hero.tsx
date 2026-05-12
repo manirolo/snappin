@@ -91,7 +91,7 @@ export const HeroSection = () => {
               <Link href={"/signup"}>Get Started for Free</Link>
             </Button>
           </div>
-          <span className="text-fg-1 text-xs font-normal">
+          <span className="text-fg-2 text-xs font-normal">
             Free plan. No credit card required
           </span>
         </div>

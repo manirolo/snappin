@@ -4,6 +4,7 @@ import { DotPattern } from "@snappin/ui/components/magicui/dot-pattern";
 import { ExtraSmall } from "@snappin/ui/components/typography";
 import Link from "next/link";
 import React from "react";
+import "./appearance.css"
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

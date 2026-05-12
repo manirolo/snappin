@@ -38,6 +38,7 @@ export const FileDropzone = ({
 
   return (
     <>
+      <label className="opacity-0">{buttonLabel}</label>
       <input {...inputProps} />
       <div
         {...dropzoneProps}

@@ -71,7 +71,7 @@ export const ToolLabel = ({
     <div className="inline-flex items-center gap-1">
       <span
         className={cn(
-          "inline-flex items-center rounded-full border border-white/10 bg-white/5 text-sm font-semibold tracking-tight",
+          "inline-flex items-center rounded-full text-sm font-semibold tracking-tight",
           className,
         )}
         {...props}
@@ -118,7 +118,7 @@ export const ToolDescription = ({
   return (
     <p
       className={cn(
-        "w-full max-w-md font-normal opacity-90 text-fg-2! text-base/8",
+        "w-full max-w-md font-normal text-fg-3 text-base/8",
         className,
       )}
       {...props}
@@ -200,7 +200,7 @@ export const ToolAd = ({
         >
           Unlock unlimited extraction
         </p>
-        <p className="text-sm/6 mt-0.5 text-muted-foreground">
+        <p className="text-sm/6 mt-0.5 text-fg-3">
           Pull email receipts automatically, upload via WhatsApp, and
           batch-process receipts automatically.
         </p>
