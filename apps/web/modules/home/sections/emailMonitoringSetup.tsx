@@ -50,6 +50,7 @@ export const EmailMonitoringSetup = () => {
               src="/static/images/landing/connec_source_with_bg.png?updatedAt=1777457463810"
               imageClassName="w-full max-w-sm rounded-2xl shadow-sm"
               alt="Email source connect dialog"
+              fetchPriority="low"
             />
           </div>
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { LogoSymbol } from "../logo";
 import { DashboardOrLogin, NavigationLinks } from "./navbar.client";
 

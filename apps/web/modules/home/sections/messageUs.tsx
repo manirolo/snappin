@@ -39,7 +39,7 @@ export const MessageUs = () => {
           </div>
           <CDNImage
             className="max-w-2xl z-10 mx-auto h-fit flex items-start"
-            src="/static/images/landing/Android%20whatsapp%20demo.png"
+            src="/static/images/landing/demos/Android%20whatsapp%20demo.webp"
             alt="WhatsApp receipt demo — send receipts and Snappin organizes them"
           />
           <div className="absolute hidden sm:flex flex-col items-center top-20 right-1/2 translate-x-71 rotate-3">

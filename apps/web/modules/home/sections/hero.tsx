@@ -23,27 +23,27 @@ import { CDNImage } from "@snappin/ui/components/imagekit/image";
 
 const LOGOS = [
   {
-    src: "/static/images/landing/xero.png?updatedAt=1777010506604",
+    src: "/static/images/landing/logos/xero.webp",
     alt: "xero logo",
     className: "size-7",
   },
   {
-    src: "/static/images/landing/intuit%20quickbooks.png",
+    src: "/static/images/landing/logos/intuit%20quickbooks.webp",
     alt: "quickbooks logo",
     className: "w-24",
   },
   {
-    src: "/static/images/landing/product%20hunt.png",
+    src: "/static/images/landing/logos/product%20hunt.webp",
     alt: "product hunt logo",
     className: "w-28",
   },
   {
-    src: "/static/images/landing/toolify.png",
+    src: "/static/images/landing/logos/toolify.webp",
     alt: "toolify logo",
     className: "w-24",
   },
   {
-    src: "/static/images/landing/theres%20an%20ai%20for%20that.png",
+    src: "/static/images/landing/logos/theres%20an%20ai%20for%20that.webp",
     alt: "there is an ai for that logo",
     className: "w-46",
   },
@@ -115,7 +115,7 @@ export const HeroSection = () => {
           <CDNImage
             className="max-w-full h-fit flex items-start"
             imageClassName="rounded-4xl w-full object-contain border-8 border-bg-2 shadow"
-            src="/static/images/landing/Snappin%20hero%20background.png"
+            src="/static/images/landing/demos/Snappin%20hero%20background.webp"
             alt="snappin hero background image"
             fetchPriority="high"
             priority
