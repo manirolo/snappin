@@ -12,18 +12,10 @@ const CrispChat = () => {
   const crispReady = useRef(false);
 
   useEffect(() => {
-    const init = () => {
-      Crisp.configure(env.crisp.websiteId, {
-        autoload: true,
-      });
-      crispReady.current = true;
-    };
-
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(init, { timeout: 4000 });
-    } else {
-      setTimeout(init, 4000); // Safari fallback
-    }
+    Crisp.configure(env.crisp.websiteId, {
+      autoload: true,
+    });
+    crispReady.current = true;
   }, []);
 
   useEffect(() => {
