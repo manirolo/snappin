@@ -7,6 +7,12 @@
 @source "../../../packages/**/*.{ts,tsx}";
 @source "../../../components/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
+@source "../../../../apps/**/*.{ts,tsx}";
+@source "../../../**/*.{ts,tsx}";
+@source "../../../../apps/**/**/*.{ts,tsx}";
+@source "../../../**/**/*.{ts,tsx}";
+@source "../../../../../apps/**/**/*.{ts,tsx}";
+@source "../../../../**/**/*.{ts,tsx}";
 
 :root {
   /* === Base === #FBFAF9*/
