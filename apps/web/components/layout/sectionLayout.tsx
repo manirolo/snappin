@@ -99,7 +99,7 @@ export const SectionDescription = ({
   return (
     <p
       className={cn(
-        "w-full max-w-md font-normal opacity-90 text-fg-2! text-base/7",
+        "w-full max-w-md font-normal text-fg-2! text-base/7",
         className,
       )}
       {...props}

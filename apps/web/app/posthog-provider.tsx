@@ -25,12 +25,19 @@ function PostHogPageView() {
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      capture_pageview: false,
-      capture_pageleave: true,
-      disable_session_recording: !IS_PRODUCTION,
-    });
+    const init = () => {
+      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+        capture_pageview: false,
+        capture_pageleave: true,
+        disable_session_recording: !IS_PRODUCTION,
+      });
+    };
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(init, { timeout: 3000 });
+    } else {
+      setTimeout(init, 3000);
+    }
   }, []);
 
   return (

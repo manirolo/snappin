@@ -9,6 +9,9 @@ const nextConfig = {
       transform: "@hugeicons-pro/core-solid-rounded/{{member}}"
     },
   },
+  experimental: {
+    optimizeCss: true, // inlines critical CSS, defers the rest
+  },
   turbopack: {},
   webpack: (config, { dev }) => {
     if (dev) {
@@ -17,6 +20,16 @@ const nextConfig = {
       };
     }
     return config;
+  },
+  async headers() {
+    return [
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
 };
 

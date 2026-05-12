@@ -100,7 +100,7 @@ export const ToolTitle = ({
   return (
     <h1
       className={cn(
-        "text-5xl/18 md:text-5xl/20 tracking-tighter text-fg-4/95 font-medium text-balance max-w-3xl",
+        "text-5xl/16 md:text-5xl/20 tracking-tighter text-fg-4/95 font-medium text-balance max-w-3xl",
         className,
       )}
       {...props}

@@ -6,17 +6,16 @@ import { Toaster } from "react-hot-toast"
 import { GlobalConfirmDialog } from "@snappin/ui/components/alert/alert";
 import { PostHogProvider } from "./posthog-provider";
 import PostHogIdentify from "../components/posthogIdentity";
-import dynamic from 'next/dynamic'
+import { CrispLoader } from "../components/chat/crispLoader";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const CrispWithNoSSR = dynamic(() => import("../components/chat/crisp"));
   
     return (
         <PostHogProvider>
             <ThemeProviders>
                 <ProgressWrapper>
                     <TRPCProviders>
-                        <CrispWithNoSSR />
+                        <CrispLoader />
                         <GlobalConfirmDialog />
                         <Toaster />
                         <PostHogIdentify />

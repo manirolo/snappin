@@ -74,7 +74,7 @@ export const HeroSection = () => {
           />
         </div> */}
         <div className="flex flex-col items-center">
-          <H1 className="mt-5 text-5xl/18 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
+          <H1 className="mt-5 text-5xl/16 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
             AI receipt organizer
             <span className="block"> for traveling teams</span>
           </H1>
@@ -87,11 +87,7 @@ export const HeroSection = () => {
         </div>
         <div className="flex flex-col items-center gap-4 mt-4">
           <div className="flex flex-col sm:flex-row w-full md:w-fit gap-2 items-center">
-            <Button
-              className="w-full text-sm/3"
-              size={"xl"}
-              asChild
-            >
+            <Button className="w-full text-sm/3" size={"xl"} asChild>
               <Link href={"/signup"}>Get Started for Free</Link>
             </Button>
           </div>
@@ -121,6 +117,8 @@ export const HeroSection = () => {
             imageClassName="rounded-4xl w-full object-contain border-8 border-bg-2 shadow"
             src="/static/images/landing/Snappin%20hero%20background.png"
             alt="snappin hero background image"
+            fetchPriority="high"
+            priority
           />
         </div>
       </div>
@@ -137,6 +135,8 @@ export const HeroSection = () => {
                 src={src}
                 imageClassName={`${className} opacity-40 hover:opacity-100 transition-all`}
                 alt={alt}
+                priority
+                fetchPriority="high"
               />
             ))}
           </div>

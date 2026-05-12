@@ -2,55 +2,49 @@ import type { Metadata, Viewport } from "next";
 import "@snappin/ui/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { env } from "@snappin/env";
-import { Fuzzy_Bubbles, Stack_Sans_Text, Arapey } from "next/font/google";
+import { Fuzzy_Bubbles, Stack_Sans_Text } from "next/font/google";
 import { Providers } from "./provider";
 import Script from "next/script";
-import localFont from "next/font/local";
-import { GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Stack_Sans_Text({
   subsets: ["latin"],
   variable: "--font-stacks",
-  adjustFontFallback: false, // ← silences the warning
+  adjustFontFallback: false,
   fallback: ["system-ui", "Arial", "sans-serif"],
-});
-
-const source = Arapey({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-source",
+  display: "swap", // ← add this to prevent FOIT
 });
 
 const fuzzyBubbles = Fuzzy_Bubbles({
   weight: ["400", "700"],
   variable: "--font-fuzzy-bubbles",
+  display: "swap",
 });
 
-const openrunde = localFont({
-  src: [
-    {
-      path: "../public/fonts/OpenRunde-Regular.otf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/OpenRunde-Medium.otf",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/OpenRunde-Semibold.otf",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/OpenRunde-Bold.otf",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  variable: "--font-open",
-});
+// const openrunde = localFont({
+//   src: [
+//     {
+//       path: "../public/fonts/OpenRunde-Regular.otf",
+//       weight: "400",
+//       style: "normal",
+//     },
+//     {
+//       path: "../public/fonts/OpenRunde-Medium.otf",
+//       weight: "500",
+//       style: "normal",
+//     },
+//     {
+//       path: "../public/fonts/OpenRunde-Semibold.otf",
+//       weight: "600",
+//       style: "normal",
+//     },
+//     {
+//       path: "../public/fonts/OpenRunde-Bold.otf",
+//       weight: "700",
+//       style: "normal",
+//     },
+//   ],
+//   variable: "--font-open",
+// });
 
 export const metadata: Metadata = {
   title: "Snappin – AI Receipt Organizer",
@@ -161,34 +155,37 @@ export default function RootLayout({
       signUpForceRedirectUrl={"/dashboard"}
       signInUrl={env.clerk.signInUrl}
       signUpUrl={env.clerk.signUpUrl}
+      dynamic
       afterSignOutUrl={"/login"}
     >
       <html lang="en" suppressHydrationWarning>
         <head>
-          <link
-            rel="stylesheet"
-            href="https://unpkg.com/lenis@1.3.21/dist/lenis.css"
-          ></link>
-          <GoogleTagManager gtmId="G-JY5K7SL9P6" />
-          <Script id="lemon-squeezy-config" strategy="beforeInteractive">
+          <link rel="preconnect" href="https://client.crisp.chat" />
+          <link rel="preconnect" href="https://clerk.snappinapp.com" />
+
+          <link rel="dns-prefetch" href="https://client.crisp.chat" />
+          <link rel="dns-prefetch" href="https://clerk.snappinapp.com" />
+
+          <link rel="preconnect" href="https://ik.imagekit.io" />
+        </head>
+        <body
+          className={`${fuzzyBubbles.variable} ${inter.variable}`}
+          suppressHydrationWarning
+        >
+          <Script id="lemon-squeezy-config" strategy="lazyOnload">
             {`window.lemonSqueezyAffiliateConfig = { store: "snappin" };`}
           </Script>
           <Script
             src="https://lmsqueezy.com/affiliate.js"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
           {env.env === "production" && (
             <Script
               src="https://cloud.umami.is/script.js"
               data-website-id="94baed4a-1510-4b34-8f86-30d1bfda676a"
-              strategy="afterInteractive"
+              strategy="lazyOnload"
             />
           )}
-        </head>
-        <body
-          className={`${openrunde.variable} ${source.variable} ${fuzzyBubbles.variable} ${inter.variable}`}
-          suppressHydrationWarning
-        >
           <Script
             id="schema-org"
             type="application/ld+json"

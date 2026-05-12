@@ -72,17 +72,17 @@ export const HomeFooter = () => {
             </Small>
             <Small>Copyright © 2026 - All rights reserved</Small>
             <div className="flex items-center gap-2">
-              <Small>Built with ☕ and 🥐 by Mani </Small>
-
+              <Small>Built with ☕ and 🥐 by</Small>
               <Link
                 href={"https://www.linkedin.com/in/manikandanp23/"}
                 target="_blank"
-                className="transition-all duration-300 hover:scale-110"
+                className="flex items-center gap-2  group"
               >
+               <Small className="underline">Mani</Small> 
                 <CDNImage
                   imageClassName="rounded-full"
                   src="https://media.licdn.com/dms/image/v2/D5603AQHII_OaopkQow/profile-displayphoto-crop_800_800/B56ZlctQ3zKIAM-/0/1758196995035?e=1779926400&v=beta&t=Ls3OVv0nUQHKJXC1I7Bs5opRi0UJ_yUpwr78RJys0jU"
-                  className="size-5"
+                  className="size-5 transition-all duration-300 group-hover:scale-110"
                   alt="Manikandan p snappin founder"
                 />
               </Link>

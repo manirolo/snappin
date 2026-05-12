@@ -9,7 +9,7 @@ import {
 } from "../../../components/layout/sectionLayout";
 import { CDNImage } from "@snappin/ui/components/imagekit/image";
 import { CurlyArrow2 } from "@snappin/ui/assets/svg/arrow";
-import { DotPattern } from "@snappin/ui/components/magicui/dot-pattern";
+import { DotPatternWrapper } from "@snappin/ui/components/magicui/dot-pattern-wrapper";
 
 export const MessageUs = () => {
   return (
@@ -30,7 +30,7 @@ export const MessageUs = () => {
       <SectionContent>
         {/* https://ik.imagekit.io/kk3yk561o/v1 */}
         <div className="relative bg-gray-a1 pt-9 rounded-xl overflow-hidden">
-          <DotPattern className="p-4 -z-10 [&_circle]:fill-gray-a2" />
+          <DotPatternWrapper className="p-4 -z-10 [&_circle]:fill-gray-a2" />
 
           <div className="absolute hidden sm:flex flex-col items-center top-60 left-1/2 -translate-x-62 -rotate-3">
             <span className="text-sm text-fg-1">2.</span>
@@ -40,7 +40,7 @@ export const MessageUs = () => {
           <CDNImage
             className="max-w-2xl z-10 mx-auto h-fit flex items-start"
             src="/static/images/landing/Android%20whatsapp%20demo.png"
-            alt="snappin hero background image"
+            alt="WhatsApp receipt demo — send receipts and Snappin organizes them"
           />
           <div className="absolute hidden sm:flex flex-col items-center top-20 right-1/2 translate-x-71 rotate-3">
             <span className="text-sm text-fg-1">1.</span>

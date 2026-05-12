@@ -67,6 +67,7 @@ export const LogoSymbol = ({
 }) => (
   <Link
     href={onClickRedirectLink || "/"}
+    aria-label="Snappin – Go to homepage"
     className={cn(
       "flex items-center gap-1.5 text-lg font-medium tracking-tight cursor-pointer",
       className,
@@ -77,7 +78,7 @@ export const LogoSymbol = ({
         src={"/images/favicon.png"}
         fill
         className="object-contain"
-        alt="Snappin"
+        alt=""
       />
     </div>
     {children && <span className="text-base">{children}</span>}
