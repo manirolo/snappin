@@ -46,6 +46,6 @@ export default function robots(): MetadataRoute.Robots {
                 ],
             },
         ],
-        sitemap: "https://snappinapp.com/sitemap.xml",
+        sitemap: "https://www.snappinapp.com/sitemap.xml",
     };
 }

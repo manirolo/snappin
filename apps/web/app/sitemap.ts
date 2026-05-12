@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getBlogPosts, getDocs } from "../utils/blog";
 
-const BASE_URL = "https://snappinapp.com";
+const BASE_URL = "https://www.snappinapp.com";
 
 type SitemapEntry = {
     path: string;
