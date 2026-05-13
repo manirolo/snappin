@@ -16,7 +16,7 @@ export default function Page() {
             name: "Receipt to Excel Converter | Snappin",
             description:
               "Convert receipts to Excel instantly. Upload a photo or PDF and get a clean spreadsheet with store, date, items, and totals — free.",
-            url: "https://www.snappinapp.com/tools/receipt-to-excel",
+            url: "https://www.snappinapp.com/tools/receipt-to-excel-converter",
           }),
         }}
       />
@@ -33,7 +33,7 @@ export default function Page() {
             operatingSystem: "Web",
             description:
               "Free online tool to convert receipts to Excel. Extract store name, date, items, prices, taxes, and totals from any receipt photo or PDF.",
-            url: "https://www.snappinapp.com/tools/receipt-to-excel",
+            url: "https://www.snappinapp.com/tools/receipt-to-excel-converter",
             image: "https://www.snappinapp.com/images/snappin_dark_light.png",
             brand: {
               "@type": "Brand",
@@ -74,13 +74,13 @@ export const metadata = {
     "scan receipt to excel",
   ],
   alternates: {
-    canonical: "https://www.snappinapp.com/tools/receipt-to-excel",
+    canonical: "https://www.snappinapp.com/tools/receipt-to-excel-converter",
   },
   openGraph: {
     title: "Receipt to Excel Converter — Free Online Tool",
     description:
       "Upload a receipt photo or PDF and get a clean Excel spreadsheet instantly. Free, no sign-up needed.",
-    url: "https://www.snappinapp.com/tools/receipt-to-excel",
+    url: "https://www.snappinapp.com/tools/receipt-to-excel-converter",
     siteName: "Snappin",
     images: [
       {
