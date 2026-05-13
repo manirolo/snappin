@@ -6,16 +6,34 @@ import { env } from "@snappin/env";
 import { useUser } from "@clerk/nextjs";
 import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 
+function afterIdle(cb: () => void, timeout = 4000) {
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(cb, { timeout });
+  } else {
+    setTimeout(cb, timeout);
+  }
+}
+
 const CrispChat = () => {
   const { user, isLoaded } = useUser();
   const { usage } = useUsage();
   const crispReady = useRef(false);
 
   useEffect(() => {
-    Crisp.configure(env.crisp.websiteId, {
-      autoload: true,
-    });
-    crispReady.current = true;
+    const initCrisp = () => {
+      Crisp.configure(env.crisp.websiteId, {
+        autoload: true,
+      });
+      crispReady.current = true;
+    };
+
+    if (document.readyState === "complete") {
+      afterIdle(initCrisp);
+    } else {
+      window.addEventListener("load", () => afterIdle(initCrisp), {
+        once: true,
+      });
+    }
   }, []);
 
   useEffect(() => {

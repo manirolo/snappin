@@ -59,7 +59,8 @@
         "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
         "NEXT_PUBLIC_SUPABASE_URL",
         "BETTER_AUTH_SECRET",
-        "BETTER_AUTH_API_KEY"
+        "BETTER_AUTH_API_KEY",
+        "ANALYZE"
       ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },

@@ -1,7 +1,6 @@
 "use client";
 
 import { useOrganizationList, useOrganization } from "@clerk/nextjs";
-import { useFullScreenLoading } from "@snappin/ui/hooks/useGlobalLoader";
 import {
   Avatar,
   AvatarFallback,
@@ -27,31 +26,21 @@ function getPlan(org: { publicMetadata?: Record<string, unknown> }): string {
 }
 
 export const WorkspaceSwitcher = () => {
-  const { show, clear } = useFullScreenLoading();
   const { organization } = useOrganization();
   const { userMemberships, setActive } = useOrganizationList({
     userMemberships: {
       infinite: true,
     },
   });
-
-  console.log(userMemberships);
   const switchOrganization = async (id: string) => {
     if (!setActive) {
       toast.error("Unable to switch organization");
       return;
     }
-    const org = userMemberships?.data?.find((m) => m.organization.id === id);
-    show({
-      title: `Switching to ${org?.organization.name ?? "workspace"}`,
-      logo: org?.organization.imageUrl ?? undefined,
-    });
     try {
       await setActive({ organization: id });
     } catch {
       toast.error("Failed to switch organization");
-    } finally {
-      clear();
     }
   };
 

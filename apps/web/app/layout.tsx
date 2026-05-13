@@ -171,18 +171,18 @@ export default function RootLayout({
           className={`${fuzzyBubbles.variable} ${inter.variable}`}
           suppressHydrationWarning
         >
-          <Script id="lemon-squeezy-config" strategy="lazyOnload">
+          <Script id="lemon-squeezy-config" strategy="afterInteractive">
             {`window.lemonSqueezyAffiliateConfig = { store: "snappin" };`}
           </Script>
           <Script
             src="https://lmsqueezy.com/affiliate.js"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
           />
           {env.env === "production" && (
             <Script
               src="https://cloud.umami.is/script.js"
               data-website-id="94baed4a-1510-4b34-8f86-30d1bfda676a"
-              strategy="lazyOnload"
+              strategy="afterInteractive"
             />
           )}
           <Script

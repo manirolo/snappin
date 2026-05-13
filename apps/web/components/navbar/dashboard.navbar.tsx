@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Loading from "../ui/loading";
 // import { AppSidebar } from "@snappin/ui/components/navbar/app.sidebar";
 // import { WorkspaceSettingsSidebar } from "@snappin/ui/components/navbar/workspaceSettings.sidebar";
 // import { SidebarProvider } from "@snappin/ui/components/sidebar";
@@ -21,7 +20,6 @@ export function DashboardLayout({
     <div className="overflow-y-auto h-screen">
       {/* <AppSidebar /> */}
       <AppNavbar showNavItems={showNavItems} />
-      <Loading />
       <main className="mt-6 max-w-7xl mx-auto overflow-y-auto">{children}</main>
       {/* <BottomFloatingNav user={data} /> */}
     </div>
@@ -31,7 +29,6 @@ export function DashboardLayout({
 export function SettingsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="h-screen">
-      <Loading />
       <AppNavbar />
       {/* <WorkspaceSettingsSidebar /> */}
       <main className="mt-10 max-w-3xl mx-auto">{children}</main>
@@ -43,7 +40,6 @@ export function AccountLayout({ children }: { children?: React.ReactNode }) {
   return (
     <>
       <AppNavbar showNavItems={false} />
-      <Loading />
       <main className="mt-6 max-w-7xl mx-auto">{children}</main>
     </>
   );

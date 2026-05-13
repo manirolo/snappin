@@ -1,26 +1,38 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { HeroSection } from "./sections/hero";
-// import { Benefits } from "./sections/benefits";
-import { EmailMonitoringSetup } from "./sections/emailMonitoringSetup";
-import { Problem } from "./sections/problem";
-import { Cta } from "./sections/cta";
-import { WhyUs } from "./sections/whyus";
-import { MessageUs } from "./sections/messageUs";
-import { Faq } from "./sections/faq";
-// import { PricingSection } from "./sections/pricing";
-// import { AutomationBenefits } from "./sections/automationBenefits";
 
-export const HomPage = () => {
+const Problem = dynamic(() =>
+  import("./sections/problem").then((mod) => mod.Problem),
+);
+
+const MessageUs = dynamic(() =>
+  import("./sections/messageUs").then((mod) => mod.MessageUs),
+);
+
+const WhyUs = dynamic(() =>
+  import("./sections/whyus").then((mod) => mod.WhyUs),
+);
+
+const EmailMonitoringSetup = dynamic(() =>
+  import("./sections/emailMonitoringSetup").then(
+    (mod) => mod.EmailMonitoringSetup,
+  ),
+);
+
+const Faq = dynamic(() => import("./sections/faq").then((mod) => mod.Faq));
+
+const Cta = dynamic(() => import("./sections/cta").then((mod) => mod.Cta));
+
+export const HomePage = () => {
   return (
     <div>
       <HeroSection />
-      {/* <Benefits /> */}
+
       <Problem />
       <MessageUs />
       <WhyUs />
       <EmailMonitoringSetup />
-      {/* <AutomationBenefits /> */}
-      {/* <PricingSection /> */}
       <Faq />
       <Cta />
     </div>

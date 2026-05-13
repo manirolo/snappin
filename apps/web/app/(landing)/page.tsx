@@ -1,8 +1,8 @@
 import React from "react";
-import { HomPage } from "../../modules/home/home.page";
+import { HomePage } from "../../modules/home/home.page";
 
 export default function Page() {
-  return <HomPage />;
+  return <HomePage />;
 }
 
 export const metadata = {

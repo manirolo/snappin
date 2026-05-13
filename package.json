@@ -8,21 +8,13 @@
     "env": "node env.ts",
     "dev:trigger": "infisical run -- trigger dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui"
+    "check-types": "turbo run check-types"
   },
   "devDependencies": {
     "@snappin/typescript-config": "workspace:*",
-    "@vitest/ui": "^4.0.18",
-    "mongodb-memory-server": "^11.0.1",
     "prettier": "^3.7.4",
     "turbo": "^2.7.3",
-    "typescript": "catalog:",
-    "vite": "^7.3.1",
-    "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.0.18"
+    "typescript": "catalog:"
   },
   "packageManager": "pnpm@9.15.0",
   "engines": {
