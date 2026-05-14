@@ -60,7 +60,8 @@
         "NEXT_PUBLIC_SUPABASE_URL",
         "BETTER_AUTH_SECRET",
         "BETTER_AUTH_API_KEY",
-        "ANALYZE"
+        "ANALYZE",
+        "RESEND_WEBHOOK_SECRET"
       ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },

@@ -11,7 +11,7 @@ export const AppStore = () => {
     <div className="w-full">
       <GroupIntegrationCard>
         <GroupIntegrationContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-w-full gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 min-w-full gap-4">
             <GoogleDrive />
             <Xero />
             <Whatsapp />

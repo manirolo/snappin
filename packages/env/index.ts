@@ -30,6 +30,7 @@ export const env = {
 
   resend: {
     apiKey: process.env.RESEND_API_KEY!,
+    webhookSecret: process.env.RESEND_WEBHOOK_SECRET!,
   },
 
   sentry: {

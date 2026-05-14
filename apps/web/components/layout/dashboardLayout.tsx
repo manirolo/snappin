@@ -15,7 +15,7 @@ export const Dashboard = ({
   sidePanelClassName?: string;
 }) => (
   <div className={cn("relative flex h-full w-full", className)} {...props}>
-    <div className={cn("flex min-w-0 flex-1 flex-col overflow-y-auto")}>
+    <div className={cn("flex min-w-0 max-w-4xl mx-auto flex-1 flex-col overflow-y-auto")}>
       {children}
     </div>
     {sidePanel && (
@@ -96,7 +96,7 @@ export const DashboardContent = ({
   children: React.ReactNode;
   className?: string;
 }) => (
-  <div className={cn("mt-4 w-full px-4 pb-4 max-w-screen sm:w-full xl:px-0", className)}>{children}</div>
+  <div className={cn("mt-4 w-full px-4 pb-4 sm:w-full xl:px-0", className)}>{children}</div>
 );
 
 export const DashboardDetailPanel = ({

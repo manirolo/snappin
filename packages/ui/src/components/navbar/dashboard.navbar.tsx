@@ -19,7 +19,6 @@ import {
   MenuSquareIcon,
   UserIcon,
   DollarCircleIcon,
-  Search01Icon,
 } from "@hugeicons-pro/core-solid-rounded";
 import {
   Comment02Icon,
@@ -53,7 +52,6 @@ type NavbarVariant = "dashboard" | "admin";
 
 const dashboardNav: NavItem[] = [
   { href: "/dashboard", icon: Home01Icon, label: "Dashboard" },
-  { href: "/retroSearch", icon: Search01Icon, label: "Retroactive" },
   { href: "/integrations", icon: MenuSquareIcon, label: "Integrations" },
 ];
 

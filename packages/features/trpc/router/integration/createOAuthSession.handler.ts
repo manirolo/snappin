@@ -25,9 +25,7 @@ export async function createNewOAuthSession({ ctx, input }: CreateOAuthSession):
     const usageService = new UsageService()
 
     try {
-        if (input.appCategory === AppCategory.EMAIL) {
-            await usageService.assertWithinLimit(ctx.orgId ?? "", "emailAccounts")
-        } else if (
+        if (
             input.appCategory === AppCategory.STORAGE ||
             input.appCategory === AppCategory.ACCOUNTING
         ) {
