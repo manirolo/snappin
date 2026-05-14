@@ -13,10 +13,15 @@ export enum AppSlug {
     WHATSAPP = "whatsapp",
     GOOGLE_DRIVE = "google_drive",
     XERO = "xero",
+    MS_SHARED_ACCOUNT = "ms_shared_account",
+    TELEGRAM = "telegram",
+    ONE_DRIVE = "one_drive",
+    QUICKBOOKS = "quickbooks",
+    GOOGLE_SHEET = "google_sheet"
 }
-export type EmailAppSlug = AppSlug.GMAIL | AppSlug.OUTLOOK;
-export type StorageAppSlug = AppSlug.GOOGLE_DRIVE
-export type AccountingAppSlug = AppSlug.XERO
+export type EmailAppSlug = AppSlug.GMAIL | AppSlug.OUTLOOK | AppSlug.MS_SHARED_ACCOUNT;
+export type StorageAppSlug = AppSlug.GOOGLE_DRIVE | AppSlug.ONE_DRIVE
+export type AccountingAppSlug = AppSlug.XERO | AppSlug.QUICKBOOKS
 
 export enum AppRole {
     EMAIL_SOURCE = "email_source",

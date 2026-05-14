@@ -7,7 +7,7 @@ export const imapMetadata: AppMetadata = {
         name: "Snappin",
         email: "support@snappinapp.com"
     },
-    description: "Connect your company email account to extract invoices",
+    description: "Connect your company email account to extract receipts and invoices",
     iconifyIcon: "tabler:at",
     cta: "Connect Company account",
     logoUrl: "/images/vendors/logos/imap.png",
