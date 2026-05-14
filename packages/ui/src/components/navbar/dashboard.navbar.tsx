@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo, LogoSymbol } from "../logo";
+import { LogoSymbol } from "../logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -288,7 +288,7 @@ export const Navbar = ({
     <div className="flex items-center justify-between h-18 px-4 xl:px-8 border-b border-b-bg-3">
       <div className="flex items-center gap-8">
         <div className="hidden lg:flex">
-          <Logo onClickRedirectLink={LOGO_REDIRECT[variant]} />
+          <LogoSymbol onClickRedirectLink={LOGO_REDIRECT[variant]}><span className="text-lg">Snappin</span></LogoSymbol>
         </div>
         <div className="flex lg:hidden">
           <LogoSymbol onClickRedirectLink={LOGO_REDIRECT[variant]} />
