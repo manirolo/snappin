@@ -6,7 +6,7 @@ import { whatsappMetadata } from "./whatsapp/whatsapp.metadata";
 import { googleDriveMetadata } from "./googleDrive/googleDrive.metadata";
 import { xeroMetadata } from "./xero/xero.metadata";
 // import { msSharedAccountMetadata } from "./msShared/msSharedAccount.metadata";
-import { telegramMetadata } from "./telegram/telegram.metadata";
+// import { telegramMetadata } from "./telegram/telegram.metadata";
 
 export const appMetadata  = {
     [AppSlug.OUTLOOK]: outlookMetadata,
@@ -16,5 +16,4 @@ export const appMetadata  = {
     [AppSlug.WHATSAPP]: whatsappMetadata,
     [AppSlug.GOOGLE_DRIVE]: googleDriveMetadata,
     [AppSlug.XERO]: xeroMetadata,
-    [AppSlug.TELEGRAM]: telegramMetadata,
 } as const;
