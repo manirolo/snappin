@@ -23,12 +23,6 @@ const routes: SitemapEntry[] = [
         priority: 0.3,
     },
     {
-        path: "/docs",
-        lastModified: "2025-01-01",
-        changeFrequency: "monthly",
-        priority: 0.6,
-    },
-    {
         path: "/pricing",
         lastModified: "2025-04-01",
         changeFrequency: "monthly",

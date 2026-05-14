@@ -51,7 +51,7 @@ export const LogoSymbol = ({
       className={cn("relative shrink-0 size-6.5 inline-block", divClassName)}
     >
       <CDNImage
-        src="/static/images/landing/logos/favicon.webp"
+        src="/static/images/landing/logos/icon.webp"
         className="object-contain"
         alt=""
         priority
