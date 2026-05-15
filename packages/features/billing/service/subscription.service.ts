@@ -6,6 +6,7 @@ import { SubscriptionResource } from "@snappin/shared/billing/subscription.schem
 import { AppSlug } from "@snappin/shared/apps/app.schema"
 import { clerk } from "@snappin/features/trpc/config/clerk"
 import { PlanInterval, } from "@snappin/shared/billing/plan.schema"
+import { accountService } from "@snappin/features/accounts/services/account.service"
 import { mobileScannerService } from "@snappin/features/mobileScanners/services/mobileScanner.service"
 import { integrationService } from "@snappin/features/integration/services/integration.service"
 
@@ -91,6 +92,7 @@ export class SubscriptionService {
             limits,
         })
 
+        accountService.resumeMonitoringAllAccountsForPaidPlan(clerkOrgId, limits?.emailAccounts ?? 0);
         mobileScannerService.resumeScannersForPaidPlan(clerkOrgId, limits?.mobileScanners ?? 0)
 
         console.log(`[SubscriptionService] Created subscription. plan: ${plan.slug}`)
@@ -124,6 +126,7 @@ export class SubscriptionService {
         })
 
         if (subscription && subscription?.clerkOrgId) {
+            await accountService.pauseMonitoringAllAccountsForFreePlan(subscription?.clerkOrgId);
             await mobileScannerService.pauseScannersForFreePlan(subscription?.clerkOrgId);
             await integrationService.removePaidIntegrations(subscription?.clerkOrgId);
         }

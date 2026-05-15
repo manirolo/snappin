@@ -1,3 +1,4 @@
+import { SelectProvider } from "@snappin/features/accounts/components/selectProvider";
 import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 import { ManualInvoiceUploadDialog } from "@snappin/features/invoices/components/manualInvoiceUpload.dialog";
 import { NewMobileScannerDialog } from "@snappin/features/mobileScanners/components/newMobileScanner.dialog";
@@ -9,6 +10,7 @@ import React, { useState } from "react";
 import { HiCheckCircle } from "react-icons/hi";
 
 export const GetStarted = () => {
+  const [openEmailMonitor, setOpenEmailMonitor] = useState<boolean>(false);
   const [openMobileScanner, setOpenMobileScanner] = useState<boolean>(false);
   const [openInvoiceUpload, setOpenInvoiceUpload] = useState<boolean>(false);
   const { usage } = useUsage();
@@ -22,8 +24,9 @@ export const GetStarted = () => {
   const allDone = activeStep === null;
 
   const steps = [
-    { index: 1, label: "Setup mobile scanners", done: hasMobileScanner },
-    { index: 2, label: "Upload a document", done: hasInvoice },
+    { index: 1, label: "Setup email monitoring", done: hasEmailAccount },
+    { index: 2, label: "Setup mobile scanners", done: hasMobileScanner },
+    { index: 3, label: "Upload a document", done: hasInvoice },
   ];
 
   return (
@@ -70,6 +73,17 @@ export const GetStarted = () => {
                     {step.label}
                   </h6>
 
+                  {/* CTA only on the active (first incomplete) step */}
+                  {isActive && step.index === 1 && (
+                    <Button
+                      className="w-fit p-0 justify-start text-link"
+                      variant="link"
+                      onClick={() => setOpenEmailMonitor((prev) => !prev)}
+                    >
+                      Setup
+                    </Button>
+                  )}
+
                   {isActive && step.index === 2 && (
                     <Button
                       className="w-fit p-0 justify-start text-link"
@@ -98,6 +112,13 @@ export const GetStarted = () => {
             );
           })}
         </div>
+
+        {/* Dialogs */}
+        <SelectProvider
+          redirectAfterPath="/dashboard"
+          open={openEmailMonitor}
+          setOpen={setOpenEmailMonitor}
+        />
         <NewMobileScannerDialog
           open={openMobileScanner}
           setOpen={setOpenMobileScanner}

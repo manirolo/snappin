@@ -15,6 +15,7 @@ import { IconType } from "react-icons";
 import {
   HiOutlineCollection,
   HiOutlineDeviceMobile,
+  HiOutlineInbox,
   HiOutlineDocument,
   HiOutlinePuzzle,
   HiOutlineCog,
@@ -45,6 +46,11 @@ const accountingNav: Navbar[] = [
 ];
 
 const sourceNav: Navbar[] = [
+  {
+    href: "/accounts",
+    label: "Email Accounts",
+    icon: HiOutlineInbox,
+  },
   {
     href: "/mobile-scanners",
     label: "Mobile Scanners",
