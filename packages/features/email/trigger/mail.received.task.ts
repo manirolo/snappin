@@ -12,12 +12,11 @@ export const mailReceived = schemaTask({
             import('../../config/resend'),
         ])
 
-
         const user = await userRepository.getUserByEmail(payload.from)
 
         if (!user) {
             await resend.emails.send({
-                from: 'Snappin Automation <noreply@snappinapp.com>',
+                from: 'Snappin Automation <receipts@m.snappinapp.com>',
                 to: payload.from,
                 subject: `Re: ${payload.subject}`,
                 html: "We couldn't find your account. Please send us your receipts from a registered email address or create an account <a href='https://www.snappinapp.com/signup'>here</a>",
