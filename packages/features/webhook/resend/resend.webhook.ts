@@ -4,6 +4,7 @@ import { RESEND_EVENT_MAP, ResendEventType } from "./types";
 import { GenericWebhookEvent } from "../types";
 import { env } from "@snappin/env";
 import { SnappinError } from "@snappin/lib/error/snappin.error";
+import { WebhookEventPayload } from "resend"
 
 export class ResendWebhookVerifier implements IWebhookVerifier {
   async verify(req: Request): Promise<GenericWebhookEvent> {
@@ -14,7 +15,7 @@ export class ResendWebhookVerifier implements IWebhookVerifier {
       "svix-signature": req.headers.get("svix-signature")!,
     };
     const wh = new Webhook(env.resend.webhookSecret);
-    const event = await wh.verify(payload, headers);
+    const event = await wh.verify(payload, headers) as WebhookEventPayload;
 
     const mapping = RESEND_EVENT_MAP[event.type as ResendEventType];
     if (!mapping) {
