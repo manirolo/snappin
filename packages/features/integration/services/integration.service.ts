@@ -1,5 +1,5 @@
 // services/integration.service.ts
-import { resolveProvider } from "@snappin/apps/lib/resolveProvider"
+import { resolveProvider, AnyEmailProvider } from "@snappin/apps/lib/resolveProvider"
 import { AppCategory, AppSlug } from "@snappin/shared/apps/app.schema"
 import { IntegrationResource } from "@snappin/shared/integration/integration.schema"
 import { connectDB } from "@snappin/db/connect"
@@ -23,7 +23,7 @@ export class IntegrationService {
                 return
             }
 
-            const provider = resolveProvider(integration.appCategory, integration.appSlug) 
+            const provider = resolveProvider(integration.appCategory, integration.appSlug) as AnyEmailProvider
 
             // Stop watching for email providers
             if (integration.appCategory === AppCategory.EMAIL) {

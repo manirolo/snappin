@@ -10,6 +10,8 @@ export type AnyAccountingProvider = AccountingApps
 export type AnyMessagingProvider = never
 export type AnyProvider = AnyEmailProvider | AnyStorageProvider | AnyAccountingProvider | AnyMessagingProvider
 
+// export function resolveProvider(category: AppCategory.EMAIL, slug: EmailAppSlug): AnyEmailProvider
+// export function resolveProvider(category: AppCategory.STORAGE, slug: StorageAppSlug): AnyStorageProvider
 export function resolveProvider(category: AppCategory, slug: AppSlug): AnyProvider {
     const stores: Partial<Record<AppCategory, Record<string, AnyProvider>>> = {
         [AppCategory.EMAIL]: EmailAppsStore as Record<string, AnyEmailProvider>,
