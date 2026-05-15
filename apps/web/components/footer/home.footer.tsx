@@ -30,7 +30,6 @@ const footerLinks = [
     title: "Support",
     links: [
       { label: "Contact", href: "/contact" },
-      { label: "Docs", href: "/docs" },
     ],
   },
   {

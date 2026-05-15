@@ -16,8 +16,8 @@ export const HomeNavbar = () => {
           <div className="flex px-4 xl:px-0 z-40! max-w-6xl mx-auto items-center w-full justify-between">
             <div className="flex gap-12 items-center">
               <LogoSymbol>Snappin</LogoSymbol>
-              <NavigationLinks />
             </div>
+            <NavigationLinks />
 
             <div className="flex gap-4 items-center">
               {/* Desktop auth */}
