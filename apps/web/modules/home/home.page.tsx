@@ -2,6 +2,10 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { HeroSection } from "./sections/hero";
 
+const AsSeen = dynamic(() =>
+  import("./sections/asSeen").then((mod) => mod.AsSeen),
+);
+
 const Problem = dynamic(() =>
   import("./sections/problem").then((mod) => mod.Problem),
 );
@@ -28,7 +32,7 @@ export const HomePage = () => {
   return (
     <div>
       <HeroSection />
-
+      <AsSeen />
       <Problem />
       <MessageUs />
       <WhyUs />

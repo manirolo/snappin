@@ -1,78 +1,13 @@
 import React from "react";
-// import { Section } from "../../../components/layout/sectionLayout";
 import { H1, Lead } from "@snappin/ui/components/typography";
 import { Button } from "@snappin/ui/components/button";
 import Link from "next/link";
 import { CDNImage } from "@snappin/ui/components/imagekit/image";
-// import {
-//   // HiStar,
-//   HiMail,
-//   HiUserGroup,
-//   HiSparkles,
-//   HiSwitchHorizontal,
-// } from "react-icons/hi";
-// import { FaWhatsapp } from "react-icons/fa";
-
-// const FEATURES = [
-//   { icon: HiMail, label: "Email Scanning" },
-//   { icon: FaWhatsapp, label: "WhatsApp" },
-//   { icon: HiUserGroup, label: "Team Expenses" },
-//   { icon: HiSparkles, label: "AI Processing" },
-//   { icon: HiSwitchHorizontal, label: "Sync & Export" },
-// ];
-
-const LOGOS = [
-  {
-    src: "/static/images/landing/logos/xero.webp",
-    alt: "xero logo",
-    className: "size-7",
-  },
-  {
-    src: "/static/images/landing/logos/intuit%20quickbooks.webp",
-    alt: "quickbooks logo",
-    className: "w-24",
-  },
-  {
-    src: "/static/images/landing/logos/product%20hunt.webp",
-    alt: "product hunt logo",
-    className: "w-28",
-  },
-  {
-    src: "/static/images/landing/logos/toolify.webp",
-    alt: "toolify logo",
-    className: "w-24",
-  },
-  {
-    src: "/static/images/landing/logos/theres%20an%20ai%20for%20that.webp",
-    alt: "there is an ai for that logo",
-    className: "w-46",
-  },
-];
 
 export const HeroSection = () => {
   return (
     <div className="relative xl:px-0">
-      <div className="relative  mt-4 py-16  md:py-20 md:pb-14 px-4 flex flex-col items-center gap-5">
-        {/* <div className="flex items-center mb-1 gap-2">
-          <CDNImage
-            src="/static/images/landing/left.png"
-            imageClassName="w-7"
-            alt="decoration left"
-          />
-          <div className="space-y-2">
-            <p className="text-sm">#1 Receipt Organizing AI</p>
-            <div className="flex items-center text-center justify-center gap-0.5 mx-auto">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <HiStar className="size-5" key={i} />
-              ))}
-            </div>
-          </div>
-          <CDNImage
-            src="/static/images/landing/right.png"
-            imageClassName="w-7"
-            alt="decoration left"
-          />
-        </div> */}
+      <div className="relative  mt-4 py-12  md:py-14 md:pb-14 px-4 flex flex-col items-center gap-5">
         <div className="flex flex-col items-center">
           <H1 className="mt-5 text-5xl/16 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
             AI receipt organizer
@@ -96,21 +31,6 @@ export const HeroSection = () => {
           </span>
         </div>
 
-        {/* ── Feature pills row ── */}
-        {/* <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mt-8">
-          {FEATURES.map(({ icon: Icon, label }, i) => (
-            <React.Fragment key={label}>
-              <span className="flex items-center gap-1.5 text-fg-2 text-sm">
-                <Icon className="size-4 shrink-0 text-fg-3" />
-                {label}
-              </span>
-              {i < FEATURES.length - 1 && (
-                <span className="text-fg-3 select-none text-xs">•</span>
-              )}
-            </React.Fragment>
-          ))}
-        </div> */}
-
         <div className="relative min-h-[20vh] rounded-4xl max-w-6xl overflow-hidden border-x mt-8 md:mt-12 md:pb-0 border-t border-bg-2 ring ring-bg-3">
           <CDNImage
             className="max-w-full h-fit flex items-start"
@@ -120,26 +40,6 @@ export const HeroSection = () => {
             fetchPriority="high"
             priority
           />
-        </div>
-      </div>
-      <div className="pb-8 pt-8 flex flex-col md:flex-row max-w-6xl mx-auto text-center items-center gap-10">
-        <div className="w-fit inline">
-          <span className="text-fg-2 text-sm whitespace-nowrap">As seen</span>
-        </div>
-        <div className="relative w-full overflow-hidden mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-          <div className="flex w-max animate-marquee gap-16 hover:paused">
-            {/* Render twice for seamless loop */}
-            {[...LOGOS, ...LOGOS].map(({ src, alt, className }, i) => (
-              <CDNImage
-                key={i}
-                src={src}
-                imageClassName={`${className} opacity-40 hover:opacity-100 transition-all`}
-                alt={alt}
-                priority
-                fetchPriority="high"
-              />
-            ))}
-          </div>
         </div>
       </div>
     </div>
