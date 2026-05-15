@@ -12,9 +12,6 @@ export const mailReceived = schemaTask({
             import('../../config/resend'),
         ])
 
-        const { data: attachments } = await resend.emails.receiving.attachments.list({
-            emailId: payload.emailId,
-        });
 
         const user = await userRepository.getUserByEmail(payload.from)
 
@@ -36,6 +33,10 @@ export const mailReceived = schemaTask({
             console.error(`User ${payload.from} has no clerkUserId`);
             return;
         }
+
+        const { data: attachments } = await resend.emails.receiving.attachments.list({
+            emailId: payload.emailId,
+        });
 
         if (!attachments?.data?.length) return;
 
