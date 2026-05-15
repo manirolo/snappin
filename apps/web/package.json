@@ -13,6 +13,7 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/elements": "^0.24.13",
     "@clerk/nextjs": "catalog:",
     "@hugeicons-pro/core-bulk-rounded": "^3.1.0",
     "@hugeicons-pro/core-stroke-rounded": "^3.1.0",

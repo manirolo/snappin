@@ -54,10 +54,9 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
 
         <InputWrapper
           className={cn(
-            'min-h-11 w-full focus-visible:outline-0 border-bg-4',
+            'min-h-12 w-full focus-visible:outline-0 border-bg-4',
             inputWrapperClassName
           )}
-          
         >
           {prefix && <Small>{prefix}</Small>}
           <Input
@@ -66,7 +65,6 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
             placeholder={placeholder}
             disabled={ disable}
             onChange={handleChange}
-            className='font-medium'
           />
         </InputWrapper>
       </div>

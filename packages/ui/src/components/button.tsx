@@ -4,13 +4,13 @@ import { Slot as SlotPrimitive } from "radix-ui";
 import { cn } from "@snappin/ui/lib/utils";
 
 const buttonVariants = cva(
-  "cursor-pointer group whitespace-nowrap focus-visible:outline-hidden transition-colors duration-300 transition-all duration-300 font-medium tracking-normal inline-flex items-center justify-center has-data-[arrow=true]:justify-between whitespace-nowrap ring-offset-background transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-60 [&_svg]:shrink-0",
+  "cursor-pointer group whitespace-nowrap focus-visible:outline-hidden transition-colors duration-300 transition-all duration-300 font-medium tracking-tight inline-flex items-center justify-center has-data-[arrow=true]:justify-between whitespace-nowrap ring-offset-background transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-60 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary hover:bg-green-a4 shadow-[inset_0_1px_4px_rgba(255,255,255,0.2),0_15px_25px_-10px_rgba(34,197,94,0.25)] border-2 border-green-400 text-gray-900 tracking-tight-tighter transition-all duration-300 rounded-full",
-        mono: "bg-gradient-to-b from-zinc-800 to-zinc-950 text-white dark:bg-zinc-300 dark:text-black active:scale-95 hover:bg-zinc-950/90 dark:hover:bg-zinc-300/90 data-[state=open]:bg-zinc-950/90 dark:data-[state=open]:bg-zinc-300/90",
+          "bg-primary hover:bg-green-a4 shadow-[inset_0_1px_4px_rgba(255,255,255,0.2),0_15px_25px_-10px_rgba(34,197,94,0.25)] border-2 border-green-400 text-white tracking-tight-tighter transition-all duration-300 rounded-full",
+        mono: "bg-[#282828] text-white active:scale-95 hover:bg-zinc-800",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 data-[state=open]:bg-destructive/90",
         destructive_light: "bg-red-2 text-destructive hover:bg-red-3",
@@ -45,7 +45,7 @@ const buttonVariants = cva(
         _3xl: "h-[4.5rem]",
         _2xl: "min-w-46 sm:min-w-sm mx-auto md:min-w-102 min-h-[3rem] sm:min-h-[4.2rem] flex-1 gap-4 font-bold! text-lg sm:text-xl tracking-tight",
         xl: "h-[3rem] text-[1rem] gap-2 px-5",
-        lg: "h-[2.85rem] text-[0.9rem] px-4 gap-1.5 [&_svg:not([class*=size-])]:size-4",
+        lg: "h-12 text-[0.9rem] px-4 gap-1.5 [&_svg:not([class*=size-])]:size-4",
         md: "h-8.5 px-3 min-w-14.5 gap-1.5 text-[13px] [&_svg:not([class*=size-])]:size-4",
         sm: "h-8 px-2 gap-1.25 text-xs [&_svg:not([class*=size-])]:size-3.5",
         xs: "h-6 px-1 gap-1 text-xs [&_svg:not([class*=size-])]:size-3.5",

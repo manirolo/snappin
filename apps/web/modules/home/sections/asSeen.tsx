@@ -32,7 +32,7 @@ const LOGOS = [
 export const AsSeen = () => {
   return (
     <div className="relative xl:px-0">
-      <div className="pb-8 pt-8 flex flex-col md:flex-row max-w-6xl mx-auto text-center items-center gap-10">
+      <div className="py-14 flex flex-col md:flex-row max-w-6xl mx-auto text-center items-center gap-10">
         <div className="w-fit inline">
           <span className="text-fg-2 text-sm whitespace-nowrap">As seen</span>
         </div>

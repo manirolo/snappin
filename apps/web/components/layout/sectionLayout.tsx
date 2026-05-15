@@ -61,7 +61,7 @@ export const SectionLabel = ({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border border-white/10 bg-white/5 text-sm font-semibold tracking-tight",
+        "inline-flex items-center rounded-full text-sm font-semibold tracking-tight",
         "bg-linear-to-b bg-clip-text text-transparent",
         gradient,
         className,
@@ -99,7 +99,7 @@ export const SectionDescription = ({
   return (
     <p
       className={cn(
-        "w-full max-w-md font-normal text-fg-2! text-base/7",
+        "w-full max-w-md text-fg-2! text-base/7",
         className,
       )}
       {...props}

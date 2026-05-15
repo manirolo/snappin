@@ -7,7 +7,7 @@ import { CDNImage } from "@snappin/ui/components/imagekit/image";
 export const HeroSection = () => {
   return (
     <div className="relative xl:px-0">
-      <div className="relative  mt-4 py-12  md:py-14 md:pb-14 px-4 flex flex-col items-center gap-5">
+      <div className="relative mt-4 pt-12  md:pt-14 px-4 flex flex-col items-center gap-5">
         <div className="flex flex-col items-center">
           <H1 className="mt-5 text-5xl/16 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
             AI receipt organizer
