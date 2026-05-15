@@ -7,10 +7,14 @@ export enum Provider {
 }
 
 export enum AppSlug {
+    GMAIL = "gmail",
+    OUTLOOK = "outlook",
+    IMAP = "imap",
     WHATSAPP = "whatsapp",
     GOOGLE_DRIVE = "google_drive",
     XERO = "xero",
 }
+export type EmailAppSlug = AppSlug.GMAIL | AppSlug.OUTLOOK;
 export type StorageAppSlug = AppSlug.GOOGLE_DRIVE
 export type AccountingAppSlug = AppSlug.XERO
 
@@ -82,3 +86,4 @@ export const ZAppType = z.enum(
 )
 export const ZAppRole = z.enum(AppRole)
 export const ZSourceKind = z.enum(SourceKind)
+export const ZEmailAppSlug = z.enum([AppSlug.GMAIL, AppSlug.OUTLOOK] as const)

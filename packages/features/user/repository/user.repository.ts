@@ -18,10 +18,6 @@ export class UserRepository {
         return await db.user.findOne({ clerkUserId })
     }
 
-    async getUserByEmail(email: string){
-        return await db.user.findOne({ email })
-    }
-
     async updateRaw(clerkUserId: string, update: Record<string, unknown>) {
         return await db.user.findOneAndUpdate(
             { clerkUserId },

@@ -25,6 +25,13 @@ export class IntegrationService {
 
             const provider = resolveProvider(integration.appCategory, integration.appSlug) 
 
+            // Stop watching for email providers
+            if (integration.appCategory === AppCategory.EMAIL) {
+                await (provider as AnyEmailProvider).stopWatching({ integration }).catch((err) => {
+                    console.warn("[integrationService] stopWatching failed, ignoring:", err?.message)
+                })
+            }
+
             // Skip revoke if another integration shares the same provider + email
             const otherIntegration = await this.db.integration.findOne({
                 _id: { $ne: integration._id },

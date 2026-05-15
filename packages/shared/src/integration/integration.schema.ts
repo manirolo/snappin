@@ -58,6 +58,63 @@ export const ZIntegrationSnapshot = z.object({
   identifier: z.string().optional().nullable(),
 });
 
+export type GmailMetadata = {
+  historyId: number | null
+  watchExpiresAt?: number | null
+}
+
+export type GmailIntegration = BaseIntegration & {
+  appSlug?: AppSlug.GMAIL | null
+  metadata: GmailMetadata
+}
+
+export type OutlookMetadata = {
+  subscriptionId?: string | null
+  subscriptionExpiresAt?: string | null
+}
+
+export type OutlookIntegration = BaseIntegration & {
+  appSlug?: AppSlug.OUTLOOK | null
+  metadata: OutlookMetadata
+}
+
+export type GmailWebhookPayload = {
+  message?: {
+    data?: string
+  };
+};
+
+export type OutlookWebhookNotification = {
+  subscriptionId: string;
+  resourceData?: {
+    id?: string;
+  };
+};
+
+export type OutlookWebhookPayload = {
+  value?: OutlookWebhookNotification[];
+};
+
+export type EmailProviderMap = {
+  [AppSlug.GMAIL]: {
+    metadata: GmailMetadata;
+    webhookPayload: GmailWebhookPayload;
+    integration: GmailIntegration;
+    resolveMessageInput: {
+      historyId?: number | null;
+    };
+  };
+
+  [AppSlug.OUTLOOK]: {
+    metadata: OutlookMetadata;
+    webhookPayload: OutlookWebhookPayload;
+    integration: OutlookIntegration;
+    resolveMessageInput: {
+      messageId?: string | null;
+    };
+  };
+};
+
 export interface BaseStorageMetadata {
   organization: {
     strategy: StorageOrganizationStrategy
@@ -110,6 +167,8 @@ export type AccountingProviderMap = {
 }
 
 export type IntegrationResource =
+  | GmailIntegration
+  | OutlookIntegration
   | GoogleDriveIntegration
   | XeroIntegration
   | WhatsAppIntegration

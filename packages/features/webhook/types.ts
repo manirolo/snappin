@@ -9,7 +9,6 @@ export type WebhookOperation =
   | "expire" 
   | "pause" 
   | "unpause"
-  | "read"
 
 export interface GenericWebhookEvent<TPayload = unknown> {
   provider: string;
