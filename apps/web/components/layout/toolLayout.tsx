@@ -427,7 +427,7 @@ export const ToolFaq = ({
           <Accordion
             type="single"
             collapsible
-            className="w-full shadow-none space-y-2"
+            className="w-full shadow-none space-y-0"
           >
             {items.map((item) => (
               <AccordionItem
@@ -435,7 +435,7 @@ export const ToolFaq = ({
                 value={item.id}
                 className="shadow-none border-0 px-4 rounded-lg"
               >
-                <AccordionTrigger className="text-base h-10 flex items-center tracking-tight font-medium text-left hover:no-underline">
+                <AccordionTrigger className="text-base flex items-center tracking-tight font-medium text-left hover:no-underline">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-base font-normal tracking-tight leading-relaxed text-fg-3">

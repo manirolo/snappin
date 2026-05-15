@@ -18,7 +18,7 @@
   /* === Base === #FBFAF9*/
   --background: #fbfbf8;
   --background-subtle: #fafafa;
-  --foreground: #111827;
+  --foreground: #242424;
   --secondary-background: #faf9fa;
 
   /* === Background Scale === */
@@ -31,7 +31,7 @@
   --fg-1: #a9a9a9;
   --fg-2: #6b7280;
   --fg-3: #4b5563;
-  --fg-4: #111827;
+  --fg-4: #242424;
 
   /* === Alpha Backgrounds === */
   --bg-a1: #00000008;
