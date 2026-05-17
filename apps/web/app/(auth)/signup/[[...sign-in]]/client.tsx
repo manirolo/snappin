@@ -14,6 +14,7 @@ type OAuthStrategy = "google" | "microsoft";
 
 export const Client = () => {
   const [oauthLoading, setOauthLoading] = useState<OAuthStrategy | null>();
+  const [email, setEmail] = useState("");
   const { isLoaded } = useUser();
 
   if (!isLoaded) {
@@ -30,36 +31,34 @@ export const Client = () => {
 
   return (
     <SignUp.Root>
-      {/* ── Step 1: identifier ───────────────────────────────────────────── */}
+      {/* ── Step 1: email ────────────────────────────────────────────────── */}
       <SignUp.Step name="start">
         <div className="space-y-8 text-center">
-          <div className="space-y-8">
+          <div className="space-y-4">
             <div className="w-fit mx-auto">
               <LogoSymbol divClassName="size-9" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1">
               <h1 className="text-2xl tracking-tight font-bold">
                 Create your account
               </h1>
-              <p className="text-sm/6 text-fg-2">
-                Receipt management made easy
-              </p>
+              <p className="text-sm text-fg-2">Receipt management made easy</p>
             </div>
           </div>
 
           <Clerk.GlobalError className="text-xs text-red-500" />
 
-          <div className="flex flex-wrap md:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Clerk.Connection name="google" asChild>
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full"
+                className="w-full sm:flex-1 items-center shadow-xs"
                 onClick={() => setOauthLoading("google")}
                 disabled={oauthLoading != null}
               >
                 <Icon icon="flat-color-icons:google" className="size-6" />
-                Sign up with Google
+                Google
               </Button>
             </Clerk.Connection>
 
@@ -67,12 +66,12 @@ export const Client = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full"
+                className="w-full sm:flex-1 items-center shadow-xs"
                 onClick={() => setOauthLoading("microsoft")}
                 disabled={oauthLoading != null}
               >
                 <Icon icon="logos:microsoft-icon" className="size-4" />
-                Sign up with Microsoft
+                Microsoft
               </Button>
             </Clerk.Connection>
           </div>
@@ -88,9 +87,10 @@ export const Client = () => {
               <Clerk.Input asChild>
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="sundar@google.com"
                   className="w-full h-11 rounded-lg text-sm focus-within:outline-0 border-0 pl-3 bg-bg-a2"
                   autoFocus
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Clerk.Input>
               <Clerk.FieldError className="block text-sm text-red-500 text-left mt-1" />
@@ -122,76 +122,84 @@ export const Client = () => {
         </div>
       </SignUp.Step>
 
-      {/* ── Step 2: collect extra fields if required ─────────────────────── */}
-      <SignUp.Step name="continue">
-        <div className="space-y-8 text-center">
-          <div className="space-y-2">
-            <div className="w-fit mx-auto">
-              <LogoSymbol divClassName="size-9" />
-            </div>
-            <h1 className="text-2xl tracking-tight font-medium">
-              One more step
-            </h1>
-            <p className="text-sm/6 text-fg-2">Tell us a bit about yourself</p>
-          </div>
-
-          <Clerk.GlobalError className="text-xs text-red-500" />
-
-          <div className="space-y-3">
-            <Clerk.Field name="firstName">
-              <Clerk.Input asChild>
-                <input
-                  placeholder="First name"
-                  className="w-full h-11 rounded-lg text-sm focus-within:outline-0 border-0 pl-3 bg-bg-a2"
-                />
-              </Clerk.Input>
-              <Clerk.FieldError className="block text-xs text-red-500 text-left mt-1" />
-            </Clerk.Field>
-
-            <Clerk.Field name="lastName">
-              <Clerk.Input asChild>
-                <input
-                  placeholder="Last name"
-                  className="w-full h-11 rounded-lg text-sm focus-within:outline-0 border-0 pl-3 bg-bg-a2"
-                />
-              </Clerk.Input>
-              <Clerk.FieldError className="block text-xs text-red-500 text-left mt-1" />
-            </Clerk.Field>
-
-            <Clerk.Loading scope="step:continue">
-              {(isLoading) => (
-                <SignUp.Action submit asChild>
-                  <Button
-                    size="lg"
-                    className="w-full shadow-none"
-                    disabled={isLoading}
-                  >
-                    Continue
-                  </Button>
-                </SignUp.Action>
-              )}
-            </Clerk.Loading>
-          </div>
-        </div>
-      </SignUp.Step>
-
-      {/* ── Step 3: email link verification ──────────────────────────────── */}
+      {/* ── Step 2: OTP verification ─────────────────────────────────────── */}
       <SignUp.Step name="verifications">
-        <SignUp.Strategy name="email_link">
-          <div className="space-y-6 text-center">
-            <div className="w-fit mx-auto">
-              <LogoSymbol divClassName="size-9" />
+        <SignUp.Strategy name="email_code">
+          <div className="space-y-8 text-center">
+            <div className="space-y-4">
+              <div className="w-fit mx-auto">
+                <LogoSymbol divClassName="size-9" />
+              </div>
+              <div className="space-y-2">
+                <h1 className="text-2xl tracking-tight font-bold">
+                  Check your email
+                </h1>
+                <p className="text-sm text-fg-2">
+                  We sent a 6-digit code to{" "}
+                  <span className="font-medium text-foreground">{email}</span>
+                </p>
+              </div>
             </div>
-            <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100 text-green-700">
-              <Icon icon="lucide:mail-check" className="size-6" />
-            </div>
-            <div className="space-y-2">
-              <h1 className="text-xl font-semibold">Check your inbox</h1>
-              <p className="text-sm text-muted-foreground">
-                We sent a verification link
-              </p>
-            </div>
+
             <Clerk.GlobalError className="text-xs text-red-500" />
+
+            {/* OTP boxes */}
+            <Clerk.Field name="code" className="space-y-3">
+              <Clerk.Input
+                type="otp"
+                length={6}
+                autoSubmit
+                className="flex items-center justify-center gap-2"
+                render={({ value, status }) => (
+                  <div
+                    data-status={status}
+                    className={[
+                      "relative w-10 h-12 rounded-lg border bg-bg-a2 shadow-sm",
+                      "flex items-center justify-center",
+                      "text-base font-semibold text-foreground",
+                      "transition-colors duration-150",
+                      status === "selected" || status === "cursor"
+                        ? "border-primary ring-1 ring-primary/30"
+                        : "border-bg-3",
+                    ].join(" ")}
+                  >
+                    {value}
+                    {status === "cursor" && !value && (
+                      <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="w-px h-5 bg-foreground animate-caret-blink" />
+                      </span>
+                    )}
+                  </div>
+                )}
+              />
+              <Clerk.FieldError className="block text-xs text-red-500 mt-1" />
+            </Clerk.Field>
+
+            {/* Resend + back */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-center gap-1 text-sm text-fg-2">
+                <span>Didn&#39;t receive it?</span>
+                <SignUp.Action
+                  resend
+                  fallback={({ resendableAfter }) => (
+                    <span className="text-sm text-fg-2 tabular-nums">
+                      Resend in {resendableAfter}s
+                    </span>
+                  )}
+                  asChild
+                >
+                  <button className="text-sm text-link hover:underline underline-offset-2">
+                    Resend code
+                  </button>
+                </SignUp.Action>
+              </div>
+
+              <SignUp.Action navigate="start" asChild>
+                <button className="text-xs text-fg-2 hover:text-foreground transition-colors">
+                  Use a different email
+                </button>
+              </SignUp.Action>
+            </div>
           </div>
         </SignUp.Strategy>
       </SignUp.Step>

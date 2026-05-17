@@ -27,38 +27,37 @@ export const Client = () => {
       </div>
     );
   }
+
   return (
     <SignIn.Root>
       {/* ── Step 1: identifier ───────────────────────────────────────────── */}
       <SignIn.Step name="start">
         <div className="space-y-8 text-center">
-          <div className="space-y-8">
+          <div className="space-y-4">
             <div className="w-fit mx-auto">
               <LogoSymbol divClassName="size-9" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1">
               <h1 className="text-2xl tracking-tight font-bold">
                 Log in to Snappin
               </h1>
-              <p className="text-sm/6 text-fg-2">
-                Receipt management made easy
-              </p>
+              <p className="text-sm text-fg-2">Receipt management made easy</p>
             </div>
           </div>
 
           <Clerk.GlobalError className="text-xs text-red-500" />
 
-          <div className="flex flex-wrap md:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Clerk.Connection name="google" asChild>
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full"
+                className="w-full sm:flex-1 items-center shadow-xs"
                 onClick={() => setOauthLoading("google")}
                 disabled={oauthLoading != null}
               >
                 <Icon icon="flat-color-icons:google" className="size-6" />
-                Sign in with Google
+                Google
               </Button>
             </Clerk.Connection>
 
@@ -66,12 +65,12 @@ export const Client = () => {
               <Button
                 variant="outline"
                 size="lg"
-                className="w-full"
+                className="w-full sm:flex-1 items-center shadow-xs"
                 onClick={() => setOauthLoading("microsoft")}
                 disabled={oauthLoading != null}
               >
                 <Icon icon="logos:microsoft-icon" className="size-4" />
-                Sign in with Microsoft
+                Microsoft
               </Button>
             </Clerk.Connection>
           </div>
@@ -87,7 +86,7 @@ export const Client = () => {
               <Clerk.Input asChild>
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="sundar@google.com"
                   className="w-full h-11 rounded-lg text-sm focus-within:outline-0 border-0 pl-3 bg-bg-a2"
                   autoFocus
                 />
@@ -119,23 +118,90 @@ export const Client = () => {
         </div>
       </SignIn.Step>
 
-      {/* ── Step 2: magic link clicked → verifying ───────────────────────── */}
+      {/* ── Step 2: OTP verification ─────────────────────────────────────── */}
       <SignIn.Step name="verifications">
-        <SignIn.Strategy name="email_link">
-          <div className="space-y-6 text-center">
-            <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100 text-green-700">
-              <Icon icon="lucide:mail-check" className="size-6" />
+        <SignIn.Strategy name="email_code">
+          <div className="space-y-8 text-center">
+            {/* Header */}
+            <div className="space-y-4">
+              <div className="w-fit mx-auto">
+                <LogoSymbol divClassName="size-9" />
+              </div>
+              <div className="space-y-1">
+                <h1 className="text-2xl tracking-tight font-bold">
+                  Check your email
+                </h1>
+                <p className="text-sm text-fg-2">
+                  We sent a 6-digit code to{" "}
+                  <span className="font-medium text-foreground">
+                    <SignIn.SafeIdentifier />
+                  </span>
+                </p>
+              </div>
             </div>
-            <div className="space-y-2">
-              <h1 className="text-xl font-semibold">Check your inbox</h1>
-              <p className="text-sm text-muted-foreground">
-                We sent a sign-in link{" "}
-                <span className="font-bold">
-                  <SignIn.SafeIdentifier />
-                </span>
-              </p>
-            </div>
+
             <Clerk.GlobalError className="text-xs text-red-500" />
+
+            {/* OTP Input */}
+            <Clerk.Field name="code" className="space-y-3">
+              <Clerk.Input
+                type="otp"
+                length={6}
+                autoSubmit
+                // Clerk renders each character slot via the render prop
+                render={({ value, status }) => (
+                  <div
+                    data-status={status}
+                    className={[
+                      "relative w-10 h-12 rounded-lg border bg-bg-a2 shadow-sm",
+                      "flex items-center justify-center",
+                      "text-base font-semibold text-foreground",
+                      "transition-colors duration-150",
+                      status === "selected" || status === "cursor"
+                        ? "border-primary ring-1 ring-primary/30"
+                        : "border-bg-3",
+                    ].join(" ")}
+                  >
+                    {value}
+                    {/* blinking cursor when slot is active but empty */}
+                    {status === "cursor" && !value && (
+                      <span className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <span className="w-px h-5 bg-foreground animate-caret-blink" />
+                      </span>
+                    )}
+                  </div>
+                )}
+                // Wrapper for the six boxes
+                className="flex items-center justify-center gap-2"
+              />
+              <Clerk.FieldError className="block text-xs text-red-500 mt-1" />
+            </Clerk.Field>
+
+            {/* Resend + change email */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-center gap-1 text-sm text-fg-2">
+                <span>Didn&#39;t receive it?</span>
+                <SignIn.Action
+                  resend
+                  fallback={({ resendableAfter }) => (
+                    <span className="text-sm text-fg-2 tabular-nums">
+                      Resend in {resendableAfter}s
+                    </span>
+                  )}
+                  asChild
+                >
+                  <button className="text-sm text-link hover:underline underline-offset-2">
+                    Resend code
+                  </button>
+                </SignIn.Action>
+              </div>
+
+              <SignIn.Action navigate="start" asChild>
+                <button className="text-xs text-fg-2 hover:text-foreground transition-colors">
+                  ← Use a different email
+                </button>
+              </SignIn.Action>
+            </div>
           </div>
         </SignIn.Strategy>
       </SignIn.Step>

@@ -16,7 +16,7 @@
 
 :root {
   /* === Base === #FBFAF9*/
-  --background: #FBFAF9;
+  --background: #f8f9f4;
   --background-subtle: #fafafa;
   --foreground: #242424;
   --secondary-background: #faf9fa;
@@ -30,7 +30,7 @@
   /* === Foreground Scale === */
   --fg-1: #a9a9a9;
   --fg-2: #6b7280;
-  --fg-3: #4b5563;
+  --fg-3: #6a6559;
   --fg-4: #242424;
 
   /* === Alpha Backgrounds === */
@@ -155,7 +155,7 @@
   --radius-6: 1rem;
 
   /* === Card === */
-  --card: #fdfdfd;
+  --card: #fdfdfb;
   --card-foreground: #181925;
 
   /* === Popover === */
@@ -224,7 +224,7 @@
 
   /* === Misc === */
   --shadow: #0000000d;
-  --table: #fdfdfd;
+  --table: #fdfdfb;
   --navbar: #222;
   --overlay: #00000033;
   --color-primary-btn: #918df6;
