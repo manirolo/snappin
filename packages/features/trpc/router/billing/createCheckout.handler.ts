@@ -18,7 +18,9 @@ export async function createCheckout({
   input,
 }: CreateCheckout): Promise<{ url: string }> {
   if (!ctx.userId || !ctx.orgId) {
-    throw new TRPCError({ code: "UNAUTHORIZED", message: "Please login before subscribing" });
+    return {
+      url: `/signup?redirect_url=/pricing`,
+    };
   }
 
   try {

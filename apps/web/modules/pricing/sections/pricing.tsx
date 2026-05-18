@@ -25,8 +25,6 @@ import {
   SectionContent,
   SectionTitle,
 } from "../../../components/layout/sectionLayout";
-import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { PlanInterval } from "@snappin/shared/billing/plan.schema";
 import { CurlyArrow } from "@snappin/ui/assets/svg/arrow";
 import { motion } from "framer-motion";
@@ -46,14 +44,7 @@ export const PricingSection = () => {
     },
   });
 
-  const { isSignedIn } = useAuth();
-  const router = useRouter();
-
   const handleCheckout = async (planId: PlanId) => {
-    if (!isSignedIn) {
-      router.push("/signup?redirect_url=/pricing");
-      return;
-    }
 
     setCheckoutPlanId(planId);
 

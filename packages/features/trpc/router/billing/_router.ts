@@ -1,4 +1,4 @@
-import { adminProcedure, createTRPCRouter, orgProcedure } from "../../_trpc";
+import { adminProcedure, createTRPCRouter, orgProcedure, publicProcedure } from "../../_trpc";
 import { createCheckout, CreateCheckout } from "./createCheckout.handler";
 import { ZCreateCheckout } from "./createCheckout.schema";
 import { getPlans, GetPlans } from "./getPlans.handler";
@@ -16,7 +16,7 @@ export const billingRouter = createTRPCRouter({
     getActivePlans: orgProcedure
         .query(async (opts: GetPlans) =>
             getPlans({ ...opts, onlyActive: true, publicCatalogOnly: true })),
-    createCheckout: orgProcedure
+    createCheckout: publicProcedure
         .input(ZCreateCheckout)
         .mutation(async (opts: CreateCheckout) => createCheckout(opts)),
     // updateSubscription: orgProcedure.input(ZUpdateSubscription).mutation(async (opts: UpdateSubscription) => updateSubscription(opts)),
