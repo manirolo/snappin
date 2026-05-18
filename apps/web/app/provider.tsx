@@ -1,5 +1,6 @@
 import React from "react";
 import { ThemeProviders } from "@snappin/ui/components/theme";
+import { TRPCProviders } from "../trpc/react/provider";
 
 /** Minimal providers for marketing/landing routes (theme only). */
 export function MarketingProviders({
@@ -7,5 +8,9 @@ export function MarketingProviders({
 }: {
   children: React.ReactNode;
 }) {
-  return <ThemeProviders>{children}</ThemeProviders>;
+  return (
+    <ThemeProviders>
+      <TRPCProviders>{children}</TRPCProviders>
+    </ThemeProviders>
+  );
 }
