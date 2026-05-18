@@ -1,6 +1,6 @@
 import React from "react";
-import { TRPCProviders } from "../../../trpc/react/provider";
+import { ToolsProviders } from "../../../components/providers/tools-provider";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <TRPCProviders>{children}</TRPCProviders>;
+  return <ToolsProviders>{children}</ToolsProviders>;
 }
