@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@snappin/ui/components/button";
 import Link from "next/link";
-import { CDNImage } from "@snappin/ui/components/imagekit/image";
+import { Image } from "@snappin/ui/components/Image";
 
 export const HeroSection = () => {
   return (
@@ -31,13 +31,14 @@ export const HeroSection = () => {
         </div>
 
         <div className="relative min-h-[20vh] rounded-4xl max-w-6xl overflow-hidden border-x mt-8 md:mt-12 md:pb-0 border-t border-bg-2 ring ring-bg-3">
-          <CDNImage
+          <Image
             className="max-w-full h-fit flex items-start"
             imageClassName="rounded-4xl w-full object-contain border-8 border-bg-2 shadow"
-            src="/static/images/landing/demos/Snappin%20hero%20background.webp"
+            src="/images/landing/Snappin%20hero%20background.webp"
             alt="snappin hero background image"
             fetchPriority="high"
             priority
+            sizes="100vw"
           />
         </div>
       </div>
