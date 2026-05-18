@@ -1,5 +1,4 @@
 import React from "react";
-import { H1, Lead } from "@snappin/ui/components/typography";
 import { Button } from "@snappin/ui/components/button";
 import Link from "next/link";
 import { CDNImage } from "@snappin/ui/components/imagekit/image";
@@ -9,16 +8,16 @@ export const HeroSection = () => {
     <div className="relative xl:px-0">
       <div className="relative mt-4 pt-12  md:pt-14 px-4 flex flex-col items-center gap-5">
         <div className="flex flex-col items-center">
-          <H1 className="mt-5 text-5xl/16 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
+          <h1 className="mt-5 text-5xl/16 md:text-6xl/20 tracking-tighter font-medium max-w-2xl text-center">
             AI receipt organizer
             <span className="block"> for traveling teams</span>
-          </H1>
+          </h1>
         </div>
         <div>
-          <Lead className="text-center text-fg-2 leading-relaxed max-w-lg mx-auto">
+          <p className="text-center text-base/8 text-fg-2 leading-relaxed max-w-lg mx-auto">
             Send your receipts straight from your WhatsApp and Snappin extracts
             data and sync with your accounting tools.
-          </Lead>
+          </p>
         </div>
         <div className="flex flex-col items-center gap-4 mt-4">
           <div className="flex flex-col sm:flex-row w-full md:w-fit gap-2 items-center">

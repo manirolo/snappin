@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 // import { AppSidebar } from "@snappin/ui/components/navbar/app.sidebar";
 // import { WorkspaceSettingsSidebar } from "@snappin/ui/components/navbar/workspaceSettings.sidebar";

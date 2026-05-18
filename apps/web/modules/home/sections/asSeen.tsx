@@ -45,8 +45,7 @@ export const AsSeen = () => {
                 src={src}
                 imageClassName={`${className} opacity-40 hover:opacity-100 transition-all`}
                 alt={alt}
-                priority
-                fetchPriority="high"
+                fetchPriority="low"
               />
             ))}
           </div>

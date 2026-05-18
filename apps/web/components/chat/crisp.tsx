@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { Crisp } from "crisp-sdk-web";
 import { env } from "@snappin/env";
 import { useUser } from "@clerk/nextjs";
-import { useUsage } from "@snappin/features/billing/hooks/useUsage";
 
 function afterIdle(cb: () => void, timeout = 4000) {
   if ("requestIdleCallback" in window) {
@@ -16,7 +15,6 @@ function afterIdle(cb: () => void, timeout = 4000) {
 
 const CrispChat = () => {
   const { user, isLoaded } = useUser();
-  const { usage } = useUsage();
   const crispReady = useRef(false);
 
   useEffect(() => {
@@ -48,13 +46,12 @@ const CrispChat = () => {
         Crisp.user.setNickname(name);
         Crisp.session.setData({
           clerkId: user.id,
-          plan: usage?.planId ?? "basic",
         });
       }
     } else {
       Crisp.session.reset();
     }
-  }, [isLoaded, user, usage?.planId]);
+  }, [isLoaded, user]);
 
   return null;
 };
