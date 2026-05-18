@@ -1,6 +1,7 @@
 import React from "react";
 import { ThemeProviders } from "@snappin/ui/components/theme";
-import { TRPCProviders } from "../trpc/react/provider";
+import { AppProviders } from "../components/providers/app-providers";
+import { AuthenticatedShell } from "../components/providers/authenticated-shell";
 
 /** Minimal providers for marketing/landing routes (theme only). */
 export function MarketingProviders({
@@ -10,7 +11,9 @@ export function MarketingProviders({
 }) {
   return (
     <ThemeProviders>
-      <TRPCProviders>{children}</TRPCProviders>
+     <AuthenticatedShell>
+       <AppProviders>{children}</AppProviders>
+     </AuthenticatedShell>
     </ThemeProviders>
   );
 }
